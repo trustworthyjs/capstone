@@ -19,3 +19,22 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.editor {
+  height: 60vh;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+  visibility: hidden;
+}
+
+.popup.active {
+  visibility: visible;
+}
