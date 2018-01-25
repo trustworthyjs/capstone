@@ -9,6 +9,9 @@ const Entry = db.define('entry', {
   content: {
     type: Sequelize.TEXT
   },
+  formattedContent: {
+    type: Sequelize.TEXT
+  },
   mode: {
     type: Sequelize.ENUM,
     values: ['freeWrite', 'mindfulJournal', 'custom']
