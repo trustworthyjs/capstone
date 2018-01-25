@@ -15,7 +15,7 @@ export class UserHome extends React.Component {
     this.state = {
       timeout: null,
       showPopup: false,
-      bounds: {}
+      bounds: {},
     }
 
   }
@@ -38,11 +38,9 @@ export class UserHome extends React.Component {
       })
       userHome.setState({
         timeout: setTimeout(() => {
-          console.log('im here')
           var range = editor.getSelection()
           if (range) {
             if (range.length == 0) {
-              console.log('getbounds', editor.getBounds(range.index))
               userHome.setState({
                 bounds: editor.getBounds(range.index)
               })
@@ -53,23 +51,14 @@ export class UserHome extends React.Component {
           } else {
             console.log('User cursor is not in editor');
           }
-            // Returns { height: 15, width: 0, left: 27, top: 31 }
+          //get the text and formatted text, send it through a thunk
+          console.log('get contents', editor.getText())
           userHome.setState({
             showPopup: true
           })
         }, 3000)
       })
     });
-    // function getOffset(el) {
-    //   el = el.getBoundingClientRect();
-    //   return {
-    //     left: el.left + window.scrollX,
-    //     top: el.top + window.scrollY
-    //   }
-    // }
-
-    console.log('editor', document.getElementsByClassName('editor'))
-    // console.log('editor prompt', document.getElementsByClassName('editor-prompt'))
   }
 
   render() {
