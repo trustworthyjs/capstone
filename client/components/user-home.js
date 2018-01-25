@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Quill from 'quill'
 import { setTimeout, clearTimeout } from 'timers';
 import ReactDOM from 'react-dom';
+import { getEntryDb, createEntryDb, saveEntryDb } from '../store'
 
 
 /**
@@ -16,6 +17,7 @@ export class UserHome extends React.Component {
       timeout: null,
       showPopup: false,
       bounds: {},
+      strokeSinceSave: 0
     }
 
   }
@@ -26,16 +28,33 @@ export class UserHome extends React.Component {
       placeholder: 'Start writting...',
       theme: 'snow'
     };
-
     var editor = new Quill('.editor', options);
+
+    //this will need to be hooked up with a prompt from the landing page to determine which notebook (old or new) it goes into
+    this.props.createEntry({
+      notebookId: 1
+    })
 
     let userHome = this
     editor.on('text-change', function(delta, oldDelta, source) {
       const { timeout } = userHome.state
       clearTimeout(timeout)
       userHome.setState({
-        showPopup: false
+        showPopup: false,
+        strokeSinceSave: userHome.state.strokeSinceSave + 1
       })
+      //get the text and formatted text, send it through a thunk
+      if (userHome.state.strokeSinceSave > 10) {
+        let editedEntry = {
+          id: +userHome.props.entry.id,
+          content: editor.getText(),
+          formattedContent: editor.getContents().ops[0].insert
+        }
+        userHome.props.saveEntry(editedEntry)
+        userHome.setState({
+          strokeSinceSave: 0
+        })
+      }
       userHome.setState({
         timeout: setTimeout(() => {
           var range = editor.getSelection()
@@ -51,8 +70,6 @@ export class UserHome extends React.Component {
           } else {
             console.log('User cursor is not in editor');
           }
-          //get the text and formatted text, send it through a thunk
-          console.log('get contents', editor.getText())
           userHome.setState({
             showPopup: true
           })
@@ -71,7 +88,6 @@ export class UserHome extends React.Component {
       bottom: bounds.bottom + 300,
       backgroundColor: 'orange'
     };
-    console.log('state bounds', bounds)
     return (
       <div className="editor-prompt">
         <h3>Welcome, {email}</h3>
@@ -92,11 +108,26 @@ export class UserHome extends React.Component {
  */
 const mapState = (state) => {
   return {
-    email: state.user.email
+    email: state.user.email,
+    entry: state.entry
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatch = (dispatch) => {
+  return {
+    getEntry: (entryId) => {
+      dispatch(getEntryDb(entryId))
+    },
+    createEntry: (newEntry) => {
+      dispatch(createEntryDb(newEntry))
+    },
+    saveEntry: (editedEntry) => {
+      dispatch(saveEntryDb(editedEntry))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(UserHome)
 
 /**
  * PROP TYPES

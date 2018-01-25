@@ -7,7 +7,10 @@ const Entry = db.define('entry', {
     defaultValue: Date()
   },
   content: {
-    type: Sequelize.TEXT
+    type: Sequelize.TEXT,
+  },
+  formattedContent: {
+    type: Sequelize.TEXT,
   },
   mode: {
     type: Sequelize.ENUM,
