@@ -8,3 +8,6 @@ router.post('/', (req, res, next) => {
     .catch(next)
 })
 
+//get all entries of a single notebook
+//need to write this route
+

@@ -23,23 +23,23 @@ const saveEntry = entry => ({type: SAVE_ENTRY, entry})
 /**
  * THUNK CREATORS
  */
-export const getEntryDb = () =>
+export const getEntryDb = (entryId) =>
   dispatch =>
-    axios.get(`/api/something`)
+    axios.get(`/api/entries/${entryId}`)
       .then(res =>
-        dispatch(getEntry(res.data || defaultEntry)))
+        dispatch(getEntry(res.data)))
       .catch(err => console.log(err))
 
 export const createEntryDb = (newEntry) =>
   dispatch =>
-    axios.post(`/api`, newEntry)
+    axios.post(`/api/entries`, newEntry)
       .then(res =>
         dispatch(createEntry(res.data)))
       .catch(err => console.log(err))
 
 export const saveEntryDb = (editedEntry) =>
   dispatch =>
-    axios.put(``, editedEntry)
+    axios.put(`/api/entries/${editedEntry.id}`, editedEntry)
       .then(res =>
         dispatch(saveEntry(res.data)))
       .catch(err => console.log(err))
