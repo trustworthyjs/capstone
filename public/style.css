@@ -25,16 +25,20 @@ form div {
 }
 
 .popup {
-  margin: 70px auto;
-  padding: 20px;
+  margin: 10px;
   background: #fff;
   border-radius: 5px;
-  width: 30%;
-  position: relative;
+  width: 26%;
+  position: absolute;
   transition: all 5s ease-in-out;
-  visibility: hidden;
+  visibility: visible;
+  border-color: black;
+  opacity: .7;
+  padding: 5px;
+  text-align: center;
+  height: 3.2%
 }
 
-.popup.active {
+/* .popup.active {
   visibility: visible;
-}
+} */
