@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 /**
  * COMPONENT
  */
-export class Home extends React.Component {
+export class UserHome extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -97,11 +97,11 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(Home)
+export default connect(mapState)(UserHome)
 
 /**
  * PROP TYPES
  */
-Home.propTypes = {
+UserHome.propTypes = {
   email: PropTypes.string
 }
