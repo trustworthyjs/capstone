@@ -10,7 +10,8 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Entry, Notebook, DataAnalysis} = require('../server/db/models')
+const fs = require('fs')
 
 async function seed () {
   await db.sync({force: true})
@@ -24,9 +25,33 @@ async function seed () {
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
+
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
+
+  var buffer1 = fs.readFileSync(__dirname + '/sampleEntry1.txt');
+  var txt1 = buffer1.toString();
+  var buffer2 = fs.readFileSync(__dirname + '/sampleEntry2.txt');
+  var txt2 = buffer2.toString();
+
+  const notebooks = await Promise.all([
+    Notebook.create({cover: '#0000FF', userId: 1}),
+    Notebook.create({cover: '#008000', userId: 2})
+  ])
+
+  console.log(`seeded ${notebooks.length} entries`)
+
+  const entries = await Promise.all([
+    Entry.create({content: txt1, mode: 'freeWrite', notebookId: 1}),
+    Entry.create({content: txt2, mode: 'mindfulWrite', notebookId: 2})
+  ])
+
+  console.log(`seeded ${entries.length} entries`)
+
+
+
 }
+
 
 // Execute the `seed` function
 // `Async` functions always return a promise, so we can use `catch` to handle any errors
