@@ -5,11 +5,10 @@ import Quill from 'quill'
 import { setTimeout, clearTimeout } from 'timers';
 import ReactDOM from 'react-dom';
 
-
 /**
  * COMPONENT
  */
-export class UserHome extends React.Component {
+export class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -59,6 +58,8 @@ export class UserHome extends React.Component {
         }, 3000)
       })
     });
+
+    
   }
 
   render() {
@@ -96,11 +97,11 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(UserHome)
+export default connect(mapState)(Home)
 
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
+Home.propTypes = {
   email: PropTypes.string
 }

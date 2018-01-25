@@ -40,7 +40,7 @@ async function seed () {
     Notebook.create({cover: '#008000', userId: 2})
   ])
 
-  console.log(`seeded ${notebooks.length} entries`)
+  console.log(`seeded ${notebooks.length} notebooks`)
 
   const entries = await Promise.all([
     Entry.create({content: txt1, mode: 'freeWrite', notebookId: 1}),
@@ -57,7 +57,7 @@ async function seed () {
     DataAnalysis.create(dataAnalysisObj2)
   ])
 
-  console.log(`seeded ${dataAnalysisInstances.length} entries`)
+  console.log(`seeded ${dataAnalysisInstances.length} data analyses`)
 
 }
 

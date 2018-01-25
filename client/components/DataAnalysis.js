@@ -1,16 +1,16 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
 /**
  * COMPONENT
  */
 export const DataAnalysis = (props) => {
-  const {email} = props
+  const data = props.data
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <h3>Heres your data!</h3>
+      <div>{JSON.stringify(data)}</div>
     </div>
   )
 }
@@ -18,17 +18,6 @@ export const DataAnalysis = (props) => {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
-  return {
-    email: state.user.email
-  }
-}
+const mapState = ({data}) => ({data})
 
-export default connect(mapState)(UserHome)
-
-/**
- * PROP TYPES
- */
-UserHome.propTypes = {
-  email: PropTypes.string
-}
+export default connect(mapState)(DataAnalysis)
