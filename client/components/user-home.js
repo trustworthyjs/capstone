@@ -6,7 +6,6 @@ import { setTimeout, clearTimeout } from 'timers';
 import ReactDOM from 'react-dom';
 import { getEntryDb, createEntryDb, saveEntryDb } from '../store'
 
-
 /**
  * COMPONENT
  */
@@ -76,6 +75,8 @@ export class UserHome extends React.Component {
         }, 3000)
       })
     });
+
+    
   }
 
   render() {
