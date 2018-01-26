@@ -34,6 +34,24 @@ async function seed () {
   var txt1 = buffer1.toString();
   var buffer2 = fs.readFileSync(__dirname + '/sampleEntry2.txt');
   var txt2 = buffer2.toString();
+  var buffer3 = fs.readFileSync(__dirname + '/sampleEntry3.txt');
+  var txt3 = buffer3.toString();
+  var buffer4 = fs.readFileSync(__dirname + '/sampleEntry4.txt');
+  var txt4 = buffer4.toString();
+  var buffer5 = fs.readFileSync(__dirname + '/sampleEntry5.txt');
+  var txt5 = buffer5.toString();
+  var buffer6 = fs.readFileSync(__dirname + '/sampleEntry6.txt');
+  var txt6 = buffer6.toString();
+  var buffer7 = fs.readFileSync(__dirname + '/sampleEntry7.txt');
+  var txt7 = buffer7.toString();
+  var buffer8 = fs.readFileSync(__dirname + '/sampleEntry8.txt');
+  var txt8 = buffer8.toString();
+  var buffer9 = fs.readFileSync(__dirname + '/sampleEntry9.txt');
+  var txt9 = buffer9.toString();
+  var buffer10 = fs.readFileSync(__dirname + '/sampleEntry10.txt');
+  var txt10 = buffer10.toString();
+  var buffer11 = fs.readFileSync(__dirname + '/sampleEntry11.txt');
+  var txt11 = buffer11.toString();
 
   const notebooks = await Promise.all([
     Notebook.create({cover: '#0000FF', userId: 1}),
@@ -49,17 +67,44 @@ async function seed () {
 
   const entries = await Promise.all([
     Entry.create({content: txt1, mode: 'freeWrite', notebookId: 1, userId: 1, savedAt: '2017-12-26 11:49:31.029-06'}),
-    Entry.create({content: txt2, mode: 'mindfulJournal', notebookId: 1, userId: 1, savedAt: '2017-10-26 11:49:31.029-06'})
+    Entry.create({content: txt2, mode: 'mindfulJournal', notebookId: 1, userId: 1, savedAt: '2017-10-26 11:49:31.029-06'}),
+    Entry.create({content: txt3, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-26 11:49:31.029-06'}),
+    Entry.create({content: txt4, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
+    Entry.create({content: txt5, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
+    Entry.create({content: txt6, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
+    Entry.create({content: txt7, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-11-07 11:49:31.029-06'}),
+    Entry.create({content: txt8, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-11-07 11:49:31.029-06'}),
+    Entry.create({content: txt9, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-11-09 11:49:31.029-06'}),
+    Entry.create({content: txt10, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-11-10 11:49:31.029-06'}),
+    Entry.create({content: txt11, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-12-21 11:49:31.029-06'}),
   ])
 
   console.log(`seeded ${entries.length} entries`)
 
   const dataAnalysisObj1 = await analyzeData('sampleEntry1.txt', 1)
   const dataAnalysisObj2 = await analyzeData('sampleEntry2.txt', 2)
+  const dataAnalysisObj3 = await analyzeData('sampleEntry2.txt', 3)
+  const dataAnalysisObj4 = await analyzeData('sampleEntry2.txt', 4)
+  const dataAnalysisObj5 = await analyzeData('sampleEntry2.txt', 5)
+  const dataAnalysisObj6 = await analyzeData('sampleEntry2.txt', 6)
+  const dataAnalysisObj7 = await analyzeData('sampleEntry2.txt', 7)
+  const dataAnalysisObj8 = await analyzeData('sampleEntry2.txt', 8)
+  const dataAnalysisObj9 = await analyzeData('sampleEntry2.txt', 9)
+  const dataAnalysisObj10 = await analyzeData('sampleEntry2.txt', 10)
+  const dataAnalysisObj11 = await analyzeData('sampleEntry2.txt', 11)
 
   const dataAnalysisInstances = await Promise.all([
     DataAnalysis.create(dataAnalysisObj1),
-    DataAnalysis.create(dataAnalysisObj2)
+    DataAnalysis.create(dataAnalysisObj2),
+    DataAnalysis.create(dataAnalysisObj3),
+    DataAnalysis.create(dataAnalysisObj4),
+    DataAnalysis.create(dataAnalysisObj5),
+    DataAnalysis.create(dataAnalysisObj6),
+    DataAnalysis.create(dataAnalysisObj7),
+    DataAnalysis.create(dataAnalysisObj8),
+    DataAnalysis.create(dataAnalysisObj9),
+    DataAnalysis.create(dataAnalysisObj10),
+    DataAnalysis.create(dataAnalysisObj11),
   ])
 
   console.log(`seeded ${dataAnalysisInstances.length} data analyses`)

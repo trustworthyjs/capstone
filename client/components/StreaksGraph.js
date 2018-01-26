@@ -23,7 +23,7 @@ class StreaksGraph extends React.Component {
   prepData(entries){
     let calData = {}
     entries.forEach((entry) => {
-      let formattedDate = entry.updatedAt.slice(0, entry.updatedAt.indexOf('T'))
+      let formattedDate = entry.savedAt.slice(0, entry.savedAt.indexOf('T'))
       if (calData.hasOwnProperty(formattedDate)){
         calData[formattedDate].value = calData[formattedDate].value + 1
       } else {
