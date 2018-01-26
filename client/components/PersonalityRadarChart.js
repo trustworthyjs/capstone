@@ -12,6 +12,7 @@ export class PersonalityRadarChart extends Component {
             isHovering: false,
             popupX: 0,
             popupY: 0,
+            popupMessage: '',
             chartWidth: 500,
             chartHeight: 500
         }
@@ -30,10 +31,12 @@ export class PersonalityRadarChart extends Component {
         if (point &&
             (mouseXInChart > Math.floor(point.x) - 5 && mouseXInChart < Math.floor(point.x) + 5) &&
             (mouseYInChart > Math.floor(point.y) - 5 && mouseYInChart < Math.floor(point.y) + 5)) {
+                let percentage = Math.floor(point.value) + '%'
                 this.setState({
                     isHovering: true,
                     popupX: window.event.clientX,
-                    popupY: window.event.clientY
+                    popupY: window.event.clientY,
+                    popupMessage: percentage
                 })             
         } else {
             this.setState({
@@ -57,11 +60,10 @@ export class PersonalityRadarChart extends Component {
                 variables.push({key: trait.name, label: trait.name})
                 values[trait.name] = trait.percentile * 100;
             })
-            
             return (
                 <div>
                 {this.state.isHovering && 
-                    <Popup x={this.state.x} y={this.state.y} message={'hitting a point'} />
+                    <Popup x={this.state.popupX} y={this.state.popupY} message={this.state.popupMessage} />
                 }
                 <Radar
                     width={this.state.chartWidth}
