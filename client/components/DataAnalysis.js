@@ -1,5 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {PersonalityRadarChart} from './'
+
 
 /**
  * COMPONENT
@@ -10,7 +12,8 @@ export const DataAnalysis = (props) => {
   return (
     <div>
       <h3>Heres your data!</h3>
-      <div>{JSON.stringify(data)}</div>
+      <PersonalityRadarChart />
+/>
     </div>
   )
 }
