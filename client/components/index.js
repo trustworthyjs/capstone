@@ -6,4 +6,6 @@
 export {default as Main} from './main'
 export {default as UserHome} from './user-home'
 export {default as DataAnalysis} from './DataAnalysis'
+export {default as PersonalityRadarChart} from './PersonalityRadarChart'
+export {default as Popup} from './Popup'
 export {Login, Signup} from './auth-form'
