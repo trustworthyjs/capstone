@@ -82,16 +82,16 @@ async function seed () {
   console.log(`seeded ${entries.length} entries`)
 
   const dataAnalysisObj1 = await analyzeData('sampleEntry1.txt', 1)
-  const dataAnalysisObj2 = await analyzeData('sampleEntry2.txt', 2)
-  const dataAnalysisObj3 = await analyzeData('sampleEntry2.txt', 3)
-  const dataAnalysisObj4 = await analyzeData('sampleEntry2.txt', 4)
-  const dataAnalysisObj5 = await analyzeData('sampleEntry2.txt', 5)
-  const dataAnalysisObj6 = await analyzeData('sampleEntry2.txt', 6)
-  const dataAnalysisObj7 = await analyzeData('sampleEntry2.txt', 7)
-  const dataAnalysisObj8 = await analyzeData('sampleEntry2.txt', 8)
-  const dataAnalysisObj9 = await analyzeData('sampleEntry2.txt', 9)
-  const dataAnalysisObj10 = await analyzeData('sampleEntry2.txt', 10)
-  const dataAnalysisObj11 = await analyzeData('sampleEntry2.txt', 11)
+  const dataAnalysisObj2 = await analyzeData('sampleEntry2.txt', 1)
+  const dataAnalysisObj3 = await analyzeData('sampleEntry3.txt', 2)
+  const dataAnalysisObj4 = await analyzeData('sampleEntry4.txt', 2)
+  const dataAnalysisObj5 = await analyzeData('sampleEntry5.txt', 2)
+  const dataAnalysisObj6 = await analyzeData('sampleEntry6.txt', 2)
+  const dataAnalysisObj7 = await analyzeData('sampleEntry7.txt', 2)
+  const dataAnalysisObj8 = await analyzeData('sampleEntry8.txt', 2)
+  const dataAnalysisObj9 = await analyzeData('sampleEntry9.txt', 2)
+  const dataAnalysisObj10 = await analyzeData('sampleEntry10.txt', 2)
+  const dataAnalysisObj11 = await analyzeData('sampleEntry11.txt', 2)
 
   const dataAnalysisInstances = await Promise.all([
     DataAnalysis.create(dataAnalysisObj1),
