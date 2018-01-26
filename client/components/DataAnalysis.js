@@ -6,6 +6,7 @@ import {PersonalityRadarChart} from './'
 /**
  * COMPONENT
  */
+
 export const DataAnalysis = (props) => {
   const data = props.data
 
