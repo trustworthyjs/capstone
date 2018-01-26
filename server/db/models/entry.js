@@ -15,6 +15,10 @@ const Entry = db.define('entry', {
   mode: {
     type: Sequelize.ENUM,
     values: ['freeWrite', 'mindfulJournal', 'custom']
+  },
+  savedAt: {
+    type: Sequelize.DATE,
+    defaultValue: Sequelize.NOW
   }
 })
 

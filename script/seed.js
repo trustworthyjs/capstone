@@ -37,14 +37,19 @@ async function seed () {
 
   const notebooks = await Promise.all([
     Notebook.create({cover: '#0000FF', userId: 1}),
-    Notebook.create({cover: '#008000', userId: 2})
+    Notebook.create({cover: '#008000', userId: 1}),
+    Notebook.create({cover: '#FF0000', userId: 1}),
+    Notebook.create({cover: '#FF0000', userId: 2}),
+    Notebook.create({cover: '#008000', userId: 2}),
+    Notebook.create({cover: '#008000', userId: 2}),
+    Notebook.create({cover: '#0000FF', userId: 2})
   ])
 
   console.log(`seeded ${notebooks.length} notebooks`)
 
   const entries = await Promise.all([
-    Entry.create({content: txt1, mode: 'freeWrite', notebookId: 1}),
-    Entry.create({content: txt2, mode: 'mindfulJournal', notebookId: 2})
+    Entry.create({content: txt1, mode: 'freeWrite', notebookId: 1, userId: 1, savedAt: '2017-12-26 11:49:31.029-06'}),
+    Entry.create({content: txt2, mode: 'mindfulJournal', notebookId: 1, userId: 1, savedAt: '2017-10-26 11:49:31.029-06'})
   ])
 
   console.log(`seeded ${entries.length} entries`)
