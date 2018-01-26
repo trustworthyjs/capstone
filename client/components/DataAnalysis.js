@@ -1,18 +1,25 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Graph} from '../components'
 
 /**
  * COMPONENT
  */
-export const DataAnalysis = (props) => {
-  const data = props.data
+class DataAnalysis extends React.Component {
+  constructor(props){
+    super(props)
+  }
 
-  return (
-    <div>
-      <h3>Heres your data!</h3>
-      <div>{JSON.stringify(data)}</div>
-    </div>
-  )
+  render(){
+    const data = this.props.data
+      return (
+        <div>
+          <h3>Heres your data!</h3>
+          <Graph />
+          <div>{JSON.stringify(data)}</div>
+        </div>
+      )
+  }
 }
 
 /**
