@@ -4,6 +4,7 @@
  * having to figure out which file they belong to!
  */
 export {default as Main} from './main'
+export {default as LandingPage} from './LandingPage'
 export {default as UserHome} from './user-home'
 export {default as DataAnalysis} from './DataAnalysis'
 export {default as PersonalityRadarChart} from './PersonalityRadarChart'

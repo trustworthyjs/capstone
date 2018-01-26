@@ -13,7 +13,6 @@ export const DataAnalysis = (props) => {
     <div>
       <h3>Heres your data!</h3>
       <PersonalityRadarChart />
-/>
     </div>
   )
 }

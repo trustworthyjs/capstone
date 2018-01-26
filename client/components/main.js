@@ -15,8 +15,8 @@ const Main = (props) => {
 
   return (
     <div>
-      <h1>Writer App</h1>
-      <nav>
+      <h1 className="nav-stuff">Writer App</h1>
+      <nav className="nav-stuff">
         {
           isLoggedIn
             ? <div>
@@ -31,7 +31,7 @@ const Main = (props) => {
             </div>
         }
       </nav>
-      <hr />
+      <hr className="nav-stuff" />
       {children}
     </div>
   )
