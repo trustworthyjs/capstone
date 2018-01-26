@@ -26,8 +26,30 @@ export class UserHome extends React.Component {
       //debug: 'info',
       placeholder: 'Start writting...',
       theme: 'snow'
+
     };
     var editor = new Quill('.editor', options);
+
+    //disable delete
+    editor.keyboard.addBinding({
+      key: 'Backspace',
+      shiftKey: null,
+      handler: function (range, context) {
+        //do nothing
+      }
+    });
+
+    //disable selections and cursor change
+    editor.on('selection-change', function (range, oldRange, source) {
+      if (range) {
+        editor.getLength() - 1 !== range.index && editor.blur()
+      }
+    });
+
+    //disable spellcheck
+    editor.root.spellcheck = false;
+    editor.root.focus();
+    editor.root.blur();
 
     //this will need to be hooked up with a prompt from the landing page to determine which notebook (old or new) it goes into
     this.props.createEntry({
@@ -35,7 +57,7 @@ export class UserHome extends React.Component {
     })
 
     let userHome = this
-    editor.on('text-change', function(delta, oldDelta, source) {
+    editor.on('text-change', function (delta, oldDelta, source) {
       const { timeout } = userHome.state
       clearTimeout(timeout)
       userHome.setState({
@@ -64,11 +86,10 @@ export class UserHome extends React.Component {
               })
             } else {
               var text = editor.getText(range.index, range.length);
-              console.log('User has highlighted: ', text);
+
             }
-          } else {
-            console.log('User cursor is not in editor');
           }
+
           userHome.setState({
             showPopup: true
           })
@@ -76,7 +97,7 @@ export class UserHome extends React.Component {
       })
     });
 
-    
+
   }
 
   render() {
@@ -94,9 +115,9 @@ export class UserHome extends React.Component {
         <h3>Welcome, {email}</h3>
         {this.state.showPopup &&
           <div className="popup" style={styles}>
-          What did you do today?
+            What did you do today?
         </div>
-      }
+        }
         <div className="editor" />
       </div>
     )
