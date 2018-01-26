@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 /**
  * COMPONENT
  */
+
 export const DataAnalysis = (props) => {
   const data = props.data
 
