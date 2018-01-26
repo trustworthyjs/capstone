@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, DataAnalysis} from './components'
+import {Main, Login, Signup, UserHome, DataAnalysis, WordCloud} from './components'
 import {me, fetchDataAnalysis} from './store'
 
 /**
@@ -34,6 +34,7 @@ class Routes extends Component {
                   {/* Routes placed here are only available after logging in */}
                   <Route exact path="/home" component={UserHome} />
                   <Route path="/data-analysis" component={DataAnalysis} />
+                  <Route path="/word-cloud" component={WordCloud} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {StreaksGraph} from '../components'
+import {PersonalityRadarChart} from './'
 
 /**
  * COMPONENT
