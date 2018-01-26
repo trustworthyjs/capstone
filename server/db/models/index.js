@@ -26,6 +26,9 @@ Entry.belongsTo(Notebook)
 User.hasMany(Notebook)
 Notebook.belongsTo(User)
 
+User.hasMany(Entry)
+Entry.belongsTo(User)
+
 module.exports = {
   User,
   DataAnalysis,

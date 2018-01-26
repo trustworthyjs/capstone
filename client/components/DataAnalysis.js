@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Graph} from '../components'
+import {StreaksGraph} from '../components'
 
 /**
  * COMPONENT
@@ -15,7 +15,7 @@ class DataAnalysis extends React.Component {
       return (
         <div>
           <h3>Heres your data!</h3>
-          <Graph />
+          <StreaksGraph />
           <div>{JSON.stringify(data)}</div>
         </div>
       )
