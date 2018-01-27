@@ -1,47 +1,78 @@
 body {
-  font-family: sans-serif;
+    font-family: sans-serif;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 label {
-  display: block;
+    display: block;
 }
 
 nav a {
-  display: inline-block;
-  margin: 1em;
+    display: inline-block;
+    margin: 1em;
 }
 
 form div {
-  margin: 1em;
-  display: inline-block;
+    margin: 1em;
+    display: inline-block;
 }
 
 .editor {
-  height: 60vh;
+    height: 60vh;
 }
 
 .popup {
-  margin: 10px;
-  background: #fff;
-  border-radius: 5px;
-  width: 26%;
-  position: absolute;
-  transition: all 5s ease-in-out;
-  visibility: visible;
-  border-color: black;
-  opacity: .7;
-  padding: 5px;
-  text-align: center;
-  height: 3.2%
+    margin: 10px;
+    background: #fff;
+    border-radius: 5px;
+    width: 26%;
+    position: absolute;
+    transition: all 5s ease-in-out;
+    visibility: visible;
+    border-color: black;
+    opacity: .7;
+    padding: 5px;
+    text-align: center;
+    height: 3.2%
 }
+
 
 /* .popup.active {
   visibility: visible;
 } */
+
+/* Landing Page */
+
+.landing-page-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    background-color: skyblue;
+    justify-content: space-evenly;
+    width: 700px;
+    height: 500px;
+    margin-top: -250px;
+    margin-left: -350px;
+    border-radius: 10px;
+}
+
+.mode-option {
+    flex-shrink: 1;
+    text-decoration: none;
+    align-self: center;
+    background-color: darkgrey;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 
 /* CSS STYLES BELOW COPIED FROM REACT TAG CLOUD NPM LIBRARY */
 
@@ -113,3 +144,4 @@ body {
 }
 
 /* CSS STYLES ABOVE COPIED FROM REACT TAG CLOUD NPM LIBRARY */
+

@@ -11,6 +11,7 @@ class DataAnalysis extends React.Component {
     super(props)
   }
 
+
   render(){
     const data = this.props.data
       return (
