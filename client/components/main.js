@@ -15,7 +15,7 @@ const Main = (props) => {
 
   return (
     <div>
-      <h1 className="nav-stuff">Writer App</h1>
+      <h1 className="nav-stuff">RWriter App</h1>
       <nav className="nav-stuff">
         {
           isLoggedIn
