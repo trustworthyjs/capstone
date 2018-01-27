@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis} from './components'
+import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud} from './components'
 import {me, fetchDataAnalysis} from './store'
 
 /**
@@ -13,10 +13,10 @@ class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialUser()
   }
-  
+
   render () {
     const {isLoggedIn} = this.props
-    
+
     if (this.props.isLoggedIn) {
       this.props.getInitialData(this.props.user.id);
     }
@@ -34,6 +34,7 @@ class Routes extends Component {
                   <Route path="/landing" component={LandingPage} />
                   <Route path="/home" component={UserHome} />
                   <Route path="/data-analysis" component={DataAnalysis} />
+                  <Route path="/word-cloud" component={WordCloud} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
