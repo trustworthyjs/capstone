@@ -52,6 +52,14 @@ async function seed () {
   var txt10 = buffer10.toString();
   var buffer11 = fs.readFileSync(__dirname + '/sampleEntry11.txt');
   var txt11 = buffer11.toString();
+  var buffer12 = fs.readFileSync(__dirname + '/sampleEntry12.txt');
+  var txt12 = buffer12.toString();
+  var buffer13 = fs.readFileSync(__dirname + '/sampleEntry13.txt');
+  var txt13 = buffer13.toString();
+  var buffer14 = fs.readFileSync(__dirname + '/sampleEntry14.txt');
+  var txt14 = buffer14.toString();
+  var buffer15 = fs.readFileSync(__dirname + '/sampleEntry15.txt');
+  var txt15 = buffer15.toString();
 
   const notebooks = await Promise.all([
     Notebook.create({cover: '#0000FF', userId: 1}),
@@ -71,12 +79,16 @@ async function seed () {
     Entry.create({content: txt3, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-26 11:49:31.029-06'}),
     Entry.create({content: txt4, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
     Entry.create({content: txt5, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
-    Entry.create({content: txt6, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
-    Entry.create({content: txt7, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-11-07 11:49:31.029-06'}),
+    Entry.create({content: txt6, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
+    Entry.create({content: txt7, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-07 11:49:31.029-06'}),
     Entry.create({content: txt8, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-11-07 11:49:31.029-06'}),
-    Entry.create({content: txt9, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-11-09 11:49:31.029-06'}),
-    Entry.create({content: txt10, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-11-10 11:49:31.029-06'}),
-    Entry.create({content: txt11, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-12-21 11:49:31.029-06'}),
+    Entry.create({content: txt9, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-09 11:49:31.029-06'}),
+    Entry.create({content: txt10, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-10 11:49:31.029-06'}),
+    Entry.create({content: txt11, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-12-21 11:49:31.029-06'}),
+    Entry.create({content: txt12, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-12-22 11:49:31.029-06'}),
+    Entry.create({content: txt13, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-01 11:49:31.029-06'}),
+    Entry.create({content: txt14, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-02 11:49:31.029-06'}),
+    Entry.create({content: txt15, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-03 11:49:31.029-06'}),
   ])
 
   console.log(`seeded ${entries.length} entries`)
@@ -92,6 +104,10 @@ async function seed () {
   const dataAnalysisObj9 = await analyzeData('sampleEntry9.txt', 2)
   const dataAnalysisObj10 = await analyzeData('sampleEntry10.txt', 2)
   const dataAnalysisObj11 = await analyzeData('sampleEntry11.txt', 2)
+  const dataAnalysisObj12 = await analyzeData('sampleEntry12.txt', 2)
+  const dataAnalysisObj13 = await analyzeData('sampleEntry13.txt', 2)
+  const dataAnalysisObj14 = await analyzeData('sampleEntry14.txt', 2)
+  const dataAnalysisObj15 = await analyzeData('sampleEntry15.txt', 2)
 
   const dataAnalysisInstances = await Promise.all([
     DataAnalysis.create(dataAnalysisObj1),
@@ -105,6 +121,10 @@ async function seed () {
     DataAnalysis.create(dataAnalysisObj9),
     DataAnalysis.create(dataAnalysisObj10),
     DataAnalysis.create(dataAnalysisObj11),
+    DataAnalysis.create(dataAnalysisObj12),
+    DataAnalysis.create(dataAnalysisObj13),
+    DataAnalysis.create(dataAnalysisObj14),
+    DataAnalysis.create(dataAnalysisObj15),
   ])
 
   console.log(`seeded ${dataAnalysisInstances.length} data analyses`)
