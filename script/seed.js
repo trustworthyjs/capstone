@@ -34,6 +34,32 @@ async function seed () {
   var txt1 = buffer1.toString();
   var buffer2 = fs.readFileSync(__dirname + '/sampleEntry2.txt');
   var txt2 = buffer2.toString();
+  var buffer3 = fs.readFileSync(__dirname + '/sampleEntry3.txt');
+  var txt3 = buffer3.toString();
+  var buffer4 = fs.readFileSync(__dirname + '/sampleEntry4.txt');
+  var txt4 = buffer4.toString();
+  var buffer5 = fs.readFileSync(__dirname + '/sampleEntry5.txt');
+  var txt5 = buffer5.toString();
+  var buffer6 = fs.readFileSync(__dirname + '/sampleEntry6.txt');
+  var txt6 = buffer6.toString();
+  var buffer7 = fs.readFileSync(__dirname + '/sampleEntry7.txt');
+  var txt7 = buffer7.toString();
+  var buffer8 = fs.readFileSync(__dirname + '/sampleEntry8.txt');
+  var txt8 = buffer8.toString();
+  var buffer9 = fs.readFileSync(__dirname + '/sampleEntry9.txt');
+  var txt9 = buffer9.toString();
+  var buffer10 = fs.readFileSync(__dirname + '/sampleEntry10.txt');
+  var txt10 = buffer10.toString();
+  var buffer11 = fs.readFileSync(__dirname + '/sampleEntry11.txt');
+  var txt11 = buffer11.toString();
+  var buffer12 = fs.readFileSync(__dirname + '/sampleEntry12.txt');
+  var txt12 = buffer12.toString();
+  var buffer13 = fs.readFileSync(__dirname + '/sampleEntry13.txt');
+  var txt13 = buffer13.toString();
+  var buffer14 = fs.readFileSync(__dirname + '/sampleEntry14.txt');
+  var txt14 = buffer14.toString();
+  var buffer15 = fs.readFileSync(__dirname + '/sampleEntry15.txt');
+  var txt15 = buffer15.toString();
 
   const notebooks = await Promise.all([
     Notebook.create({cover: '#0000FF', userId: 1}),
@@ -49,17 +75,56 @@ async function seed () {
 
   const entries = await Promise.all([
     Entry.create({content: txt1, mode: 'freeWrite', notebookId: 1, userId: 1, savedAt: '2017-12-26 11:49:31.029-06'}),
-    Entry.create({content: txt2, mode: 'mindfulJournal', notebookId: 1, userId: 1, savedAt: '2017-10-26 11:49:31.029-06'})
+    Entry.create({content: txt2, mode: 'mindfulJournal', notebookId: 1, userId: 1, savedAt: '2017-10-26 11:49:31.029-06'}),
+    Entry.create({content: txt3, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-26 11:49:31.029-06'}),
+    Entry.create({content: txt4, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
+    Entry.create({content: txt5, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
+    Entry.create({content: txt6, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
+    Entry.create({content: txt7, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-07 11:49:31.029-06'}),
+    Entry.create({content: txt8, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-11-07 11:49:31.029-06'}),
+    Entry.create({content: txt9, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-09 11:49:31.029-06'}),
+    Entry.create({content: txt10, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-10 11:49:31.029-06'}),
+    Entry.create({content: txt11, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-12-21 11:49:31.029-06'}),
+    Entry.create({content: txt12, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-12-22 11:49:31.029-06'}),
+    Entry.create({content: txt13, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-01 11:49:31.029-06'}),
+    Entry.create({content: txt14, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-02 11:49:31.029-06'}),
+    Entry.create({content: txt15, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-03 11:49:31.029-06'}),
   ])
 
   console.log(`seeded ${entries.length} entries`)
 
   const dataAnalysisObj1 = await analyzeData('sampleEntry1.txt', 1)
-  const dataAnalysisObj2 = await analyzeData('sampleEntry2.txt', 2)
+  const dataAnalysisObj2 = await analyzeData('sampleEntry2.txt', 1)
+  const dataAnalysisObj3 = await analyzeData('sampleEntry3.txt', 2)
+  const dataAnalysisObj4 = await analyzeData('sampleEntry4.txt', 2)
+  const dataAnalysisObj5 = await analyzeData('sampleEntry5.txt', 2)
+  const dataAnalysisObj6 = await analyzeData('sampleEntry6.txt', 2)
+  const dataAnalysisObj7 = await analyzeData('sampleEntry7.txt', 2)
+  const dataAnalysisObj8 = await analyzeData('sampleEntry8.txt', 2)
+  const dataAnalysisObj9 = await analyzeData('sampleEntry9.txt', 2)
+  const dataAnalysisObj10 = await analyzeData('sampleEntry10.txt', 2)
+  const dataAnalysisObj11 = await analyzeData('sampleEntry11.txt', 2)
+  const dataAnalysisObj12 = await analyzeData('sampleEntry12.txt', 2)
+  const dataAnalysisObj13 = await analyzeData('sampleEntry13.txt', 2)
+  const dataAnalysisObj14 = await analyzeData('sampleEntry14.txt', 2)
+  const dataAnalysisObj15 = await analyzeData('sampleEntry15.txt', 2)
 
   const dataAnalysisInstances = await Promise.all([
     DataAnalysis.create(dataAnalysisObj1),
-    DataAnalysis.create(dataAnalysisObj2)
+    DataAnalysis.create(dataAnalysisObj2),
+    DataAnalysis.create(dataAnalysisObj3),
+    DataAnalysis.create(dataAnalysisObj4),
+    DataAnalysis.create(dataAnalysisObj5),
+    DataAnalysis.create(dataAnalysisObj6),
+    DataAnalysis.create(dataAnalysisObj7),
+    DataAnalysis.create(dataAnalysisObj8),
+    DataAnalysis.create(dataAnalysisObj9),
+    DataAnalysis.create(dataAnalysisObj10),
+    DataAnalysis.create(dataAnalysisObj11),
+    DataAnalysis.create(dataAnalysisObj12),
+    DataAnalysis.create(dataAnalysisObj13),
+    DataAnalysis.create(dataAnalysisObj14),
+    DataAnalysis.create(dataAnalysisObj15),
   ])
 
   console.log(`seeded ${dataAnalysisInstances.length} data analyses`)
