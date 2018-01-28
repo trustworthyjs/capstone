@@ -5,10 +5,39 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks} from './components'
 import {me, fetchDataAnalysis} from './store'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {darkBlack, fullBlack, white, cyan500, cyan700, grey300, grey400, grey100, grey500, deepPurple300, red500, pink200, pink300} from 'material-ui/styles/colors';
+import {fade} from 'material-ui/utils/colorManipulator';
+
+// import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+
 
 /**
  * COMPONENT
  */
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: '#ffcdd2',
+    primary2Color: '#ffffff',
+    primary3Color: '#cb9ca1',
+    accent1Color: '#ff8f00',
+    accent2Color: '#ffc046',
+    accent3Color: '#c56000',
+    textColor: darkBlack,
+    alternateTextColor: '000000',
+    canvasColor: white,
+    borderColor: grey300,
+    disabledColor: fade(darkBlack, 0.3),
+    pickerHeaderColor: deepPurple300,
+    clockCircleColor: fade(darkBlack, 0.07),
+    shadowColor: fullBlack,
+  },
+  appBar: {
+    height: 50,
+  },
+});
+
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialUser()
@@ -21,6 +50,7 @@ class Routes extends Component {
       this.props.getInitialData(this.props.user.id);
     }
     return (
+      <MuiThemeProvider muiTheme={muiTheme}>
       <Router history={history}>
         <Main>
           <Switch>
@@ -43,6 +73,7 @@ class Routes extends Component {
           </Switch>
         </Main>
       </Router>
+      </MuiThemeProvider>
     )
   }
 }

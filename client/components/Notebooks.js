@@ -1,6 +1,7 @@
 import React, {Component } from 'react'
 import {connect} from 'react-redux'
 import  {getNotebooksDb, me} from '../store'
+import RaisedButton from 'material-ui/RaisedButton';
 
 export class Notebooks extends Component {
   constructor(props){
@@ -16,6 +17,7 @@ export class Notebooks extends Component {
   render(){
     return (
       <div>
+      <RaisedButton label="Default" />
       This will show your past notebooks
       { this.props.notebooks && this.props.notebooks.map((notebook) => {
         return (
