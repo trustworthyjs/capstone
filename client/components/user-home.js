@@ -67,7 +67,7 @@ export class UserHome extends React.Component {
       //get the text and formatted text, send it through a thunk
       if (userHome.state.strokeSinceSave > 10) {
         let editedEntry = {
-          id: +userHome.props.entry.id,
+          id: +userHome.props.singleEntry.id,
           content: editor.getText(),
           formattedContent: editor.getContents().ops[0].insert
         }
@@ -131,7 +131,7 @@ export class UserHome extends React.Component {
 const mapState = (state) => {
   return {
     email: state.user.email,
-    entry: state.entry
+    singleEntry: state.singleEntry
   }
 }
 
