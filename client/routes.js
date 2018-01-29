@@ -18,7 +18,7 @@ import {fade} from 'material-ui/utils/colorManipulator';
  */
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: '#ffcdd2',
+    primary1Color: '#fff3e0',
     primary2Color: '#ffffff',
     primary3Color: '#cb9ca1',
     accent1Color: '#ff8f00',
@@ -33,6 +33,7 @@ const muiTheme = getMuiTheme({
     clockCircleColor: fade(darkBlack, 0.07),
     shadowColor: fullBlack,
   },
+  fontFamily: 'Ubuntu Mono, monospace',
   appBar: {
     height: 50,
   },
