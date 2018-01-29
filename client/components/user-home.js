@@ -5,6 +5,8 @@ import Quill from 'quill'
 import { setTimeout, clearTimeout } from 'timers';
 import ReactDOM from 'react-dom';
 import { getEntryDb, createEntryDb, saveEntryDb } from '../store'
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
 
 /**
  * COMPONENT
@@ -16,8 +18,10 @@ export class UserHome extends React.Component {
       timeout: null,
       showPopup: false,
       bounds: {},
-      strokeSinceSave: 0
+      strokeSinceSave: 0,
+      dialogOpen: true
     }
+    this.handleModeSelection = this.handleModeSelection.bind(this);
 
   }
 
@@ -50,11 +54,6 @@ export class UserHome extends React.Component {
     editor.root.spellcheck = false;
     editor.root.focus();
     editor.root.blur();
-
-    //this will need to be hooked up with a prompt from the landing page to determine which notebook (old or new) it goes into
-    this.props.createEntry({
-      notebookId: 1
-    })
 
     let userHome = this
     editor.on('text-change', function (delta, oldDelta, source) {
@@ -97,7 +96,16 @@ export class UserHome extends React.Component {
       })
     });
 
+  }
 
+  handleModeSelection(event) {
+    const mode = event.target.name
+    console.log('mode selected: ',mode)
+    //this will need to be hooked up with a prompt from the landing page to determine which notebook (old or new) it goes into
+    this.props.createEntry({
+      mode
+    })
+    this.setState({dialogOpen: false})
   }
 
   render() {
@@ -110,15 +118,29 @@ export class UserHome extends React.Component {
       bottom: bounds.bottom + 300,
       backgroundColor: 'orange'
     };
+    // const actions = [
+      
+    // ];
     return (
-      <div className="editor-prompt">
-        <h3>Welcome, {email}</h3>
-        {this.state.showPopup &&
-          <div className="popup" style={styles}>
-            What did you do today?
+      <div>
+        <Dialog 
+          title="Choose your writing mode..."
+          open={this.state.dialogOpen}>
+          <div style={{display: "flex", justifyContent: "space-around"}}>
+            <button name="freeWrite" onClick={this.handleModeSelection}>Free Writing</button>
+            <button name="mindfulJournal" onClick={this.handleModeSelection}>Mindfulness Journal</button>
+            <button name="custom" onClick={this.handleModeSelection}>Custom</button>
+          </div>
+        </Dialog>
+        <div className="editor-prompt">
+          <h3>Welcome, {email}</h3>
+          {this.state.showPopup &&
+            <div className="popup" style={styles}>
+              What did you do today?
+          </div>
+          }
+          <div className="editor" />
         </div>
-        }
-        <div className="editor" />
       </div>
     )
   }
