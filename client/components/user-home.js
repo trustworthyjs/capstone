@@ -3,10 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Quill from 'quill'
 import { setTimeout, clearTimeout } from 'timers';
-import ReactDOM from 'react-dom';
-import { getEntryDb, createEntryDb, saveEntryDb } from '../store'
+import { getEntryDb, createEntryDb, saveEntryDb, toggleSubmitPopupThunk } from '../store'
+import {default as SubmitEntryPopup} from './SubmitEntryPopup'
+import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
+
 
 /**
  * COMPONENT
@@ -19,21 +21,27 @@ export class UserHome extends React.Component {
       showPopup: false,
       bounds: {},
       strokeSinceSave: 0,
+      editor: '',
+      entryToSubmit: {},
       dialogOpen: true
     }
-    this.handleModeSelection = this.handleModeSelection.bind(this);
+    this.toggleSubmitPopup = this.toggleSubmitPopup.bind(this),
+    this.handleModeSelection = this.handleModeSelection.bind(this)
+  }
 
+  setEditor(editor) {
+    this.setState({editor})
   }
 
   componentDidMount() {
     var options = {
       //debug: 'info',
-      placeholder: 'Start writting...',
+      placeholder: 'Start writing...',
       theme: 'snow'
 
     };
     var editor = new Quill('.editor', options);
-
+    this.setEditor(editor)
     //disable delete
     editor.keyboard.addBinding({
       key: 'Backspace',
@@ -79,7 +87,7 @@ export class UserHome extends React.Component {
         timeout: setTimeout(() => {
           var range = editor.getSelection()
           if (range) {
-            if (range.length == 0) {
+            if (range.length === 0) {
               userHome.setState({
                 bounds: editor.getBounds(range.index)
               })
@@ -95,7 +103,18 @@ export class UserHome extends React.Component {
         }, 3000)
       })
     });
+  }
 
+  toggleSubmitPopup() {
+    let currentState = this.props.showSubmitPopup
+    this.props.setSubmitPopup(!currentState)
+    let editedEntry = {
+      id: +this.props.singleEntry.id,
+      content: this.state.editor.getText(),
+      formattedContent: this.state.editor.getContents().ops[0].insert,
+      mode: this.props.singleEntry.mode
+    }
+    this.setState({ entryToSubmit: editedEntry })
   }
 
   handleModeSelection(event) {
@@ -147,6 +166,12 @@ export class UserHome extends React.Component {
           }
           <div className="editor" />
         </div>
+        }
+        <div className="editor" />
+        <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} />
+        {this.props.showSubmitPopup &&
+          <SubmitEntryPopup entry={this.state.entryToSubmit} />
+        }
       </div>
     )
   }
@@ -159,7 +184,8 @@ export class UserHome extends React.Component {
 const mapState = (state) => {
   return {
     email: state.user.email,
-    singleEntry: state.singleEntry
+    singleEntry: state.singleEntry,
+    showSubmitPopup: state.submitPopup
   }
 }
 
@@ -173,6 +199,9 @@ const mapDispatch = (dispatch) => {
     },
     saveEntry: (editedEntry) => {
       dispatch(saveEntryDb(editedEntry))
+    },
+    setSubmitPopup: (state) => {
+      dispatch(toggleSubmitPopupThunk(state))
     }
   }
 }
