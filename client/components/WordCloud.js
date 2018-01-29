@@ -26,6 +26,7 @@ function styles (largestPercent, currentPercent) {
 class WordCloud extends Component {
 
   componentDidMount() {
+    // REVIEW: let's talk about this
     setInterval(() => {
       this.forceUpdate();
     }, 20000);

@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 export class LandingPage extends Component {
     constructor() {
         super()
+        // REVIEW: lets talk about this
         this.navbar = Array.from(document.getElementsByClassName('nav-stuff'))
     }
 
@@ -19,6 +20,7 @@ export class LandingPage extends Component {
     render() {
         return (
             <div className="landing-page-container">
+                {/* REVIEW: what is the advantage of params vs. making three different routes and components? */}
                 <Link to="/home" className="mode-option" params={{mode: 'freeWrite'}}>
                     <div>
                         Free Writing

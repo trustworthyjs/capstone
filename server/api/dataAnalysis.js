@@ -3,6 +3,7 @@ const {DataAnalysis} = require('../db/models')
 module.exports = router
 
 router.get('/:userId', (req, res, next) => {
+  // REVIEW: inconsistent use of async/await and promise/then
   DataAnalysis.findOne({
     where: {
       userId: req.params.userId

@@ -17,33 +17,48 @@ const styles = {
   }
 }
 
-class SubmitEntryPopup extends Component {
 
-  constructor() {
-    super()
-    this.state = {
-      value: 1,
-      notebookColorValue: '',
-      newNotebookName: ''
-    }
-    this.toggleSubmitPopup = this.toggleSubmitPopup.bind(this)
-    this.saveEntry = this.saveEntry.bind(this)
-    this.handleNewNotebookClick = this.handleNewNotebookClick.bind(this)
-    this.saveNotebook = this.saveNotebook.bind(this)
-    this.handleNotebookColorChange = this.handleNotebookColorChange.bind(this)
-    this.handleNotebookSelection = this.handleNotebookSelection.bind(this)
+//class NonReactComponent {
+//  constructor(name, greeting) {
+//    this.name = name
+//    this.greeting = greeting
+//  }
+//
+//  render () {
+//    console.log(`${this.greeting} ${this.world}`)
+//  }
+//}
+//
+//function NonReactComponent (name, greeting) {
+//  this.name = name
+//  this.greeting = greeting
+//}
+//
+//NonReactComponent.prototype.render = function () {
+//  console.log(`${this.greeting} ${this.world}`)
+//}
+//
+//thing = new NonReactComponent('collin', 'hello')
+//thing.render()
+
+
+class SubmitEntryPopup extends Component {
+  state = {
+    value: 1,
+    notebookColorValue: '',
+    newNotebookName: ''
   }
 
   handleNotebookSelection = (event, index, value) => this.setState({value})
   handleNotebookColorChange = (event, index, value) => this.setState({notebookColorValue: value})
   handleNewNotebookNameChange = event => this.setState({newNotebookName: event.target.value})
 
-  toggleSubmitPopup() {
+  toggleSubmitPopup  = () => {
     let currentState = this.props.showSubmitPopup
     this.props.setSubmitPopup(!currentState)
   }
 
-  saveEntry(evt) {
+  saveEntry = (evt) => {
     evt.preventDefault()
     let notebookId = +this.state.value
     let entryToSave = {
@@ -57,13 +72,13 @@ class SubmitEntryPopup extends Component {
     this.props.saveEntry(entryToSave)
   }
 
-  handleNewNotebookClick(evt) {
+  handleNewNotebookClick = (evt) => {
     evt.preventDefault()
     let currentClassName = document.getElementById("addNotebookField").className
     currentClassName.includes("Off") ? document.getElementById("addNotebookField").className = "toggleOn" : document.getElementById("addNotebookField").className = "toggleOff"
   }
 
-  saveNotebook(evt) {
+  saveNotebook = (evt) => {
     evt.preventDefault()
     let notebook = {
       title: this.state.newNotebookName,

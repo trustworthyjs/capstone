@@ -18,6 +18,7 @@ router.get(`/:entryId`, async (req, res, next) => {
 })
 
 //save a new entry to the database
+// REVIEW: looking nice, authorization?
 router.post('/', async (req, res, next) => {
   try {
     let toCreate = req.body

@@ -34,6 +34,7 @@ export class Main extends Component {
         onLeftIconButtonClick={this.clickLeft}
         zDepth={1}
         >
+        {/* REVIEW: indentation */}
         <Drawer
         docked={false}
         open={this.state.open}

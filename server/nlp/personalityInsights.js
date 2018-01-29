@@ -9,6 +9,7 @@ var personality_insights = new PersonalityInsightsV3(
   process.env.PERSONALITY_INSIGHTS_CREDENTIALS
 );
 
+// REVIEW: hey, looks like this could have been deleted
 // var contentString = '…That night at home I told my wife about what I had seen and she and I agreed we had to do more than just a tree with no lights…After a couple days I made another appointment to visit with Dohn at his home again. This time I was not alone. We had three cars and two trucks behind us. I knocked at the door and when it opened a precession of strangers began to enter with armfuls of items he and his family desperately needed. …Few words were spoken while hands were grasped and arms draped around one another. Many years have passed since the night we shared in that wonderful Christmas. I often wonder about Dohn and his family. I am sure he has been in a position to reach out and help someone in kind. I do know this for sure. Anytime we reach out to help, and by so doing, lift a fellow human being, we ourselves are elevated.';
 var contentString = txt;
 
