@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook} from './components'
 import {me, fetchDataAnalysis} from './store'
+import {me, fetchDataAnalysis, toggleSubmitPopupThunk, getNotebooksDb} from './store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {darkBlack, fullBlack, white, cyan500, cyan700, grey300, grey400, grey100, grey500, deepPurple300, red500, pink200, pink300} from 'material-ui/colors';
 
@@ -19,7 +20,7 @@ import { createMuiTheme } from 'material-ui/styles';
  */
 const muiTheme = createMuiTheme({
   palette: {
-    primary1Color: '#ffcdd2',
+    primary1Color: '#fff3e0',
     primary2Color: '#ffffff',
     primary3Color: '#cb9ca1',
     accent1Color: '#ff8f00',
@@ -34,6 +35,7 @@ const muiTheme = createMuiTheme({
     clockCircleColor: grey100,
     shadowColor: fullBlack,
   },
+  fontFamily: 'Ubuntu Mono, monospace',
   appBar: {
     height: 50,
   },
@@ -48,7 +50,9 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     if (this.props.isLoggedIn) {
-      this.props.getInitialData(this.props.user.id);
+      this.props.getInitialData(this.props.user.id)
+      this.props.setInitialSubmitPopup(false)
+      this.props.getNotebooks(this.props.user.id)
     }
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -99,6 +103,12 @@ const mapDispatch = (dispatch) => {
     },
     getInitialData: (userId) => {
       dispatch(fetchDataAnalysis(userId))
+    },
+    setInitialSubmitPopup: (state) => {
+      dispatch(toggleSubmitPopupThunk(state))
+    },
+    getNotebooks: (userId) => {
+      dispatch(getNotebooksDb(userId))
     }
   }
 }
