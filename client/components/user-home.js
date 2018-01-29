@@ -127,9 +127,15 @@ export class UserHome extends React.Component {
           title="Choose your writing mode..."
           open={this.state.dialogOpen}>
           <div style={{display: "flex", justifyContent: "space-around"}}>
-            <button name="freeWrite" onClick={this.handleModeSelection}>Free Writing</button>
-            <button name="mindfulJournal" onClick={this.handleModeSelection}>Mindfulness Journal</button>
-            <button name="custom" onClick={this.handleModeSelection}>Custom</button>
+            <button className="mode-btn" id="free-write-btn" name="freeWrite" onClick={this.handleModeSelection}>
+              <div className="mode-btn-label">Free Writing</div>
+            </button>
+            <button className="mode-btn" id="mindful-journal-btn" name="mindfulJournal" onClick={this.handleModeSelection}>
+              <div className="mode-btn-label">Mindfulness Journal</div>
+            </button>
+            <button className="mode-btn" id="custom-btn" name="custom" onClick={this.handleModeSelection}>
+              <div className="mode-btn-label">Custom</div>
+            </button>
           </div>
         </Dialog>
         <div className="editor-prompt">
