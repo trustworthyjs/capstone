@@ -6,6 +6,8 @@ import { setTimeout, clearTimeout } from 'timers';
 import { getEntryDb, createEntryDb, saveEntryDb, toggleSubmitPopupThunk } from '../store'
 import {default as SubmitEntryPopup} from './SubmitEntryPopup'
 import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog'
+import FlatButton from 'material-ui/FlatButton'
 
 
 /**
@@ -20,9 +22,11 @@ export class UserHome extends React.Component {
       bounds: {},
       strokeSinceSave: 0,
       editor: '',
-      entryToSubmit: {}
+      entryToSubmit: {},
+      dialogOpen: true
     }
-    this.toggleSubmitPopup = this.toggleSubmitPopup.bind(this)
+    this.toggleSubmitPopup = this.toggleSubmitPopup.bind(this),
+    this.handleModeSelection = this.handleModeSelection.bind(this)
   }
 
   setEditor(editor) {
@@ -58,9 +62,6 @@ export class UserHome extends React.Component {
     editor.root.spellcheck = false;
     editor.root.focus();
     editor.root.blur();
-
-    //this will need to be hooked up with a prompt from the landing page to determine which mode it should be created with
-    this.props.createEntry()
 
     let userHome = this
     editor.on('text-change', function (delta, oldDelta, source) {
@@ -116,6 +117,16 @@ export class UserHome extends React.Component {
     this.setState({ entryToSubmit: editedEntry })
   }
 
+  handleModeSelection(event) {
+    const mode = event.target.name
+    console.log('mode selected: ',mode)
+    //this will need to be hooked up with a prompt from the landing page to determine which notebook (old or new) it goes into
+    this.props.createEntry({
+      mode
+    })
+    this.setState({dialogOpen: false})
+  }
+
   render() {
     const { email } = this.props
     const { bounds } = this.state
@@ -126,12 +137,34 @@ export class UserHome extends React.Component {
       bottom: bounds.bottom + 300,
       backgroundColor: 'orange'
     };
+    // const actions = [
+      
+    // ];
     return (
-      <div className="editor-prompt">
-        <h3>Welcome, {email}</h3>
-        {this.state.showPopup &&
-          <div className="popup" style={styles}>
-            What did you do today?
+      <div>
+        <Dialog 
+          title="Choose your writing mode..."
+          open={this.state.dialogOpen}>
+          <div style={{display: "flex", justifyContent: "space-around"}}>
+            <button className="mode-btn" id="free-write-btn" name="freeWrite" onClick={this.handleModeSelection}>
+              <div className="mode-btn-label">Free Writing</div>
+            </button>
+            <button className="mode-btn" id="mindful-journal-btn" name="mindfulJournal" onClick={this.handleModeSelection}>
+              <div className="mode-btn-label">Mindfulness Journal</div>
+            </button>
+            <button className="mode-btn" id="custom-btn" name="custom" onClick={this.handleModeSelection}>
+              <div className="mode-btn-label">Custom</div>
+            </button>
+          </div>
+        </Dialog>
+        <div className="editor-prompt">
+          <h3>Welcome, {email}</h3>
+          {this.state.showPopup &&
+            <div className="popup" style={styles}>
+              What did you do today?
+          </div>
+          }
+          <div className="editor" />
         </div>
         }
         <div className="editor" />
