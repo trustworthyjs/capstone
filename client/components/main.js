@@ -5,7 +5,7 @@ import {withRouter, Link, NavLink} from 'react-router-dom'
 import {logout} from '../store'
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
+import {MenuItem} from 'material-ui/Menu';
 
 export class Main extends Component {
   constructor(props){

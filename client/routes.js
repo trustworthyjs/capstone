@@ -3,12 +3,14 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks} from './components'
+import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook} from './components'
+import {me, fetchDataAnalysis} from './store'
 import {me, fetchDataAnalysis, toggleSubmitPopupThunk, getNotebooksDb} from './store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {darkBlack, fullBlack, white, cyan500, cyan700, grey300, grey400, grey100, grey500, deepPurple300, red500, pink200, pink300} from 'material-ui/styles/colors';
-import {fade} from 'material-ui/utils/colorManipulator';
+import {darkBlack, fullBlack, white, cyan500, cyan700, grey300, grey400, grey100, grey500, deepPurple300, red500, pink200, pink300} from 'material-ui/colors';
+
+
+import { createMuiTheme } from 'material-ui/styles';
 
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 
@@ -16,7 +18,7 @@ import {fade} from 'material-ui/utils/colorManipulator';
 /**
  * COMPONENT
  */
-const muiTheme = getMuiTheme({
+const muiTheme = createMuiTheme({
   palette: {
     primary1Color: '#fff3e0',
     primary2Color: '#ffffff',
@@ -25,12 +27,12 @@ const muiTheme = getMuiTheme({
     accent2Color: '#ffc046',
     accent3Color: '#c56000',
     textColor: darkBlack,
-    alternateTextColor: '000000',
+    alternateTextColor: darkBlack,
     canvasColor: white,
     borderColor: grey300,
-    disabledColor: fade(darkBlack, 0.3),
+    disabledColor: grey100,
     pickerHeaderColor: deepPurple300,
-    clockCircleColor: fade(darkBlack, 0.07),
+    clockCircleColor: grey100,
     shadowColor: fullBlack,
   },
   fontFamily: 'Ubuntu Mono, monospace',
@@ -68,7 +70,8 @@ class Routes extends Component {
                   <Route path="/home" component={UserHome} />
                   <Route path="/data-analysis" component={DataAnalysis} />
                   <Route path="/word-cloud" component={WordCloud} />
-                  <Route path="/my-notebooks" component={Notebooks} />
+                  <Route exact path="/my-notebooks" component={Notebooks} />
+                  <Route path="/my-notebooks/:notebookId" component={SingleNotebook} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
