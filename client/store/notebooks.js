@@ -39,7 +39,12 @@ export const createNotebookDb = notebook =>
 export default function (state = defaultNotebooks, action) {
   switch (action.type) {
     case GET_ALL_NOTEBOOKS:
-      return action.notebooks
+      if (action.notebooks) {
+        return action.notebooks
+      }
+      else {
+        return state
+      }
     case CREATE_NOTEBOOK:
       return [...state, action.notebook]
     default:

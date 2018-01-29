@@ -33,6 +33,7 @@ router.get(`/:notebookId`, async (req, res, next) => {
 })
 
 //get all notebooks for a single user (with entries nested)
+// REVIEW: authorization, can we restrict this per-user?
 router.get(`/user/:userId`, async (req, res, next) => {
   try {
     let userNotebooksEntries = await Notebook.findAll({

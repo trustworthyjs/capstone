@@ -3,6 +3,16 @@ import {connect} from 'react-redux'
 import  {getNotebooksDb, me} from '../store'
 import RaisedButton from 'material-ui/RaisedButton';
 
+
+function NotebooksList ({ notebooks }) {
+  if (notebooks.length) {
+    return this.props.notebooks.map((notebook) => <NotebookItem notebook={notebook}/>)
+  }
+  else {
+    return <h1>HEy there are not any notebooks yet</h1>
+  }
+}
+
 export class Notebooks extends Component {
   constructor(props){
     super(props)
@@ -19,13 +29,7 @@ export class Notebooks extends Component {
       <div>
       <RaisedButton label="Default" />
       This will show your past notebooks
-      { this.props.notebooks && this.props.notebooks.map((notebook) => {
-        return (
-          <div key={notebook.id}>
-          {notebook.id}
-          </div>
-        )
-      })}
+      <NotebooksList notebooks={this.props.notebooks}/>
       </div>
     )
   }
