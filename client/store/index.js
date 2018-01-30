@@ -7,9 +7,8 @@ import singleEntry from './singleEntry'
 import data from './data'
 import notebooks from './notebooks'
 import allEntries from './allEntries'
-import submitPopup from './submitPopup'
 
-const reducer = combineReducers({user, singleEntry, data, notebooks, allEntries, submitPopup})
+const reducer = combineReducers({user, singleEntry, data, notebooks, allEntries})
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({collapsed: true})
@@ -22,5 +21,4 @@ export * from './data'
 export * from './singleEntry'
 export * from './notebooks'
 export * from './allEntries'
-export * from './submitPopup'
 

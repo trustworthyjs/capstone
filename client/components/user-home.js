@@ -3,12 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Quill from 'quill'
 import { setTimeout, clearTimeout } from 'timers';
-import { getEntryDb, createEntryDb, saveEntryDb, toggleSubmitPopupThunk } from '../store'
-import {default as SubmitEntryPopup} from './SubmitEntryPopup'
-import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog'
-import FlatButton from 'material-ui/FlatButton'
-
+import ReactDOM from 'react-dom';
+import { getEntryDb, createEntryDb, saveEntryDb } from '../store'
 
 /**
  * COMPONENT
@@ -20,28 +16,20 @@ export class UserHome extends React.Component {
       timeout: null,
       showPopup: false,
       bounds: {},
-      strokeSinceSave: 0,
-      editor: '',
-      entryToSubmit: {},
-      dialogOpen: true
+      strokeSinceSave: 0
     }
-    this.toggleSubmitPopup = this.toggleSubmitPopup.bind(this),
-    this.handleModeSelection = this.handleModeSelection.bind(this)
-  }
 
-  setEditor(editor) {
-    this.setState({editor})
   }
 
   componentDidMount() {
     var options = {
       //debug: 'info',
-      placeholder: 'Start writing...',
+      placeholder: 'Start writting...',
       theme: 'snow'
 
     };
     var editor = new Quill('.editor', options);
-    this.setEditor(editor)
+
     //disable delete
     editor.keyboard.addBinding({
       key: 'Backspace',
@@ -62,6 +50,11 @@ export class UserHome extends React.Component {
     editor.root.spellcheck = false;
     editor.root.focus();
     editor.root.blur();
+
+    //this will need to be hooked up with a prompt from the landing page to determine which notebook (old or new) it goes into
+    this.props.createEntry({
+      notebookId: 1
+    })
 
     let userHome = this
     editor.on('text-change', function (delta, oldDelta, source) {
@@ -87,7 +80,7 @@ export class UserHome extends React.Component {
         timeout: setTimeout(() => {
           var range = editor.getSelection()
           if (range) {
-            if (range.length === 0) {
+            if (range.length == 0) {
               userHome.setState({
                 bounds: editor.getBounds(range.index)
               })
@@ -103,28 +96,8 @@ export class UserHome extends React.Component {
         }, 3000)
       })
     });
-  }
 
-  toggleSubmitPopup() {
-    let currentState = this.props.showSubmitPopup
-    this.props.setSubmitPopup(!currentState)
-    let editedEntry = {
-      id: +this.props.singleEntry.id,
-      content: this.state.editor.getText(),
-      formattedContent: this.state.editor.getContents().ops[0].insert,
-      mode: this.props.singleEntry.mode
-    }
-    this.setState({ entryToSubmit: editedEntry })
-  }
 
-  handleModeSelection(event) {
-    const mode = event.target.name
-    console.log('mode selected: ',mode)
-    //this will need to be hooked up with a prompt from the landing page to determine which notebook (old or new) it goes into
-    this.props.createEntry({
-      mode
-    })
-    this.setState({dialogOpen: false})
   }
 
   render() {
@@ -137,41 +110,15 @@ export class UserHome extends React.Component {
       bottom: bounds.bottom + 300,
       backgroundColor: 'orange'
     };
-    // const actions = [
-      
-    // ];
     return (
-      <div>
-        <Dialog 
-          title="Choose your writing mode..."
-          open={this.state.dialogOpen}>
-          <div style={{display: "flex", justifyContent: "space-around"}}>
-            <button className="mode-btn" id="free-write-btn" name="freeWrite" onClick={this.handleModeSelection}>
-              <div className="mode-btn-label">Free Writing</div>
-            </button>
-            <button className="mode-btn" id="mindful-journal-btn" name="mindfulJournal" onClick={this.handleModeSelection}>
-              <div className="mode-btn-label">Mindfulness Journal</div>
-            </button>
-            <button className="mode-btn" id="custom-btn" name="custom" onClick={this.handleModeSelection}>
-              <div className="mode-btn-label">Custom</div>
-            </button>
-          </div>
-        </Dialog>
-        <div className="editor-prompt">
-          <h3>Welcome, {email}</h3>
-          {this.state.showPopup &&
-            <div className="popup" style={styles}>
-              What did you do today?
-          </div>
-          }
-          <div className="editor" />
+      <div className="editor-prompt">
+        <h3>Welcome, {email}</h3>
+        {this.state.showPopup &&
+          <div className="popup" style={styles}>
+            What did you do today?
         </div>
         }
         <div className="editor" />
-        <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} />
-        {this.props.showSubmitPopup &&
-          <SubmitEntryPopup entry={this.state.entryToSubmit} />
-        }
       </div>
     )
   }
@@ -184,8 +131,7 @@ export class UserHome extends React.Component {
 const mapState = (state) => {
   return {
     email: state.user.email,
-    singleEntry: state.singleEntry,
-    showSubmitPopup: state.submitPopup
+    singleEntry: state.singleEntry
   }
 }
 
@@ -199,9 +145,6 @@ const mapDispatch = (dispatch) => {
     },
     saveEntry: (editedEntry) => {
       dispatch(saveEntryDb(editedEntry))
-    },
-    setSubmitPopup: (state) => {
-      dispatch(toggleSubmitPopupThunk(state))
     }
   }
 }

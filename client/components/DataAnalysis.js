@@ -2,7 +2,6 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {StreaksGraph} from '../components'
 import {PersonalityRadarChart} from './'
-import WordCloud from './WordCloud';
 
 /**
  * COMPONENT
@@ -19,8 +18,7 @@ class DataAnalysis extends React.Component {
         <div>
           <h3>Heres your data!</h3>
           <StreaksGraph />
-          <WordCloud />
-          <PersonalityRadarChart />
+          <div>{JSON.stringify(data)}</div>
         </div>
       )
   }

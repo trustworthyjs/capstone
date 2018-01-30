@@ -5,8 +5,11 @@ module.exports = router
 //create a new notebook
 router.post('/', async (req, res, next) => {
   try {
-    let notebook = await Notebook.create(req.body)
-    res.json(notebook)
+    let entry = await Notebook.create(req.body)
+    if (+req.session.passport.user){
+      await entry.setUser()
+    }
+    res.json(entry)
   }
   catch (error) {
     next(error)

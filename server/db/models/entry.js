@@ -19,10 +19,6 @@ const Entry = db.define('entry', {
   savedAt: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
-  },
-  submitted: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false
   }
 })
 
