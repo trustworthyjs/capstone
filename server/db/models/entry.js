@@ -26,6 +26,9 @@ const Entry = db.define('entry', {
   submitted: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  tones: {
+    type: Sequelize.JSON
   }
 })
 
