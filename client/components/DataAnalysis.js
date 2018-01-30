@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {PersonalityRadarChart, WordCloud} from './'
+import {PersonalityRadarChart, WordCloud, ToneGraph} from './'
 
 /**
  * COMPONENT
@@ -23,6 +23,9 @@ class DataAnalysis extends React.Component {
           <div>
             <PersonalityRadarChart />
           </div>
+          <div>
+          <ToneGraph />
+        </div>
         </div>
       )
   }
