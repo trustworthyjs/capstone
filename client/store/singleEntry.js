@@ -6,6 +6,7 @@ import axios from 'axios'
 const GET_ENTRY = 'GET_ENTRY'
 const CREATE_ENTRY = 'CREATE_ENTRY'
 const SAVE_ENTRY = 'SAVE_ENTRY'
+const UPDATE_SETTINGS = 'UPDATE_SETTINGS'
 // const REMOVE_USER = 'REMOVE_USER'
 
 /**
@@ -44,6 +45,15 @@ export const saveEntryDb = (editedEntry) =>
         dispatch(saveEntry(res.data)))
       .catch(err => console.log(err))
 
+export const updateSettingsDb = (settings) => {
+  dispatch => {
+    axios.put(`/api/entries/${editedEntry.id}`, settings)
+      .then(res => 
+        dispatch(getEntry(res.data)))
+      .catch(err => console.log(err))
+  }
+}
+
 // /**
 //  * REDUCER
 //  */
@@ -55,6 +65,8 @@ export default function (state = defaultEntry, action) {
       return action.entry
     case SAVE_ENTRY:
       return action.entry
+    case UPDATE_SETTINGS:
+      return Object.assign({}, state, {settings: action.settings})
     default:
       return state
   }
