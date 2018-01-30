@@ -24,7 +24,7 @@ export class UserHome extends React.Component {
       strokeSinceSave: 0,
       editor: '',
       entryToSubmit: {},
-      dialogOpen: false,
+      dialogOpen: true,
       settingsOpen: false
     }
   }
@@ -117,7 +117,7 @@ export class UserHome extends React.Component {
 
   handleModeSelection = (event) => {
     const mode = event.target.name
-    console.log('mode selected: ',mode)
+    console.log('mode selected: ', event.target)
     //this will need to be hooked up with a prompt from the landing page to determine which notebook (old or new) it goes into
     this.props.createEntry({
       mode
@@ -146,13 +146,13 @@ export class UserHome extends React.Component {
         open={this.state.dialogOpen}>
         <div style={{display: "flex", justifyContent: "space-around"}}>
           <button className="mode-btn" id="free-write-btn" name="freeWrite" onClick={this.handleModeSelection}>
-            <div className="mode-btn-label">Free Writing</div>
+            <div className="mode-btn-label" name="freeWrite" onClick={this.handleModeSelection}>Free Writing</div>
           </button>
           <button className="mode-btn" id="mindful-journal-btn" name="mindfulJournal" onClick={this.handleModeSelection}>
-            <div className="mode-btn-label">Mindfulness Journal</div>
+            <div className="mode-btn-label" name="mindfulJournal" onClick={this.handleModeSelection}>Mindfulness Journal</div>
           </button>
           <button className="mode-btn" id="custom-btn" name="custom" onClick={this.handleModeSelection}>
-            <div className="mode-btn-label">Custom</div>
+            <div className="mode-btn-label" name="custom" onClick={this.handleModeSelection}>Custom</div>
           </button>
         </div>
       </Dialog>

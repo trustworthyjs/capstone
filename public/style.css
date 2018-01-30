@@ -53,6 +53,8 @@ form div {
 .settings-icon {
     height: 30px;
     width: 30px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
     background-image: url("https://image.flaticon.com/icons/svg/61/61094.svg");
     background-size: cover;
     position: absolute;

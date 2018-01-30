@@ -19,18 +19,62 @@ export class SettingsDrawer extends React.Component {
     this.setState({editorPrompt: document.getElementById('editor-with-settings')})
   }
 
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
-  };
+  getSettings = () => {
+    if (this.props.singleEntry.mode) {
+      var mode = this.props.singleEntry.mode;
+      const checkedSettings = {
+        timer: mode === 'freeWrite',
+        wordCount: mode === 'freeWrite',
+        prompts: mode === 'freeWrite',
+        visualCues: mode === 'freeWrite',
+        music: mode === 'mindfulJournal'
+      }
+      return (
+        <div>
+          <div>
+            <h5>Settings</h5>
+            <button className="settings-icon" onClick={this.props.toggle}/>
+          </div>
+          <div>
+            <div className="ui toggle checkbox">
+              <input type="checkbox" name="timer" checked={checkedSettings.timer}/>
+              <label>Timer</label>
+            </div>
+            
+            <div className="ui toggle checkbox">
+              <input type="checkbox" name="wordCount" checked={checkedSettings.wordCount}/>
+              <label>Word Count</label>
+            </div>
+            <div className="ui toggle checkbox">
+              <input type="checkbox" name="public" checked={checkedSettings.prompts}/>
+              <label>Prompts</label>
+            </div>
+            <div className="ui toggle checkbox">
+              <input type="checkbox" name="public" checked={checkedSettings.visualCues}/>
+              <label>Visual Cues</label>
+            </div>
+            <div className="ui toggle checkbox">
+              <input type="checkbox" name="public" checked={checkedSettings.music}/>
+              <label>Music</label>
+            </div>
+            <DropDownMenu>
+              <MenuItem value={'pirate'} primaryText="PIRATE"/>
+              <MenuItem value={'pirate'} primaryText="PIRATE"/>
+              <MenuItem value={'pirate'} primaryText="PIRATE"/>
+              <MenuItem value={'pirate'} primaryText="PIRATE"/>
+              <MenuItem value={'pirate'} primaryText="PIRATE"/>
+            </DropDownMenu>
+          </div>
+        </div>
+      )
+    }
+  }
 
-  handleDrawerClose = () => {
-    this.setState({ open: false });
-  };
 
   render() {
-    const singleEntry = this.props.singleEntry;
-
     const visible = this.props.visible ? 'visible' : 'hidden'
+
+    const settings = this.getSettings();
 
     const editorPrompt = this.state.editorPrompt
     if (editorPrompt) {
@@ -48,39 +92,7 @@ export class SettingsDrawer extends React.Component {
                       visibility: visible
                     }}
         >
-          <div>
-            <h5>Settings</h5>
-            <button className="settings-icon" onClick={this.props.toggle}/>
-          </div>
-          <div>
-            <Toggle 
-              label="Timer"
-              defaultToggled={singleEntry.mode === "freeWrite"}
-            />
-            <Toggle 
-              label="Word Count"
-              defaultToggled={singleEntry.mode === "freeWrite"}
-            />
-            <Toggle 
-              label="Visual Cues"
-              defaultToggled={singleEntry.mode === "freeWrite"}
-            />
-            <Toggle 
-              label="Music"
-              defaultToggled={singleEntry.mode === "freeWrite"}
-            />
-            <Toggle 
-              label="Zoom into Line"
-              defaultToggled={singleEntry.mode === "freeWrite"}
-            />
-            <DropDownMenu>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-            </DropDownMenu>
-          </div>
+        {settings}
         </div>
       );
     } else {
