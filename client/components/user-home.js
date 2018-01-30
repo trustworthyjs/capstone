@@ -8,8 +8,8 @@ import {default as SubmitEntryPopup} from './SubmitEntryPopup'
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
+import { withRouter } from 'react-router'
 import SettingsDrawer from './SettingsDrawer'
-
 
 /**
  * COMPONENT
@@ -27,6 +27,7 @@ export class UserHome extends React.Component {
       dialogOpen: true,
       settingsOpen: false
     }
+
   }
 
   setEditor(editor) {
@@ -138,8 +139,8 @@ export class UserHome extends React.Component {
       right: bounds.right - 20,
       bottom: bounds.bottom + 300,
       backgroundColor: 'orange'
-    };
-    
+    }
+    const SubmitEntryPopupWithRouter = withRouter(SubmitEntryPopup)
     const modeDialog = (
       <Dialog 
         title="Choose your writing mode..."
@@ -175,7 +176,7 @@ export class UserHome extends React.Component {
         </div>
         <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} />
         {this.props.showSubmitPopup &&
-          <SubmitEntryPopup entry={this.state.entryToSubmit} />
+          <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
         }
       </div>
     )

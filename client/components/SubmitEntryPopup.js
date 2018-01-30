@@ -19,31 +19,22 @@ const styles = {
 
 class SubmitEntryPopup extends Component {
 
-  constructor() {
-    super()
-    this.state = {
+  state = {
       value: 1,
       notebookColorValue: '',
       newNotebookName: ''
-    }
-    this.toggleSubmitPopup = this.toggleSubmitPopup.bind(this)
-    this.saveEntry = this.saveEntry.bind(this)
-    this.handleNewNotebookClick = this.handleNewNotebookClick.bind(this)
-    this.saveNotebook = this.saveNotebook.bind(this)
-    this.handleNotebookColorChange = this.handleNotebookColorChange.bind(this)
-    this.handleNotebookSelection = this.handleNotebookSelection.bind(this)
   }
 
   handleNotebookSelection = (event, index, value) => this.setState({value})
   handleNotebookColorChange = (event, index, value) => this.setState({notebookColorValue: value})
   handleNewNotebookNameChange = event => this.setState({newNotebookName: event.target.value})
 
-  toggleSubmitPopup() {
+  toggleSubmitPopup = () => {
     let currentState = this.props.showSubmitPopup
     this.props.setSubmitPopup(!currentState)
   }
 
-  saveEntry(evt) {
+  saveEntry = (evt) => {
     evt.preventDefault()
     let notebookId = +this.state.value
     let entryToSave = {
@@ -54,16 +45,16 @@ class SubmitEntryPopup extends Component {
       submitted: true,
       mode: this.props.entry.mode
     }
-    this.props.saveEntry(entryToSave)
+    this.props.saveEntry(entryToSave, notebookId, this.props.userId)
   }
 
-  handleNewNotebookClick(evt) {
+  handleNewNotebookClick = (evt) => {
     evt.preventDefault()
     let currentClassName = document.getElementById("addNotebookField").className
     currentClassName.includes("Off") ? document.getElementById("addNotebookField").className = "toggleOn" : document.getElementById("addNotebookField").className = "toggleOff"
   }
 
-  saveNotebook(evt) {
+  saveNotebook = (evt) => {
     evt.preventDefault()
     let notebook = {
       title: this.state.newNotebookName,
@@ -140,10 +131,10 @@ const mapState = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
-    saveEntry: (editedEntry) => {
-      dispatch(saveEntryDb(editedEntry))
+    saveEntry: (editedEntry, notebookId, userId) => {
+      dispatch(saveEntryDb(editedEntry, notebookId, ownProps.history, userId))
     },
     setSubmitPopup: (state) => {
       dispatch(toggleSubmitPopupThunk(state))
