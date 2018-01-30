@@ -20,7 +20,6 @@ const defaultEntry = {}
 const getEntry = entry => ({type: GET_ENTRY, entry})
 const createEntry = entry => ({type: CREATE_ENTRY, entry})
 const saveEntry = entry => ({type: SAVE_ENTRY, entry})
-const updateSettings = entry => ({type: UPDATE_SETTINGS, settings})
 
 /**
  * THUNK CREATORS
@@ -45,6 +44,15 @@ export const saveEntryDb = (editedEntry) =>
       .then(res =>
         dispatch(saveEntry(res.data)))
       .catch(err => console.log(err))
+
+export const updateSettingsDb = (settings) => {
+  dispatch => {
+    axios.put(`/api/entries/${editedEntry.id}`, settings)
+      .then(res => 
+        dispatch(getEntry(res.data)))
+      .catch(err => console.log(err))
+  }
+}
 
 // /**
 //  * REDUCER

@@ -20,15 +20,8 @@ export class SettingsDrawer extends React.Component {
   }
 
   getSettings = () => {
-    if (this.props.singleEntry.mode) {
-      var mode = this.props.singleEntry.mode;
-      const checkedSettings = {
-        timer: mode === 'freeWrite',
-        wordCount: mode === 'freeWrite',
-        prompts: mode === 'freeWrite',
-        visualCues: mode === 'freeWrite',
-        music: mode === 'mindfulJournal'
-      }
+    if (this.props.singleEntry.settings) {
+      var checkSettings = this.props.singleEntry.settings
       return (
         <div>
           <div>
@@ -36,25 +29,44 @@ export class SettingsDrawer extends React.Component {
             <button className="settings-icon" onClick={this.props.toggle}/>
           </div>
           <div>
+            <div>
+              <div className="ui toggle checkbox">
+                <input type="checkbox" name="timer" checked={checkSettings.timer} onChange={this.changeSettings}/>
+                <label>Timer</label>
+              </div>
+              {checkSettings.timer && (
+                <div style={{display: 'flex'}}>
+                  <input name="minutes" style={{width: '15%'}}></input>
+                  :
+                  <input name="seconds" style={{width: '15%'}}></input>
+                  <button onClick={() => {console.log('tryin to set the timer')}}>Set Timer</button>
+                </div>
+              )}
+            </div>  
             <div className="ui toggle checkbox">
-              <input type="checkbox" name="timer" checked={checkedSettings.timer}/>
-              <label>Timer</label>
-            </div>
-            
-            <div className="ui toggle checkbox">
-              <input type="checkbox" name="wordCount" checked={checkedSettings.wordCount}/>
+              <input type="checkbox" name="wordCount" checked={checkSettings.wordCount}/>
               <label>Word Count</label>
             </div>
+            {checkSettings.wordCount && (
+              <div>
+                <input name='wordCount' style={{width: '25%'}}/>
+                <button onClick={() => {console.log('tryin to set the count')}}>Set Count</button>
+              </div>
+            )}
+
             <div className="ui toggle checkbox">
-              <input type="checkbox" name="public" checked={checkedSettings.prompts}/>
+              <input type="checkbox" name="public" checked={checkSettings.prompts}/>
               <label>Prompts</label>
             </div>
+            {checkSettings.prompts && (
+              <div>prompts</div>
+            )}
             <div className="ui toggle checkbox">
-              <input type="checkbox" name="public" checked={checkedSettings.visualCues}/>
+              <input type="checkbox" name="public" checked={checkSettings.visualCues}/>
               <label>Visual Cues</label>
             </div>
             <div className="ui toggle checkbox">
-              <input type="checkbox" name="public" checked={checkedSettings.music}/>
+              <input type="checkbox" name="public" checked={checkSettings.music}/>
               <label>Music</label>
             </div>
             <DropDownMenu>
@@ -68,6 +80,10 @@ export class SettingsDrawer extends React.Component {
         </div>
       )
     }
+  }
+
+  changeSettings = (event) => {
+    
   }
 
 

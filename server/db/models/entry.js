@@ -16,6 +16,9 @@ const Entry = db.define('entry', {
     type: Sequelize.ENUM,
     values: ['freeWrite', 'mindfulJournal', 'custom']
   },
+  settings: {
+    type: Sequelize.JSON
+  },
   savedAt: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
@@ -23,6 +26,29 @@ const Entry = db.define('entry', {
   submitted: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  }
+})
+
+Entry.beforeUpdate(entry => {
+  console.log('hitting beforeUpdate hook', entry)
+  if (entry.mode === 'freeWrite') {
+    entry.settings = {
+      timer: true,
+      wordCount: true,
+      prompts: true,
+      visualCues: true,
+      music: false,
+      zoomIn: true
+    }
+  } else if (entry.mode === 'mindfulJournal') {
+    entry.settings = {
+      timer: false,
+      wordCount: true,
+      prompts: true,
+      visualCues: false,
+      music: true,
+      zoomIn: false
+    }
   }
 })
 
