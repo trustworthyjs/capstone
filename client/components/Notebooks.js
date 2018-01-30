@@ -3,6 +3,9 @@ import { connect } from 'react-redux'
 import { getNotebooksDb, me } from '../store'
 import { Link } from 'react-router-dom'
 import { GridList, GridTile } from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
+import Subheader from 'material-ui/Subheader';
+import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 
 
 const styles = {
@@ -20,7 +23,9 @@ const styles = {
 };
 
 export class Notebooks extends Component {
-
+  constructor(props) {
+    super(props)
+  }
 
   componentDidMount() {
     if (!this.props.notebooks.length) {
@@ -35,7 +40,7 @@ export class Notebooks extends Component {
           cellHeight={180}
           style={styles.gridList}
         >
-
+          <Subheader>Notebooks</Subheader>
           {this.props.notebooks && this.props.notebooks.map((notebook) => {
             return (
               <Link to={`/my-notebooks/${notebook.id}`} key={notebook.id}>
@@ -43,7 +48,7 @@ export class Notebooks extends Component {
                   title={notebook.title}
                   subtitle={<span><b>{new Date(notebook.updatedAt).toDateString()}</b></span>}
                   key={notebook.id}
-
+                  actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
                   titleBackground="rgba(0,0,0,0.7), 0%"
                 >
                   <img height={150} src={`/images/001-agenda-6.png`} />
