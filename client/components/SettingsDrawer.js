@@ -31,8 +31,8 @@ export class SettingsDrawer extends React.Component {
           <div>
             <div>
               <div className="ui toggle checkbox">
-                <input type="checkbox" name="timer" checked={checkSettings.timer} onChange={this.changeSettings}/>
                 <label>Timer</label>
+                <input type="checkbox" name="timer" checked={checkSettings.timer} onChange={this.changeSettings}/>
               </div>
               {checkSettings.timer && (
                 <div style={{display: 'flex'}}>
@@ -44,8 +44,8 @@ export class SettingsDrawer extends React.Component {
               )}
             </div>  
             <div className="ui toggle checkbox">
-              <input type="checkbox" name="wordCount" checked={checkSettings.wordCount}/>
               <label>Word Count</label>
+              <input type="checkbox" name="wordCount" checked={checkSettings.wordCount}/>
             </div>
             {checkSettings.wordCount && (
               <div>
@@ -55,19 +55,19 @@ export class SettingsDrawer extends React.Component {
             )}
 
             <div className="ui toggle checkbox">
-              <input type="checkbox" name="public" checked={checkSettings.prompts}/>
               <label>Prompts</label>
+              <input type="checkbox" name="public" checked={checkSettings.prompts}/>
             </div>
             {checkSettings.prompts && (
               <div>prompts</div>
             )}
             <div className="ui toggle checkbox">
-              <input type="checkbox" name="public" checked={checkSettings.visualCues}/>
               <label>Visual Cues</label>
+              <input type="checkbox" name="public" checked={checkSettings.visualCues}/>
             </div>
             <div className="ui toggle checkbox">
-              <input type="checkbox" name="public" checked={checkSettings.music}/>
               <label>Music</label>
+              <input type="checkbox" name="public" checked={checkSettings.music}/>
             </div>
             <DropDownMenu>
               <MenuItem value={'pirate'} primaryText="PIRATE"/>
