@@ -2,7 +2,8 @@ import React from 'react';
 import { getNotebooksDb, me } from '../store'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import {SingleEntry} from './'
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import {Link} from 'react-router-dom'
 
 export class singleNotebook extends React.Component {
 
@@ -22,19 +23,20 @@ export class singleNotebook extends React.Component {
             return foundNotebook.id === notebookId
           }).entries.map(entry => {
             return (
-
-              <div key={entry.id}>{entry.title}
-              <SingleEntry />
-              </div>
+              <Link key={entry.id} to={`/my-notebooks/${notebookId}/entry/${entry.id}`}>
+                <Card>
+                  <CardTitle title={entry.title} subtitle={`Last Save: ${entry.id}`} />
+                  <CardText>
+                    {entry.content.slice(50)}
+                  </CardText>
+                </Card>
+              </Link>
             )
           })
-
         }
-
       </div>
     )
   }
-
 }
 
 const mapState = (state) => {

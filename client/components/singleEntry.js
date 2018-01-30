@@ -1,58 +1,58 @@
 import React from 'react';
-import {Card, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {connect} from 'react-redux';
+import {getEntryDb} from '../store';
+import {withRouter} from 'react-router';
+import Paper from 'material-ui/Paper';
 
+const style = {
+  height: 500,
+  width: 100,
+  margin: 20,
+  textAlign: 'center',
+  display: 'inline-block'
+}
 
-export default class CardExampleControlled extends React.Component {
+export class SingleEntry extends React.Component {
 
-
-
-    state = {
-      expanded: false,
+  componentDidMount(){
+    if (!this.props.singleEntry){
+      this.props.getOneEntry(+this.props.match.params.entryId)
     }
-
-
-  handleExpandChange = (expanded) => {
-    this.setState({expanded: expanded});
-  };
-
-  handleToggle = (event, toggle) => {
-    this.setState({expanded: toggle});
-  };
-
-  handleExpand = () => {
-    this.setState({expanded: true});
-  };
-
-  handleReduce = () => {
-    this.setState({expanded: false});
-  };
+  }
 
   render() {
+    let entry = this.props.singleEntry
     return (
-      <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
-        <CardHeader
-          title="URL Avatar"
-          subtitle="Subtitle"
-          //avatar="images/ok-128.jpg"
-          actAsExpander={true}
-          showExpandableButton={true}
-        />
-        
-        <CardMedia
-          expandable={true}
-          overlay={<CardTitle title="Overlay title" subtitle="Overlay subtitle" />}
-        >
-          <img src="images/nature-600-337.jpg" alt="" />
-        </CardMedia>
-        <CardTitle title="Card title" subtitle="Card subtitle" expandable={true} />
-        <CardText expandable={true}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-        </CardText>
-
-      </Card>
-    );
+      <div>
+        {entry.submitted ?
+          <div>
+            <Paper style={style} zDepth={1} rounded={false}>
+              <h1>Title: {entry.title}</h1>
+              <h2>Saved At: {entry.savedAt}</h2>
+              <p>{entry.content}</p>
+            </Paper>
+          </div>
+        :
+        <h1>This entry is still in progress</h1>
+        }
+      </div>
+    )
   }
 }
+
+const mapState = (state) => {
+  return {
+    user: state.user,
+    singleEntry: state.singleEntry
+  }
+}
+
+const mapDispatch = (dispatch) => {
+  return {
+    getOneEntry: (entryId) => {
+      dispatch(getEntryDb(entryId))
+    }
+  }
+}
+
+export default connect(mapState, mapDispatch)(withRouter(SingleEntry))
