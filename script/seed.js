@@ -74,21 +74,21 @@ async function seed () {
   console.log(`seeded ${notebooks.length} notebooks`)
 
   const entries = await Promise.all([
-    Entry.create({content: txt1, mode: 'freeWrite', notebookId: 1, userId: 1, savedAt: '2017-12-26 11:49:31.029-06'}),
-    Entry.create({content: txt2, mode: 'mindfulJournal', notebookId: 1, userId: 1, savedAt: '2017-10-26 11:49:31.029-06'}),
-    Entry.create({content: txt3, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-26 11:49:31.029-06'}),
-    Entry.create({content: txt4, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
-    Entry.create({content: txt5, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
-    Entry.create({content: txt6, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-10-27 11:49:31.029-06'}),
-    Entry.create({content: txt7, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-07 11:49:31.029-06'}),
-    Entry.create({content: txt8, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-11-07 11:49:31.029-06'}),
-    Entry.create({content: txt9, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-09 11:49:31.029-06'}),
-    Entry.create({content: txt10, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-10 11:49:31.029-06'}),
-    Entry.create({content: txt11, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-12-21 11:49:31.029-06'}),
-    Entry.create({content: txt12, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-12-22 11:49:31.029-06'}),
-    Entry.create({content: txt13, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-01 11:49:31.029-06'}),
-    Entry.create({content: txt14, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-02 11:49:31.029-06'}),
-    Entry.create({content: txt15, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-03 11:49:31.029-06'}),
+    Entry.create({content: txt1, mode: 'freeWrite', notebookId: 1, userId: 1, savedAt: '2017-12-26 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt2, mode: 'mindfulJournal', notebookId: 1, userId: 1, savedAt: '2017-10-26 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt3, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-26 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt4, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt5, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt6, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-10-27 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt7, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-07 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt8, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-11-07 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt9, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-09 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt10, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-10 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt11, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-12-21 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt12, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-12-22 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt13, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-01 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt14, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-02 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt15, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-03 11:49:31.029-06', 'submitted': 'true'}),
   ])
 
   console.log(`seeded ${entries.length} entries`)

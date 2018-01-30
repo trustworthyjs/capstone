@@ -3,7 +3,23 @@ import { getNotebooksDb, me } from '../store'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import {GridList, GridTile} from 'material-ui/GridList';
+import Subheader from 'material-ui/Subheader';
 import {Link} from 'react-router-dom'
+
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+  },
+  gridList: {
+    width: 500,
+    height: 450,
+    overflowY: 'auto',
+  },
+};
+
 
 export class singleNotebook extends React.Component {
 
@@ -14,20 +30,21 @@ export class singleNotebook extends React.Component {
 
   }
   render() {
-
     const notebookId = +this.props.match.params.notebookId
+    let theNotebook = this.props.notebooks.find(foundNotebook => {
+      return foundNotebook.id === notebookId
+    })
     return (
-      <div>
+      <div className="notebookContainer">
+        {<Subheader>{this.props.notebooks && this.props.notebooks.length > 0 && theNotebook.title}</Subheader>}
         {
-          this.props.notebooks && this.props.notebooks.length && this.props.notebooks.find(foundNotebook => {
-            return foundNotebook.id === notebookId
-          }).entries.map(entry => {
+          this.props.notebooks && this.props.notebooks.length > 0 && theNotebook.entries.map(entry => {
             return (
               <Link key={entry.id} to={`/my-notebooks/${notebookId}/entry/${entry.id}`}>
                 <Card>
-                  <CardTitle title={entry.title} subtitle={`Last Save: ${entry.id}`} />
+                  <CardTitle title={entry.title} subtitle={`Last Save: ${entry.savedAt}`} />
                   <CardText>
-                    {entry.content.slice(50)}
+                    {entry.content.slice(0, 100) + '...'}
                   </CardText>
                 </Card>
               </Link>

@@ -41,7 +41,7 @@ router.get(`/user/:userId`, async (req, res, next) => {
       },
       include: [{
         model: Entry,
-        attributes: ['id', 'title', 'mode', 'createdAt', 'updatedAt', 'notebookId']
+        attributes: ['id', 'title', 'mode', 'createdAt', 'updatedAt', 'notebookId', 'content', 'savedAt', 'submitted']
       }]
     })
     res.json(userNotebooksEntries)
