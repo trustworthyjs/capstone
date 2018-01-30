@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks} from './components'
+import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook, SingleEntry} from './components'
 import {me, fetchDataAnalysis, toggleSubmitPopupThunk, getNotebooksDb} from './store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -18,14 +18,14 @@ import {fade} from 'material-ui/utils/colorManipulator';
  */
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: '#ffcdd2',
+    primary1Color: '#fff3e0',
     primary2Color: '#ffffff',
     primary3Color: '#cb9ca1',
     accent1Color: '#ff8f00',
     accent2Color: '#ffc046',
     accent3Color: '#c56000',
     textColor: darkBlack,
-    alternateTextColor: '000000',
+    alternateTextColor: darkBlack,
     canvasColor: white,
     borderColor: grey300,
     disabledColor: fade(darkBlack, 0.3),
@@ -33,6 +33,7 @@ const muiTheme = getMuiTheme({
     clockCircleColor: fade(darkBlack, 0.07),
     shadowColor: fullBlack,
   },
+  fontFamily: 'Ubuntu Mono, monospace',
   appBar: {
     height: 50,
   },
@@ -67,7 +68,9 @@ class Routes extends Component {
                   <Route path="/home" component={UserHome} />
                   <Route path="/data-analysis" component={DataAnalysis} />
                   <Route path="/word-cloud" component={WordCloud} />
-                  <Route path="/my-notebooks" component={Notebooks} />
+                  <Route exact path="/my-notebooks" component={Notebooks} />
+                  <Route exact path="/my-notebooks/:notebookId" component={SingleNotebook} />
+                  <Route path="/my-notebooks/:notebookId/entry/:entryId" component={SingleEntry} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
