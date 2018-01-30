@@ -1,8 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {StreaksGraph} from '../components'
-import {PersonalityRadarChart} from './'
-import WordCloud from './WordCloud';
+import {PersonalityRadarChart, WordCloud} from './'
 
 /**
  * COMPONENT
@@ -16,11 +14,15 @@ class DataAnalysis extends React.Component {
   render(){
     const data = this.props.data
       return (
-        <div>
+        <div className="container">
           <h3>Heres your data!</h3>
-          <StreaksGraph />
-          <WordCloud />
-          <PersonalityRadarChart />
+          <div>
+            <WordCloud />
+          </div>
+          <br />
+          <div>
+            <PersonalityRadarChart />
+          </div>
         </div>
       )
   }

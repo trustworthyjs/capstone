@@ -28,7 +28,7 @@ export class SingleEntry extends React.Component {
           <div>
             <Paper style={style} zDepth={1} rounded={false}>
               <h1>Title: {entry.title}</h1>
-              <h2>Saved At: {entry.savedAt}</h2>
+              <h2>Saved At: {new Date(entry.savedAt).toString()}</h2>
               <p>{entry.content}</p>
             </Paper>
           </div>
