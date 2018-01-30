@@ -1,14 +1,18 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {withRouter, Link, NavLink} from 'react-router-dom'
-import {logout} from '../store'
+import { connect } from 'react-redux'
+import { withRouter, Link, NavLink } from 'react-router-dom'
+import { logout } from '../store'
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import IconMenu from 'material-ui/IconMenu';
+import IconButton from 'material-ui/IconButton';
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import FlatButton from 'material-ui/FlatButton';
 
 export class Main extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       open: false
@@ -16,52 +20,58 @@ export class Main extends Component {
     this.clickLeft = this.clickLeft.bind(this)
   }
 
-  clickLeft(){
+  clickLeft() {
     this.setState({
       open: !this.state.open
     })
   }
 
-  handleClose = () => this.setState({open: false});
+  handleClose = () => this.setState({ open: false });
 
-  render(){
-    const {children, handleClick, isLoggedIn, user} = this.props
+  render() {
+    const { children, handleClick, isLoggedIn, user } = this.props
     return (
       <div>
-        <AppBar
-        title="Writer App"
-        iconClassNameRight="muidocs-icon-navigation-expand-more"
-        onLeftIconButtonClick={this.clickLeft}
-        zDepth={1}
-        >
-        <Drawer
-        docked={false}
-        open={this.state.open}
-        onRequestChange={(open) => this.setState({open})}
-        containerStyle={{
-          top: 50.67
-        }}>
-          <NavLink to="/home"><MenuItem>New Entry</MenuItem></NavLink>
-          <NavLink to="/my-notebooks"><MenuItem>Notebooks</MenuItem></NavLink>
-          <NavLink to="/data-analysis"><MenuItem>Trends</MenuItem></NavLink>
-          <MenuItem>Streaks</MenuItem>
-        </Drawer>
-        <nav className="nav-stuff">
-          {
-            isLoggedIn
-              ? <div>
-                {/* The navbar will show these links after you log in */}
-                <Link to="">{user.email}</Link>
-                <a href="#" onClick={handleClick}>Logout</a>
-              </div>
-              : <div>
-                {/* The navbar will show these links before you log in */}
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Sign Up</Link>
-              </div>
-          }
-        </nav>
-        </AppBar>
+        {
+          isLoggedIn ?
+            <AppBar
+              title="Writer App"
+              onLeftIconButtonClick={this.clickLeft}
+              zDepth={1}
+              iconElementRight={<FlatButton href="/account" label={`${user.email}`} />}
+            >
+              <Drawer
+                docked={false}
+                open={this.state.open}
+                onRequestChange={(open) => this.setState({ open })}
+                containerStyle={{
+                  top: 50.67
+                }}>
+                <NavLink to="/home"><MenuItem>New Entry</MenuItem></NavLink>
+                <NavLink to="/my-notebooks"><MenuItem>Notebooks</MenuItem></NavLink>
+                <NavLink to="/data-analysis"><MenuItem>Trends</MenuItem></NavLink>
+                <MenuItem>Streaks</MenuItem>
+              </Drawer>
+              <IconMenu
+                iconButtonElement={
+                  <IconButton touch={true}>
+                    <NavigationExpandMoreIcon />
+                  </IconButton>
+                }
+              >
+                <MenuItem primaryText="logout" onClick={handleClick} />
+                <MenuItem primaryText="Account" href="/account" />
+              </IconMenu>
+            </AppBar> :
+            //This AppBar will appear after login
+            <AppBar
+              title={<span>Writer App</span>}
+              iconElementLeft={<div />}
+              iconElementRight={
+                <FlatButton label="Login / Sign up" href="/login" />
+              }
+            />
+        }
         {children}
       </div>
     )
@@ -80,7 +90,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleClick () {
+    handleClick() {
       dispatch(logout())
     }
   }
