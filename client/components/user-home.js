@@ -8,7 +8,7 @@ import {default as SubmitEntryPopup} from './SubmitEntryPopup'
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
-
+import { withRouter } from 'react-router'
 
 /**
  * COMPONENT
@@ -25,7 +25,7 @@ export class UserHome extends React.Component {
       entryToSubmit: {},
       dialogOpen: true
     }
-    this.toggleSubmitPopup = this.toggleSubmitPopup.bind(this),
+    this.toggleSubmitPopup = this.toggleSubmitPopup.bind(this)
     this.handleModeSelection = this.handleModeSelection.bind(this)
   }
 
@@ -136,13 +136,11 @@ export class UserHome extends React.Component {
       right: bounds.right - 20,
       bottom: bounds.bottom + 300,
       backgroundColor: 'orange'
-    };
-    // const actions = [
-      
-    // ];
+    }
+    const SubmitEntryPopupWithRouter = withRouter(SubmitEntryPopup)
     return (
       <div>
-        <Dialog 
+        <Dialog
           title="Choose your writing mode..."
           open={this.state.dialogOpen}>
           <div style={{display: "flex", justifyContent: "space-around"}}>
@@ -158,19 +156,16 @@ export class UserHome extends React.Component {
           </div>
         </Dialog>
         <div className="editor-prompt">
-          <h3>Welcome, {email}</h3>
           {this.state.showPopup &&
             <div className="popup" style={styles}>
               What did you do today?
-          </div>
+            </div>
           }
-          <div className="editor" />
-        </div>
-        }
         <div className="editor" />
+        </div>
         <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} />
         {this.props.showSubmitPopup &&
-          <SubmitEntryPopup entry={this.state.entryToSubmit} />
+          <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
         }
       </div>
     )
