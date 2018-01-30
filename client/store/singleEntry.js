@@ -6,6 +6,7 @@ import axios from 'axios'
 const GET_ENTRY = 'GET_ENTRY'
 const CREATE_ENTRY = 'CREATE_ENTRY'
 const SAVE_ENTRY = 'SAVE_ENTRY'
+const UPDATE_SETTINGS = 'UPDATE_SETTINGS'
 // const REMOVE_USER = 'REMOVE_USER'
 
 /**
@@ -19,6 +20,7 @@ const defaultEntry = {}
 const getEntry = entry => ({type: GET_ENTRY, entry})
 const createEntry = entry => ({type: CREATE_ENTRY, entry})
 const saveEntry = entry => ({type: SAVE_ENTRY, entry})
+const updateSettings = entry => ({type: UPDATE_SETTINGS, settings})
 
 /**
  * THUNK CREATORS
@@ -55,6 +57,8 @@ export default function (state = defaultEntry, action) {
       return action.entry
     case SAVE_ENTRY:
       return action.entry
+    case UPDATE_SETTINGS:
+      return Object.assign({}, state, {settings: action.settings})
     default:
       return state
   }
