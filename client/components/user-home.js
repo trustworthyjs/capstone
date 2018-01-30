@@ -9,6 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import { withRouter } from 'react-router'
+import SettingsDrawer from './SettingsDrawer'
 
 /**
  * COMPONENT
@@ -23,10 +24,10 @@ export class UserHome extends React.Component {
       strokeSinceSave: 0,
       editor: '',
       entryToSubmit: {},
-      dialogOpen: true
+      dialogOpen: true,
+      settingsOpen: false
     }
-    this.toggleSubmitPopup = this.toggleSubmitPopup.bind(this)
-    this.handleModeSelection = this.handleModeSelection.bind(this)
+
   }
 
   setEditor(editor) {
@@ -93,10 +94,8 @@ export class UserHome extends React.Component {
               })
             } else {
               var text = editor.getText(range.index, range.length);
-
             }
           }
-
           userHome.setState({
             showPopup: true
           })
@@ -105,7 +104,7 @@ export class UserHome extends React.Component {
     });
   }
 
-  toggleSubmitPopup() {
+  toggleSubmitPopup = () => {
     let currentState = this.props.showSubmitPopup
     this.props.setSubmitPopup(!currentState)
     let editedEntry = {
@@ -117,14 +116,18 @@ export class UserHome extends React.Component {
     this.setState({ entryToSubmit: editedEntry })
   }
 
-  handleModeSelection(event) {
+  handleModeSelection = (event) => {
     const mode = event.target.name
-    console.log('mode selected: ',mode)
+    console.log('mode selected: ', event.target)
     //this will need to be hooked up with a prompt from the landing page to determine which notebook (old or new) it goes into
     this.props.createEntry({
       mode
     })
     this.setState({dialogOpen: false})
+  }
+
+  toggleSettingsVisible = () => {
+    this.setState({settingsOpen: !this.state.settingsOpen})
   }
 
   render() {
@@ -138,30 +141,38 @@ export class UserHome extends React.Component {
       backgroundColor: 'orange'
     }
     const SubmitEntryPopupWithRouter = withRouter(SubmitEntryPopup)
+    const modeDialog = (
+      <Dialog 
+        title="Choose your writing mode..."
+        open={this.state.dialogOpen}>
+        <div style={{display: "flex", justifyContent: "space-around"}}>
+          <button className="mode-btn" id="free-write-btn" name="freeWrite" onClick={this.handleModeSelection}>
+            <div className="mode-btn-label" name="freeWrite" onClick={this.handleModeSelection}>Free Writing</div>
+          </button>
+          <button className="mode-btn" id="mindful-journal-btn" name="mindfulJournal" onClick={this.handleModeSelection}>
+            <div className="mode-btn-label" name="mindfulJournal" onClick={this.handleModeSelection}>Mindfulness Journal</div>
+          </button>
+          <button className="mode-btn" id="custom-btn" name="custom" onClick={this.handleModeSelection}>
+            <div className="mode-btn-label" name="custom" onClick={this.handleModeSelection}>Custom</div>
+          </button>
+        </div>
+      </Dialog>
+    )
+  
     return (
       <div>
-        <Dialog
-          title="Choose your writing mode..."
-          open={this.state.dialogOpen}>
-          <div style={{display: "flex", justifyContent: "space-around"}}>
-            <button className="mode-btn" id="free-write-btn" name="freeWrite" onClick={this.handleModeSelection}>
-              <div className="mode-btn-label">Free Writing</div>
-            </button>
-            <button className="mode-btn" id="mindful-journal-btn" name="mindfulJournal" onClick={this.handleModeSelection}>
-              <div className="mode-btn-label">Mindfulness Journal</div>
-            </button>
-            <button className="mode-btn" id="custom-btn" name="custom" onClick={this.handleModeSelection}>
-              <div className="mode-btn-label">Custom</div>
-            </button>
-          </div>
-        </Dialog>
-        <div className="editor-prompt">
-          {this.state.showPopup &&
-            <div className="popup" style={styles}>
-              What did you do today?
+        {modeDialog}
+        <div id="editor-with-settings">
+          <div className="editor-prompt">
+            {this.state.showPopup &&
+              <div className="popup" style={styles}>
+                What did you do today?
             </div>
-          }
-        <div className="editor" />
+            }
+            <div className="editor" />
+            </div>
+          <button className="settings-icon" onClick={this.toggleSettingsVisible}/>
+          <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen}/>
         </div>
         <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} />
         {this.props.showSubmitPopup &&
