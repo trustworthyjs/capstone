@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook} from './components'
+import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook, SingleEntry} from './components'
 import {me, fetchDataAnalysis, toggleSubmitPopupThunk, getNotebooksDb} from './store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -69,7 +69,8 @@ class Routes extends Component {
                   <Route path="/data-analysis" component={DataAnalysis} />
                   <Route path="/word-cloud" component={WordCloud} />
                   <Route exact path="/my-notebooks" component={Notebooks} />
-                  <Route path="/my-notebooks/:notebookId" component={SingleNotebook} />
+                  <Route exact path="/my-notebooks/:notebookId" component={SingleNotebook} />
+                  <Route path="/my-notebooks/:notebookId/entry/:entryId" component={SingleEntry} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
