@@ -4,7 +4,6 @@ import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook} from './components'
-import {me, fetchDataAnalysis} from './store'
 import {me, fetchDataAnalysis, toggleSubmitPopupThunk, getNotebooksDb} from './store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
