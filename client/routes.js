@@ -4,13 +4,11 @@ import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook} from './components'
-import {me, fetchDataAnalysis} from './store'
 import {me, fetchDataAnalysis, toggleSubmitPopupThunk, getNotebooksDb} from './store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {darkBlack, fullBlack, white, cyan500, cyan700, grey300, grey400, grey100, grey500, deepPurple300, red500, pink200, pink300} from 'material-ui/colors';
-
-
-import { createMuiTheme } from 'material-ui/styles';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {darkBlack, fullBlack, white, cyan500, cyan700, grey300, grey400, grey100, grey500, deepPurple300, red500, pink200, pink300} from 'material-ui/styles/colors';
+import {fade} from 'material-ui/utils/colorManipulator';
 
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 
@@ -18,7 +16,7 @@ import { createMuiTheme } from 'material-ui/styles';
 /**
  * COMPONENT
  */
-const muiTheme = createMuiTheme({
+const muiTheme = getMuiTheme({
   palette: {
     primary1Color: '#fff3e0',
     primary2Color: '#ffffff',
@@ -30,9 +28,9 @@ const muiTheme = createMuiTheme({
     alternateTextColor: darkBlack,
     canvasColor: white,
     borderColor: grey300,
-    disabledColor: grey100,
+    disabledColor: fade(darkBlack, 0.3),
     pickerHeaderColor: deepPurple300,
-    clockCircleColor: grey100,
+    clockCircleColor: fade(darkBlack, 0.07),
     shadowColor: fullBlack,
   },
   fontFamily: 'Ubuntu Mono, monospace',
