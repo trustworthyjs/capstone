@@ -43,7 +43,7 @@ export class Notebooks extends Component {
           <Subheader>Notebooks</Subheader>
           {this.props.notebooks && this.props.notebooks.map((notebook) => {
             return (
-              <Link to={`/my-notebooks/${notebook.id}`} key={notebook.id}>
+              <Link to={`/notebooks/${notebook.id}`} key={notebook.id}>
                 <GridTile
                   title={notebook.title}
                   subtitle={<span><b>{new Date(notebook.updatedAt).toDateString()}</b></span>}

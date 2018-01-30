@@ -24,6 +24,10 @@ form div {
     display: inline-block;
 }
 
+.container{
+    padding: 40px
+}
+
 .editor {
     height: 60vh;
 }
