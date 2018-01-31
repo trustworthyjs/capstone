@@ -68,6 +68,8 @@ export class UserHome extends React.Component {
     };
     var editor = new Quill('.editor', options);
     this.setEditor(editor)
+
+    //DO NOT DELETE THIS CODE. MAY BE USED IN FUTURE.
     //disable delete
     // editor.keyboard.addBinding({
     //   key: 'Backspace',
@@ -91,8 +93,9 @@ export class UserHome extends React.Component {
 
     let userHome = this
     editor.on('text-change', function (delta, oldDelta, source) {
-      
+
       //counts the words in the editor and sets the number on state if it's different.
+
       let editorText = editor.getText(); 
       let numWords = countWords(editorText) - 1;
       if (userHome.props.editorValues.wordsWritten !== numWords) {
@@ -188,12 +191,12 @@ export class UserHome extends React.Component {
   }
 
   render() {
-    
+
     // console.log('interval running?: ',this.interval)
     const { email } = this.props
     const { bounds } = this.state
     const editorValues = this.props.editorValues;
-    
+
     //formats the total seconds on the timer to a string -> 'm:ss'
     const timer = `${Math.floor(editorValues.timer / 60)}:${('0' + editorValues.timer%60).slice(-2)}`
 
@@ -210,7 +213,7 @@ export class UserHome extends React.Component {
     }
     const SubmitEntryPopupWithRouter = withRouter(SubmitEntryPopup)
     const modeDialog = (
-      <Dialog 
+      <Dialog
         title="Choose your writing mode..."
         open={this.state.dialogOpen}>
         <div style={{display: "flex", justifyContent: "space-around"}}>
@@ -226,7 +229,7 @@ export class UserHome extends React.Component {
         </div>
       </Dialog>
     )
-  
+
     //determine if timer should be shown
     const showTimer = () => {
       if (singleEntry.settings){
