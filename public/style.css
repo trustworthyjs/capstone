@@ -158,7 +158,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    font-smooth: always;
     margin: 0;
     padding: 0;
 }
@@ -170,11 +169,12 @@ body {
     flex-direction: column;
     justify-content: center;
     left: 0;
-    padding: 20px 0;
     position: absolute;
     right: 0;
     top: 0;
+    height: 100vh;
 }
+
 
 .app-inner {
     display: flex;
@@ -186,6 +186,7 @@ body {
 
 .tag-cloud {
     flex: 1;
+    height: 100%;
 }
 
 .tag-cloud>div {

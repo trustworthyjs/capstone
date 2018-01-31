@@ -4,7 +4,7 @@ import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook, SingleEntry, StreaksGraph} from './components'
-import {me, fetchDataAnalysis, toggleSubmitPopupThunk, getNotebooksDb, getEntriesDb} from './store'
+import {me, toggleSubmitPopupThunk, getNotebooksDb, getEntriesDb} from './store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {darkBlack, fullBlack, white, cyan500, cyan700, grey300, grey400, grey100, grey500, deepPurple300, red500, pink200, pink300} from 'material-ui/styles/colors';
@@ -48,7 +48,6 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     if (this.props.isLoggedIn) {
-      this.props.getInitialData(this.props.user.id)
       this.props.setInitialSubmitPopup(false)
       this.props.getNotebooks(this.props.user.id)
       this.props.getEntries(this.props.user.id)
@@ -67,7 +66,7 @@ class Routes extends Component {
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/landing" component={LandingPage} />
                   <Route path="/home" component={UserHome} />
-                  <Route path="/data-analysis" component={DataAnalysis} />
+                  <Route path="/trends" component={DataAnalysis} />
                   <Route path="/streaks" component={StreaksGraph} />
                   <Route path="/word-cloud" component={WordCloud} />
                   <Route exact path="/notebooks" component={Notebooks} />
@@ -101,9 +100,6 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialUser () {
       dispatch(me())
-    },
-    getInitialData: (userId) => {
-      dispatch(fetchDataAnalysis(userId))
     },
     setInitialSubmitPopup: (state) => {
       dispatch(toggleSubmitPopupThunk(state))
