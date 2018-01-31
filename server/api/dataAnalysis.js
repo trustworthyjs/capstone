@@ -4,10 +4,12 @@ let analyzeData = require('../../createDataFunc')
 module.exports = router
 
 router.get('/:userId', (req, res, next) => {
-  DataAnalysis.findOne({
+  DataAnalysis.findAll({
+    limit: 1,
     where: {
       userId: req.params.userId
-    }
+    },
+    order: [[ 'updatedAt', 'DESC' ]]
   })
     .then(data => res.json(data))
     .catch(next)

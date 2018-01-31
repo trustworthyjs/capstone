@@ -48,8 +48,8 @@ export class Main extends Component {
                   top: 50.67
                 }}>
                 <NavLink to="/home"><MenuItem>New Entry</MenuItem></NavLink>
-                <NavLink to="/my-notebooks"><MenuItem>Notebooks</MenuItem></NavLink>
-                <NavLink to="/data-analysis"><MenuItem>Trends</MenuItem></NavLink>
+                <NavLink to="/notebooks"><MenuItem>Notebooks</MenuItem></NavLink>
+                <NavLink to="/trends"><MenuItem>Trends</MenuItem></NavLink>
                 <MenuItem>Streaks</MenuItem>
               </Drawer>
               <IconMenu
