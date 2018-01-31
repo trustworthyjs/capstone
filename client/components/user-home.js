@@ -11,6 +11,7 @@ import FlatButton from 'material-ui/FlatButton'
 import { withRouter } from 'react-router'
 import SettingsDrawer from './SettingsDrawer'
 import Paper from 'material-ui/Paper';
+import Alarm from 'material-ui/svg-icons/action/alarm'
 
 //util functions
 function shuffle(a) {
@@ -264,21 +265,20 @@ export class UserHome extends React.Component {
         {modeDialog}
         <div className='settings-values'>
         {showTimer() &&
-          <div>
-            <label>Timer: </label>
-            <div>{timer}</div>
-          </div>
+
+          <FlatButton
+          label={timer}
+          labelPosition="before"
+          primary={true}
+          icon={<Alarm />}
+        />
+
         }
         {showWordCount() &&
-          <div>
-            <label>Word Count: </label>
-            <div>{wordRatio}</div>
-          </div>
+            <FlatButton>{wordRatio}</FlatButton>
         }
         {showPrompts() &&
-          <div>
-            <label>Prompts enabled</label>
-          </div>
+          <FlatButton>Prompts</FlatButton>
         }
         </div>
         <div id="editor-with-settings">
