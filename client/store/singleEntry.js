@@ -48,7 +48,7 @@ export const getEntryDb = (entryId) =>
       .catch(err => console.log(err))
 
 export const createEntryDb = (newEntry) =>
-  dispatch => 
+  dispatch =>
     axios.post(`/api/entries`, newEntry)
       .then(res =>
         dispatch(createEntry(res.data)))
@@ -70,7 +70,7 @@ export const saveEntryDb = (editedEntry, notebookId, history, userId) =>
 export const updateSettingsDb = (settings) => {
   dispatch => {
     axios.put(`/api/entries/${editedEntry.id}`, settings)
-      .then(res => 
+      .then(res =>
         dispatch(getEntry(res.data)))
       .catch(err => console.log(err))
   }
