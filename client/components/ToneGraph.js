@@ -141,7 +141,7 @@ class ToneGraph extends React.Component {
       beginRangeDate.setHours(0, 0, 0, 0 )
     }
     if (!range || range === 'last30Days'){
-      beginRangeDate.setDate(nowDate.getDate() - 30)
+      beginRangeDate.setDate(nowDate.getDate() - 40)
       beginRangeDate.setHours(0, 0, 0, 0)
     }
     let filteredEntries = entries.filter((entry) => {
@@ -151,7 +151,6 @@ class ToneGraph extends React.Component {
   }
 
   calculateDataFunc = (filtered) => {
-    console.log('filtered entries', filtered)
     let dataObj = {}
     let count = {}
     filtered.forEach((entry) => {
@@ -217,7 +216,6 @@ class ToneGraph extends React.Component {
     this.setState({
       toneGraphData: graphData
     })
-    console.log('graphData', graphData)
   }
 
   render () {
