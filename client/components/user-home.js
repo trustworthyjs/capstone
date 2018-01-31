@@ -155,7 +155,10 @@ export class UserHome extends React.Component {
     if (!this.interval){
       this.interval = setInterval(() => {
         let newSeconds = this.props.editorValues.timer - 1;
-        if (newSeconds < 0) clearInterval(this.interval)
+        if (newSeconds < 0) {
+          clearInterval(this.interval)
+          this.state.editor.enable(false);
+        }
         else {
           this.props.dispatchTimerCountdown(newSeconds)
         }
