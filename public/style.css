@@ -4,8 +4,8 @@
 
 body {
     font-family: 'Ubuntu Mono', monospace;
-    background-image: url('https://img00.deviantart.net/7809/i/2007/271/7/7/pirate_wallpaper_by_unpatient.jpg');
-    background-size: cover;
+    /* background-image: url('https://img00.deviantart.net/7809/i/2007/271/7/7/pirate_wallpaper_by_unpatient.jpg');
+    background-size: cover; */
 }
 
 a {
@@ -52,16 +52,25 @@ form div {
 
 /*Home page */
 
+.setting {
+    margin: 10px;
+}
+
+.radio-field {
+    margin: 10px;
+}
+
 #settings-drawer {
     right: 0;
+    transition: visibility 0.5s linear;
 }
 
 .settings-icon {
     height: 30px;
     width: 30px;
     border: none;
-    background-color: rgba(0, 0, 0, 0);
-    background-image: url("https://image.flaticon.com/icons/svg/61/61094.svg");
+    border-radius: 50%;
+    background-image: url("https://comps.canstockphoto.com/settings-icon-on-green-background-with-eps-vectors_csp24793638.jpg");
     background-size: cover;
     position: absolute;
     z-index: 5;
@@ -74,19 +83,21 @@ form div {
     width: 75%;
     margin: 5px auto 50% auto;
     position: relative;
-    background-color: rgb(202, 200, 200);
+    /* background-color: rgb(202, 200, 200); */
 }
 
-.editor {
-    background-image: url('data:image/jpeg;base64,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');
+
+/* .editor {
+    background-image: url('https://www.pergamena.net/s/ccream.JPG');
     background-size: cover;
-}
+} */
 
 .settings-values {
     margin: 7% auto 0 auto;
     display: flex;
     justify-content: space-evenly;
     width: 50%;
+    min-height: 25px;
 }
 
 .settings-values div {
