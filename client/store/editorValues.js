@@ -13,7 +13,13 @@ const RESET_VALUES = 'RESET_VALUES'
 const defaultValues = {
     timer: 600, //seconds left
     wordsWritten: 0, 
-    wordCount: 300 //default word count goal
+    wordCount: 300, //default word count goal
+    promptArray: [
+      'what did you do today?',
+      'how ya feeling?',
+      'what did you think about star wars?',
+      'do you like our app?'
+    ]
     // need to add default prompts, visual cues, music, etc. here
 }
 
