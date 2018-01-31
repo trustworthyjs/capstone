@@ -169,8 +169,16 @@ class ToneGraph extends React.Component {
         })
       }
     })
-    console.log('dataobj', dataObj)
-    return dataObj
+    //sort by date
+    let sortedObj = {}
+    let keys = Object.keys(dataObj)
+    keys.sort()
+
+    for (let i = 0 ; i < keys.length ; i++ ){
+      let item = keys[i]
+      sortedObj[item] = dataObj[item]
+    }
+    return sortedObj
   }
 
   prepData = (entries) => {
