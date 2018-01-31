@@ -5,6 +5,7 @@ import axios from 'axios'
  */
 const GET_VALUES = 'GET_VALUES'
 const UPDATE_VALUES = 'UPDATE_VALUES'
+const RESET_VALUES = 'RESET_VALUES'
 
 /**
  * INITIAL STATE
@@ -19,22 +20,21 @@ const defaultValues = {
 /**
  * ACTION CREATORS
 */
-const getValues = values => ({type: GET_VALUES, values})
-const updateValues = value => ({type: UPDATE_VALUES, value})
+export const getValues = values => ({type: GET_VALUES, values})
+export const updateValues = value => ({type: UPDATE_VALUES, value})
+export const resetValues = () => ({type: RESET_VALUES})
 
 // /**
 //  * REDUCER
 //  */
-export default function (state = defaultEntry, action) {
+export default function (state = defaultValues, action) {
   switch (action.type) {
     case GET_VALUES:
-      return action.entry
-    case CREATE_ENTRY:
-      return action.entry
-    case SAVE_ENTRY:
-      return action.entry
-    case UPDATE_Values:
-      return Object.assign({}, state, {settings: action.settings})
+      return action.values
+    case UPDATE_VALUES:
+      return Object.assign({}, state, action.value)
+    case RESET_VALUES:
+      return defaultValues;
     default:
       return state
   }

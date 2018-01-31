@@ -29,8 +29,7 @@ const Entry = db.define('entry', {
   }
 })
 
-Entry.beforeUpdate(entry => {
-  console.log('hitting beforeUpdate hook', entry)
+Entry.beforeValidate(entry => {
   if (entry.mode === 'freeWrite') {
     entry.settings = {
       timer: true,
