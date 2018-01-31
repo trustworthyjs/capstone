@@ -47,16 +47,30 @@ export class UserHome extends React.Component {
       dialogOpen: true,
       settingsOpen: false,
       timerStarted: false,
-      currentPrompt: ''
+      currentPrompt: '',
+      existingEntry: ''
     }
     this.interval = '';
   }
 
-  setEditor(editor) {
+  setEditor = (editor) => {
     this.setState({editor})
   }
 
+  // setExistingEntry = () => {
+  //   if (this.props.allEntries.length > 0) {
+  //     let currentEntries = this.props.allEntries.filter(entry => !entry.submitted)
+  //     let currentIDs = currentEntries.map(entry => entry.id)
+  //     let latestID = Math.max(...currentIDs)
+  //     let currentEntriesFiltered = currentEntries.filter(entry => entry.id === latestID)
+  //     this.setState({
+  //       existingEntry: currentEntriesFiltered[0].content
+  //     })
+  //   }
+  // }
+
   componentDidMount() {
+    // this.setExistingEntry()
     var toolbarOptions = [
       { 'size': ['small', false, 'large', 'huge'] },
       'bold', 'italic', 'underline',
@@ -71,7 +85,7 @@ export class UserHome extends React.Component {
       },
       theme: 'snow',
     }
-    var editor = new Quill('.editor', options);
+    var editor = new Quill('.editor', options)
     this.setEditor(editor)
 
     //DO NOT DELETE THIS CODE. MAY BE USED IN FUTURE.
@@ -101,7 +115,7 @@ export class UserHome extends React.Component {
 
       //counts the words in the editor and sets the number on state if it's different.
 
-      let editorText = editor.getText(); 
+      let editorText = editor.getText();
       let numWords = countWords(editorText) - 1;
       if (userHome.props.editorValues.wordsWritten !== numWords) {
         userHome.props.dispatchWordsWritten(numWords);
@@ -170,7 +184,7 @@ export class UserHome extends React.Component {
       }, 1000)
     }
   }
-  
+
 
   toggleSubmitPopup = () => {
     clearInterval(this.interval)
@@ -199,6 +213,13 @@ export class UserHome extends React.Component {
   }
 
   render() {
+
+    // // pre-populating the editor with existing entries
+    // if (this.state.existingEntry !== '') {
+    //   this.state.editor.setContents([
+    //     { insert: this.state.existingEntry }
+    //   ])
+    // }
 
     // console.log('interval running?: ',this.interval)
     const { email } = this.props
@@ -262,9 +283,12 @@ export class UserHome extends React.Component {
       return false
     }
 
+    // console.log('existing entry: ', this.state.existingEntry)
+    // console.log('existing entry compared to original: ', this.state.existingEntry === '')
+
     return (
       <div>
-        {modeDialog}
+        { this.state.existingEntry === '' && modeDialog }
         <div className='settings-values'>
         {showTimer() &&
           <div>
@@ -319,7 +343,8 @@ const mapState = (state) => {
       wordsWritten: state.editorValues.wordsWritten,
       wordCount: state.editorValues.wordCount,
       shuffledPrompts: shuffle(state.editorValues.promptArray)
-    }
+    },
+    // allEntries: state.allEntries
   }
 }
 
