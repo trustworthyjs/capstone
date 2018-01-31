@@ -38,7 +38,9 @@ export class Main extends Component {
               title="Writer App"
               onLeftIconButtonClick={this.clickLeft}
               zDepth={1}
-              iconElementRight={<FlatButton href="/account" label={`${user.email}`} />}
+              iconElementRight={<FlatButton href="/account" label={`${user.email}`}
+              style={{backgroundColor: '#fff3e0'}}
+              />}
             >
               <Drawer
                 docked={false}
