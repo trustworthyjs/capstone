@@ -16,13 +16,13 @@ router.post('/', async (req, res, next) => {
 //get all entries of a single notebook
 router.get(`/:notebookId`, async (req, res, next) => {
   try {
-    let entriesInNotebook = await Notebook.findAll({
+    let entriesInNotebook = await Notebook.findOne({
       where: {
         id: +req.params.notebookId
       },
       include: [{
         model: Entry,
-        attributes: ['id', 'title', 'mode', 'createdAt', 'notebookId']
+        attributes: ['id', 'title', 'mode', 'createdAt', 'notebookId', 'content']
       }]
     })
     res.json(entriesInNotebook)

@@ -1,5 +1,5 @@
 import React from 'react';
-import { getNotebooksDb, me } from '../store'
+import { getNotebookDb, me } from '../store'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
@@ -24,25 +24,20 @@ const styles = {
 export class singleNotebook extends React.Component {
 
   componentDidMount() {
-    if (!this.props.notebooks.length) {
-      this.props.getNotebooks(this.props.user.id)
-    }
-
+      this.props.getNotebook(+this.props.match.params.notebookId)
   }
   render() {
     const notebookId = +this.props.match.params.notebookId
-    let theNotebook = this.props.notebooks.find(foundNotebook => {
-      return foundNotebook.id === notebookId
-    })
+    let theNotebook = this.props.singleNotebook
     return (
-      <div className="notebookContainer">
-        {<Subheader>{this.props.notebooks && this.props.notebooks.length > 0 && theNotebook.title}</Subheader>}
+      <div className="container">
+        {<Subheader>{theNotebook && theNotebook.title}</Subheader>}
         {
-          this.props.notebooks && this.props.notebooks.length > 0 && theNotebook.entries.map(entry => {
+          theNotebook && theNotebook.entries && theNotebook.entries.length > 0 ? theNotebook.entries.map(entry => {
             return (
-              <Link key={entry.id} to={`/my-notebooks/${notebookId}/entry/${entry.id}`}>
+              <Link key={entry.id} to={`/notebooks/${notebookId}/entry/${entry.id}`}>
                 <Card>
-                  <CardTitle title={entry.title} subtitle={`Last Save: ${entry.savedAt}`} />
+                  <CardTitle title={entry.title} subtitle={`Last Save: ${new Date(entry.savedAt)}`} />
                   <CardText>
                     {entry.content.slice(0, 100) + '...'}
                   </CardText>
@@ -50,6 +45,8 @@ export class singleNotebook extends React.Component {
               </Link>
             )
           })
+          :
+          <h4>This notebook does not have any entries!</h4>
         }
       </div>
     )
@@ -58,20 +55,20 @@ export class singleNotebook extends React.Component {
 
 const mapState = (state) => {
   return {
-    notebooks: state.notebooks,
+    singleNotebook: state.singleNotebook,
     user: state.user
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    getNotebooks: (userId) => {
-      dispatch(getNotebooksDb(userId))
+    getNotebook: (notebookId) => {
+      dispatch(getNotebookDb(notebookId))
     },
     getMe: () => {
       dispatch(me())
         .then((userAction) => {
-          dispatch(getNotebooksDb(userAction.user.id))
+          dispatch(getNotebookDb(userAction.user.id))
         })
     }
   }

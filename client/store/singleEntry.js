@@ -1,5 +1,22 @@
 import axios from 'axios'
+import analyzeData from '../../createDataFunc'
+import { createDataAnalysis } from './index'
+require('../../secrets')
 
+/**
+ * HELPER FUNCTIONS
+ */
+async function createDataAfterNewEntry(userId) {
+  const entries = await axios.get(`/api/entries/user/${userId}`)
+  let entriesString = ''
+  entries.data.forEach(entry => {
+        if (entry.content) {
+          entriesString = entriesString + ' ' + entry.content
+        }
+      })
+  const dataObj = await axios.post(`/api/dataAnalysis/nlp-api-data/${userId}`, {entriesString})
+  return dataObj.data
+}
 /**
  * ACTION TYPES
  */
@@ -7,7 +24,6 @@ const GET_ENTRY = 'GET_ENTRY'
 const CREATE_ENTRY = 'CREATE_ENTRY'
 const SAVE_ENTRY = 'SAVE_ENTRY'
 const UPDATE_SETTINGS = 'UPDATE_SETTINGS'
-// const REMOVE_USER = 'REMOVE_USER'
 
 /**
  * INITIAL STATE
@@ -38,11 +54,17 @@ export const createEntryDb = (newEntry) =>
         dispatch(createEntry(res.data)))
       .catch(err => console.log(err))
 
-export const saveEntryDb = (editedEntry) =>
+export const saveEntryDb = (editedEntry, notebookId, history, userId) =>
   dispatch =>
     axios.put(`/api/entries/${editedEntry.id}`, editedEntry)
-      .then(res =>
-        dispatch(saveEntry(res.data)))
+      .then(res => {
+        dispatch(saveEntry(res.data))
+        history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
+      })
+      .then(async () => {
+        let dataObj = await createDataAfterNewEntry(userId)
+        dispatch(createDataAnalysis(userId, dataObj))
+      })
       .catch(err => console.log(err))
 
 export const updateSettingsDb = (settings) => {
