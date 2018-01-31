@@ -31,12 +31,12 @@ let info = [
       {
         "color": "hsl(108, 70%, 50%)",
         "x": "entry3",
-        "y": 0.21
+        "y": 0
       },
       {
         "color": "hsl(261, 70%, 50%)",
         "x": "entry4",
-        "y": 0.44
+        "y": 0
       },
       {
         "color": "hsl(298, 70%, 50%)",
@@ -169,7 +169,7 @@ class ToneGraph extends React.Component {
         })
       }
     })
-    console.log('dataObj', dataObj)
+    console.log('dataobj', dataObj)
     return dataObj
   }
 
@@ -189,13 +189,15 @@ class ToneGraph extends React.Component {
       if (tones.hasOwnProperty(tone)){
         let entryData = []
         for (let day in entries){
-          let value = entries[day].find((obj) => {
-            return obj.tone_id === tone
-          })
-          entryData.push({
-            "x": day,
-            "y": value ? value.score : 0,
-          })
+          if (entries.hasOwnProperty(day)){
+            let value = entries[day].find((obj) => {
+              return obj.tone_id === tone
+            })
+            entryData.push({
+              "x": day,
+              "y": value ? value.score : 0,
+            })
+          }
         }
         graphData.push({
           "id": tone,
@@ -207,6 +209,7 @@ class ToneGraph extends React.Component {
     this.setState({
       toneGraphData: graphData
     })
+    console.log('graphData', graphData)
   }
 
   render () {
