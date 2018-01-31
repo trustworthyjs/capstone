@@ -10,6 +10,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import { withRouter } from 'react-router'
 import SettingsDrawer from './SettingsDrawer'
+import Paper from 'material-ui/Paper';
 
 //util functions
 function shuffle(a) {
@@ -63,7 +64,10 @@ export class UserHome extends React.Component {
     var options = {
       //debug: 'info',
       placeholder: 'Start writing...',
-      theme: 'snow'
+      theme: 'snow',
+      modules: {
+        toolbar: false
+      }
 
     };
     var editor = new Quill('.editor', options);
@@ -79,12 +83,13 @@ export class UserHome extends React.Component {
     //   }
     // });
 
+    //DO NOT DELETE THIS CODE. MAY BE USED IN FUTURE.
     //disable selections and cursor change
-    editor.on('selection-change', function (range, oldRange, source) {
-      if (range) {
-        editor.getLength() - 1 !== range.index && editor.blur()
-      }
-    });
+    // editor.on('selection-change', function (range, oldRange, source) {
+    //   if (range) {
+    //     editor.getLength() - 1 !== range.index && editor.blur()
+    //   }
+    // });
 
     //disable spellcheck
     editor.root.spellcheck = false;
@@ -96,7 +101,7 @@ export class UserHome extends React.Component {
 
       //counts the words in the editor and sets the number on state if it's different.
 
-      let editorText = editor.getText(); 
+      let editorText = editor.getText();
       let numWords = countWords(editorText) - 1;
       if (userHome.props.editorValues.wordsWritten !== numWords) {
         userHome.props.dispatchWordsWritten(numWords);
@@ -162,7 +167,7 @@ export class UserHome extends React.Component {
       }, 1000)
     }
   }
-  
+
 
   toggleSubmitPopup = () => {
     clearInterval(this.interval)
@@ -283,7 +288,7 @@ export class UserHome extends React.Component {
                 {this.state.currentPrompt}
             </div>
             }
-            <div className="editor" />
+            <Paper zDepth={1} className="editor" />
             </div>
           <button className="settings-icon" onClick={this.toggleSettingsVisible}/>
           <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen}/>
