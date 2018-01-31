@@ -35,12 +35,20 @@ export class UserHome extends React.Component {
   }
 
   componentDidMount() {
+    var toolbarOptions = [
+      { 'size': ['small', false, 'large', 'huge'] },
+      'bold', 'italic', 'underline',
+      { 'list': 'ordered'}, { 'list': 'bullet' },
+      'link'
+    ]
     var options = {
       //debug: 'info',
       placeholder: 'Start writing...',
-      theme: 'snow'
-
-    };
+      modules: {
+        toolbar: toolbarOptions
+      },
+      theme: 'snow',
+    }
     var editor = new Quill('.editor', options);
     this.setEditor(editor)
     //disable delete
@@ -142,7 +150,7 @@ export class UserHome extends React.Component {
     }
     const SubmitEntryPopupWithRouter = withRouter(SubmitEntryPopup)
     const modeDialog = (
-      <Dialog 
+      <Dialog
         title="Choose your writing mode..."
         open={this.state.dialogOpen}>
         <div style={{display: "flex", justifyContent: "space-around"}}>
@@ -158,11 +166,11 @@ export class UserHome extends React.Component {
         </div>
       </Dialog>
     )
-  
+
     return (
       <div>
         {modeDialog}
-        <div id="editor-with-settings">
+        <div id="editor-with-settings" className="editor-submit-button">
           <div className="editor-prompt">
             {this.state.showPopup &&
               <div className="popup" style={styles}>
@@ -171,10 +179,10 @@ export class UserHome extends React.Component {
             }
             <div className="editor" />
             </div>
-          <button className="settings-icon" onClick={this.toggleSettingsVisible}/>
-          <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen}/>
+          <button className="settings-icon" onClick={this.toggleSettingsVisible} />
+          <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
         </div>
-        <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} />
+        <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} className="editor-submit-button" />
         {this.props.showSubmitPopup &&
           <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
         }
