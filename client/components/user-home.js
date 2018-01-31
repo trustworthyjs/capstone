@@ -57,15 +57,20 @@ export class UserHome extends React.Component {
   }
 
   componentDidMount() {
-
+    var toolbarOptions = [
+      { 'size': ['small', false, 'large', 'huge'] },
+      'bold', 'italic', 'underline',
+      { 'list': 'ordered'}, { 'list': 'bullet' },
+      'link']
     let shuffledPrompts = shuffle(this.props.editorValues.promptArray)
-
     var options = {
       //debug: 'info',
       placeholder: 'Start writing...',
-      theme: 'snow'
-
-    };
+      modules: {
+        toolbar: toolbarOptions
+      },
+      theme: 'snow',
+    }
     var editor = new Quill('.editor', options);
     this.setEditor(editor)
 
@@ -285,10 +290,10 @@ export class UserHome extends React.Component {
             }
             <div className="editor" />
             </div>
-          <button className="settings-icon" onClick={this.toggleSettingsVisible}/>
-          <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen}/>
+          <button className="settings-icon" onClick={this.toggleSettingsVisible} />
+          <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
         </div>
-        <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} />
+        <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} className="editor-submit-button" />
         {this.props.showSubmitPopup &&
           <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
         }
