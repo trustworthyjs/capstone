@@ -32,7 +32,7 @@ export const getEntryDb = (entryId) =>
       .catch(err => console.log(err))
 
 export const createEntryDb = (newEntry) =>
-  dispatch =>
+  dispatch => 
     axios.post(`/api/entries`, newEntry)
       .then(res =>
         dispatch(createEntry(res.data)))
