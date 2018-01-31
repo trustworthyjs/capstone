@@ -35,7 +35,7 @@ router.post('/nlp-api-data/entry/:entryId', (req, res, next) => {
   let entryString = req.body.entryString
   toneData(entryId, entryString)
     .then(dataObj => {
-      res.json(dataObj)
+      res.json(dataObj.tones)
     })
     .catch(next)
 })

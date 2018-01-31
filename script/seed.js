@@ -95,7 +95,7 @@ async function seed () {
   entries.map(async (entry) => {
     let tonesObj = await toneFunc(entry.id, entry.content)
     return entry.update({
-      tones: tonesObj
+      tones: tonesObj.tones
     })
   })
 
