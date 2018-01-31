@@ -45,14 +45,16 @@ export class UserHome extends React.Component {
     };
     var editor = new Quill('.editor', options);
     this.setEditor(editor)
+
+    //DO NOT DELETE THIS CODE. MAY BE USED IN FUTURE.
     //disable delete
-    editor.keyboard.addBinding({
-      key: 'Backspace',
-      shiftKey: null,
-      handler: function (range, context) {
-        //do nothing
-      }
-    });
+    // editor.keyboard.addBinding({
+    //   key: 'Backspace',
+    //   shiftKey: null,
+    //   handler: function (range, context) {
+    //     //do nothing
+    //   }
+    // });
 
     //disable selections and cursor change
     editor.on('selection-change', function (range, oldRange, source) {
@@ -68,15 +70,15 @@ export class UserHome extends React.Component {
 
     let userHome = this
     editor.on('text-change', function (delta, oldDelta, source) {
-      
+
       //counts the words in the editor and sets the number on state if it's different.
-      let editorContents = editor.getContents().ops[0].insert; 
+      let editorContents = editor.getContents().ops[0].insert;
       let numWords = editorContents.split(' ').length - 1;
       if (userHome.props.editorValues.wordsWritten !== numWords) {
         userHome.props.dispatchWordsWritten(numWords);
       }
 
-      
+
       const { timeout } = userHome.state
       clearTimeout(timeout)
       userHome.setState({
@@ -157,12 +159,12 @@ export class UserHome extends React.Component {
   }
 
   render() {
-    
+
     // console.log('interval running?: ',this.interval)
     const { email } = this.props
     const { bounds } = this.state
     const editorValues = this.props.editorValues;
-    
+
     //formats the total seconds on the timer to a string -> 'm:ss'
     const timer = `${Math.floor(editorValues.timer / 60)}:${('0' + editorValues.timer%60).slice(-2)}`
 
@@ -184,7 +186,7 @@ export class UserHome extends React.Component {
     }
     const SubmitEntryPopupWithRouter = withRouter(SubmitEntryPopup)
     const modeDialog = (
-      <Dialog 
+      <Dialog
         title="Choose your writing mode..."
         open={this.state.dialogOpen}>
         <div style={{display: "flex", justifyContent: "space-around"}}>
@@ -200,7 +202,7 @@ export class UserHome extends React.Component {
         </div>
       </Dialog>
     )
-  
+
     //determine if timer should be shown
     const showTimer = () => {
       if (singleEntry.settings){
