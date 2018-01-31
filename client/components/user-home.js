@@ -11,6 +11,26 @@ import FlatButton from 'material-ui/FlatButton'
 import { withRouter } from 'react-router'
 import SettingsDrawer from './SettingsDrawer'
 
+//util functions
+function shuffle(a) {
+  if (a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  } else return [];
+}
+
+function countWords(str) {
+  let numWords = 0;
+  str.split(' ').forEach(index => {
+    if (index) numWords++;
+  })
+  return numWords;
+}
+
+
 /**
  * COMPONENT
  */
@@ -27,9 +47,9 @@ export class UserHome extends React.Component {
       dialogOpen: true,
       settingsOpen: false,
       timerStarted: false,
-      interval: null
+      currentPrompt: ''
     }
-
+    this.interval = '';
   }
 
   setEditor(editor) {
@@ -37,6 +57,9 @@ export class UserHome extends React.Component {
   }
 
   componentDidMount() {
+
+    let shuffledPrompts = shuffle(this.props.editorValues.promptArray)
+
     var options = {
       //debug: 'info',
       placeholder: 'Start writing...',
@@ -46,13 +69,13 @@ export class UserHome extends React.Component {
     var editor = new Quill('.editor', options);
     this.setEditor(editor)
     //disable delete
-    editor.keyboard.addBinding({
-      key: 'Backspace',
-      shiftKey: null,
-      handler: function (range, context) {
-        //do nothing
-      }
-    });
+    // editor.keyboard.addBinding({
+    //   key: 'Backspace',
+    //   shiftKey: null,
+    //   handler: function (range, context) {
+    //     //do nothing
+    //   }
+    // });
 
     //disable selections and cursor change
     editor.on('selection-change', function (range, oldRange, source) {
@@ -70,13 +93,12 @@ export class UserHome extends React.Component {
     editor.on('text-change', function (delta, oldDelta, source) {
       
       //counts the words in the editor and sets the number on state if it's different.
-      let editorContents = editor.getContents().ops[0].insert; 
-      let numWords = editorContents.split(' ').length - 1;
+      let editorText = editor.getText(); 
+      let numWords = countWords(editorText) - 1;
       if (userHome.props.editorValues.wordsWritten !== numWords) {
         userHome.props.dispatchWordsWritten(numWords);
       }
 
-      
       const { timeout } = userHome.state
       clearTimeout(timeout)
       userHome.setState({
@@ -107,8 +129,11 @@ export class UserHome extends React.Component {
               var text = editor.getText(range.index, range.length);
             }
           }
+
+          userHome.props.editorValues.shuffledPrompts.length &&
           userHome.setState({
-            showPopup: true
+            showPopup: true,
+            currentPrompt: userHome.props.editorValues.shuffledPrompts.pop()
           })
         }, 3000),
         timerStarted: true
@@ -124,14 +149,20 @@ export class UserHome extends React.Component {
   }
 
   startTimerCountdown = () => {
-    this.setState({interval: setInterval(() => {
-      let newSeconds = this.props.editorValues.timer - 1;
-      this.props.dispatchTimerCountdown(newSeconds)
-    }, 1000)
-    })
+    if (!this.interval){
+      this.interval = setInterval(() => {
+        let newSeconds = this.props.editorValues.timer - 1;
+        if (newSeconds < 0) clearInterval(this.interval)
+        else {
+          this.props.dispatchTimerCountdown(newSeconds)
+        }
+      }, 1000)
+    }
   }
+  
 
   toggleSubmitPopup = () => {
+    clearInterval(this.interval)
     let currentState = this.props.showSubmitPopup
     this.props.setSubmitPopup(!currentState)
     let editedEntry = {
@@ -166,18 +197,13 @@ export class UserHome extends React.Component {
     //formats the total seconds on the timer to a string -> 'm:ss'
     const timer = `${Math.floor(editorValues.timer / 60)}:${('0' + editorValues.timer%60).slice(-2)}`
 
-    //stop the timer if the value is at 0;
-    if (editorValues.timer <= 0) {
-      clearInterval(this.state.interval)
-    };
-
     //formats the words written and the wordcount goal to a string -> 'WW/WC'
     const wordRatio = `${editorValues.wordsWritten}/${editorValues.wordCount}`
 
     const singleEntry = this.props.singleEntry
     const styles = {
-      top: bounds.top + 220,    // computed based on child and parent's height
-      left: bounds.left + 10,   // computed based on child and parent's width
+      top: bounds.top + 55,    // computed based on child and parent's height
+      left: bounds.left > 800 ? 800 : bounds.left + 10,   // computed based on child and parent's width
       right: bounds.right - 20,
       bottom: bounds.bottom + 300,
       backgroundColor: 'orange'
@@ -189,13 +215,13 @@ export class UserHome extends React.Component {
         open={this.state.dialogOpen}>
         <div style={{display: "flex", justifyContent: "space-around"}}>
           <button className="mode-btn" id="free-write-btn" title="freeWrite" onClick={this.handleModeSelection}>
-            <p className="mode-btn-label" title="freeWrite" onClick={this.handleModeSelection}>Free Writing</p>
+            <div className="mode-btn-label" title="freeWrite" onClick={this.handleModeSelection}>Free Writing</div>
           </button>
           <button className="mode-btn" id="mindful-journal-btn" title="mindfulJournal" onClick={this.handleModeSelection}>
-            <p className="mode-btn-label" title="mindfulJournal" onClick={this.handleModeSelection}>Mindfulness Journal</p>
+            <div className="mode-btn-label" title="mindfulJournal" onClick={this.handleModeSelection}>Mindfulness Journal</div>
           </button>
           <button className="mode-btn" id="custom-btn" title="custom" onClick={this.handleModeSelection}>
-            <p className="mode-btn-label" title="custom" onClick={this.handleModeSelection}>Custom</p>
+            <div className="mode-btn-label" title="custom" onClick={this.handleModeSelection}>Custom</div>
           </button>
         </div>
       </Dialog>
@@ -217,9 +243,18 @@ export class UserHome extends React.Component {
       return false
     }
 
+    //determine if prompts should be shown
+    const showPrompts = () => {
+      if (singleEntry.settings) {
+        return singleEntry.settings.prompts;
+      }
+      return false
+    }
+
     return (
       <div>
         {modeDialog}
+        <div className='settings-values'>
         {showTimer() &&
           <div>
             <label>Timer: </label>
@@ -232,11 +267,17 @@ export class UserHome extends React.Component {
             <div>{wordRatio}</div>
           </div>
         }
+        {showPrompts() &&
+          <div>
+            <label>Prompts enabled</label>
+          </div>
+        }
+        </div>
         <div id="editor-with-settings">
           <div className="editor-prompt">
-            {this.state.showPopup &&
+            {this.state.showPopup && showPrompts() &&
               <div className="popup" style={styles}>
-                What did you do today?
+                {this.state.currentPrompt}
             </div>
             }
             <div className="editor" />
@@ -262,7 +303,12 @@ const mapState = (state) => {
     email: state.user.email,
     singleEntry: state.singleEntry,
     showSubmitPopup: state.submitPopup,
-    editorValues: state.editorValues
+    editorValues: {
+      timer: state.editorValues.timer,
+      wordsWritten: state.editorValues.wordsWritten,
+      wordCount: state.editorValues.wordCount,
+      shuffledPrompts: shuffle(state.editorValues.promptArray)
+    }
   }
 }
 

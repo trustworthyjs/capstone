@@ -55,7 +55,7 @@ export class SettingsDrawer extends React.Component {
               </div>
             </div>
             {/* --------settings-------- */}
-            <div>
+            <div className="setting">
               <div className="ui toggle checkbox">
                 <input type="checkbox" name="timer" checked={checkSettings.timer} onChange={this.handleChangeSettings}/>
                 <label>Timer</label>
@@ -69,24 +69,24 @@ export class SettingsDrawer extends React.Component {
                 </form>
               )}
             </div>  
-            <div className="ui toggle checkbox">
-              <input type="checkbox" name="wordCount" checked={checkSettings.wordCount} onChange={this.handleChangeSettings}/>
-              <label>Word Count</label>
+            <div className="setting">
+              <div className="ui toggle checkbox">
+                <input type="checkbox" name="wordCount" checked={checkSettings.wordCount} onChange={this.handleChangeSettings}/>
+                <label>Word Count</label>
+              </div>
+              {checkSettings.wordCount && (
+                <form onSubmit={this.handleSetWordCount}>
+                  <input type='text' name='wordCount' style={{width: '25%'}}/>
+                  <input type='submit' value='Set Count' />
+                </form>
+              )}
             </div>
-            {checkSettings.wordCount && (
-              <form onSubmit={this.handleSetWordCount}>
-                <input type='text' name='wordCount' style={{width: '25%'}}/>
-                <input type='submit' value='Set Count' />
-              </form>
-            )}
-
-            <div className="ui toggle checkbox">
-              <input type="checkbox" name="prompts" checked={checkSettings.prompts} onChange={this.handleChangeSettings}/>
-              <label>Prompts</label>
+            <div className="setting">
+              <div className="ui toggle checkbox">
+                <input type="checkbox" name="prompts" checked={checkSettings.prompts} onChange={this.handleChangeSettings}/>
+                <label>Prompts</label>
+              </div>
             </div>
-            {checkSettings.prompts && (
-              <div>prompts</div>
-            )}
             <div className="ui toggle checkbox">
               <input type="checkbox" name="visualCues" checked={checkSettings.visualCues} onChange={this.handleChangeSettings}/>
               <label>Visual Cues</label>

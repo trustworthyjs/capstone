@@ -24,7 +24,7 @@ form div {
     display: inline-block;
 }
 
-.container{
+.container {
     padding: 40px
 }
 
@@ -70,8 +70,19 @@ form div {
 #editor-with-settings {
     height: 75%;
     width: 75%;
-    margin: 50px auto;
+    margin: 5px auto 50% auto;
     position: relative;
+}
+
+.settings-values {
+    margin: 7% auto 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+}
+
+.settings-values div {
+    display: flex;
 }
 
 
