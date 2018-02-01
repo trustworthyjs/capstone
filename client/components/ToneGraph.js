@@ -216,6 +216,7 @@ class ToneGraph extends React.Component {
     this.setState({
       toneGraphData: graphData
     })
+    console.log('data', graphData)
   }
 
   render () {

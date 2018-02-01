@@ -70,7 +70,6 @@ class Routes extends Component {
                   <Route path="/data-analysis" component={DataAnalysis} />
                   <Route path="/streaks" component={StreaksGraph} />
                   <Route path="/word-cloud" component={WordCloud} />
-                  <Route path="/tone-graph" component={ToneGraph} />
                   <Route exact path="/notebooks" component={Notebooks} />
                   <Route exact path="/notebooks/:notebookId" component={SingleNotebook} />
                   <Route path="/notebooks/:notebookId/entry/:entryId" component={SingleEntry} />
