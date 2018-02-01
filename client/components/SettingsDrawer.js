@@ -177,23 +177,7 @@ export class SettingsDrawer extends React.Component {
                     }}
         >
         {settings}
-        <label>test</label>
-        <label>test</label>
-
-        <label>test</label>
-        <label>test</label>
-        <label>test</label>
-        <label>test</label>
-        <label>test</label>
-        <label>test</label>
-        <label>test</label>
-        <label>test</label>
-        <label>test</label>
-        <label>test</label>
-        <label>test</label>
-        <label>test</label>
-        <label>test</label>
-
+        
         </div>
       );
     } else {
