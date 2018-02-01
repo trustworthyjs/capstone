@@ -12,6 +12,7 @@
 const db = require('../server/db')
 const {User, Entry, Notebook, DataAnalysis} = require('../server/db/models')
 const analyzeData = require('../createDataFunc')
+const toneFunc = require('../createToneFunc')
 var fs = require('fs')
 
 async function seed () {
@@ -90,6 +91,13 @@ async function seed () {
     Entry.create({content: txt14, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-02 11:49:31.029-06', 'submitted': 'true'}),
     Entry.create({content: txt15, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-03 11:49:31.029-06', 'submitted': 'true'}),
   ])
+
+  entries.map(async (entry) => {
+    let tonesObj = await toneFunc(entry.id, entry.content)
+    return entry.update({
+      tones: tonesObj.tones
+    })
+  })
 
   console.log(`seeded ${entries.length} entries`)
 

@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook, SingleEntry, StreaksGraph} from './components'
-import {me, toggleSubmitPopupThunk, getNotebooksDb, getEntriesDb} from './store'
+import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook, SingleEntry, StreaksGraph, ToneGraph} from './components'
+import {me, fetchDataAnalysis, toggleSubmitPopupThunk, getNotebooksDb, getEntriesDb} from './store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {darkBlack, fullBlack, white, cyan500, cyan700, grey300, grey400, grey100, grey500, deepPurple300, red500, pink200, pink300} from 'material-ui/styles/colors';
