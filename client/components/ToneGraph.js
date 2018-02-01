@@ -2,16 +2,7 @@ import React from 'react'
 import { Line } from '@nivo/line'
 import {connect} from 'react-redux'
 import {getEntriesDb} from '../store'
-
-/*
-{
-  "tones":
-  [
-    {"score":0.588912,"tone_id":"joy","tone_name":"Joy"},
-  {"score":0.815157,"tone_id":"tentative","tone_name":"Tentative"}]
-}
-*/
-
+import FlatButton from 'material-ui/FlatButton';
 
 let info = [
   {
@@ -124,12 +115,16 @@ class ToneGraph extends React.Component {
     this.state = {
       toneGraphData: []
     }
+    this.onClickSeven = this.onClickSeven.bind(this)
+    this.onClickThirty = this.onClickThirty.bind(this)
+    this.onClickAll = this.onClickAll.bind(this)
   }
 
-  componentDidMount(){
-    if (!this.props.allEntries.length > 0){
-      this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData)
-    }
+  async componentDidMount(){
+    let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData)
+    this.setState({
+      toneGraphData: data
+    })
   }
 
   selectEntries = (entries, range ) => {
@@ -144,6 +139,9 @@ class ToneGraph extends React.Component {
       beginRangeDate.setDate(nowDate.getDate() - 40)
       beginRangeDate.setHours(0, 0, 0, 0)
     }
+    if (range === 'all'){
+      return entries
+    }
     let filteredEntries = entries.filter((entry) => {
       return new Date(entry.savedAt) >= beginRangeDate && new Date(entry.savedAt) <= nowDate
     })
@@ -151,21 +149,33 @@ class ToneGraph extends React.Component {
   }
 
   calculateDataFunc = (filtered) => {
+    console.log('filtered', filtered)
     let dataObj = {}
     let count = {}
     filtered.forEach((entry) => {
+      console.log('entry', entry)
       let savedAt = entry.savedAt.slice(0, entry.savedAt.indexOf('T'))
       if (!dataObj[savedAt]){
         dataObj[savedAt] = entry.tones
         count[savedAt] = 1
+        console.log('saved', dataObj[savedAt], 'count', count[savedAt])
       } else {
         count[savedAt]++
-        entry.tones.forEach((entryTone) => {
-          let thing = dataObj[savedAt].find((tone) => {
-            return tone.tone_id === entryTone.tone_id
+        console.log('count after', count[savedAt])
+        console.log('entry tones', entry.tones)
+        if (entry.tones){
+          entry.tones.forEach((entryTone) => {
+            let thing = dataObj[savedAt].find((tone) => {
+              return tone.tone_id === entryTone.tone_id
+            })
+            if (thing){
+              thing.score = (thing.score + entryTone.score) / count[savedAt]
+            } else {
+              // dataObj[savedAt].push(entryTone)
+              console.log('no thing')
+            }
           })
-          thing.score = (thing.score + entryTone.score) / count[savedAt]
-        })
+        }
       }
     })
     //sort by date
@@ -177,10 +187,14 @@ class ToneGraph extends React.Component {
       let item = keys[i]
       sortedObj[item] = dataObj[item]
     }
+    console.log('sortedObj', sortedObj)
     return sortedObj
   }
 
   prepData = (entries) => {
+    if (Object.keys(entries).length === 0){
+      return []
+    }
     let graphData = []
     let tones = {
       anger: {"color": "hsl(207, 70%, 50%)"},
@@ -213,17 +227,42 @@ class ToneGraph extends React.Component {
         })
       }
     }
+    return graphData
+  }
+
+  async onClickSeven(event) {
+    let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData, 'last7Days')
     this.setState({
-      toneGraphData: graphData
+      toneGraphData: data
     })
-    console.log('data', graphData)
+  }
+
+  async onClickThirty(event) {
+    let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData, 'last30Days')
+    this.setState({
+      toneGraphData: data
+    })
+  }
+
+  async onClickAll(event) {
+    let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData, 'all')
+    this.setState({
+      toneGraphData: data
+    })
   }
 
   render () {
     return (
       <div className="container">
-        <h1>This is a graph of your tones over time</h1>
-        {this.state.toneGraphData && this.state.toneGraphData.length > 0 &&
+        {this.props.allEntries && this.props.allEntries.length > 0 ?
+          <div>
+            <h5>Filter by:</h5>
+            <FlatButton label="Last 7 Days" onClick={this.onClickSeven} />
+            <FlatButton label="Last 30 Days" primary={true} onClick={this.onClickThirty} />
+            <FlatButton label="All Entries" secondary={true} onClick={this.onClickAll} />
+          </div> :
+          <div>You do not have any entries to analyze!</div>}
+        {this.state.toneGraphData.length > 0 ?
           <Line
             data={this.state.toneGraphData}
             width={800}
@@ -276,7 +315,8 @@ class ToneGraph extends React.Component {
                     "symbolShape": "circle"
                 }
             ]}
-          />
+          /> :
+          <div>No entries in the time period selected!</div>
         }
       </div>
     )
@@ -292,10 +332,10 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    getEntryData: (userId, entryFilterFunc, calculateFunc, prepFunc) => {
+    getEntryData: (userId, entryFilterFunc, calculateFunc, prepFunc, range) => {
       return dispatch(getEntriesDb(userId))
       .then((actionType) => {
-        return entryFilterFunc(actionType.entries)
+        return entryFilterFunc(actionType.entries, range)
       })
       .then((filteredEntries) => {
         return calculateFunc(filteredEntries)
