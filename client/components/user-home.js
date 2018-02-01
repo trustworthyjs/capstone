@@ -12,6 +12,7 @@ import { withRouter } from 'react-router'
 import SettingsDrawer from './SettingsDrawer'
 import Paper from 'material-ui/Paper';
 import Alarm from 'material-ui/svg-icons/action/alarm'
+import ActionAndroid from 'material-ui/svg-icons/action/android';
 
 //util functions
 function shuffle(a) {
@@ -239,6 +240,8 @@ export class UserHome extends React.Component {
     this.setState({ settingsOpen: !this.state.settingsOpen })
   }
 
+  /*eslint-disable complexity */
+
   render() {
 
     // // pre-populating the editor with existing entries
@@ -266,7 +269,7 @@ export class UserHome extends React.Component {
       right: bounds.right - 20,
       bottom: bounds.bottom + 300,
       height: '50px',
-      width: '150px',
+      width: '170px',
       "zIndex": '10',
       'alignItems': 'center',
       'alignContent': 'center',
@@ -291,7 +294,7 @@ export class UserHome extends React.Component {
           <button className="mode-btn" id="custom-btn" title="custom" onClick={this.handleModeSelection}>
             <div className="mode-btn-label" title="custom" onClick={this.handleModeSelection}>Custom</div>
           </button>
-        </div>  
+        </div>
       </Dialog>
     )
 
@@ -328,7 +331,6 @@ export class UserHome extends React.Component {
         <div className='settings-values'>
 
         {showTimer() &&
-
           <FlatButton
           label={timer}
           labelPosition="before"
@@ -337,11 +339,23 @@ export class UserHome extends React.Component {
         />
 
         }
+
         {showWordCount() &&
-            <FlatButton>{wordRatio}</FlatButton>
+            <FlatButton
+            label={wordRatio}
+            primary={true}
+            />
         }
         {showPrompts() &&
-          <FlatButton>Prompts</FlatButton>
+          <FlatButton
+          label={'Prompts Enabeled'}
+          primary={true}
+          />
+        }
+
+        <FlatButton label={'Submit Entry'} onClick={this.toggleSubmitPopup} primary={true} />
+        {this.props.showSubmitPopup &&
+          <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
         }
 
         </div>
@@ -353,16 +367,13 @@ export class UserHome extends React.Component {
               </Paper>
             }
 
-            <Paper zDepth={1} className="editor" />
+            <div className="editor" />
             </div>
 
           <button className="settings-icon" onClick={this.toggleSettingsVisible} />
           <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
         </div>
-        <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} className="editor-submit-button" />
-        {this.props.showSubmitPopup &&
-          <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
-        }
+
       </div>
     )
   }
