@@ -59,11 +59,16 @@ export const saveEntryDb = (editedEntry, notebookId, history, userId) =>
     axios.put(`/api/entries/${editedEntry.id}`, editedEntry)
       .then(res => {
         dispatch(saveEntry(res.data))
-        history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
       })
       .then(async () => {
         let dataObj = await createDataAfterNewEntry(userId)
         dispatch(createDataAnalysis(userId, dataObj))
+      })
+      .then(async () => {
+        let toneObj = await axios.post(`/api/dataAnalysis/nlp-api-data/entry/${editedEntry.id}`, {entryString: editedEntry.content})
+        await axios.put(`/api/entries/${editedEntry.id}`, {tones: toneObj.data})
+        dispatch(saveEntry({tones: toneObj.data}))
+        history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
       })
       .catch(err => console.log(err))
 
@@ -86,7 +91,7 @@ export default function (state = defaultEntry, action) {
     case CREATE_ENTRY:
       return action.entry
     case SAVE_ENTRY:
-      return action.entry
+      return Object.assign({}, state, action.entry)
     case UPDATE_SETTINGS:
       return Object.assign({}, state, {settings: action.settings})
     default:

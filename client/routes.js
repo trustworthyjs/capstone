@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook, SingleEntry, StreaksGraph} from './components'
-import {me, toggleSubmitPopupThunk, getNotebooksDb, getEntriesDb} from './store'
+import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook, SingleEntry, StreaksGraph, ToneGraph} from './components'
+import {me, fetchDataAnalysis, toggleSubmitPopupThunk, getNotebooksDb, getEntriesDb} from './store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {darkBlack, fullBlack, white, cyan500, cyan700, grey300, grey400, grey100, grey500, deepPurple300, red500, pink200, pink300} from 'material-ui/styles/colors';
@@ -19,7 +19,7 @@ import {fade} from 'material-ui/utils/colorManipulator';
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: '#fff3e0',
-    primary2Color: '#ffffff',
+    primary2Color: '#cddc39',
     primary3Color: '#cb9ca1',
     accent1Color: '#ff8f00',
     accent2Color: '#ffc046',

@@ -1,9 +1,8 @@
 import React from 'react'
-import {PersonalityRadarChart, WordCloud} from './'
+import {PersonalityRadarChart, WordCloud, ToneGraph} from './'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import { connect } from 'react-redux'
 import {fetchDataAnalysis} from '.././store'
-
 
 class DataAnalysis extends React.Component {
 
@@ -48,8 +47,8 @@ class DataAnalysis extends React.Component {
             </Tab>
           }
 
-          <Tab label="Moods Over Time" value="mood-chart">
-            <h1>Mood chart to be inserted here</h1>
+          <Tab label="Tones Over Time" value="mood-chart">
+            <ToneGraph />
           </Tab>
 
         </Tabs>
