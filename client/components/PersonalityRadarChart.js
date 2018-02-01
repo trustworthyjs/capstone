@@ -23,27 +23,27 @@ export class PersonalityRadarChart extends Component {
     // radius down to just 5 pixels around the actual circle
     handleHover(point) {
         let rect;
-        var svg = document.getElementsByTagName('svg');
-        
-        rect = svg[0].getBoundingClientRect();
-        let mouseXInChart = window.event.clientX - (this.state.chartWidth / 2 + rect.left)
-        let mouseYInChart = window.event.clientY - (this.state.chartHeight / 2 + rect.top)
-        if (point &&
-            (mouseXInChart > Math.floor(point.x) - 5 && mouseXInChart < Math.floor(point.x) + 5) &&
-            (mouseYInChart > Math.floor(point.y) - 5 && mouseYInChart < Math.floor(point.y) + 5)) {
-                let percentage = Math.floor(point.value) + '%'
+        if (this.container) {
+            var svg = this.container.querySelector('svg');
+            rect = svg.getBoundingClientRect();
+            let mouseXInChart = window.event.clientX - (this.state.chartWidth / 2 + rect.left)
+            let mouseYInChart = window.event.clientY - (this.state.chartHeight / 2 + rect.top)
+            if (point &&
+                (mouseXInChart > Math.floor(point.x) - 5 && mouseXInChart < Math.floor(point.x) + 5) &&
+                (mouseYInChart > Math.floor(point.y) - 5 && mouseYInChart < Math.floor(point.y) + 5)) {
+                    let percentage = Math.floor(point.value) + '%'
+                    this.setState({
+                        isHovering: true,
+                        popupX: window.event.clientX - rect.left,
+                        popupY: window.event.clientY - rect.top,
+                        popupMessage: percentage
+                    })             
+            } else {
                 this.setState({
-                    isHovering: true,
-                    popupX: window.event.clientX,
-                    popupY: window.event.clientY,
-                    popupMessage: percentage
-                })             
-        } else {
-            this.setState({
-                isHovering: false
-            })
+                    isHovering: false
+                })
+            }
         }
-        
     }
 
     
@@ -61,7 +61,9 @@ export class PersonalityRadarChart extends Component {
                 values[trait.name] = trait.percentile * 100;
             })
             return (
-                <div>
+                <div
+                    ref={(ref) => this.container = ref}
+                >
                 {this.state.isHovering && 
                     <Popup x={this.state.popupX} y={this.state.popupY} message={this.state.popupMessage} />
                 }

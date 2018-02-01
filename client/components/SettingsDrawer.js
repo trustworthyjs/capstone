@@ -165,6 +165,7 @@ export class SettingsDrawer extends React.Component {
       return (
         <div style={{height: domRect.height,
                       width: "225px",
+                      overflowY: 'auto',
                       right: 0, 
                       top: 0,
                       position: 'absolute',
@@ -176,6 +177,7 @@ export class SettingsDrawer extends React.Component {
                     }}
         >
         {settings}
+        
         </div>
       );
     } else {

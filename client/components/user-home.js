@@ -73,7 +73,7 @@ export class UserHome extends React.Component {
   // }
 
   componentDidMount() {
-    // this.setExistingEntry()
+    this.props.dispatchResetToDefault();
     var toolbarOptions = [
       { 'size': ['small', false, 'large', 'huge'] },
       'bold', 'italic', 'underline',
@@ -87,7 +87,6 @@ export class UserHome extends React.Component {
       modules: {
         toolbar: false
       }
-
     };
     var editor = new Quill('.editor', options);
     this.setEditor(editor)
@@ -190,7 +189,6 @@ export class UserHome extends React.Component {
     }
   }
 
-
   toggleSubmitPopup = () => {
     clearInterval(this.interval)
     let currentState = this.props.showSubmitPopup
@@ -204,14 +202,38 @@ export class UserHome extends React.Component {
     this.setState({ entryToSubmit: editedEntry })
   }
 
-  handleModeSelection = (event) => {
-    const mode = event.target.title
+  handleModeSelection = (event, clickedOutside) => {
+    this.setState({dialogOpen: false})
+    let mode;
+    if (event.target) mode = event.target.title;
+    else mode = 'custom'
     //this will need to be hooked up with a prompt from the landing page to determine which notebook (old or new) it goes into
     this.props.createEntry({
       mode
     })
-    this.setState({ dialogOpen: false })
   }
+
+  // checkClickedOutside = () => {
+  //   const clickedInsideDialogBox = (event) => {
+  //     const dialogBox = document.getElementsByClassName('dialog-container')[0];
+  //     if (dialogBox) {
+  //       const dialogBoxRect = dialogBox.getBoundingClientRect();
+  //       const dialogBoxXRange = [dialogBoxRect.x, dialogBoxRect.x + dialogBoxRect.width]
+  //       const dialogBoxYRange = [dialogBoxRect.y, dialogBoxRect.y + dialogBoxRect.height]
+  //       let mouseX = event.clientX;
+  //       let mouseY = event.clientY;
+  //       if (mouseX < dialogBoxXRange[0] || mouseX > dialogBoxXRange[1] ||
+  //           mouseY < dialogBoxYRange[0] || mouseY > dialogBoxYRange[1]) {
+  //             this.handleModeSelection(null, true)
+  //       }
+  //     }
+  //   }
+  //   if (this.state.dialogOpen){
+  //     document.addEventListener("click", clickedInsideDialogBox);
+  //   } else {
+  //     document.removeEventListener("click", clickedInsideDialogBox);
+  //   }
+  // }
 
   toggleSettingsVisible = () => {
     this.setState({ settingsOpen: !this.state.settingsOpen })
@@ -255,8 +277,11 @@ export class UserHome extends React.Component {
     const modeDialog = (
       <Dialog
         title="Choose your writing mode..."
-        open={this.state.dialogOpen}>
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
+        open={this.state.dialogOpen}
+        contentClassName = {'dialog-container'}
+        modal={false}
+        onRequestClose={this.handleModeSelection}>
+        <div style={{display: "flex", justifyContent: "space-around"}}>
           <button className="mode-btn" id="free-write-btn" title="freeWrite" onClick={this.handleModeSelection}>
             <div className="mode-btn-label" title="freeWrite" onClick={this.handleModeSelection}>Free Writing</div>
           </button>
@@ -266,7 +291,7 @@ export class UserHome extends React.Component {
           <button className="mode-btn" id="custom-btn" title="custom" onClick={this.handleModeSelection}>
             <div className="mode-btn-label" title="custom" onClick={this.handleModeSelection}>Custom</div>
           </button>
-        </div>
+        </div>  
       </Dialog>
     )
 

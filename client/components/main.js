@@ -10,6 +10,7 @@ import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import FlatButton from 'material-ui/FlatButton';
+// import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 
 export class Main extends Component {
   constructor(props) {
@@ -43,16 +44,16 @@ export class Main extends Component {
               />}
             >
               <Drawer
-                docked={false}
+                docked={true}
                 open={this.state.open}
                 onRequestChange={(open) => this.setState({ open })}
                 containerStyle={{
-                  top: 50.67
+                  top: 50
                 }}>
-                <NavLink to="/home"><MenuItem>New Entry</MenuItem></NavLink>
-                <NavLink to="/notebooks"><MenuItem>Notebooks</MenuItem></NavLink>
-                <NavLink to="/streaks"><MenuItem>Streaks</MenuItem></NavLink>
-                <NavLink to="/trends"><MenuItem>Trends</MenuItem></NavLink>
+                <NavLink onClick={this.handleClose} to="/home"><MenuItem>New Entry</MenuItem></NavLink>
+                <NavLink onClick={this.handleClose} to="/notebooks"><MenuItem>Notebooks</MenuItem></NavLink>
+                <NavLink onClick={this.handleClose} to="/streaks"><MenuItem>Streaks</MenuItem></NavLink>
+                <NavLink onClick={this.handleClose} to="/trends"><MenuItem>Trends</MenuItem></NavLink>
               </Drawer>
               <IconMenu
                 iconButtonElement={
