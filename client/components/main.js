@@ -49,10 +49,8 @@ export class Main extends Component {
                 }}>
                 <NavLink to="/home"><MenuItem>New Entry</MenuItem></NavLink>
                 <NavLink to="/notebooks"><MenuItem>Notebooks</MenuItem></NavLink>
-                <NavLink to="/data-analysis"><MenuItem>Trends</MenuItem></NavLink>
-                <NavLink to="/streaks">
-                <MenuItem>Streaks</MenuItem>
-                </NavLink>
+                <NavLink to="/streaks"><MenuItem>Streaks</MenuItem></NavLink>
+                <NavLink to="/trends"><MenuItem>Trends</MenuItem></NavLink>
               </Drawer>
               <IconMenu
                 iconButtonElement={

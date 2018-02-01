@@ -48,7 +48,6 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     if (this.props.isLoggedIn) {
-      this.props.getInitialData(this.props.user.id)
       this.props.setInitialSubmitPopup(false)
       this.props.getNotebooks(this.props.user.id)
       this.props.getEntries(this.props.user.id)
@@ -65,9 +64,8 @@ class Routes extends Component {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/landing" component={LandingPage} />
                   <Route path="/home" component={UserHome} />
-                  <Route path="/data-analysis" component={DataAnalysis} />
+                  <Route path="/trends" component={DataAnalysis} />
                   <Route path="/streaks" component={StreaksGraph} />
                   <Route path="/word-cloud" component={WordCloud} />
                   <Route exact path="/notebooks" component={Notebooks} />
@@ -101,9 +99,6 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialUser () {
       dispatch(me())
-    },
-    getInitialData: (userId) => {
-      dispatch(fetchDataAnalysis(userId))
     },
     setInitialSubmitPopup: (state) => {
       dispatch(toggleSubmitPopupThunk(state))

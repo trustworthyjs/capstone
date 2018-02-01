@@ -4,6 +4,8 @@
 
 body {
     font-family: 'Ubuntu Mono', monospace;
+    /* background-image: url('https://img00.deviantart.net/7809/i/2007/271/7/7/pirate_wallpaper_by_unpatient.jpg');
+    background-size: cover; */
 }
 
 a {
@@ -24,7 +26,7 @@ form div {
     display: inline-block;
 }
 
-.container{
+.container {
     padding: 40px
 }
 
@@ -50,16 +52,25 @@ form div {
 
 /*Home page */
 
+.setting {
+    margin: 10px;
+}
+
+.radio-field {
+    margin: 10px;
+}
+
 #settings-drawer {
     right: 0;
+    transition: visibility 0.5s linear;
 }
 
 .settings-icon {
     height: 30px;
     width: 30px;
     border: none;
-    background-color: rgba(0, 0, 0, 0);
-    background-image: url("https://image.flaticon.com/icons/svg/61/61094.svg");
+    border-radius: 50%;
+    background-image: url("https://comps.canstockphoto.com/settings-icon-on-green-background-with-eps-vectors_csp24793638.jpg");
     background-size: cover;
     position: absolute;
     z-index: 5;
@@ -70,8 +81,31 @@ form div {
 #editor-with-settings {
     height: 75%;
     width: 75%;
-    margin: 50px auto;
+    margin: 5px auto 50% auto;
     position: relative;
+    /* background-color: rgb(202, 200, 200); */
+}
+
+
+/* .editor {
+    background-image: url('https://www.pergamena.net/s/ccream.JPG');
+    background-size: cover;
+} */
+
+.settings-values {
+    margin: 7% auto 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+    width: 50%;
+    min-height: 25px;
+}
+
+.settings-values div {
+    display: flex;
+}
+
+.ql-disabled {
+    background-color: grey;
 }
 
 
@@ -158,7 +192,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    font-smooth: always;
     margin: 0;
     padding: 0;
 }
@@ -170,10 +203,10 @@ body {
     flex-direction: column;
     justify-content: center;
     left: 0;
-    padding: 20px 0;
     position: absolute;
     right: 0;
     top: 0;
+    height: 100vh;
 }
 
 .app-inner {
@@ -186,6 +219,7 @@ body {
 
 .tag-cloud {
     flex: 1;
+    height: 100%;
 }
 
 .tag-cloud>div {
