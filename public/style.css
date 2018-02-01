@@ -34,13 +34,11 @@ form div {
 
 .popup {
     margin: 10px;
-    background: #fff;
     border-radius: 5px;
     width: 26%;
     position: absolute;
     transition: all 5s ease-in-out;
     visibility: visible;
-    border-color: black;
     opacity: .7;
     padding: 5px;
     text-align: center;
@@ -263,4 +261,4 @@ body {
 }
 
 
-/* CSS STYLES ABOVE COPIED FROM REACT TAG CLOUD NPM LIBRARY */
+

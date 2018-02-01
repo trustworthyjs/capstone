@@ -4,19 +4,20 @@ import { connect } from 'react-redux'
 import Quill from 'quill'
 import { setTimeout, clearTimeout } from 'timers';
 import { getEntryDb, createEntryDb, saveEntryDb, toggleSubmitPopupThunk, updateValues, resetValues } from '../store'
-import {default as SubmitEntryPopup} from './SubmitEntryPopup'
+import { default as SubmitEntryPopup } from './SubmitEntryPopup'
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import { withRouter } from 'react-router'
 import SettingsDrawer from './SettingsDrawer'
+import Paper from 'material-ui/Paper';
 
 //util functions
 function shuffle(a) {
   if (a) {
     for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
   } else return [];
@@ -53,7 +54,7 @@ export class UserHome extends React.Component {
   }
 
   setEditor(editor) {
-    this.setState({editor})
+    this.setState({ editor })
   }
 
   componentDidMount() {
@@ -96,7 +97,7 @@ export class UserHome extends React.Component {
 
       //counts the words in the editor and sets the number on state if it's different.
 
-      let editorText = editor.getText(); 
+      let editorText = editor.getText();
       let numWords = countWords(editorText) - 1;
       if (userHome.props.editorValues.wordsWritten !== numWords) {
         userHome.props.dispatchWordsWritten(numWords);
@@ -134,10 +135,10 @@ export class UserHome extends React.Component {
           }
 
           userHome.props.editorValues.shuffledPrompts.length &&
-          userHome.setState({
-            showPopup: true,
-            currentPrompt: userHome.props.editorValues.shuffledPrompts.pop()
-          })
+            userHome.setState({
+              showPopup: true,
+              currentPrompt: userHome.props.editorValues.shuffledPrompts.pop()
+            })
         }, 3000),
         timerStarted: true
       })
@@ -152,7 +153,7 @@ export class UserHome extends React.Component {
   }
 
   startTimerCountdown = () => {
-    if (!this.interval){
+    if (!this.interval) {
       this.interval = setInterval(() => {
         let newSeconds = this.props.editorValues.timer - 1;
         if (newSeconds < 0) clearInterval(this.interval)
@@ -162,7 +163,7 @@ export class UserHome extends React.Component {
       }, 1000)
     }
   }
-  
+
 
   toggleSubmitPopup = () => {
     clearInterval(this.interval)
@@ -183,11 +184,11 @@ export class UserHome extends React.Component {
     this.props.createEntry({
       mode
     })
-    this.setState({dialogOpen: false})
+    this.setState({ dialogOpen: false })
   }
 
   toggleSettingsVisible = () => {
-    this.setState({settingsOpen: !this.state.settingsOpen})
+    this.setState({ settingsOpen: !this.state.settingsOpen })
   }
 
   render() {
@@ -198,7 +199,7 @@ export class UserHome extends React.Component {
     const editorValues = this.props.editorValues;
 
     //formats the total seconds on the timer to a string -> 'm:ss'
-    const timer = `${Math.floor(editorValues.timer / 60)}:${('0' + editorValues.timer%60).slice(-2)}`
+    const timer = `${Math.floor(editorValues.timer / 60)}:${('0' + editorValues.timer % 60).slice(-2)}`
 
     //formats the words written and the wordcount goal to a string -> 'WW/WC'
     const wordRatio = `${editorValues.wordsWritten}/${editorValues.wordCount}`
@@ -209,14 +210,20 @@ export class UserHome extends React.Component {
       left: bounds.left > 800 ? 800 : bounds.left + 10,   // computed based on child and parent's width
       right: bounds.right - 20,
       bottom: bounds.bottom + 300,
-      backgroundColor: 'orange'
+      height: '50px',
+      width: '150px',
+      "zIndex": '10',
+      'alignItems': 'center',
+      'alignContent': 'center',
+      display: 'flex',
+      'justifyContent': 'center',
     }
     const SubmitEntryPopupWithRouter = withRouter(SubmitEntryPopup)
     const modeDialog = (
       <Dialog
         title="Choose your writing mode..."
         open={this.state.dialogOpen}>
-        <div style={{display: "flex", justifyContent: "space-around"}}>
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
           <button className="mode-btn" id="free-write-btn" title="freeWrite" onClick={this.handleModeSelection}>
             <div className="mode-btn-label" title="freeWrite" onClick={this.handleModeSelection}>Free Writing</div>
           </button>
@@ -232,7 +239,7 @@ export class UserHome extends React.Component {
 
     //determine if timer should be shown
     const showTimer = () => {
-      if (singleEntry.settings){
+      if (singleEntry.settings) {
         return singleEntry.settings.timer;
       }
       return false
@@ -258,35 +265,35 @@ export class UserHome extends React.Component {
       <div>
         {modeDialog}
         <div className='settings-values'>
-        {showTimer() &&
-          <div>
-            <label>Timer: </label>
-            <div>{timer}</div>
-          </div>
-        }
-        {showWordCount() &&
-          <div>
-            <label>Word Count: </label>
-            <div>{wordRatio}</div>
-          </div>
-        }
-        {showPrompts() &&
-          <div>
-            <label>Prompts enabled</label>
-          </div>
-        }
+          {showTimer() &&
+            <div>
+              <label>Timer: </label>
+              <div>{timer}</div>
+            </div>
+          }
+          {showWordCount() &&
+            <div>
+              <label>Word Count: </label>
+              <div>{wordRatio}</div>
+            </div>
+          }
+          {showPrompts() &&
+            <div>
+              <label>Prompts enabled</label>
+            </div>
+          }
         </div>
         <div id="editor-with-settings">
           <div className="editor-prompt">
             {this.state.showPopup && showPrompts() &&
-              <div className="popup" style={styles}>
+              <Paper className="popup" style={styles}>
                 {this.state.currentPrompt}
-            </div>
+              </Paper>
             }
             <div className="editor" />
-            </div>
-          <button className="settings-icon" onClick={this.toggleSettingsVisible}/>
-          <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen}/>
+          </div>
+          <button className="settings-icon" onClick={this.toggleSettingsVisible} />
+          <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
         </div>
         <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} />
         {this.props.showSubmitPopup &&
@@ -330,13 +337,13 @@ const mapDispatch = (dispatch) => {
       dispatch(toggleSubmitPopupThunk(state))
     },
     dispatchTimerCountdown: newSeconds => {
-      dispatch(updateValues({timer: newSeconds}))
+      dispatch(updateValues({ timer: newSeconds }))
     },
     dispatchResetToDefault: () => {
       dispatch(resetValues());
     },
     dispatchWordsWritten: (numWords) => {
-      dispatch(updateValues({wordsWritten: numWords}));
+      dispatch(updateValues({ wordsWritten: numWords }));
     }
   }
 }
