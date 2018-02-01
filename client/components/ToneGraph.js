@@ -158,18 +158,28 @@ class ToneGraph extends React.Component {
       if (!dataObj[savedAt]){
         dataObj[savedAt] = entry.tones
         count[savedAt] = 1
-        console.log('saved', dataObj[savedAt], 'count', count[savedAt])
+        //if not null tones, parse count to 2 decimals
+        if (dataObj[savedAt]){
+          dataObj[savedAt].forEach((tone) => {
+            tone.score = parseFloat(tone.score.toPrecision(2))
+          })
+        }
       } else {
         count[savedAt]++
-        console.log('count after', count[savedAt])
-        console.log('entry tones', entry.tones)
+        // console.log('count after', count[savedAt])
+        // console.log('entry tones', entry.tones)
         if (entry.tones){
           entry.tones.forEach((entryTone) => {
             let thing = dataObj[savedAt].find((tone) => {
               return tone.tone_id === entryTone.tone_id
             })
             if (thing){
-              thing.score = (thing.score + entryTone.score) / count[savedAt]
+              console.log('thing score before', thing.score)
+              // console.log('entrytone score', entryTone.score)
+              // console.log('count saved', count[savedAt])
+              thing.score = ((thing.score + entryTone.score) / count[savedAt])
+              thing.score = parseFloat(thing.score.toPrecision(2))
+              console.log('thing score after', thing.score)
             } else {
               // dataObj[savedAt].push(entryTone)
               console.log('no thing')
