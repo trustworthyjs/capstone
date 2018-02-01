@@ -153,19 +153,21 @@ class ToneGraph extends React.Component {
     let dataObj = {}
     let count = {}
     filtered.forEach((entry) => {
-      console.log('entry', entry)
       let savedAt = entry.savedAt.slice(0, entry.savedAt.indexOf('T'))
       if (!dataObj[savedAt]){
         dataObj[savedAt] = entry.tones
-        count[savedAt] = 1
-        //if not null tones, parse count to 2 decimals
+        count[savedAt] = {num: 1, totals: []}
         if (dataObj[savedAt]){
           dataObj[savedAt].forEach((tone) => {
             tone.score = parseFloat(tone.score.toPrecision(2))
+            count[savedAt].totals.push({
+              score: tone.score,
+              tone_id: tone.tone_id
+            })
           })
         }
       } else {
-        count[savedAt]++
+        count[savedAt].num++
         // console.log('count after', count[savedAt])
         // console.log('entry tones', entry.tones)
         if (entry.tones){
@@ -174,20 +176,30 @@ class ToneGraph extends React.Component {
               return tone.tone_id === entryTone.tone_id
             })
             if (thing){
+              let countTotal = count[savedAt].totals.find((countTone) => {
+                return countTone.tone_id === entryTone.tone_id
+              })
+              // console.log('counttotal1', countTotal)
+              countTotal.score = countTotal.score + entryTone.score
+              // console.log('counttotal2', countTotal)
+              // console.log('value', countTotal.score / count[savedAt].num)
               console.log('thing score before', thing.score)
               // console.log('entrytone score', entryTone.score)
-              // console.log('count saved', count[savedAt])
-              thing.score = ((thing.score + entryTone.score) / count[savedAt])
+              // console.log('count saved', count[savedAt].num)
+              thing.score = countTotal.score / count[savedAt].num
               thing.score = parseFloat(thing.score.toPrecision(2))
               console.log('thing score after', thing.score)
+              console.log('dataobj[savedat]', dataObj[savedAt])
             } else {
-              // dataObj[savedAt].push(entryTone)
+              // dataObj[savedAt].totals.push(entryTone)
               console.log('no thing')
             }
           })
         }
       }
     })
+    console.log('dataobj', dataObj)
+    console.log('count', count)
     //sort by date
     let sortedObj = {}
     let keys = Object.keys(dataObj)
@@ -197,7 +209,6 @@ class ToneGraph extends React.Component {
       let item = keys[i]
       sortedObj[item] = dataObj[item]
     }
-    console.log('sortedObj', sortedObj)
     return sortedObj
   }
 
