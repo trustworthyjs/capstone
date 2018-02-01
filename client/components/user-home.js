@@ -50,7 +50,6 @@ export class UserHome extends React.Component {
       settingsOpen: false,
       timerStarted: false,
       currentPrompt: '',
-      existingEntry: ''
     }
     this.interval = '';
   }
@@ -59,18 +58,6 @@ export class UserHome extends React.Component {
   setEditor = (editor) => {
     this.setState({editor})
   }
-
-  // setExistingEntry = () => {
-  //   if (this.props.allEntries.length > 0) {
-  //     let currentEntries = this.props.allEntries.filter(entry => !entry.submitted)
-  //     let currentIDs = currentEntries.map(entry => entry.id)
-  //     let latestID = Math.max(...currentIDs)
-  //     let currentEntriesFiltered = currentEntries.filter(entry => entry.id === latestID)
-  //     this.setState({
-  //       existingEntry: currentEntriesFiltered[0].content
-  //     })
-  //   }
-  // }
 
   componentDidMount() {
     this.props.dispatchResetToDefault();
@@ -116,9 +103,7 @@ export class UserHome extends React.Component {
 
     let userHome = this
     editor.on('text-change', function (delta, oldDelta, source) {
-
       //counts the words in the editor and sets the number on state if it's different.
-
       let editorText = editor.getText();
       let numWords = countWords(editorText) - 1;
       if (userHome.props.editorValues.wordsWritten !== numWords) {
@@ -241,11 +226,10 @@ export class UserHome extends React.Component {
 
   render() {
 
+    // DON'T DELETE - I NEED TO FIX THIS - NIHARIKA
     // // pre-populating the editor with existing entries
-    // if (this.state.existingEntry !== '') {
-    //   this.state.editor.setContents([
-    //     { insert: this.state.existingEntry }
-    //   ])
+    // if (this.props.existingEntry !== '' && !this.props.existingEntryLoading) {
+    //   this.state.editor.setText(this.props.existingEntry)
     // }
 
     // console.log('interval running?: ',this.interval)
@@ -291,7 +275,7 @@ export class UserHome extends React.Component {
           <button className="mode-btn" id="custom-btn" title="custom" onClick={this.handleModeSelection}>
             <div className="mode-btn-label" title="custom" onClick={this.handleModeSelection}>Custom</div>
           </button>
-        </div>  
+        </div>
       </Dialog>
     )
 
@@ -319,12 +303,9 @@ export class UserHome extends React.Component {
       return false
     }
 
-    // console.log('existing entry: ', this.state.existingEntry)
-    // console.log('existing entry compared to original: ', this.state.existingEntry === '')
-
     return (
       <div>
-        { this.state.existingEntry === '' && modeDialog }
+        { modeDialog }
         <div className='settings-values'>
 
         {showTimer() &&
@@ -383,7 +364,6 @@ const mapState = (state) => {
       wordCount: state.editorValues.wordCount,
       shuffledPrompts: shuffle(state.editorValues.promptArray)
     },
-    // allEntries: state.allEntries
   }
 }
 

@@ -55,7 +55,7 @@ export const createEntryDb = (newEntry) =>
       .catch(err => console.log(err))
 
 export const saveEntryDb = (editedEntry, notebookId, history, userId) =>
-  dispatch =>
+  dispatch => {
     axios.put(`/api/entries/${editedEntry.id}`, editedEntry)
       .then(res => {
         dispatch(saveEntry(res.data))
@@ -71,15 +71,8 @@ export const saveEntryDb = (editedEntry, notebookId, history, userId) =>
         history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
       })
       .catch(err => console.log(err))
-
-export const updateSettingsDb = (settings) => {
-  dispatch => {
-    axios.put(`/api/entries/${editedEntry.id}`, settings)
-      .then(res =>
-        dispatch(getEntry(res.data)))
-      .catch(err => console.log(err))
   }
-}
+
 
 // /**
 //  * REDUCER

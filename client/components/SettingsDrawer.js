@@ -30,7 +30,7 @@ export class SettingsDrawer extends React.Component {
         zoomIn: false
       }
     }
-    if (this.props.singleEntry) {
+    if (this.props.singleEntry.content) {
       var checkSettings = {};
       if (this.props.singleEntry.settings){
         checkSettings = this.props.singleEntry.settings;
@@ -60,7 +60,7 @@ export class SettingsDrawer extends React.Component {
                   <input type="submit" value="Set Timer" />
                 </form>
               )}
-            </div>  
+            </div>
             <div className="setting">
               <div className="ui toggle checkbox">
                 <input type="checkbox" name="wordCount" checked={checkSettings.wordCount} onChange={this.handleChangeSettings}/>
@@ -76,7 +76,7 @@ export class SettingsDrawer extends React.Component {
             <div className="ui toggle checkbox setting">
               <input type="checkbox" name="prompts" checked={checkSettings.prompts} onChange={this.handleChangeSettings}/>
               <label>Prompts</label>
-            </div>   
+            </div>
             <div className="ui toggle checkbox setting">
               <input type="checkbox" name="visualCues" checked={checkSettings.visualCues} onChange={this.handleChangeSettings}/>
               <label>Visual Cues</label>
@@ -86,7 +86,7 @@ export class SettingsDrawer extends React.Component {
               <label>Music</label>
             </div>
             {/*theme drop down menu - implemented later probably*/}
-            <DropDownMenu> 
+            <DropDownMenu>
               <MenuItem value={'pirate'} primaryText="PIRATE"/>
               <MenuItem value={'pirate'} primaryText="PIRATE"/>
               <MenuItem value={'pirate'} primaryText="PIRATE"/>
@@ -94,7 +94,7 @@ export class SettingsDrawer extends React.Component {
               <MenuItem value={'pirate'} primaryText="PIRATE"/>
             </DropDownMenu>
             {/* --------mode radio buttons -------- */}
-            <div className="ui form">  
+            <div className="ui form">
               <div className="radio-field">
                 <div className="grouped fields">
                   <label>Change Mode: </label>
@@ -166,7 +166,7 @@ export class SettingsDrawer extends React.Component {
         <div style={{height: domRect.height,
                       width: "225px",
                       overflowY: 'auto',
-                      right: 0, 
+                      right: 0,
                       top: 0,
                       position: 'absolute',
                       zIndex: 5,
@@ -177,7 +177,7 @@ export class SettingsDrawer extends React.Component {
                     }}
         >
         {settings}
-        
+
         </div>
       );
     } else {
