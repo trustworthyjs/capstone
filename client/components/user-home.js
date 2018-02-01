@@ -49,19 +49,36 @@ export class UserHome extends React.Component {
       dialogOpen: true,
       settingsOpen: false,
       timerStarted: false,
-      currentPrompt: ''
+      currentPrompt: '',
+      existingEntry: ''
     }
     this.interval = '';
   }
 
-  setEditor(editor) {
+  setEditor = (editor) => {
     this.setState({editor})
   }
 
+  // setExistingEntry = () => {
+  //   if (this.props.allEntries.length > 0) {
+  //     let currentEntries = this.props.allEntries.filter(entry => !entry.submitted)
+  //     let currentIDs = currentEntries.map(entry => entry.id)
+  //     let latestID = Math.max(...currentIDs)
+  //     let currentEntriesFiltered = currentEntries.filter(entry => entry.id === latestID)
+  //     this.setState({
+  //       existingEntry: currentEntriesFiltered[0].content
+  //     })
+  //   }
+  // }
+
   componentDidMount() {
-
+    // this.setExistingEntry()
+    var toolbarOptions = [
+      { 'size': ['small', false, 'large', 'huge'] },
+      'bold', 'italic', 'underline',
+      { 'list': 'ordered'}, { 'list': 'bullet' },
+      'link']
     let shuffledPrompts = shuffle(this.props.editorValues.promptArray)
-
     var options = {
       //debug: 'info',
       placeholder: 'Start writing...',
@@ -161,7 +178,10 @@ export class UserHome extends React.Component {
     if (!this.interval){
       this.interval = setInterval(() => {
         let newSeconds = this.props.editorValues.timer - 1;
-        if (newSeconds < 0) clearInterval(this.interval)
+        if (newSeconds < 0) {
+          clearInterval(this.interval)
+          this.state.editor.enable(false);
+        }
         else {
           this.props.dispatchTimerCountdown(newSeconds)
         }
@@ -197,6 +217,13 @@ export class UserHome extends React.Component {
   }
 
   render() {
+
+    // // pre-populating the editor with existing entries
+    // if (this.state.existingEntry !== '') {
+    //   this.state.editor.setContents([
+    //     { insert: this.state.existingEntry }
+    //   ])
+    // }
 
     // console.log('interval running?: ',this.interval)
     const { email } = this.props
@@ -260,9 +287,12 @@ export class UserHome extends React.Component {
       return false
     }
 
+    // console.log('existing entry: ', this.state.existingEntry)
+    // console.log('existing entry compared to original: ', this.state.existingEntry === '')
+
     return (
       <div>
-        {modeDialog}
+        { this.state.existingEntry === '' && modeDialog }
         <div className='settings-values'>
         {showTimer() &&
 
@@ -290,10 +320,10 @@ export class UserHome extends React.Component {
             }
             <Paper zDepth={1} className="editor" />
             </div>
-          <button className="settings-icon" onClick={this.toggleSettingsVisible}/>
-          <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen}/>
+          <button className="settings-icon" onClick={this.toggleSettingsVisible} />
+          <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
         </div>
-        <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} />
+        <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} className="editor-submit-button" />
         {this.props.showSubmitPopup &&
           <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
         }
@@ -316,7 +346,8 @@ const mapState = (state) => {
       wordsWritten: state.editorValues.wordsWritten,
       wordCount: state.editorValues.wordCount,
       shuffledPrompts: shuffle(state.editorValues.promptArray)
-    }
+    },
+    // allEntries: state.allEntries
   }
 }
 

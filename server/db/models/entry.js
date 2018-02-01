@@ -48,7 +48,7 @@ Entry.beforeValidate(entry => {
       music: true,
       zoomIn: false
     }
-  }
+  } 
 })
 
 Entry.prototype.getFormattedTime = function (fourDigitTime) {
