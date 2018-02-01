@@ -20,8 +20,24 @@ export class SettingsDrawer extends React.Component {
   }
 
   getSettings = () => {
-    if (this.props.singleEntry.settings) {
-      var checkSettings = this.props.singleEntry.settings
+    const defaultSettings = {
+      settings: {
+        timer: false,
+        wordCount: false,
+        prompts: false,
+        visualCues: false,
+        music: false,
+        zoomIn: false
+      }
+    }
+    if (this.props.singleEntry) {
+      var checkSettings = {};
+      if (this.props.singleEntry.settings){
+        checkSettings = this.props.singleEntry.settings;
+      } else {
+        const updatedSettings = Object.assign({}, this.props.singleEntry, defaultSettings)
+        this.props.dispatchUpdate(updatedSettings);
+      }
       var entryMode = this.props.singleEntry.mode;
       return (
         <div>
@@ -30,30 +46,6 @@ export class SettingsDrawer extends React.Component {
             <button className="settings-icon" onClick={this.props.toggle}/>
           </div>
           <div>
-            {/* --------mode radio buttons -------- */}
-            <div className="ui form">  
-              <div className="grouped fields">
-                <label>Change Mode: </label>
-                <div className="field">
-                  <div className="ui radio checkbox">
-                    <input type="radio" name="freeWrite" onChange={this.handleModeChange} checked={entryMode === 'freeWrite'}/>
-                    <label>Free Write</label>
-                  </div>
-                </div>
-                <div className="field">
-                  <div className="ui radio checkbox">
-                    <input type="radio" name="mindfulJournal" onChange={this.handleModeChange} checked={entryMode === 'mindfulJournal'}/>
-                    <label>Mindful Journal</label>
-                  </div>
-                </div>
-                <div className="field">
-                  <div className="ui radio checkbox">
-                    <input type="radio" name="custom" onChange={this.handleModeChange} checked={entryMode === 'custom'}/>
-                    <label>Custom</label>
-                  </div>
-                </div>
-              </div>
-            </div>
             {/* --------settings-------- */}
             <div className="setting">
               <div className="ui toggle checkbox">
@@ -81,27 +73,52 @@ export class SettingsDrawer extends React.Component {
                 </form>
               )}
             </div>
-            <div className="setting">
-              <div className="ui toggle checkbox">
-                <input type="checkbox" name="prompts" checked={checkSettings.prompts} onChange={this.handleChangeSettings}/>
-                <label>Prompts</label>
-              </div>
-            </div>
-            <div className="ui toggle checkbox">
+            <div className="ui toggle checkbox setting">
+              <input type="checkbox" name="prompts" checked={checkSettings.prompts} onChange={this.handleChangeSettings}/>
+              <label>Prompts</label>
+            </div>   
+            <div className="ui toggle checkbox setting">
               <input type="checkbox" name="visualCues" checked={checkSettings.visualCues} onChange={this.handleChangeSettings}/>
               <label>Visual Cues</label>
             </div>
-            <div className="ui toggle checkbox">
+            <div className="ui toggle checkbox setting">
               <input type="checkbox" name="music" checked={checkSettings.music} onChange={this.handleChangeSettings}/>
               <label>Music</label>
             </div>
-            <DropDownMenu>
+            {/*theme drop down menu - implemented later probably*/}
+            <DropDownMenu> 
               <MenuItem value={'pirate'} primaryText="PIRATE"/>
               <MenuItem value={'pirate'} primaryText="PIRATE"/>
               <MenuItem value={'pirate'} primaryText="PIRATE"/>
               <MenuItem value={'pirate'} primaryText="PIRATE"/>
               <MenuItem value={'pirate'} primaryText="PIRATE"/>
             </DropDownMenu>
+            {/* --------mode radio buttons -------- */}
+            <div className="ui form">  
+              <div className="radio-field">
+                <div className="grouped fields">
+                  <label>Change Mode: </label>
+                  <div className="field">
+                    <div className="ui radio checkbox">
+                      <input type="radio" name="freeWrite" onChange={this.handleModeChange} checked={entryMode === 'freeWrite'}/>
+                      <label>Free Write</label>
+                    </div>
+                  </div>
+                  <div className="field">
+                    <div className="ui radio checkbox">
+                      <input type="radio" name="mindfulJournal" onChange={this.handleModeChange} checked={entryMode === 'mindfulJournal'}/>
+                      <label>Mindful Journal</label>
+                    </div>
+                  </div>
+                  <div className="field">
+                    <div className="ui radio checkbox">
+                      <input type="radio" name="custom" onChange={this.handleModeChange} checked={entryMode === 'custom'}/>
+                      <label>Custom</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )
@@ -112,7 +129,6 @@ export class SettingsDrawer extends React.Component {
     const settingToToggle = event.target.name
     let obj = {}
     obj[settingToToggle] = !this.props.singleEntry.settings[settingToToggle]
-    console.log('toggled: ', settingToToggle)
     const updatedSettings = Object.assign({}, this.props.singleEntry.settings, obj)
     const updatedEntry = Object.assign({}, this.props.singleEntry, {mode: 'custom', settings: updatedSettings})
     this.props.dispatchUpdate(updatedEntry);

@@ -26,6 +26,9 @@ const Entry = db.define('entry', {
   submitted: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  tones: {
+    type: Sequelize.JSON
   }
 })
 
@@ -48,7 +51,7 @@ Entry.beforeValidate(entry => {
       music: true,
       zoomIn: false
     }
-  }
+  } 
 })
 
 Entry.prototype.getFormattedTime = function (fourDigitTime) {

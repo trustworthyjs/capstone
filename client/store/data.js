@@ -24,7 +24,7 @@ export const fetchDataAnalysis = userId =>
   dispatch =>
     axios.get(`/api/dataAnalysis/${userId}`)
       .then(res =>
-        dispatch(getData(res.data || defaultData)))
+        dispatch(getData(res.data[0] || defaultData)))
       .catch(err => console.log(err))
 
 export const createDataAnalysis = (userId, dataObj) =>

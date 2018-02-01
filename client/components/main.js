@@ -38,7 +38,9 @@ export class Main extends Component {
               title="Writer App"
               onLeftIconButtonClick={this.clickLeft}
               zDepth={1}
-              iconElementRight={<FlatButton href="/account" label={`${user.email}`} />}
+              iconElementRight={<FlatButton href="/account" label={`${user.email}`}
+              style={{backgroundColor: '#fff3e0'}}
+              />}
             >
               <Drawer
                 docked={false}
@@ -49,8 +51,8 @@ export class Main extends Component {
                 }}>
                 <NavLink to="/home"><MenuItem>New Entry</MenuItem></NavLink>
                 <NavLink to="/notebooks"><MenuItem>Notebooks</MenuItem></NavLink>
+                <NavLink to="/streaks"><MenuItem>Streaks</MenuItem></NavLink>
                 <NavLink to="/trends"><MenuItem>Trends</MenuItem></NavLink>
-                <MenuItem>Streaks</MenuItem>
               </Drawer>
               <IconMenu
                 iconButtonElement={
@@ -59,8 +61,8 @@ export class Main extends Component {
                   </IconButton>
                 }
               >
-                <MenuItem primaryText="logout" onClick={handleClick} />
                 <MenuItem primaryText="Account" href="/account" />
+                <MenuItem primaryText="Logout" onClick={handleClick} />
               </IconMenu>
             </AppBar> :
             //This AppBar will appear after login

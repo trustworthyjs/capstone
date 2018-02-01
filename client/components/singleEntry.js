@@ -23,7 +23,7 @@ export class SingleEntry extends React.Component {
   render() {
     let entry = this.props.singleEntry
     return (
-      <div>
+      <div className="container">
         {entry.submitted ?
           <div>
             <Paper style={style} zDepth={1} rounded={false}>
