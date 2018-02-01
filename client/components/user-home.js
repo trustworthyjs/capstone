@@ -328,7 +328,7 @@ export class UserHome extends React.Component {
               </Paper>
             }
 
-            <Paper zDepth={1} className="editor" />
+            <div className="editor" />
             </div>
 
           <button className="settings-icon" onClick={this.toggleSettingsVisible} />

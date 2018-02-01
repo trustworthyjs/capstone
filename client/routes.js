@@ -71,6 +71,7 @@ class Routes extends Component {
                   <Route exact path="/notebooks" component={Notebooks} />
                   <Route exact path="/notebooks/:notebookId" component={SingleNotebook} />
                   <Route path="/notebooks/:notebookId/entry/:entryId" component={SingleEntry} />
+                  <Route exact path="/" component={LandingPage} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
