@@ -27,11 +27,18 @@ form div {
 }
 
 .container {
-    padding: 40px
+    padding: 40px;
+
+}
+
+.ql-container.ql-snow {
+    border: 0px solid #ccc;
 }
 
 .editor {
     height: 60vh;
+    font-size: 25px;
+    font-family: 'Ubuntu Mono', monospace;
 }
 
 .popup {

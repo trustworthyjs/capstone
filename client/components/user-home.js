@@ -10,6 +10,8 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import { withRouter } from 'react-router'
 import SettingsDrawer from './SettingsDrawer'
+import Paper from 'material-ui/Paper';
+import Alarm from 'material-ui/svg-icons/action/alarm'
 
 //util functions
 function shuffle(a) {
@@ -80,12 +82,13 @@ export class UserHome extends React.Component {
     var options = {
       //debug: 'info',
       placeholder: 'Start writing...',
-      modules: {
-        toolbar: toolbarOptions
-      },
       theme: 'snow',
-    }
-    var editor = new Quill('.editor', options)
+      modules: {
+        toolbar: false
+      }
+
+    };
+    var editor = new Quill('.editor', options);
     this.setEditor(editor)
 
     //DO NOT DELETE THIS CODE. MAY BE USED IN FUTURE.
@@ -98,12 +101,13 @@ export class UserHome extends React.Component {
     //   }
     // });
 
+    //DO NOT DELETE THIS CODE. MAY BE USED IN FUTURE.
     //disable selections and cursor change
-    editor.on('selection-change', function (range, oldRange, source) {
-      if (range) {
-        editor.getLength() - 1 !== range.index && editor.blur()
-      }
-    });
+    // editor.on('selection-change', function (range, oldRange, source) {
+    //   if (range) {
+    //     editor.getLength() - 1 !== range.index && editor.blur()
+    //   }
+    // });
 
     //disable spellcheck
     editor.root.spellcheck = false;
@@ -291,21 +295,20 @@ export class UserHome extends React.Component {
         { this.state.existingEntry === '' && modeDialog }
         <div className='settings-values'>
         {showTimer() &&
-          <div>
-            <label>Timer: </label>
-            <div>{timer}</div>
-          </div>
+
+          <FlatButton
+          label={timer}
+          labelPosition="before"
+          primary={true}
+          icon={<Alarm />}
+        />
+
         }
         {showWordCount() &&
-          <div>
-            <label>Word Count: </label>
-            <div>{wordRatio}</div>
-          </div>
+            <FlatButton>{wordRatio}</FlatButton>
         }
         {showPrompts() &&
-          <div>
-            <label>Prompts enabled</label>
-          </div>
+          <FlatButton>Prompts</FlatButton>
         }
         </div>
         <div id="editor-with-settings">
@@ -315,7 +318,7 @@ export class UserHome extends React.Component {
                 {this.state.currentPrompt}
             </div>
             }
-            <div className="editor" />
+            <Paper zDepth={1} className="editor" />
             </div>
           <button className="settings-icon" onClick={this.toggleSettingsVisible} />
           <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
