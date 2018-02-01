@@ -4,111 +4,6 @@ import {connect} from 'react-redux'
 import {getEntriesDb} from '../store'
 import FlatButton from 'material-ui/FlatButton';
 
-let info = [
-  {
-    "id": "joy",
-    "color": "hsl(5, 70%, 50%)",
-    "data": [
-      {
-        "color": "hsl(118, 70%, 50%)",
-        "x": "entry1",
-        "y": 0.58
-      },
-      {
-        "color": "hsl(157, 70%, 50%)",
-        "x": "entry2",
-        "y": 0.36
-      },
-      {
-        "color": "hsl(108, 70%, 50%)",
-        "x": "entry3",
-        "y": 0
-      },
-      {
-        "color": "hsl(261, 70%, 50%)",
-        "x": "entry4",
-        "y": 0
-      },
-      {
-        "color": "hsl(298, 70%, 50%)",
-        "x": "entry5",
-        "y": 0.22
-      },
-      {
-        "color": "hsl(164, 70%, 50%)",
-        "x": "entry6",
-        "y": 0.35
-      },
-      {
-        "color": "hsl(340, 70%, 50%)",
-        "x": "entry7",
-        "y": 0.37
-      },
-      {
-        "color": "hsl(350, 70%, 50%)",
-        "x": "entry8",
-        "y": 0.19
-      },
-      {
-        "color": "hsl(45, 70%, 50%)",
-        "x": "entry9",
-        "y": 0.43
-      }
-    ]
-  },
-  {
-    "id": "sadness",
-    "color": "hsl(346, 70%, 50%)",
-    "data": [
-      {
-        "color": "hsl(261, 70%, 50%)",
-        "x": "entry1",
-        "y": 0.57
-      },
-      {
-        "color": "hsl(204, 70%, 50%)",
-        "x": "entry2",
-        "y": 0.55
-      },
-      {
-        "color": "hsl(286, 70%, 50%)",
-        "x": "entry3",
-        "y": 0.40
-      },
-      {
-        "color": "hsl(124, 70%, 50%)",
-        "x": "entry4",
-        "y": 0.29
-      },
-      {
-        "color": "hsl(65, 70%, 50%)",
-        "x": "entry5",
-        "y": 0.2
-      },
-      {
-        "color": "hsl(338, 70%, 50%)",
-        "x": "entry6",
-        "y": 0.0
-      },
-      {
-        "color": "hsl(156, 70%, 50%)",
-        "x": "entry7",
-        "y": 0.30
-      },
-      {
-        "color": "hsl(206, 70%, 50%)",
-        "x": "entry8",
-        "y": 0.57
-      },
-      {
-        "color": "hsl(86, 70%, 50%)",
-        "x": "entry9",
-        "y": 0.42
-      }
-    ]
-  }
-]
-
 class ToneGraph extends React.Component {
   constructor(props){
     super(props)
@@ -149,11 +44,11 @@ class ToneGraph extends React.Component {
   }
 
   calculateDataFunc = (filtered) => {
-    console.log('filtered', filtered)
     let dataObj = {}
     let count = {}
     filtered.forEach((entry) => {
       let savedAt = entry.savedAt.slice(0, entry.savedAt.indexOf('T'))
+      //if there are entries and the date has not yet been added
       if (!dataObj[savedAt]){
         dataObj[savedAt] = entry.tones
         count[savedAt] = {num: 1, totals: []}
@@ -167,39 +62,45 @@ class ToneGraph extends React.Component {
           })
         }
       } else {
+        //if date exists...
         count[savedAt].num++
-        // console.log('count after', count[savedAt])
-        // console.log('entry tones', entry.tones)
+        //if this entry has tones...
         if (entry.tones){
           entry.tones.forEach((entryTone) => {
+            //for each tone, check if it already exists for this day
             let thing = dataObj[savedAt].find((tone) => {
               return tone.tone_id === entryTone.tone_id
             })
             if (thing){
+              //if it exists for the day, update the count total for that day's tone
               let countTotal = count[savedAt].totals.find((countTone) => {
                 return countTone.tone_id === entryTone.tone_id
               })
-              // console.log('counttotal1', countTotal)
               countTotal.score = countTotal.score + entryTone.score
-              // console.log('counttotal2', countTotal)
-              // console.log('value', countTotal.score / count[savedAt].num)
-              console.log('thing score before', thing.score)
-              // console.log('entrytone score', entryTone.score)
-              // console.log('count saved', count[savedAt].num)
-              thing.score = countTotal.score / count[savedAt].num
-              thing.score = parseFloat(thing.score.toPrecision(2))
-              console.log('thing score after', thing.score)
-              console.log('dataobj[savedat]', dataObj[savedAt])
+              //update the score in the data object with the correct value
+              dataObj[savedAt].find((tone) => {
+                return tone.tone_id === entryTone.tone_id
+              }).score = countTotal.score / count[savedAt].num
+              //turn it into 2 decimals
+              dataObj[savedAt].find((tone) => {
+                return tone.tone_id === entryTone.tone_id
+              }).score = parseFloat(dataObj[savedAt].find((tone) => {
+                return tone.tone_id === entryTone.tone_id
+              }).score.toPrecision(2))
             } else {
+              //if the tone isnt in the day which already exists
               // dataObj[savedAt].totals.push(entryTone)
-              console.log('no thing')
+              entryTone.score = parseFloat(entryTone.score.toPrecision(2))
+              count[savedAt].totals.push({
+                score: entryTone.score,
+                tone_id: entryTone.tone_id
+              })
+              dataObj[savedAt].push(entryTone)
             }
           })
         }
       }
     })
-    console.log('dataobj', dataObj)
-    console.log('count', count)
     //sort by date
     let sortedObj = {}
     let keys = Object.keys(dataObj)
@@ -218,7 +119,7 @@ class ToneGraph extends React.Component {
     }
     let graphData = []
     let tones = {
-      anger: {"color": "hsl(207, 70%, 50%)"},
+      anger: {"color": "hsl(20, 70%, 50%)"},
       fear: {"color": "hsl(97, 70%, 50%)"},
       joy: {"color": "hsl(352, 70%, 50%)"},
       sadness: {"color": "hsl(272, 70%, 50%)"},
@@ -277,7 +178,7 @@ class ToneGraph extends React.Component {
       <div className="container">
         {this.props.allEntries && this.props.allEntries.length > 0 ?
           <div>
-            <h5>Filter by:</h5>
+            <h5>Filter by: (default is 'Last 30 Days')</h5>
             <FlatButton label="Last 7 Days" onClick={this.onClickSeven} />
             <FlatButton label="Last 30 Days" primary={true} onClick={this.onClickThirty} />
             <FlatButton label="All Entries" secondary={true} onClick={this.onClickAll} />
