@@ -40,18 +40,44 @@ const muiTheme = getMuiTheme({
 });
 
 class Routes extends Component {
+
+  state = {
+    existingEntry: '',
+    existingEntryLoading: true
+  }
+
   componentDidMount () {
     this.props.loadInitialUser()
+    .then(() => {
+      const {isLoggedIn} = this.props
+      if (this.props.isLoggedIn) {
+        this.props.setInitialSubmitPopup(false)
+        this.props.getNotebooks(this.props.user.id)
+        this.props.getEntries(this.props.user.id)
+      }
+    })
+  }
+
+
+  setExistingEntry = () => {
+    if (this.props.allEntries.length > 0) {
+      let currentEntries = this.props.allEntries.filter(entry => !entry.submitted)
+      if (currentEntries.length > 0) {
+        let currentIDs = currentEntries.map(entry => entry.id)
+        let latestID = Math.max(...currentIDs)
+        let currentEntriesFiltered = currentEntries.filter(entry => entry.id === latestID)
+        this.setState({
+          existingEntryLoading: false,
+          existingEntry: currentEntriesFiltered[0].content
+        })
+      }
+    }
   }
 
   render () {
+
     const {isLoggedIn} = this.props
 
-    if (this.props.isLoggedIn) {
-      this.props.setInitialSubmitPopup(false)
-      this.props.getNotebooks(this.props.user.id)
-      this.props.getEntries(this.props.user.id)
-    }
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
       <Router history={history}>
@@ -64,7 +90,7 @@ class Routes extends Component {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
+                  <Route path="/home" render={() => <UserHome existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading} />} />
                   <Route path="/trends" component={DataAnalysis} />
                   <Route path="/streaks" component={StreaksGraph} />
                   <Route path="/word-cloud" component={WordCloud} />
@@ -91,14 +117,15 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
-    user: state.user
+    user: state.user,
+    allEntries: state.allEntries
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
     loadInitialUser () {
-      dispatch(me())
+      return dispatch(me())
     },
     setInitialSubmitPopup: (state) => {
       dispatch(toggleSubmitPopupThunk(state))
