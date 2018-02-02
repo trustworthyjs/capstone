@@ -16,6 +16,11 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  theme: {
+    type: Sequelize.ENUM,
+    values: ['basic', 'pirate', 'beach', 'forest', 'mountains'],
+    defaultValue: 'basic'
   }
 })
 

@@ -207,28 +207,6 @@ export class UserHome extends React.Component {
     })
   }
 
-  // checkClickedOutside = () => {
-  //   const clickedInsideDialogBox = (event) => {
-  //     const dialogBox = document.getElementsByClassName('dialog-container')[0];
-  //     if (dialogBox) {
-  //       const dialogBoxRect = dialogBox.getBoundingClientRect();
-  //       const dialogBoxXRange = [dialogBoxRect.x, dialogBoxRect.x + dialogBoxRect.width]
-  //       const dialogBoxYRange = [dialogBoxRect.y, dialogBoxRect.y + dialogBoxRect.height]
-  //       let mouseX = event.clientX;
-  //       let mouseY = event.clientY;
-  //       if (mouseX < dialogBoxXRange[0] || mouseX > dialogBoxXRange[1] ||
-  //           mouseY < dialogBoxYRange[0] || mouseY > dialogBoxYRange[1]) {
-  //             this.handleModeSelection(null, true)
-  //       }
-  //     }
-  //   }
-  //   if (this.state.dialogOpen){
-  //     document.addEventListener("click", clickedInsideDialogBox);
-  //   } else {
-  //     document.removeEventListener("click", clickedInsideDialogBox);
-  //   }
-  // }
-
   toggleSettingsVisible = () => {
     this.setState({ settingsOpen: !this.state.settingsOpen })
   }
@@ -312,8 +290,7 @@ export class UserHome extends React.Component {
     }
 
     return (
-
-       <div style={{marginTop: '-4rem'}}>
+       <div className={`editor-container ${this.props.userTheme}`} style={{marginTop: '-4rem'}}>
         { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
 
         <div className='settings-values'>
@@ -387,6 +364,7 @@ const mapState = (state) => {
       wordCount: state.editorValues.wordCount,
       shuffledPrompts: shuffle(state.editorValues.promptArray)
     },
+    userTheme: state.user.theme
   }
 }
 
