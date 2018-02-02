@@ -19,10 +19,10 @@ import {fade} from 'material-ui/utils/colorManipulator';
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: cyan500,
-    primary2Color: '#ffffff',
-    primary3Color: '#cb9ca1',
-    accent1Color: '#ff8f00',
-    accent2Color: '#ffc046',
+    primary2Color: cyan500,
+    primary3Color: cyan500,
+    accent1Color: cyan500,
+    accent2Color: cyan500,
     accent3Color: '#c56000',
     textColor: darkBlack,
     alternateTextColor: darkBlack,
@@ -100,7 +100,7 @@ class Routes extends Component {
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route component={UserHome} />
           </Switch>
         </Main>
       </Router>
