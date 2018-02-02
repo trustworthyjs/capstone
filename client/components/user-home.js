@@ -297,22 +297,26 @@ export class UserHome extends React.Component {
 
           {showTimer() &&
             <FlatButton
+              backgroundColor="#cdcdcd"
+              style={{backgroundColor: "#cdcdcd"}}
               label={timer}
               labelPosition="before"
               primary={true}
               icon={<Alarm />}
             />
-
           }
-
           {showWordCount() &&
             <FlatButton
+              backgroundColor="#cdcdcd"
+              style={{backgroundColor: "#cdcdcd"}}
               label={wordRatio}
               primary={true}
             />
           }
           {showPrompts() &&
             <FlatButton
+              backgroundColor="#cdcdcd"
+              style={{backgroundColor: "#cdcdcd"}}
               label={'Prompts Enabeled'}
               primary={true}
             />

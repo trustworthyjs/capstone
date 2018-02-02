@@ -38,7 +38,12 @@ form div {
     height: 60vh;
     font-size: 25px;
     font-family: 'Ubuntu Mono', monospace;
-    opacity: .7
+    opacity: .7;
+    background-color: rgb(192, 192, 192);
+}
+
+.settings-values>button {
+    background-color: rgb(192, 192, 192);
 }
 
 .popup {

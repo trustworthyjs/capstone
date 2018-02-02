@@ -83,7 +83,7 @@ export const submitEntryDb = (editedEntry, notebookId, history, userId) =>
   }
 
 export const updateSettingsDb = (settings) => 
-  dispatch => {
+  dispatch => 
     axios.put(`/api/entries/${editedEntry.id}`, settings)
       .then(res =>
         dispatch(getEntry(res.data)))
