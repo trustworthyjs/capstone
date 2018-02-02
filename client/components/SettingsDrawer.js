@@ -4,6 +4,7 @@ import {saveEntryDb, updateValues, updateUserTheme} from '../store'
 import Toggle from 'material-ui/Toggle'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
+import Paper from 'material-ui'
 
 export class SettingsDrawer extends React.Component {
   state = {
@@ -16,7 +17,7 @@ export class SettingsDrawer extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({editorPrompt: document.getElementById('editor-with-settings')})
+    this.setState({ editorPrompt: document.getElementById('editor-with-settings') })
   }
 
   getSettings = () => {
@@ -32,13 +33,12 @@ export class SettingsDrawer extends React.Component {
     }
     if (this.props.singleEntry.content) {
       var checkSettings = {};
-      if (this.props.singleEntry.settings){
+      if (this.props.singleEntry.settings) {
         checkSettings = this.props.singleEntry.settings;
         const entryMode = this.props.singleEntry.mode;
         return (
           <div>
             <h5>Settings</h5>
-            <button className="settings-icon" onClick={this.props.toggle}/>
           </div>
           <div>
             <div className="setting">
@@ -147,13 +147,13 @@ export class SettingsDrawer extends React.Component {
     let obj = {}
     obj[settingToToggle] = !this.props.singleEntry.settings[settingToToggle]
     const updatedSettings = Object.assign({}, this.props.singleEntry.settings, obj)
-    const updatedEntry = Object.assign({}, this.props.singleEntry, {mode: 'custom', settings: updatedSettings})
+    const updatedEntry = Object.assign({}, this.props.singleEntry, { mode: 'custom', settings: updatedSettings })
     this.props.dispatchUpdate(updatedEntry);
   }
 
   handleModeChange = (event) => {
     const mode = event.target.name;
-    const updatedEntry = Object.assign({}, this.props.singleEntry, {mode})
+    const updatedEntry = Object.assign({}, this.props.singleEntry, { mode })
     this.props.dispatchUpdate(updatedEntry);
   }
 
@@ -186,20 +186,21 @@ export class SettingsDrawer extends React.Component {
     if (editorPrompt) {
       let domRect = editorPrompt.getBoundingClientRect();
       return (
-        <div style={{height: domRect.height,
-                      width: "225px",
-                      overflowY: 'auto',
-                      right: 0,
-                      top: 0,
-                      position: 'absolute',
-                      zIndex: 5,
-                      backgroundColor: "#e8e8e8",
-                      boxShadow: "-3px 0px 5px -2px",
-                      border: "1px solid #e8e8e8",
-                      visibility: visible
-                    }}
+        <div style={{
+          height: domRect.height,
+          width: "225px",
+          overflowY: 'auto',
+          right: 0,
+          top: 0,
+          position: 'absolute',
+          zIndex: 5,
+          backgroundColor: "#e8e8e8",
+          boxShadow: "-3px 0px 5px -2px",
+          border: "1px solid #e8e8e8",
+          visibility: visible
+        }}
         >
-        {settings}
+          {settings}
 
         </div>
       );
@@ -222,7 +223,7 @@ const mapDispatch = dispatch => {
       dispatch(saveEntryDb(updatedEntry))
     }),
     dispatchSetTimer: (timeInSeconds => {
-      dispatch(updateValues({timer: timeInSeconds}))
+      dispatch(updateValues({ timer: timeInSeconds }))
     }),
     dispatchSetWordCount: (wordCount => {
       dispatch(updateValues({wordCount}))
