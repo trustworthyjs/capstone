@@ -122,9 +122,10 @@ class SubmitEntryPopup extends Component {
                 /><br />
                 <div>Cover color:</div>
                 <DropDownMenu value={this.state.notebookColorValue} onChange={this.handleNotebookColorChange}>
-                    <MenuItem value={'#FF0000'} primaryText="Red" />
-                    <MenuItem value={'#008000'} primaryText="Green" />
-                    <MenuItem value={'#0000FF'} primaryText="Blue" />
+                    <MenuItem value={'red'} primaryText="Red" />
+                    <MenuItem value={'green'} primaryText="Green" />
+                    <MenuItem value={'blue'} primaryText="Blue" />
+                    <MenuItem value={'yellow'} primaryText="Yellow" />
                 </DropDownMenu>
                 <RaisedButton
                   label="Create new notebook"

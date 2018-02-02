@@ -103,10 +103,10 @@ export class UserHome extends React.Component {
     editor.root.blur();
 
     // pre-populating the editor with existing entries
-    if ((this.props.existingEntry !== '') && !this.props.existingEntryLoading) {
-        editor.setText(this.props.existingEntry)
-        this.props.getEntry(this.props.existingEntryId)
-    }
+    // if ((this.props.existingEntry !== '') && !this.props.existingEntryLoading) {
+    //     editor.setText(this.props.existingEntry)
+    //     this.props.getEntry(this.props.existingEntryId)
+    // }
 
     let userHome = this
     editor.on('text-change', function (delta, oldDelta, source) {
