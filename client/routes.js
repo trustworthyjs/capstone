@@ -43,6 +43,7 @@ class Routes extends Component {
 
   state = {
     existingEntry: '',
+    existingEntryId: 0,
     existingEntryLoading: true,
   }
 
@@ -66,9 +67,20 @@ class Routes extends Component {
         let currentIDs = currentEntries.map(entry => entry.id)
         let latestID = Math.max(...currentIDs)
         let currentEntriesFiltered = currentEntries.filter(entry => entry.id === latestID)
+        if (currentEntriesFiltered[0].content !== null) {
+          this.setState({
+            existingEntryLoading: false,
+            existingEntry: currentEntriesFiltered[0].content,
+            existingEntryId: latestID
+          })
+        } else {
+          this.setState({
+            existingEntryLoading: false
+          })
+        }
+      } else {
         this.setState({
-          existingEntryLoading: false,
-          existingEntry: currentEntriesFiltered[0].content
+          existingEntryLoading: false
         })
       }
     }
@@ -95,8 +107,9 @@ class Routes extends Component {
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/home"
-                    render={() => !this.state.existingEntryLoading && <UserHome
-                    existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading} />}
+                    render={() => !this.state.existingEntryLoading &&<UserHome
+                    existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading}
+                    existingEntryId={this.state.existingEntryId} /> }
                   />
                   <Route path="/trends" component={DataAnalysis} />
                   <Route path="/streaks" component={StreaksGraph} />
