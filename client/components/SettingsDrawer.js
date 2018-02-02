@@ -43,7 +43,6 @@ export class SettingsDrawer extends React.Component {
         <div>
           <div>
             <h5>Settings</h5>
-            <button className="settings-icon" onClick={this.props.toggle}/>
           </div>
           <div>
             {/* --------settings-------- */}

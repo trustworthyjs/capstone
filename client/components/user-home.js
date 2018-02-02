@@ -357,7 +357,7 @@ export class UserHome extends React.Component {
             <div className="editor" />
           </div>
 
-          <button className="settings-icon" onClick={this.toggleSettingsVisible} />
+          <button className="settings-icon" onClick={this.toggleSettingsVisible} style={{top: '-3rem'}} />
           <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
         </div>
 
