@@ -1,9 +1,10 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {saveEntryDb, updateValues} from '../store'
+import { connect } from 'react-redux'
+import { saveEntryDb, updateValues } from '../store'
 import Toggle from 'material-ui/Toggle'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
+import Paper from 'material-ui'
 
 export class SettingsDrawer extends React.Component {
   state = {
@@ -16,7 +17,7 @@ export class SettingsDrawer extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({editorPrompt: document.getElementById('editor-with-settings')})
+    this.setState({ editorPrompt: document.getElementById('editor-with-settings') })
   }
 
   getSettings = () => {
@@ -32,7 +33,7 @@ export class SettingsDrawer extends React.Component {
     }
     if (this.props.singleEntry.content) {
       var checkSettings = {};
-      if (this.props.singleEntry.settings){
+      if (this.props.singleEntry.settings) {
         checkSettings = this.props.singleEntry.settings;
       } else {
         const updatedSettings = Object.assign({}, this.props.singleEntry, defaultSettings)
@@ -48,49 +49,49 @@ export class SettingsDrawer extends React.Component {
             {/* --------settings-------- */}
             <div className="setting">
               <div className="ui toggle checkbox">
-                <input type="checkbox" name="timer" checked={checkSettings.timer} onChange={this.handleChangeSettings}/>
+                <input type="checkbox" name="timer" checked={checkSettings.timer} onChange={this.handleChangeSettings} />
                 <label>Timer</label>
               </div>
               {checkSettings.timer && (
-                <form onSubmit={this.handleSetTimer} style={{display: 'flex'}}>
-                  <input type="text" name="minutes" style={{width: '15%'}}></input>
+                <form onSubmit={this.handleSetTimer} style={{ display: 'flex' }}>
+                  <input type="text" name="minutes" style={{ width: '15%' }}></input>
                   :
-                  <input type="text" name="seconds" style={{width: '15%'}}></input>
+                  <input type="text" name="seconds" style={{ width: '15%' }}></input>
                   <input type="submit" value="Set Timer" />
                 </form>
               )}
             </div>
             <div className="setting">
               <div className="ui toggle checkbox">
-                <input type="checkbox" name="wordCount" checked={checkSettings.wordCount} onChange={this.handleChangeSettings}/>
+                <input type="checkbox" name="wordCount" checked={checkSettings.wordCount} onChange={this.handleChangeSettings} />
                 <label>Word Count</label>
               </div>
               {checkSettings.wordCount && (
                 <form onSubmit={this.handleSetWordCount}>
-                  <input type='text' name='wordCount' style={{width: '25%'}}/>
+                  <input type='text' name='wordCount' style={{ width: '25%' }} />
                   <input type='submit' value='Set Count' />
                 </form>
               )}
             </div>
             <div className="ui toggle checkbox setting">
-              <input type="checkbox" name="prompts" checked={checkSettings.prompts} onChange={this.handleChangeSettings}/>
+              <input type="checkbox" name="prompts" checked={checkSettings.prompts} onChange={this.handleChangeSettings} />
               <label>Prompts</label>
             </div>
             <div className="ui toggle checkbox setting">
-              <input type="checkbox" name="visualCues" checked={checkSettings.visualCues} onChange={this.handleChangeSettings}/>
+              <input type="checkbox" name="visualCues" checked={checkSettings.visualCues} onChange={this.handleChangeSettings} />
               <label>Visual Cues</label>
             </div>
             <div className="ui toggle checkbox setting">
-              <input type="checkbox" name="music" checked={checkSettings.music} onChange={this.handleChangeSettings}/>
+              <input type="checkbox" name="music" checked={checkSettings.music} onChange={this.handleChangeSettings} />
               <label>Music</label>
             </div>
             {/*theme drop down menu - implemented later probably*/}
             <DropDownMenu>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
+              <MenuItem value={'pirate'} primaryText="PIRATE" />
+              <MenuItem value={'pirate'} primaryText="PIRATE" />
+              <MenuItem value={'pirate'} primaryText="PIRATE" />
+              <MenuItem value={'pirate'} primaryText="PIRATE" />
+              <MenuItem value={'pirate'} primaryText="PIRATE" />
             </DropDownMenu>
             {/* --------mode radio buttons -------- */}
             <div className="ui form">
@@ -99,19 +100,19 @@ export class SettingsDrawer extends React.Component {
                   <label>Change Mode: </label>
                   <div className="field">
                     <div className="ui radio checkbox">
-                      <input type="radio" name="freeWrite" onChange={this.handleModeChange} checked={entryMode === 'freeWrite'}/>
+                      <input type="radio" name="freeWrite" onChange={this.handleModeChange} checked={entryMode === 'freeWrite'} />
                       <label>Free Write</label>
                     </div>
                   </div>
                   <div className="field">
                     <div className="ui radio checkbox">
-                      <input type="radio" name="mindfulJournal" onChange={this.handleModeChange} checked={entryMode === 'mindfulJournal'}/>
+                      <input type="radio" name="mindfulJournal" onChange={this.handleModeChange} checked={entryMode === 'mindfulJournal'} />
                       <label>Mindful Journal</label>
                     </div>
                   </div>
                   <div className="field">
                     <div className="ui radio checkbox">
-                      <input type="radio" name="custom" onChange={this.handleModeChange} checked={entryMode === 'custom'}/>
+                      <input type="radio" name="custom" onChange={this.handleModeChange} checked={entryMode === 'custom'} />
                       <label>Custom</label>
                     </div>
                   </div>
@@ -129,13 +130,13 @@ export class SettingsDrawer extends React.Component {
     let obj = {}
     obj[settingToToggle] = !this.props.singleEntry.settings[settingToToggle]
     const updatedSettings = Object.assign({}, this.props.singleEntry.settings, obj)
-    const updatedEntry = Object.assign({}, this.props.singleEntry, {mode: 'custom', settings: updatedSettings})
+    const updatedEntry = Object.assign({}, this.props.singleEntry, { mode: 'custom', settings: updatedSettings })
     this.props.dispatchUpdate(updatedEntry);
   }
 
   handleModeChange = (event) => {
     const mode = event.target.name;
-    const updatedEntry = Object.assign({}, this.props.singleEntry, {mode})
+    const updatedEntry = Object.assign({}, this.props.singleEntry, { mode })
     this.props.dispatchUpdate(updatedEntry);
   }
 
@@ -162,20 +163,21 @@ export class SettingsDrawer extends React.Component {
     if (editorPrompt) {
       let domRect = editorPrompt.getBoundingClientRect();
       return (
-        <div style={{height: domRect.height,
-                      width: "225px",
-                      overflowY: 'auto',
-                      right: 0,
-                      top: 0,
-                      position: 'absolute',
-                      zIndex: 5,
-                      backgroundColor: "#e8e8e8",
-                      boxShadow: "-3px 0px 5px -2px",
-                      border: "1px solid #e8e8e8",
-                      visibility: visible
-                    }}
+        <div style={{
+          height: domRect.height,
+          width: "225px",
+          overflowY: 'auto',
+          right: 0,
+          top: 0,
+          position: 'absolute',
+          zIndex: 5,
+          backgroundColor: "#e8e8e8",
+          boxShadow: "-3px 0px 5px -2px",
+          border: "1px solid #e8e8e8",
+          visibility: visible
+        }}
         >
-        {settings}
+          {settings}
 
         </div>
       );
@@ -185,7 +187,7 @@ export class SettingsDrawer extends React.Component {
   }
 }
 
-const mapState = ({singleEntry}) => ({singleEntry})
+const mapState = ({ singleEntry }) => ({ singleEntry })
 
 const mapDispatch = dispatch => {
   return {
@@ -193,10 +195,10 @@ const mapDispatch = dispatch => {
       dispatch(saveEntryDb(updatedEntry))
     }),
     dispatchSetTimer: (timeInSeconds => {
-      dispatch(updateValues({timer: timeInSeconds}))
+      dispatch(updateValues({ timer: timeInSeconds }))
     }),
     dispatchSetWordCount: (wordCount => {
-      dispatch(updateValues({wordCount}))
+      dispatch(updateValues({ wordCount }))
     })
   }
 }
