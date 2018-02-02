@@ -3,7 +3,7 @@ import FlatButton from 'material-ui/FlatButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import React, { Component } from 'react'
-import { saveEntryDb, toggleSubmitPopupThunk, createNotebookDb } from '../store'
+import { submitEntryDb, toggleSubmitPopupThunk, createNotebookDb } from '../store'
 import { connect } from 'react-redux'
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -34,7 +34,7 @@ class SubmitEntryPopup extends Component {
     this.props.setSubmitPopup(!currentState)
   }
 
-  saveEntry = (evt) => {
+  submitEntry = (evt) => {
     evt.preventDefault()
     let notebookId = +this.state.value
     let entryToSave = {
@@ -45,7 +45,7 @@ class SubmitEntryPopup extends Component {
       submitted: true,
       mode: this.props.entry.mode
     }
-    this.props.saveEntry(entryToSave, notebookId, this.props.userId)
+    this.props.submitEntry(entryToSave, notebookId, this.props.userId)
   }
 
   handleNewNotebookClick = (evt) => {
@@ -76,7 +76,7 @@ class SubmitEntryPopup extends Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onClick={this.saveEntry}
+        onClick={this.submitEntry}
       />,
     ]
 
@@ -133,8 +133,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
-    saveEntry: (editedEntry, notebookId, userId) => {
-      dispatch(saveEntryDb(editedEntry, notebookId, ownProps.history, userId))
+    submitEntry: (editedEntry, notebookId, userId) => {
+      dispatch(submitEntryDb(editedEntry, notebookId, ownProps.history, userId))
     },
     setSubmitPopup: (state) => {
       dispatch(toggleSubmitPopupThunk(state))

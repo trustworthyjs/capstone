@@ -54,7 +54,15 @@ export const createEntryDb = (newEntry) =>
         dispatch(createEntry(res.data)))
       .catch(err => console.log(err))
 
-export const saveEntryDb = (editedEntry, notebookId, history, userId) =>
+export const saveEntryDb = (editedEntry) =>
+  dispatch =>
+    axios.put(`/api/entries/${editedEntry.id}`, editedEntry)
+      .then(res => {
+        dispatch(saveEntry(res.data))
+      })
+      .catch(err => console.log(err))
+
+export const submitEntryDb = (editedEntry, notebookId, history, userId) =>
   dispatch => {
     axios.put(`/api/entries/${editedEntry.id}`, editedEntry)
       .then(res => {
