@@ -92,6 +92,8 @@ class Routes extends Component {
       this.setExistingEntry()
     }
 
+    console.log('existing entry loading: ', this.state.existingEntryLoading)
+
     const {isLoggedIn} = this.props
 
     return (
@@ -107,7 +109,7 @@ class Routes extends Component {
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/home"
-                    render={() => !this.state.existingEntryLoading &&<UserHome
+                    render={() => !this.state.existingEntryLoading && <UserHome
                     existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading}
                     existingEntryId={this.state.existingEntryId} /> }
                   />
