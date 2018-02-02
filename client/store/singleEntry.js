@@ -54,11 +54,20 @@ export const createEntryDb = (newEntry) =>
         dispatch(createEntry(res.data)))
       .catch(err => console.log(err))
 
-export const saveEntryDb = (editedEntry, notebookId, history, userId) =>
+export const saveEntryDb = (editedEntry) =>
+  dispatch =>
+    axios.put(`/api/entries/${editedEntry.id}`, editedEntry)
+      .then(res => {
+        dispatch(saveEntry(res.data))
+      })
+      .catch(err => console.log(err))
+
+export const submitEntryDb = (editedEntry, notebookId, history, userId) =>
   dispatch => {
     axios.put(`/api/entries/${editedEntry.id}`, editedEntry)
       .then(res => {
         dispatch(saveEntry(res.data))
+        history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
       })
       .then(async () => {
         let dataObj = await createDataAfterNewEntry(userId)
@@ -68,7 +77,6 @@ export const saveEntryDb = (editedEntry, notebookId, history, userId) =>
         let toneObj = await axios.post(`/api/dataAnalysis/nlp-api-data/entry/${editedEntry.id}`, {entryString: editedEntry.content})
         await axios.put(`/api/entries/${editedEntry.id}`, {tones: toneObj.data})
         dispatch(saveEntry({tones: toneObj.data}))
-        history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
       })
       .catch(err => console.log(err))
   }

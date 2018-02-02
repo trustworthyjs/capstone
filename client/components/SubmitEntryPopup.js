@@ -3,13 +3,15 @@ import FlatButton from 'material-ui/FlatButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import React, { Component } from 'react'
-import { saveEntryDb, toggleSubmitPopupThunk, createNotebookDb } from '../store'
+import { submitEntryDb, toggleSubmitPopupThunk, createNotebookDb } from '../store'
 import { connect } from 'react-redux'
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {blue500} from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import FontIcon from 'material-ui/FontIcon';
+
 
 const styles = {
   errorStyle: {
@@ -25,7 +27,11 @@ class SubmitEntryPopup extends Component {
       newNotebookName: ''
   }
 
-  handleNotebookSelection = (event, index, value) => this.setState({value})
+  handleNotebookSelection = (event, index, value) => {
+    this.setState({value})
+    let currentClassName = document.getElementById("addNotebookField").className = "toggleOff"
+  }
+
   handleNotebookColorChange = (event, index, value) => this.setState({notebookColorValue: value})
   handleNewNotebookNameChange = event => this.setState({newNotebookName: event.target.value})
 
@@ -34,7 +40,7 @@ class SubmitEntryPopup extends Component {
     this.props.setSubmitPopup(!currentState)
   }
 
-  saveEntry = (evt) => {
+  submitEntry = (evt) => {
     evt.preventDefault()
     let notebookId = +this.state.value
     let entryToSave = {
@@ -45,11 +51,14 @@ class SubmitEntryPopup extends Component {
       submitted: true,
       mode: this.props.entry.mode
     }
-    this.props.saveEntry(entryToSave, notebookId, this.props.userId)
+    this.props.submitEntry(entryToSave, notebookId, this.props.userId)
   }
 
   handleNewNotebookClick = (evt) => {
     evt.preventDefault()
+    this.setState({
+      value: 1
+    })
     let currentClassName = document.getElementById("addNotebookField").className
     currentClassName.includes("Off") ? document.getElementById("addNotebookField").className = "toggleOn" : document.getElementById("addNotebookField").className = "toggleOff"
   }
@@ -76,28 +85,34 @@ class SubmitEntryPopup extends Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onClick={this.saveEntry}
+        onClick={this.submitEntry}
       />,
     ]
 
     return (
       <div>
         <Dialog
-          title="Select a notebook to submit an entry"
+          title="Select a notebook to submit your entry to"
           actions={actions}
           modal={false}
           open={this.props.showSubmitPopup}
           onRequestClose={this.handleClose}
         >
             { this.props.notebooks.length > 0 ?
-              <DropDownMenu value={this.state.value} onChange={this.handleNotebookSelection}>
+              <DropDownMenu
+                value={this.state.value}
+                onChange={this.handleNotebookSelection}>
+                <MenuItem disabled={true} value={1} primaryText="Select A Notebook" />
                 {this.props.notebooks.map(notebook =>
                   <MenuItem value={notebook.id} key={notebook.id} primaryText={notebook.title} /> )}
               </DropDownMenu> : <div>You don't have any existing notebooks</div>
             }
-            <FloatingActionButton mini={true} onClick={this.handleNewNotebookClick}>
-              <ContentAdd />
-            </FloatingActionButton>
+            <FlatButton
+              onClick={this.handleNewNotebookClick}
+              label="Create New Notebook"
+              secondary={true}
+              icon={<ContentAdd />}
+            />
             <div id="addNotebookField" className="toggleOff">
                 <TextField
                   hintText="Enter new notebook name"
@@ -133,8 +148,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
-    saveEntry: (editedEntry, notebookId, userId) => {
-      dispatch(saveEntryDb(editedEntry, notebookId, ownProps.history, userId))
+    submitEntry: (editedEntry, notebookId, userId) => {
+      dispatch(submitEntryDb(editedEntry, notebookId, ownProps.history, userId))
     },
     setSubmitPopup: (state) => {
       dispatch(toggleSubmitPopupThunk(state))
