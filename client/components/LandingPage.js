@@ -1,42 +1,31 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Paper from 'material-ui/paper'
 
-export class LandingPage extends Component {
-    constructor() {
-        super()
-        this.navbar = Array.from(document.getElementsByClassName('nav-stuff'))
-    }
 
-    componentDidMount() {
-        this.navbar.forEach(navItem => navItem.style.visibility = "hidden");
-    }
+export const LandingPage = () => {
+    const style = {
+        height: 230,
+        width: 230,
+        margin: 20,
+        textAlign: 'center',
+        display: 'flex',
+        position: 'absolute',
+        top: '140px',
+        left: '800px',
+        alignItems: 'center',
+        opacity: '.85'
+    };
 
-    componentWillUnmount () {
-        this.navbar.forEach(navItem => navItem.style.visibility = "visible");
-    }
-
-    render() {
-        return (
-            <div className="landing-page-container">
-                <Link to="/home" className="mode-option" params={{mode: 'freeWrite'}}>
-                    <div>
-                        Free Writing
-                    </div>
-                </Link>
-                <Link to="/home" className="mode-option" params={{mode: 'mindfulJournal'}}>
-                    <div>
-                        Journal for Mindfulness
-                    </div>
-                </Link>
-                <Link to="/home" className="mode-option" params={{mode: 'custom'}}>
-                    <div>
-                        Custom
-                    </div>
-                </Link>
-            </div>
-        )
-    }
+    return (
+        <Paper className="banner" style={{ marginTop: '70px' }}>
+            <img src={`/images/free_write.jpg`} />
+            <NavLink to="/home">
+                <Paper style={style} zDepth={2} circle={true} children={<h2>Let Your Creativity Flow and Start Writting</h2>} />
+            </NavLink>
+        </Paper>
+    )
 }
 
 export default connect(null)(LandingPage);
