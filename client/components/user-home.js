@@ -226,11 +226,11 @@ export class UserHome extends React.Component {
 
   render() {
 
-    // DON'T DELETE - I NEED TO FIX THIS - NIHARIKA
     // // pre-populating the editor with existing entries
     // if (this.props.existingEntry !== '' && !this.props.existingEntryLoading) {
     //   this.state.editor.setText(this.props.existingEntry)
     // }
+    console.log('THIS STATE EDITOR: ', this.state.editor)
 
     // console.log('interval running?: ',this.interval)
     const { email } = this.props
@@ -305,7 +305,7 @@ export class UserHome extends React.Component {
 
     return (
       <div>
-        { modeDialog }
+        { (this.props.existingEntry == '' && !this.props.existingEntryLoading) && modeDialog }
         <div className='settings-values'>
 
         {showTimer() &&

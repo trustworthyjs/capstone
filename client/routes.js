@@ -43,7 +43,7 @@ class Routes extends Component {
 
   state = {
     existingEntry: '',
-    existingEntryLoading: true
+    existingEntryLoading: true,
   }
 
   componentDidMount () {
@@ -76,6 +76,10 @@ class Routes extends Component {
 
   render () {
 
+    if (this.state.existingEntryLoading && (this.props.allEntries.length > 0)) {
+      this.setExistingEntry()
+    }
+
     const {isLoggedIn} = this.props
 
     return (
@@ -90,7 +94,10 @@ class Routes extends Component {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" render={() => <UserHome existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading} />} />
+                  <Route path="/home"
+                    render={() => !this.state.existingEntryLoading && <UserHome
+                    existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading} />}
+                  />
                   <Route path="/trends" component={DataAnalysis} />
                   <Route path="/streaks" component={StreaksGraph} />
                   <Route path="/word-cloud" component={WordCloud} />
