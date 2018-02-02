@@ -103,7 +103,7 @@ export class UserHome extends React.Component {
     editor.root.blur();
 
     // pre-populating the editor with existing entries
-    if ((this.props.existingEntry !== '') && !this.props.existingEntryLoading) {
+    if ((this.props.existingEntry !== '' && this.props.existingEntry !== undefined) && (!this.props.existingEntryLoading && this.props.existingEntryLoading !== undefined)) {
         editor.setText(this.props.existingEntry)
         this.props.getEntry(this.props.existingEntryId)
     }
