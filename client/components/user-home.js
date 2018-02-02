@@ -308,7 +308,7 @@ export class UserHome extends React.Component {
     }
 
     return (
-      <div style={{marginTop: '-4rem'}}>
+      <div>
         {modeDialog}
         <div className='settings-values'>
 
