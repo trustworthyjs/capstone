@@ -297,8 +297,8 @@ export class UserHome extends React.Component {
 
           {showTimer() &&
             <FlatButton
-              backgroundColor="#cdcdcd"
-              style={{backgroundColor: "#cdcdcd"}}
+              // backgroundColor="rgba(255,255,255, 0.85)"
+              // hoverColor="rgba(220,220,220,0.85)"
               label={timer}
               labelPosition="before"
               primary={true}
@@ -307,22 +307,27 @@ export class UserHome extends React.Component {
           }
           {showWordCount() &&
             <FlatButton
-              backgroundColor="#cdcdcd"
-              style={{backgroundColor: "#cdcdcd"}}
+              // backgroundColor="rgba(255,255,255, 0.85)"
+              // hoverColor="rgba(220,220,220,0.85)"
               label={wordRatio}
               primary={true}
             />
           }
           {showPrompts() &&
             <FlatButton
-              backgroundColor="#cdcdcd"
-              style={{backgroundColor: "#cdcdcd"}}
+              // backgroundColor="rgba(255,255,255, 0.85)"
+              // hoverColor="rgba(220,220,220,0.85)"
               label={'Prompts Enabeled'}
               primary={true}
             />
           }
 
-          <FlatButton label={'Submit Entry'} onClick={this.toggleSubmitPopup} primary={true} />
+          <FlatButton 
+            // backgroundColor="rgba(255,255,255, 0.85)"
+            // hoverColor="rgba(245,245,245,1.0)"
+            label={'Submit Entry'} 
+            onClick={this.toggleSubmitPopup} 
+            primary={true} />
           {this.props.showSubmitPopup &&
             <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
           }
