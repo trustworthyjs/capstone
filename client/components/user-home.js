@@ -12,6 +12,7 @@ import { withRouter } from 'react-router'
 import SettingsDrawer from './SettingsDrawer'
 import Paper from 'material-ui/Paper';
 import Alarm from 'material-ui/svg-icons/action/alarm'
+import ActionAndroid from 'material-ui/svg-icons/action/android';
 
 //util functions
 function shuffle(a) {
@@ -50,7 +51,6 @@ export class UserHome extends React.Component {
       settingsOpen: false,
       timerStarted: false,
       currentPrompt: '',
-      existingEntry: ''
     }
     this.interval = '';
   }
@@ -59,18 +59,6 @@ export class UserHome extends React.Component {
   setEditor = (editor) => {
     this.setState({editor})
   }
-
-  // setExistingEntry = () => {
-  //   if (this.props.allEntries.length > 0) {
-  //     let currentEntries = this.props.allEntries.filter(entry => !entry.submitted)
-  //     let currentIDs = currentEntries.map(entry => entry.id)
-  //     let latestID = Math.max(...currentIDs)
-  //     let currentEntriesFiltered = currentEntries.filter(entry => entry.id === latestID)
-  //     this.setState({
-  //       existingEntry: currentEntriesFiltered[0].content
-  //     })
-  //   }
-  // }
 
   componentDidMount() {
     this.props.dispatchResetToDefault();
@@ -114,11 +102,15 @@ export class UserHome extends React.Component {
     editor.root.focus();
     editor.root.blur();
 
+    // pre-populating the editor with existing entries
+    if ((this.props.existingEntry !== '' && this.props.existingEntry !== undefined) && (!this.props.existingEntryLoading && this.props.existingEntryLoading !== undefined)) {
+        editor.setText(this.props.existingEntry)
+        this.props.getEntry(this.props.existingEntryId)
+    }
+
     let userHome = this
     editor.on('text-change', function (delta, oldDelta, source) {
-
       //counts the words in the editor and sets the number on state if it's different.
-
       let editorText = editor.getText();
       let numWords = countWords(editorText) - 1;
       if (userHome.props.editorValues.wordsWritten !== numWords) {
@@ -131,6 +123,7 @@ export class UserHome extends React.Component {
         showPopup: false,
         strokeSinceSave: userHome.state.strokeSinceSave + 1
       })
+
       //get the text and formatted text, send it through a thunk
       if (userHome.state.strokeSinceSave > 10) {
         let editedEntry = {
@@ -217,16 +210,14 @@ export class UserHome extends React.Component {
     this.setState({ settingsOpen: !this.state.settingsOpen })
   }
 
+  /*eslint-disable complexity */
+
   render() {
 
-    // // pre-populating the editor with existing entries
-    // if (this.state.existingEntry !== '') {
-    //   this.state.editor.setContents([
-    //     { insert: this.state.existingEntry }
-    //   ])
+    // if (this.props.existingEntry !== '' && !this.props.existingEntryLoading) {
+    //   this.state.editor.setText(this.props.existingEntry)
     // }
 
-    // console.log('interval running?: ',this.interval)
     const { email } = this.props
     const { bounds } = this.state
     const editorValues = this.props.editorValues;
@@ -244,7 +235,7 @@ export class UserHome extends React.Component {
       right: bounds.right - 20,
       bottom: bounds.bottom + 300,
       height: '50px',
-      width: '150px',
+      width: '170px',
       "zIndex": '10',
       'alignItems': 'center',
       'alignContent': 'center',
@@ -269,7 +260,7 @@ export class UserHome extends React.Component {
           <button className="mode-btn" id="custom-btn" title="custom" onClick={this.handleModeSelection}>
             <div className="mode-btn-label" title="custom" onClick={this.handleModeSelection}>Custom</div>
           </button>
-        </div>  
+        </div>
       </Dialog>
     )
 
@@ -297,16 +288,13 @@ export class UserHome extends React.Component {
       return false
     }
 
-    // console.log('existing entry: ', this.state.existingEntry)
-    // console.log('existing entry compared to original: ', this.state.existingEntry === '')
-
     return (
       <div className={`editor-container ${this.props.userTheme}`}>
-        { this.state.existingEntry === '' && modeDialog }
+        { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
+        
         <div className='settings-values'>
 
         {showTimer() &&
-
           <FlatButton
           label={timer}
           labelPosition="before"
@@ -315,11 +303,23 @@ export class UserHome extends React.Component {
         />
 
         }
+
         {showWordCount() &&
-          <FlatButton>{wordRatio}</FlatButton>
+            <FlatButton
+            label={wordRatio}
+            primary={true}
+            />
         }
         {showPrompts() &&
-          <FlatButton>Prompts</FlatButton>
+          <FlatButton
+          label={'Prompts Enabeled'}
+          primary={true}
+          />
+        }
+
+        <FlatButton label={'Submit Entry'} onClick={this.toggleSubmitPopup} primary={true} />
+        {this.props.showSubmitPopup &&
+          <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
         }
 
         </div>
@@ -331,16 +331,13 @@ export class UserHome extends React.Component {
               </Paper>
             }
 
-            <Paper zDepth={1} className="editor" />
+            <div className="editor" />
             </div>
 
           <button className="settings-icon" onClick={this.toggleSettingsVisible} />
           <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
         </div>
-        <RaisedButton label="Submit Entry" onClick={this.toggleSubmitPopup} className="editor-submit-button" />
-        {this.props.showSubmitPopup &&
-          <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
-        }
+
       </div>
     )
   }

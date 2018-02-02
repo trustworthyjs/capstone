@@ -24,12 +24,8 @@ module.exports = {
         loader: 'json-loader'
       },
       {
-        test: /\.es6$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['react', 'env', 'stage-2', 'es2015']
-        }
+        test: /file-type\/index\.js$/,
+        loader: 'babel-loader',
       }
     ],
   },

@@ -38,6 +38,7 @@ form div {
     height: 60vh;
     font-size: 25px;
     font-family: 'Ubuntu Mono', monospace;
+    opacity: .7
 }
 
 .popup {
@@ -50,7 +51,8 @@ form div {
     opacity: .7;
     padding: 5px;
     text-align: center;
-    height: 3.2%
+    height: 3.2%;
+    font-size: 18px;
 }
 
 

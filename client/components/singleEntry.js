@@ -15,9 +15,7 @@ const style = {
 export class SingleEntry extends React.Component {
 
   componentDidMount(){
-    if (!this.props.singleEntry.submitted){
-      this.props.getOneEntry(+this.props.match.params.entryId)
-    }
+    this.props.getOneEntry(+this.props.match.params.entryId)
   }
 
   render() {

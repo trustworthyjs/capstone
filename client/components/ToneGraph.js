@@ -2,121 +2,7 @@ import React from 'react'
 import { Line } from '@nivo/line'
 import {connect} from 'react-redux'
 import {getEntriesDb} from '../store'
-
-/*
-{
-  "tones":
-  [
-    {"score":0.588912,"tone_id":"joy","tone_name":"Joy"},
-  {"score":0.815157,"tone_id":"tentative","tone_name":"Tentative"}]
-}
-*/
-
-
-let info = [
-  {
-    "id": "joy",
-    "color": "hsl(5, 70%, 50%)",
-    "data": [
-      {
-        "color": "hsl(118, 70%, 50%)",
-        "x": "entry1",
-        "y": 0.58
-      },
-      {
-        "color": "hsl(157, 70%, 50%)",
-        "x": "entry2",
-        "y": 0.36
-      },
-      {
-        "color": "hsl(108, 70%, 50%)",
-        "x": "entry3",
-        "y": 0
-      },
-      {
-        "color": "hsl(261, 70%, 50%)",
-        "x": "entry4",
-        "y": 0
-      },
-      {
-        "color": "hsl(298, 70%, 50%)",
-        "x": "entry5",
-        "y": 0.22
-      },
-      {
-        "color": "hsl(164, 70%, 50%)",
-        "x": "entry6",
-        "y": 0.35
-      },
-      {
-        "color": "hsl(340, 70%, 50%)",
-        "x": "entry7",
-        "y": 0.37
-      },
-      {
-        "color": "hsl(350, 70%, 50%)",
-        "x": "entry8",
-        "y": 0.19
-      },
-      {
-        "color": "hsl(45, 70%, 50%)",
-        "x": "entry9",
-        "y": 0.43
-      }
-    ]
-  },
-  {
-    "id": "sadness",
-    "color": "hsl(346, 70%, 50%)",
-    "data": [
-      {
-        "color": "hsl(261, 70%, 50%)",
-        "x": "entry1",
-        "y": 0.57
-      },
-      {
-        "color": "hsl(204, 70%, 50%)",
-        "x": "entry2",
-        "y": 0.55
-      },
-      {
-        "color": "hsl(286, 70%, 50%)",
-        "x": "entry3",
-        "y": 0.40
-      },
-      {
-        "color": "hsl(124, 70%, 50%)",
-        "x": "entry4",
-        "y": 0.29
-      },
-      {
-        "color": "hsl(65, 70%, 50%)",
-        "x": "entry5",
-        "y": 0.2
-      },
-      {
-        "color": "hsl(338, 70%, 50%)",
-        "x": "entry6",
-        "y": 0.0
-      },
-      {
-        "color": "hsl(156, 70%, 50%)",
-        "x": "entry7",
-        "y": 0.30
-      },
-      {
-        "color": "hsl(206, 70%, 50%)",
-        "x": "entry8",
-        "y": 0.57
-      },
-      {
-        "color": "hsl(86, 70%, 50%)",
-        "x": "entry9",
-        "y": 0.42
-      }
-    ]
-  }
-]
+import FlatButton from 'material-ui/FlatButton';
 
 class ToneGraph extends React.Component {
   constructor(props){
@@ -124,12 +10,16 @@ class ToneGraph extends React.Component {
     this.state = {
       toneGraphData: []
     }
+    this.onClickSeven = this.onClickSeven.bind(this)
+    this.onClickThirty = this.onClickThirty.bind(this)
+    this.onClickAll = this.onClickAll.bind(this)
   }
 
-  componentDidMount(){
-    if (!this.props.allEntries.length > 0){
-      this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData)
-    }
+  async componentDidMount(){
+    let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData)
+    this.setState({
+      toneGraphData: data
+    })
   }
 
   selectEntries = (entries, range ) => {
@@ -144,6 +34,9 @@ class ToneGraph extends React.Component {
       beginRangeDate.setDate(nowDate.getDate() - 40)
       beginRangeDate.setHours(0, 0, 0, 0)
     }
+    if (range === 'all'){
+      return entries
+    }
     let filteredEntries = entries.filter((entry) => {
       return new Date(entry.savedAt) >= beginRangeDate && new Date(entry.savedAt) <= nowDate
     })
@@ -155,17 +48,57 @@ class ToneGraph extends React.Component {
     let count = {}
     filtered.forEach((entry) => {
       let savedAt = entry.savedAt.slice(0, entry.savedAt.indexOf('T'))
+      //if there are entries and the date has not yet been added
       if (!dataObj[savedAt]){
         dataObj[savedAt] = entry.tones
-        count[savedAt] = 1
-      } else {
-        count[savedAt]++
-        entry.tones.forEach((entryTone) => {
-          let thing = dataObj[savedAt].find((tone) => {
-            return tone.tone_id === entryTone.tone_id
+        count[savedAt] = {num: 1, totals: []}
+        if (dataObj[savedAt]){
+          dataObj[savedAt].forEach((tone) => {
+            tone.score = parseFloat(tone.score.toPrecision(2))
+            count[savedAt].totals.push({
+              score: tone.score,
+              tone_id: tone.tone_id
+            })
           })
-          thing.score = (thing.score + entryTone.score) / count[savedAt]
-        })
+        }
+      } else {
+        //if date exists...
+        count[savedAt].num++
+        //if this entry has tones...
+        if (entry.tones){
+          entry.tones.forEach((entryTone) => {
+            //for each tone, check if it already exists for this day
+            let thing = dataObj[savedAt].find((tone) => {
+              return tone.tone_id === entryTone.tone_id
+            })
+            if (thing){
+              //if it exists for the day, update the count total for that day's tone
+              let countTotal = count[savedAt].totals.find((countTone) => {
+                return countTone.tone_id === entryTone.tone_id
+              })
+              countTotal.score = countTotal.score + entryTone.score
+              //update the score in the data object with the correct value
+              dataObj[savedAt].find((tone) => {
+                return tone.tone_id === entryTone.tone_id
+              }).score = countTotal.score / count[savedAt].num
+              //turn it into 2 decimals
+              dataObj[savedAt].find((tone) => {
+                return tone.tone_id === entryTone.tone_id
+              }).score = parseFloat(dataObj[savedAt].find((tone) => {
+                return tone.tone_id === entryTone.tone_id
+              }).score.toPrecision(2))
+            } else {
+              //if the tone isnt in the day which already exists
+              // dataObj[savedAt].totals.push(entryTone)
+              entryTone.score = parseFloat(entryTone.score.toPrecision(2))
+              count[savedAt].totals.push({
+                score: entryTone.score,
+                tone_id: entryTone.tone_id
+              })
+              dataObj[savedAt].push(entryTone)
+            }
+          })
+        }
       }
     })
     //sort by date
@@ -181,9 +114,12 @@ class ToneGraph extends React.Component {
   }
 
   prepData = (entries) => {
+    if (Object.keys(entries).length === 0){
+      return []
+    }
     let graphData = []
     let tones = {
-      anger: {"color": "hsl(207, 70%, 50%)"},
+      anger: {"color": "hsl(20, 70%, 50%)"},
       fear: {"color": "hsl(97, 70%, 50%)"},
       joy: {"color": "hsl(352, 70%, 50%)"},
       sadness: {"color": "hsl(272, 70%, 50%)"},
@@ -213,17 +149,42 @@ class ToneGraph extends React.Component {
         })
       }
     }
+    return graphData
+  }
+
+  async onClickSeven(event) {
+    let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData, 'last7Days')
     this.setState({
-      toneGraphData: graphData
+      toneGraphData: data
     })
-    console.log('data', graphData)
+  }
+
+  async onClickThirty(event) {
+    let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData, 'last30Days')
+    this.setState({
+      toneGraphData: data
+    })
+  }
+
+  async onClickAll(event) {
+    let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData, 'all')
+    this.setState({
+      toneGraphData: data
+    })
   }
 
   render () {
     return (
       <div className="container">
-        <h1>This is a graph of your tones over time</h1>
-        {this.state.toneGraphData && this.state.toneGraphData.length > 0 &&
+        {this.props.allEntries && this.props.allEntries.length > 0 ?
+          <div>
+            <h5>Filter by: (default is 'Last 30 Days')</h5>
+            <FlatButton label="Last 7 Days" onClick={this.onClickSeven} />
+            <FlatButton label="Last 30 Days" primary={true} onClick={this.onClickThirty} />
+            <FlatButton label="All Entries" secondary={true} onClick={this.onClickAll} />
+          </div> :
+          <div>You do not have any entries to analyze!</div>}
+        {this.state.toneGraphData.length > 0 ?
           <Line
             data={this.state.toneGraphData}
             width={800}
@@ -276,7 +237,8 @@ class ToneGraph extends React.Component {
                     "symbolShape": "circle"
                 }
             ]}
-          />
+          /> :
+          <div>No entries in the time period selected!</div>
         }
       </div>
     )
@@ -292,10 +254,10 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    getEntryData: (userId, entryFilterFunc, calculateFunc, prepFunc) => {
+    getEntryData: (userId, entryFilterFunc, calculateFunc, prepFunc, range) => {
       return dispatch(getEntriesDb(userId))
       .then((actionType) => {
-        return entryFilterFunc(actionType.entries)
+        return entryFilterFunc(actionType.entries, range)
       })
       .then((filteredEntries) => {
         return calculateFunc(filteredEntries)

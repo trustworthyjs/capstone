@@ -30,18 +30,17 @@ export class SettingsDrawer extends React.Component {
         zoomIn: false
       }
     }
-    if (this.props.singleEntry) {
+    if (this.props.singleEntry.content) {
       var checkSettings = {};
       if (this.props.singleEntry.settings){
         checkSettings = this.props.singleEntry.settings;
         const entryMode = this.props.singleEntry.mode;
         return (
           <div>
-            <div>
-              <h5>Settings</h5>
-              <button className="settings-icon" onClick={this.props.toggle}/>
-            </div>
-            {/* -------user theme selection-------- */}
+            <h5>Settings</h5>
+            <button className="settings-icon" onClick={this.props.toggle}/>
+          </div>
+          <div>
             <div className="setting">
               <label>Your Theme: </label>
               <div className="ui compact menu">
@@ -67,8 +66,8 @@ export class SettingsDrawer extends React.Component {
                 </div>
               </div>
             </div>
+            {/* --------settings-------- */}
             <div>
-              {/* --------settings-------- */}
               <div className="setting">
                 <div className="ui toggle checkbox">
                   <input type="checkbox" name="timer" checked={checkSettings.timer} onChange={this.handleChangeSettings}/>
@@ -190,7 +189,7 @@ export class SettingsDrawer extends React.Component {
         <div style={{height: domRect.height,
                       width: "225px",
                       overflowY: 'auto',
-                      right: 0, 
+                      right: 0,
                       top: 0,
                       position: 'absolute',
                       zIndex: 5,
@@ -201,7 +200,7 @@ export class SettingsDrawer extends React.Component {
                     }}
         >
         {settings}
-        
+
         </div>
       );
     } else {

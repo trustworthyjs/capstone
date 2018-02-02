@@ -40,7 +40,7 @@ export class Main extends Component {
               onLeftIconButtonClick={this.clickLeft}
               zDepth={1}
               iconElementRight={<FlatButton href="/account" label={`${user.email}`}
-              style={{backgroundColor: '#fff3e0'}}
+              
               />}
             >
               <Drawer
