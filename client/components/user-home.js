@@ -103,6 +103,12 @@ export class UserHome extends React.Component {
     editor.root.focus();
     editor.root.blur();
 
+    // pre-populating the editor with existing entries
+    if ((this.props.existingEntry !== '' && this.props.existingEntry !== undefined) && (!this.props.existingEntryLoading && this.props.existingEntryLoading !== undefined)) {
+        editor.setText(this.props.existingEntry)
+        this.props.getEntry(this.props.existingEntryId)
+    }
+
     let userHome = this
     editor.on('text-change', function (delta, oldDelta, source) {
       //counts the words in the editor and sets the number on state if it's different.
@@ -118,6 +124,7 @@ export class UserHome extends React.Component {
         showPopup: false,
         strokeSinceSave: userHome.state.strokeSinceSave + 1
       })
+
       //get the text and formatted text, send it through a thunk
       if (userHome.state.strokeSinceSave > 10) {
         let editedEntry = {
@@ -230,13 +237,10 @@ export class UserHome extends React.Component {
 
   render() {
 
-    // DON'T DELETE - I NEED TO FIX THIS - NIHARIKA
-    // // pre-populating the editor with existing entries
     // if (this.props.existingEntry !== '' && !this.props.existingEntryLoading) {
     //   this.state.editor.setText(this.props.existingEntry)
     // }
 
-    // console.log('interval running?: ',this.interval)
     const { email } = this.props
     const { bounds } = this.state
     const editorValues = this.props.editorValues;
@@ -308,8 +312,10 @@ export class UserHome extends React.Component {
     }
 
     return (
-      <div style={{marginTop: '-4rem'}}>
-        {modeDialog}
+
+       <div style={{marginTop: '-4rem'}}>
+        { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
+
         <div className='settings-values'>
 
           {showTimer() &&
