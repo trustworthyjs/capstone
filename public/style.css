@@ -28,7 +28,6 @@ form div {
 
 .container {
     padding: 40px;
-
 }
 
 .ql-container.ql-snow {
@@ -190,6 +189,24 @@ form div {
 }
 
 
+/* Personality Radars */
+
+.personality-radar-main {
+    width: 100%;
+    text-align: center;
+}
+
+.personality-radar-child {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.personality-radar-child h3 {
+    margin-bottom: 0;
+}
+
+
 /* CSS STYLES BELOW COPIED FROM REACT TAG CLOUD NPM LIBRARY */
 
 body {
@@ -288,6 +305,3 @@ body {
 .toggleOn {
     opacity: 1
 }
-
-
-
