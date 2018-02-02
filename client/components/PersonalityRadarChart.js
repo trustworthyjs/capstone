@@ -3,6 +3,7 @@ import Radar from 'react-d3-radar'
 import ReactToolTip from 'react-tooltip'
 import {connect} from 'react-redux'
 import {Popup} from './Popup'
+import PersonalityRadarChartChild from './PersonalityRadarChartChild';
 
 export class PersonalityRadarChart extends Component {
     
@@ -16,12 +17,11 @@ export class PersonalityRadarChart extends Component {
             chartWidth: 500,
             chartHeight: 500
         }
-        this.handleHover = this.handleHover.bind(this);
     }
     
     //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the 
     // radius down to just 5 pixels around the actual circle
-    handleHover(point) {
+    handleHover = (point) => {
         let rect;
         if (this.container) {
             var svg = this.container.querySelector('svg');
@@ -56,35 +56,58 @@ export class PersonalityRadarChart extends Component {
 
             let variables = [];
             let values = {};
+
+            let personalityChildren = {};
             personality.forEach(trait => {
                 variables.push({key: trait.name, label: trait.name})
                 values[trait.name] = trait.percentile * 100;
+                personalityChildren[trait.name] = trait.children;
             })
             return (
-                <div
-                    ref={(ref) => this.container = ref}
-                >
-                {this.state.isHovering && 
-                    <Popup x={this.state.popupX} y={this.state.popupY} message={this.state.popupMessage} />
-                }
-                <Radar
-                    width={this.state.chartWidth}
-                    height={this.state.chartHeight}
-                    padding={70}
-                    domainMax={100}
-                    highlighted={null}
-                    onHover={this.handleHover}
-                    data={{
-                        variables,
-                        sets: [
-                            {
-                                key: 'me',
-                                label: 'My Scores',
-                                values
-                            }
-                        ]
-                    }}
-                />
+                <div>
+                    <div
+                        className='personality-radar-main'
+                        ref={(ref) => this.container = ref}
+                    >
+                        {this.state.isHovering && 
+                            <Popup x={this.state.popupX} y={this.state.popupY} message={this.state.popupMessage} />
+                        }
+                        <Radar
+                            width={this.state.chartWidth}
+                            height={this.state.chartHeight}
+                            padding={70}
+                            domainMax={100}
+                            highlighted={null}
+                            onHover={this.handleHover}
+                            data={{
+                                variables,
+                                sets: [
+                                    {
+                                        key: 'me',
+                                        label: 'My Scores',
+                                        values
+                                    }
+                                ]
+                            }}
+                        />
+                    </div>
+                    <div>
+                        <div>
+                            <PersonalityRadarChartChild name='Openness' trait={personalityChildren['Openness']} width={350} height={350}/>
+                        </div>
+                        <div>
+                            <PersonalityRadarChartChild name='Conscientiousness' trait={personalityChildren['Conscientiousness']} width={350} height={350}/>
+                        </div>
+                        <div>
+                            <PersonalityRadarChartChild name='Extraversion' trait={personalityChildren['Extraversion']} width={350} height={350}/>
+                        </div>
+                        <div>
+                            <PersonalityRadarChartChild name='Agreeableness' trait={personalityChildren['Agreeableness']} width={350} height={350}/>
+                        </div>
+                        <div>
+                            <PersonalityRadarChartChild name='Emotional Range' trait={personalityChildren['Emotional range']} width={350} height={350}/>
+                        </div>
+                    </div>
                 </div>
             )
         } else {

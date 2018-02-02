@@ -37,7 +37,6 @@ form div {
 
 .container {
     padding: 40px;
-
 }
 
 .ql-container.ql-snow {
@@ -48,7 +47,12 @@ form div {
     height: 60vh;
     font-size: 25px;
     font-family: 'Ubuntu Mono', monospace;
-    opacity: .7
+    opacity: .7;
+    background-color: rgb(192, 192, 192);
+}
+
+.settings-values>button {
+    background-color: rgb(192, 192, 192);
 }
 
 .popup {
@@ -67,6 +71,26 @@ form div {
 
 
 /*Home page */
+
+.pirate {
+    background-image: url('https://img00.deviantart.net/7809/i/2007/271/7/7/pirate_wallpaper_by_unpatient.jpg');
+    background-size: cover;
+}
+
+.beach {
+    background-image: url('http://www.beach-backgrounds.com/wordpress/uploads/green-island-beach-background.jpg');
+    background-size: cover;
+}
+
+.forest {
+    background-image: url('https://wallpaperdata.com/wp-content/uploads/data/2018/1/5/forest-background-2592x1620-for-WTG30510981.jpg');
+    background-size: cover;
+}
+
+.mountains {
+    background-image: url('https://wallpapertag.com/wallpaper/full/b/d/0/202398-mountains-background-1920x1080-for-windows-10.jpg');
+    background-size: cover;
+}
 
 .setting {
     margin: 10px;
@@ -252,6 +276,24 @@ form div {
 }
 
 
+/* Personality Radars */
+
+.personality-radar-main {
+    width: 100%;
+    text-align: center;
+}
+
+.personality-radar-child {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.personality-radar-child h3 {
+    margin-bottom: 0;
+}
+
+
 /* CSS STYLES BELOW COPIED FROM REACT TAG CLOUD NPM LIBRARY */
 
 body {
@@ -350,6 +392,3 @@ body {
 .toggleOn {
     opacity: 1
 }
-
-
-

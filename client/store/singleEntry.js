@@ -59,6 +59,7 @@ export const saveEntryDb = (editedEntry) =>
     axios.put(`/api/entries/${editedEntry.id}`, editedEntry)
       .then(res => {
         dispatch(saveEntry(res.data))
+        history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
       })
       .catch(err => console.log(err))
 
@@ -80,6 +81,13 @@ export const submitEntryDb = (editedEntry, notebookId, history, userId) =>
       })
       .catch(err => console.log(err))
   }
+
+export const updateSettingsDb = (settings) => 
+  dispatch => 
+    axios.put(`/api/entries/${editedEntry.id}`, settings)
+      .then(res =>
+        dispatch(getEntry(res.data)))
+      .catch(err => console.log(err))
 
 
 // /**
