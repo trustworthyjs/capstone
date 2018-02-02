@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {saveEntryDb, updateValues} from '../store'
+import {saveEntryDb, updateValues, updateUserTheme} from '../store'
 import Toggle from 'material-ui/Toggle'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
@@ -34,94 +34,112 @@ export class SettingsDrawer extends React.Component {
       var checkSettings = {};
       if (this.props.singleEntry.settings){
         checkSettings = this.props.singleEntry.settings;
-      } else {
-        const updatedSettings = Object.assign({}, this.props.singleEntry, defaultSettings)
-        this.props.dispatchUpdate(updatedSettings);
-      }
-      var entryMode = this.props.singleEntry.mode;
-      return (
-        <div>
+        const entryMode = this.props.singleEntry.mode;
+        return (
           <div>
-            <h5>Settings</h5>
-            <button className="settings-icon" onClick={this.props.toggle}/>
-          </div>
-          <div>
-            {/* --------settings-------- */}
+            <div>
+              <h5>Settings</h5>
+              <button className="settings-icon" onClick={this.props.toggle}/>
+            </div>
+            {/* -------user theme selection-------- */}
             <div className="setting">
-              <div className="ui toggle checkbox">
-                <input type="checkbox" name="timer" checked={checkSettings.timer} onChange={this.handleChangeSettings}/>
-                <label>Timer</label>
-              </div>
-              {checkSettings.timer && (
-                <form onSubmit={this.handleSetTimer} style={{display: 'flex'}}>
-                  <input type="text" name="minutes" style={{width: '15%'}}></input>
-                  :
-                  <input type="text" name="seconds" style={{width: '15%'}}></input>
-                  <input type="submit" value="Set Timer" />
-                </form>
-              )}
-            </div>  
-            <div className="setting">
-              <div className="ui toggle checkbox">
-                <input type="checkbox" name="wordCount" checked={checkSettings.wordCount} onChange={this.handleChangeSettings}/>
-                <label>Word Count</label>
-              </div>
-              {checkSettings.wordCount && (
-                <form onSubmit={this.handleSetWordCount}>
-                  <input type='text' name='wordCount' style={{width: '25%'}}/>
-                  <input type='submit' value='Set Count' />
-                </form>
-              )}
-            </div>
-            <div className="ui toggle checkbox setting">
-              <input type="checkbox" name="prompts" checked={checkSettings.prompts} onChange={this.handleChangeSettings}/>
-              <label>Prompts</label>
-            </div>   
-            <div className="ui toggle checkbox setting">
-              <input type="checkbox" name="visualCues" checked={checkSettings.visualCues} onChange={this.handleChangeSettings}/>
-              <label>Visual Cues</label>
-            </div>
-            <div className="ui toggle checkbox setting">
-              <input type="checkbox" name="music" checked={checkSettings.music} onChange={this.handleChangeSettings}/>
-              <label>Music</label>
-            </div>
-            {/*theme drop down menu - implemented later probably*/}
-            <DropDownMenu> 
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-              <MenuItem value={'pirate'} primaryText="PIRATE"/>
-            </DropDownMenu>
-            {/* --------mode radio buttons -------- */}
-            <div className="ui form">  
-              <div className="radio-field">
-                <div className="grouped fields">
-                  <label>Change Mode: </label>
-                  <div className="field">
-                    <div className="ui radio checkbox">
-                      <input type="radio" name="freeWrite" onChange={this.handleModeChange} checked={entryMode === 'freeWrite'}/>
-                      <label>Free Write</label>
-                    </div>
+              <label>Your Theme: </label>
+              <div className="ui compact menu">
+                <div className="ui simple dropdown item">
+                  {this.props.user.theme}
+                  <i className="dropdown icon"></i>
+                  <div className="menu">
+                    {['basic', 'pirate', 'beach', 'forest', 'mountains'].map(theme => {
+                      if (theme !== this.props.user.theme){
+                        return (
+                          <div 
+                            key={theme}
+                            name={theme}
+                            value={theme}
+                            className="item" 
+                            onClick={this.handleChangeTheme}> 
+                              {theme}
+                          </div>
+                        )
+                      }
+                    })}
                   </div>
-                  <div className="field">
-                    <div className="ui radio checkbox">
-                      <input type="radio" name="mindfulJournal" onChange={this.handleModeChange} checked={entryMode === 'mindfulJournal'}/>
-                      <label>Mindful Journal</label>
+                </div>
+              </div>
+            </div>
+            <div>
+              {/* --------settings-------- */}
+              <div className="setting">
+                <div className="ui toggle checkbox">
+                  <input type="checkbox" name="timer" checked={checkSettings.timer} onChange={this.handleChangeSettings}/>
+                  <label>Timer</label>
+                </div>
+                {checkSettings.timer && (
+                  <form onSubmit={this.handleSetTimer} style={{display: 'flex'}}>
+                    <input type="text" name="minutes" style={{width: '15%'}}></input>
+                    :
+                    <input type="text" name="seconds" style={{width: '15%'}}></input>
+                    <input type="submit" value="Set Timer" />
+                  </form>
+                )}
+              </div>  
+              <div className="setting">
+                <div className="ui toggle checkbox">
+                  <input type="checkbox" name="wordCount" checked={checkSettings.wordCount} onChange={this.handleChangeSettings}/>
+                  <label>Word Count</label>
+                </div>
+                {checkSettings.wordCount && (
+                  <form onSubmit={this.handleSetWordCount}>
+                    <input type='text' name='wordCount' style={{width: '25%'}}/>
+                    <input type='submit' value='Set Count' />
+                  </form>
+                )}
+              </div>
+              <div className="ui toggle checkbox setting">
+                <input type="checkbox" name="prompts" checked={checkSettings.prompts} onChange={this.handleChangeSettings}/>
+                <label>Prompts</label>
+              </div>   
+              <div className="ui toggle checkbox setting">
+                <input type="checkbox" name="visualCues" checked={checkSettings.visualCues} onChange={this.handleChangeSettings}/>
+                <label>Visual Cues</label>
+              </div>
+              <div className="ui toggle checkbox setting">
+                <input type="checkbox" name="music" checked={checkSettings.music} onChange={this.handleChangeSettings}/>
+                <label>Music</label>
+              </div>
+              {/* --------mode radio buttons -------- */}
+              <div className="ui form">  
+                <div className="radio-field">
+                  <div className="grouped fields">
+                    <label>Change Mode: </label>
+                    <div className="field">
+                      <div className="ui radio checkbox">
+                        <input type="radio" name="freeWrite" onChange={this.handleModeChange} checked={entryMode === 'freeWrite'}/>
+                        <label>Free Write</label>
+                      </div>
                     </div>
-                  </div>
-                  <div className="field">
-                    <div className="ui radio checkbox">
-                      <input type="radio" name="custom" onChange={this.handleModeChange} checked={entryMode === 'custom'}/>
-                      <label>Custom</label>
+                    <div className="field">
+                      <div className="ui radio checkbox">
+                        <input type="radio" name="mindfulJournal" onChange={this.handleModeChange} checked={entryMode === 'mindfulJournal'}/>
+                        <label>Mindful Journal</label>
+                      </div>
+                    </div>
+                    <div className="field">
+                      <div className="ui radio checkbox">
+                        <input type="radio" name="custom" onChange={this.handleModeChange} checked={entryMode === 'custom'}/>
+                        <label>Custom</label>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      )
+        )
+      } else if (this.props.singleEntry.id) {
+        const updatedSettings = Object.assign({}, this.props.singleEntry, defaultSettings)
+        this.props.dispatchUpdate(updatedSettings);
+      }
     }
   }
 
@@ -152,6 +170,12 @@ export class SettingsDrawer extends React.Component {
     event.preventDefault();
     const wordCount = +event.target.wordCount.value;
     this.props.dispatchSetWordCount(wordCount);
+  }
+
+  handleChangeTheme = (event) => {
+    event.preventDefault();
+    const newTheme = event.target.innerText
+    this.props.dispatchChangeUserTheme(this.props.user.id, newTheme)
   }
 
   render() {
@@ -186,7 +210,12 @@ export class SettingsDrawer extends React.Component {
   }
 }
 
-const mapState = ({singleEntry}) => ({singleEntry})
+const mapState = (state) => {
+  return {
+    singleEntry: state.singleEntry,
+    user: state.user
+  }
+}
 
 const mapDispatch = dispatch => {
   return {
@@ -198,7 +227,10 @@ const mapDispatch = dispatch => {
     }),
     dispatchSetWordCount: (wordCount => {
       dispatch(updateValues({wordCount}))
-    })
+    }),
+    dispatchChangeUserTheme: (userId, newTheme) => {
+      dispatch(updateUserTheme(userId, newTheme))
+    }
   }
 }
 

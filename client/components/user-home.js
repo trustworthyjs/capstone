@@ -213,28 +213,6 @@ export class UserHome extends React.Component {
     })
   }
 
-  // checkClickedOutside = () => {
-  //   const clickedInsideDialogBox = (event) => {
-  //     const dialogBox = document.getElementsByClassName('dialog-container')[0];
-  //     if (dialogBox) {
-  //       const dialogBoxRect = dialogBox.getBoundingClientRect();
-  //       const dialogBoxXRange = [dialogBoxRect.x, dialogBoxRect.x + dialogBoxRect.width]
-  //       const dialogBoxYRange = [dialogBoxRect.y, dialogBoxRect.y + dialogBoxRect.height]
-  //       let mouseX = event.clientX;
-  //       let mouseY = event.clientY;
-  //       if (mouseX < dialogBoxXRange[0] || mouseX > dialogBoxXRange[1] ||
-  //           mouseY < dialogBoxYRange[0] || mouseY > dialogBoxYRange[1]) {
-  //             this.handleModeSelection(null, true)
-  //       }
-  //     }
-  //   }
-  //   if (this.state.dialogOpen){
-  //     document.addEventListener("click", clickedInsideDialogBox);
-  //   } else {
-  //     document.removeEventListener("click", clickedInsideDialogBox);
-  //   }
-  // }
-
   toggleSettingsVisible = () => {
     this.setState({ settingsOpen: !this.state.settingsOpen })
   }
@@ -323,7 +301,7 @@ export class UserHome extends React.Component {
     // console.log('existing entry compared to original: ', this.state.existingEntry === '')
 
     return (
-      <div>
+      <div className={`editor-container ${this.props.userTheme}`}>
         { this.state.existingEntry === '' && modeDialog }
         <div className='settings-values'>
 
@@ -338,7 +316,7 @@ export class UserHome extends React.Component {
 
         }
         {showWordCount() &&
-            <FlatButton>{wordRatio}</FlatButton>
+          <FlatButton>{wordRatio}</FlatButton>
         }
         {showPrompts() &&
           <FlatButton>Prompts</FlatButton>
@@ -383,7 +361,7 @@ const mapState = (state) => {
       wordCount: state.editorValues.wordCount,
       shuffledPrompts: shuffle(state.editorValues.promptArray)
     },
-    // allEntries: state.allEntries
+    userTheme: state.user.theme
   }
 }
 

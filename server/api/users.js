@@ -13,3 +13,14 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+router.put('/:id', async (req, res, next) => {
+  try {
+    const updatesToUser = req.body
+    const user = await User.findById(req.params.id);
+    const updatedUser = await user.update(updatesToUser);
+    res.json(updatedUser)
+  } catch(err) {
+    next(err);
+  }
+})
+
