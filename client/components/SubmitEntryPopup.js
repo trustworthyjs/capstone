@@ -10,6 +10,8 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import {blue500} from 'material-ui/styles/colors';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import FontIcon from 'material-ui/FontIcon';
+
 
 const styles = {
   errorStyle: {
@@ -25,7 +27,11 @@ class SubmitEntryPopup extends Component {
       newNotebookName: ''
   }
 
-  handleNotebookSelection = (event, index, value) => this.setState({value})
+  handleNotebookSelection = (event, index, value) => {
+    this.setState({value})
+    let currentClassName = document.getElementById("addNotebookField").className = "toggleOff"
+  }
+
   handleNotebookColorChange = (event, index, value) => this.setState({notebookColorValue: value})
   handleNewNotebookNameChange = event => this.setState({newNotebookName: event.target.value})
 
@@ -50,6 +56,9 @@ class SubmitEntryPopup extends Component {
 
   handleNewNotebookClick = (evt) => {
     evt.preventDefault()
+    this.setState({
+      value: 1
+    })
     let currentClassName = document.getElementById("addNotebookField").className
     currentClassName.includes("Off") ? document.getElementById("addNotebookField").className = "toggleOn" : document.getElementById("addNotebookField").className = "toggleOff"
   }
@@ -83,21 +92,27 @@ class SubmitEntryPopup extends Component {
     return (
       <div>
         <Dialog
-          title="Select a notebook to submit an entry"
+          title="Select a notebook to submit your entry to"
           actions={actions}
           modal={false}
           open={this.props.showSubmitPopup}
           onRequestClose={this.handleClose}
         >
             { this.props.notebooks.length > 0 ?
-              <DropDownMenu value={this.state.value} onChange={this.handleNotebookSelection}>
+              <DropDownMenu
+                value={this.state.value}
+                onChange={this.handleNotebookSelection}>
+                <MenuItem disabled={true} value={1} primaryText="Select A Notebook" />
                 {this.props.notebooks.map(notebook =>
                   <MenuItem value={notebook.id} key={notebook.id} primaryText={notebook.title} /> )}
               </DropDownMenu> : <div>You don't have any existing notebooks</div>
             }
-            <FloatingActionButton mini={true} onClick={this.handleNewNotebookClick}>
-              <ContentAdd />
-            </FloatingActionButton>
+            <FlatButton
+              onClick={this.handleNewNotebookClick}
+              label="Create New Notebook"
+              secondary={true}
+              icon={<ContentAdd />}
+            />
             <div id="addNotebookField" className="toggleOff">
                 <TextField
                   hintText="Enter new notebook name"
