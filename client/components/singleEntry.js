@@ -2,33 +2,32 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getEntryDb} from '../store';
 import {withRouter} from 'react-router';
-import Paper from 'material-ui/Paper';
-
-const style = {
-  height: 100,
-  width: 800,
-  margin: 50,
-  textAlign: 'center',
-  display: 'inline-block'
-}
 
 export class SingleEntry extends React.Component {
+  constructor(props){
+    super(props)
+  }
 
   componentDidMount(){
-    this.props.getOneEntry(+this.props.match.params.entryId)
+    if (!this.props.passEntry){
+      console.log('props pass entyr', this.props.passEntry)
+      this.props.getOneEntry(+this.props.match.params.entryId)
+    } else {
+      console.log('i am here', this.props.passEntry)
+      this.props.getOneEntry(+this.props.passEntry)
+    }
   }
 
   render() {
     let entry = this.props.singleEntry
     return (
       <div className="container">
-        {entry.submitted ?
+        {entry && entry.submitted ?
           <div>
-            <Paper style={style} zDepth={1} rounded={false}>
-              <h1>Title: {entry.title}</h1>
-              <h2>Saved At: {new Date(entry.savedAt).toString()}</h2>
-              <p>{entry.content}</p>
-            </Paper>
+            <h1>Title: {entry.title}</h1>
+            <h2>Saved At: {new Date(entry.savedAt).toString()}</h2>
+            <br />
+            {entry.content}
           </div>
         :
         <h1>This entry is still in progress</h1>

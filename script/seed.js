@@ -63,13 +63,13 @@ async function seed () {
   var txt15 = buffer15.toString();
 
   const notebooks = await Promise.all([
-    Notebook.create({title: 'Notebook1', cover: '#0000FF', userId: 1}),
-    Notebook.create({title: 'Notebook2', cover: '#008000', userId: 1}),
-    Notebook.create({title: 'Notebook3', cover: '#FF0000', userId: 1}),
-    Notebook.create({title: 'Notebook1', cover: '#FF0000', userId: 2}),
-    Notebook.create({title: 'Notebook2', cover: '#008000', userId: 2}),
-    Notebook.create({title: 'Notebook3', cover: '#008000', userId: 2}),
-    Notebook.create({title: 'Notebook4', cover: '#0000FF', userId: 2})
+    Notebook.create({title: 'Notebook1', cover: 'yellow', userId: 1}),
+    Notebook.create({title: 'Notebook2', cover: 'red', userId: 1}),
+    Notebook.create({title: 'Notebook3', cover: 'green', userId: 1}),
+    Notebook.create({title: 'Notebook1', cover: 'blue', userId: 2}),
+    Notebook.create({title: 'Notebook2', cover: 'yellow', userId: 2}),
+    Notebook.create({title: 'Notebook3', cover: 'blue', userId: 2}),
+    Notebook.create({title: 'Notebook4', cover: 'green', userId: 2})
   ])
 
   console.log(`seeded ${notebooks.length} notebooks`)
