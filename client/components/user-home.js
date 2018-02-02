@@ -13,6 +13,7 @@ import SettingsDrawer from './SettingsDrawer'
 import Paper from 'material-ui/Paper';
 import Alarm from 'material-ui/svg-icons/action/alarm'
 import ActionAndroid from 'material-ui/svg-icons/action/android';
+import Divider from 'material-ui/divider'
 
 //util functions
 function shuffle(a) {
@@ -57,7 +58,7 @@ export class UserHome extends React.Component {
 
 
   setEditor = (editor) => {
-    this.setState({editor})
+    this.setState({ editor })
   }
 
   componentDidMount() {
@@ -65,7 +66,7 @@ export class UserHome extends React.Component {
     var toolbarOptions = [
       { 'size': ['small', false, 'large', 'huge'] },
       'bold', 'italic', 'underline',
-      { 'list': 'ordered'}, { 'list': 'bullet' },
+      { 'list': 'ordered' }, { 'list': 'bullet' },
       'link']
     let shuffledPrompts = shuffle(this.props.editorValues.promptArray)
     var options = {
@@ -189,7 +190,7 @@ export class UserHome extends React.Component {
   }
 
   handleModeSelection = (event, clickedOutside) => {
-    this.setState({dialogOpen: false})
+    this.setState({ dialogOpen: false })
     let mode;
     if (event.target) mode = event.target.title;
     else mode = 'custom'
@@ -265,10 +266,10 @@ export class UserHome extends React.Component {
       <Dialog
         title="Choose your writing mode..."
         open={this.state.dialogOpen}
-        contentClassName = {'dialog-container'}
+        contentClassName={'dialog-container'}
         modal={false}
         onRequestClose={this.handleModeSelection}>
-        <div style={{display: "flex", justifyContent: "space-around"}}>
+        <div style={{ display: "flex", justifyContent: "space-around" }}>
           <button className="mode-btn" id="free-write-btn" title="freeWrite" onClick={this.handleModeSelection}>
             <div className="mode-btn-label" title="freeWrite" onClick={this.handleModeSelection}>Free Writing</div>
           </button>
@@ -308,38 +309,43 @@ export class UserHome extends React.Component {
 
     return (
       <div>
-        { modeDialog }
+        {modeDialog}
         <div className='settings-values'>
 
-        {showTimer() &&
-          <FlatButton
-          label={timer}
-          labelPosition="before"
-          primary={true}
-          icon={<Alarm />}
-        />
-
-        }
-
-        {showWordCount() &&
+          {showTimer() &&
             <FlatButton
-            label={wordRatio}
-            primary={true}
+              label={timer}
+              labelPosition="before"
+              primary={true}
+              icon={<Alarm />}
             />
-        }
-        {showPrompts() &&
-          <FlatButton
-          label={'Prompts Enabeled'}
-          primary={true}
-          />
-        }
 
-        <FlatButton label={'Submit Entry'} onClick={this.toggleSubmitPopup} primary={true} />
-        {this.props.showSubmitPopup &&
-          <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
-        }
+          }
+
+          {showWordCount() &&
+            <FlatButton
+              label={wordRatio}
+              primary={true}
+            />
+          }
+          {showPrompts() &&
+            <FlatButton
+              label={'Prompts Enabeled'}
+              primary={true}
+            />
+          }
+
+          <FlatButton label={'Submit Entry'} onClick={this.toggleSubmitPopup} primary={true} />
+          {this.props.showSubmitPopup &&
+            <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
+          }
 
         </div>
+        <Divider style={{
+          margin: '-1px 158px 0px',
+          marginLeft: '154px',
+          width: '62rem'
+        }} />
         <div id="editor-with-settings">
           <div className="editor-prompt">
             {this.state.showPopup && showPrompts() &&
@@ -349,7 +355,7 @@ export class UserHome extends React.Component {
             }
 
             <div className="editor" />
-            </div>
+          </div>
 
           <button className="settings-icon" onClick={this.toggleSettingsVisible} />
           <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
