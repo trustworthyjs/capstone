@@ -43,7 +43,8 @@ class Routes extends Component {
 
   state = {
     existingEntry: '',
-    existingEntryLoading: true
+    existingEntryId: 0,
+    existingEntryLoading: true,
   }
 
   componentDidMount () {
@@ -66,15 +67,30 @@ class Routes extends Component {
         let currentIDs = currentEntries.map(entry => entry.id)
         let latestID = Math.max(...currentIDs)
         let currentEntriesFiltered = currentEntries.filter(entry => entry.id === latestID)
+        if (currentEntriesFiltered[0].content !== null) {
+          this.setState({
+            existingEntryLoading: false,
+            existingEntry: currentEntriesFiltered[0].content,
+            existingEntryId: latestID
+          })
+        } else {
+          this.setState({
+            existingEntryLoading: false
+          })
+        }
+      } else {
         this.setState({
-          existingEntryLoading: false,
-          existingEntry: currentEntriesFiltered[0].content
+          existingEntryLoading: false
         })
       }
     }
   }
 
   render () {
+
+    if (this.state.existingEntryLoading && (this.props.allEntries.length > 0)) {
+      this.setExistingEntry()
+    }
 
     const {isLoggedIn} = this.props
 
@@ -90,7 +106,11 @@ class Routes extends Component {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" render={() => <UserHome existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading} />} />
+                  <Route path="/home"
+                    render={() => !this.state.existingEntryLoading &&<UserHome
+                    existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading}
+                    existingEntryId={this.state.existingEntryId} /> }
+                  />
                   <Route path="/trends" component={DataAnalysis} />
                   <Route path="/streaks" component={StreaksGraph} />
                   <Route path="/word-cloud" component={WordCloud} />
