@@ -17,3 +17,5 @@ export {default as SingleNotebook} from './singleNotebook'
 export {default as SingleEntry} from './singleEntry'
 export {default as SubmitEntryPopup} from './SubmitEntryPopup'
 export {default as ToneGraph} from './ToneGraph'
+export {default as Footer} from './footer'
+
