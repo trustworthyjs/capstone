@@ -69,6 +69,14 @@ form div {
     font-size: 18px;
 }
 
+.logo {
+    position: absolute;
+    z-index: 10000;
+    height: 3rem;
+    top: 0.2rem;
+    left: 18rem;
+}
+
 
 /*Home page */
 

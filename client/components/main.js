@@ -33,14 +33,15 @@ export class Main extends Component {
     const { children, handleClick, isLoggedIn, user } = this.props
     return (
       <div>
+      <img src="favicon.ico" className="logo" />
         {
           isLoggedIn ?
             <AppBar
-              title="Writer App"
+              title="Mindful Pirate"
               onLeftIconButtonClick={this.clickLeft}
               zDepth={1}
               iconElementRight={<FlatButton href="/account" label={`${user.email}`}
-              
+
               />}
             >
               <Drawer
@@ -68,7 +69,7 @@ export class Main extends Component {
             </AppBar> :
             //This AppBar will appear after login
             <AppBar
-              title={<span>Writer App</span>}
+              title={<span>Mindful Pirate</span>}
               iconElementLeft={<div />}
               iconElementRight={
                 <FlatButton label="Login / Sign up" href="/login" />
