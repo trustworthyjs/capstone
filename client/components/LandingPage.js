@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Paper from 'material-ui/paper'
+import Paper from 'material-ui/Paper'
 
 
 export const LandingPage = () => {
