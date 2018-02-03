@@ -314,7 +314,12 @@ export class UserHome extends React.Component {
             />
           }
 
-          <FlatButton label={'Submit Entry'} onClick={this.toggleSubmitPopup} primary={true} />
+          <FlatButton 
+            // backgroundColor="rgba(255,255,255, 0.85)"
+            // hoverColor="rgba(245,245,245,1.0)"
+            label={'Submit Entry'} 
+            onClick={this.toggleSubmitPopup} 
+            primary={true} />
           {this.props.showSubmitPopup &&
             <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
           }
@@ -333,7 +338,7 @@ export class UserHome extends React.Component {
               </Paper>
             }
 
-            <div className="editor" />
+            <div className={`editor ${this.props.userTheme}-theme`} />
           </div>
 
           <button className="settings-icon" onClick={this.toggleSettingsVisible} style={{top: '-3rem'}} />

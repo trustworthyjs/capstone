@@ -59,7 +59,6 @@ export const saveEntryDb = (editedEntry) =>
     axios.put(`/api/entries/${editedEntry.id}`, editedEntry)
       .then(res => {
         dispatch(saveEntry(res.data))
-        history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
       })
       .catch(err => console.log(err))
 
