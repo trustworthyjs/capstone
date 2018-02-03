@@ -2,13 +2,38 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Calendar} from '@nivo/calendar'
 import {getEntriesDb, me} from '../store'
+import Toggle from 'material-ui/Toggle';
 
+const styles = {
+  block: {
+    maxWidth: 250,
+  },
+  toggle: {
+    marginBottom: 16,
+  },
+  thumbOff: {
+    backgroundColor: '#ffcccc',
+  },
+  trackOff: {
+    backgroundColor: '#ff9d9d',
+  },
+  thumbSwitched: {
+    backgroundColor: 'red',
+  },
+  trackSwitched: {
+    backgroundColor: '#ff9d9d',
+  },
+  labelStyle: {
+    color: 'red',
+  },
+};
 
 class StreaksGraph extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      calendarData: []
+      calendarData: [],
+      streaks: false
     }
     this.prepData = this.prepData.bind(this)
   }
@@ -16,6 +41,11 @@ class StreaksGraph extends React.Component {
   componentDidMount() {
     if (!this.props.user){
       this.props.getMe()
+    }
+    if (this.props.user.streakGoal){
+      this.setState({
+        streaks: true
+      })
     }
     this.props.getEntriesForUser(this.props.user.id, this.prepData)
   }
@@ -39,10 +69,30 @@ class StreaksGraph extends React.Component {
     return Object.values(calData)
   }
 
+  onToggle = () => {
+    this.setState({
+      streaks: !this.state.streaks
+    })
+  }
+
   render() {
     return (
       <div className="container">
-        <h2>Recent Activity</h2>
+        <h2>Streaks</h2>
+        <Toggle
+          label={this.state.streaks ? `Streak Goals are On!` : `Streak Goals are Off!`}
+          labelPosition="right"
+          style={styles.toggle}
+          defaultToggled={true}
+          onToggle={this.onToggle}
+        />
+        {this.state.streaks && this.props.user && this.props.user.streakGoal ?
+        <div>
+        Your current streak goal: {this.props.user.streakGoal}
+        </div> :
+        <div>
+        You do not have a streak goal set.
+        </div>}
         {this.state.calendarData && this.state.calendarData.length > 0 &&
           <Calendar
             data={this.state.calendarData}
