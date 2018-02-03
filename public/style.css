@@ -118,13 +118,21 @@ form div {
     width: 30px;
     border: none;
     border-radius: 50%;
-    background-image: url("https://comps.canstockphoto.com/settings-icon-on-green-background-with-eps-vectors_csp24793638.jpg");
+    background-image: url("/images/helm.png");
     background-size: cover;
     position: absolute;
     z-index: 5;
     top: 7px;
     right: 7px;
+    cursor: pointer;
+    transition: transform 0.5s;
 }
+.settings-icon:hover {
+    transform: rotate(0.5turn);
+
+}
+
+button:focus {outline:0;}
 
 #editor-with-settings {
     height: 75%;
