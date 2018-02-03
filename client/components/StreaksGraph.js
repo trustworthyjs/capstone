@@ -3,28 +3,11 @@ import {connect} from 'react-redux'
 import {Calendar} from '@nivo/calendar'
 import {getEntriesDb, me} from '../store'
 import Toggle from 'material-ui/Toggle';
+import DatePicker from 'material-ui/DatePicker';
 
 const styles = {
-  block: {
-    maxWidth: 250,
-  },
   toggle: {
     marginBottom: 16,
-  },
-  thumbOff: {
-    backgroundColor: '#ffcccc',
-  },
-  trackOff: {
-    backgroundColor: '#ff9d9d',
-  },
-  thumbSwitched: {
-    backgroundColor: 'red',
-  },
-  trackSwitched: {
-    backgroundColor: '#ff9d9d',
-  },
-  labelStyle: {
-    color: 'red',
   },
 };
 
@@ -93,6 +76,11 @@ class StreaksGraph extends React.Component {
         <div>
         You do not have a streak goal set.
         </div>}
+        {this.state.streaks &&
+          <div>
+            Set or change streak goal
+            <DatePicker hintText={this.props.user.streakGoal ? `${this.props.user.streakGoal}` : `Pick a Date`} container="inline" mode="landscape" />
+          </div>}
         {this.state.calendarData && this.state.calendarData.length > 0 &&
           <Calendar
             data={this.state.calendarData}
