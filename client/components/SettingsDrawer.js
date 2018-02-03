@@ -31,9 +31,7 @@ export class SettingsDrawer extends React.Component {
         zoomIn: false
       }
     }
-    console.log('this.props.singleEntry:',this.props.singleEntry)
     if (this.props.singleEntry.id) {
-      console.log('is this rendering???')
       var checkSettings = {};
       if (this.props.singleEntry.settings) {
         checkSettings = this.props.singleEntry.settings;
