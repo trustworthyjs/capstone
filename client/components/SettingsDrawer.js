@@ -53,12 +53,12 @@ export class SettingsDrawer extends React.Component {
                       {['basic', 'pirate', 'beach', 'forest', 'mountains'].map(theme => {
                         if (theme !== this.props.user.theme){
                           return (
-                            <div 
+                            <div
                               key={theme}
                               name={theme}
                               value={theme}
-                              className="item" 
-                              onClick={this.handleChangeTheme}> 
+                              className="item"
+                              onClick={this.handleChangeTheme}>
                                 {theme}
                             </div>
                           )
@@ -83,7 +83,7 @@ export class SettingsDrawer extends React.Component {
                       <input type="submit" value="Set Timer" />
                     </form>
                   )}
-                </div>  
+                </div>
                 <div className="setting">
                   <div className="ui toggle checkbox">
                     <input type="checkbox" name="wordCount" checked={checkSettings.wordCount} onChange={this.handleChangeSettings}/>
@@ -99,7 +99,7 @@ export class SettingsDrawer extends React.Component {
                 <div className="ui toggle checkbox setting">
                   <input type="checkbox" name="prompts" checked={checkSettings.prompts} onChange={this.handleChangeSettings}/>
                   <label>Prompts</label>
-                </div>   
+                </div>
                 <div className="ui toggle checkbox setting">
                   <input type="checkbox" name="visualCues" checked={checkSettings.visualCues} onChange={this.handleChangeSettings}/>
                   <label>Visual Cues</label>
@@ -109,7 +109,7 @@ export class SettingsDrawer extends React.Component {
                   <label>Music</label>
                 </div>
                 {/* --------mode radio buttons -------- */}
-                <div className="ui form">  
+                <div className="ui form">
                   <div className="radio-field">
                     <div className="grouped fields">
                       <label>Change Mode: </label>
@@ -137,6 +137,7 @@ export class SettingsDrawer extends React.Component {
               </div>
             </div>
           </div>
+        </div>
         )
       } else if (this.props.singleEntry.id) {
         const updatedSettings = Object.assign({}, this.props.singleEntry, defaultSettings)
