@@ -34,7 +34,6 @@ function countWords(str) {
   return numWords;
 }
 
-
 /**
  * COMPONENT
  */
@@ -294,7 +293,6 @@ export class UserHome extends React.Component {
         { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
 
         <div className='settings-values'>
-
           {showTimer() &&
             <FlatButton
               label={timer}

@@ -407,9 +407,22 @@ body {
 }
 
 .toggleOff {
-    opacity: 0
+    opacity: 0;
+    height: 0;
+    margin: 0;
 }
 
 .toggleOn {
     opacity: 1
 }
+
+#submitError {
+  color: red;
+  font-size: .8em;
+  margin: 0 0 1em 0
+}
+
+.submit-popup-div {
+  margin: 0 0 0.5em 0;
+}
+
