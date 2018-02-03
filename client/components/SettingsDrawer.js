@@ -42,7 +42,6 @@ export class SettingsDrawer extends React.Component {
           <div>
             <div>
               <h5>Settings</h5>
-            </div>
             <div>
               <div className="setting">
                 <label>Your Theme: </label>

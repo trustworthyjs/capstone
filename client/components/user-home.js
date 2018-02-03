@@ -34,7 +34,6 @@ function countWords(str) {
   return numWords;
 }
 
-
 /**
  * COMPONENT
  */
@@ -290,15 +289,12 @@ export class UserHome extends React.Component {
     }
 
     return (
-       <div className={`editor-container ${this.props.userTheme}`} style={{marginTop: '-4rem'}}>
+       <div className={`editor-container`} style={{marginTop: '-4rem'}}>
         { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
 
         <div className='settings-values'>
-
           {showTimer() &&
             <FlatButton
-              backgroundColor="#cdcdcd"
-              style={{backgroundColor: "#cdcdcd"}}
               label={timer}
               labelPosition="before"
               primary={true}
@@ -307,16 +303,12 @@ export class UserHome extends React.Component {
           }
           {showWordCount() &&
             <FlatButton
-              backgroundColor="#cdcdcd"
-              style={{backgroundColor: "#cdcdcd"}}
               label={wordRatio}
               primary={true}
             />
           }
           {showPrompts() &&
             <FlatButton
-              backgroundColor="#cdcdcd"
-              style={{backgroundColor: "#cdcdcd"}}
               label={'Prompts Enabeled'}
               primary={true}
             />
@@ -333,7 +325,7 @@ export class UserHome extends React.Component {
           marginLeft: '154px',
           width: '62rem'
         }} />
-        <div id="editor-with-settings">
+        <div id="editor-with-settings" className={this.props.userTheme}>
           <div className="editor-prompt">
             {this.state.showPopup && showPrompts() &&
               <Paper className="popup" style={styles}>

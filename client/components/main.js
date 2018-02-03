@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link, NavLink } from 'react-router-dom'
 import { logout } from '../store'
+import {Footer} from './'
+
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -34,6 +36,7 @@ export class Main extends Component {
     return (
       <div>
       <img src="favicon.ico" className="logo" />
+      <div>
         {
           isLoggedIn ?
             <AppBar
@@ -77,6 +80,8 @@ export class Main extends Component {
             />
         }
         {children}
+      </div>
+      <Footer />
       </div>
     )
   }

@@ -134,10 +134,31 @@ form div {
 
 button:focus {outline:0;}
 
+.footer {
+    margin-top: 13rem;
+    height: 14rem;
+    width: 100vw;
+    background-color: #263238;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #B0BEC5;
+    text-align: center;
+}
+
+.footer a {
+    color: #ECEFF1;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
 #editor-with-settings {
     height: 75%;
     width: 75%;
     margin: 5px auto 50% auto;
+    margin-bottom: 7rem;
     position: relative;
     /* background-color: rgb(202, 200, 200); */
 }
@@ -402,9 +423,22 @@ body {
 }
 
 .toggleOff {
-    opacity: 0
+    opacity: 0;
+    height: 0;
+    margin: 0;
 }
 
 .toggleOn {
     opacity: 1
 }
+
+#submitError {
+  color: red;
+  font-size: .8em;
+  margin: 0 0 1em 0
+}
+
+.submit-popup-div {
+  margin: 0 0 0.5em 0;
+}
+
