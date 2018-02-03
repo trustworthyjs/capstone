@@ -24,7 +24,7 @@ class ToneGraph extends React.Component {
 
   selectEntries = (entries, range ) => {
     let nowDate = new Date();
-    nowDate.setHours(0, 0, 0, 0)
+    nowDate.setHours(23, 59, 59, 0)
     let beginRangeDate = new Date();
     if (range === 'last7Days'){
       beginRangeDate.setDate(nowDate.getDate() - 7)
@@ -119,13 +119,13 @@ class ToneGraph extends React.Component {
     }
     let graphData = []
     let tones = {
+      tentative: {"color": "hsl(90, 70%, 50%)"},
       anger: {"color": "hsl(20, 70%, 50%)"},
-      fear: {"color": "hsl(97, 70%, 50%)"},
-      joy: {"color": "hsl(352, 70%, 50%)"},
       sadness: {"color": "hsl(272, 70%, 50%)"},
       analytical: {"color": "hsl(119, 70%, 50%)"},
       confident: {"color": "hsl(163, 70%, 50%)"},
-      tentative: {"color": "hsl(90, 70%, 50%)"}
+      joy: {"color": "hsl(352, 70%, 50%)"},
+      fear: {"color": "hsl(97, 70%, 50%)"},
     }
 
     for (let tone in tones) {
@@ -178,7 +178,7 @@ class ToneGraph extends React.Component {
       <div className="container">
         {this.props.allEntries && this.props.allEntries.length > 0 ?
           <div>
-            <h5>Filter by: (default is 'Last 30 Days')</h5>
+            <h5>Filter by: (default 'Last 30 Days')</h5>
             <FlatButton label="Last 7 Days" onClick={this.onClickSeven} />
             <FlatButton label="Last 30 Days" primary={true} onClick={this.onClickThirty} />
             <FlatButton label="All Entries" secondary={true} onClick={this.onClickAll} />
@@ -187,13 +187,13 @@ class ToneGraph extends React.Component {
         {this.state.toneGraphData.length > 0 ?
           <Line
             data={this.state.toneGraphData}
-            width={800}
+            width={900}
             height={500}
             margin={{
                 "top": 35,
-                "right": 100,
+                "right": 130,
                 "bottom": 50,
-                "left": 40
+                "left": 50
             }}
             minY="auto"
             axisBottom={{
@@ -210,11 +210,12 @@ class ToneGraph extends React.Component {
                 "tickSize": 5,
                 "tickPadding": 5,
                 "tickRotation": 0,
-                "legend": "count",
+                "legend": "tone score",
                 "legendOffset": -40,
                 "legendPosition": "center"
             }}
             lineWidth={4}
+            colors={'set2'}
             dotSize={8}
             dotColor="inherit:darker(0.3)"
             dotBorderWidth={2}
@@ -223,7 +224,9 @@ class ToneGraph extends React.Component {
             dotLabel="y"
             dotLabelYOffset={-12}
             enableArea={true}
+            enableGridX={false}
             animate={true}
+            curve={'monotoneX'}
             motionStiffness={90}
             motionDamping={15}
             legends={[
@@ -237,7 +240,8 @@ class ToneGraph extends React.Component {
                     "symbolShape": "circle"
                 }
             ]}
-          /> :
+          />
+          :
           <div>No entries in the time period selected!</div>
         }
       </div>

@@ -19,9 +19,9 @@ import {fade} from 'material-ui/utils/colorManipulator';
 const muiTheme = getMuiTheme({
   palette: {
     primary1Color: cyan500,
-    primary2Color: cyan500,
-    primary3Color: cyan500,
-    accent1Color: cyan500,
+    primary2Color: deepPurple300,
+    primary3Color: pink300,
+    accent1Color: pink300,
     accent2Color: cyan500,
     accent3Color: '#c56000',
     textColor: darkBlack,
