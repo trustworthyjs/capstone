@@ -21,6 +21,9 @@ const User = db.define('user', {
     type: Sequelize.ENUM,
     values: ['basic', 'pirate', 'beach', 'forest', 'mountains'],
     defaultValue: 'basic'
+  },
+  streakGoal: {
+    type: Sequelize.DATE,
   }
 })
 

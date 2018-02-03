@@ -13,7 +13,7 @@ import SettingsDrawer from './SettingsDrawer'
 import Paper from 'material-ui/Paper';
 import Alarm from 'material-ui/svg-icons/action/alarm'
 import ActionAndroid from 'material-ui/svg-icons/action/android';
-import Divider from 'material-ui/divider'
+import Divider from 'material-ui/Divider'
 
 //util functions
 function shuffle(a) {
@@ -33,7 +33,6 @@ function countWords(str) {
   })
   return numWords;
 }
-
 
 /**
  * COMPONENT
@@ -290,15 +289,12 @@ export class UserHome extends React.Component {
     }
 
     return (
-       <div className={`editor-container ${this.props.userTheme}`} style={{marginTop: '-4rem'}}>
+       <div className={`editor-container`} style={{marginTop: '-4rem'}}>
         { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
 
         <div className='settings-values'>
-
           {showTimer() &&
             <FlatButton
-              // backgroundColor="rgba(255,255,255, 0.85)"
-              // hoverColor="rgba(220,220,220,0.85)"
               label={timer}
               labelPosition="before"
               primary={true}
@@ -307,16 +303,12 @@ export class UserHome extends React.Component {
           }
           {showWordCount() &&
             <FlatButton
-              // backgroundColor="rgba(255,255,255, 0.85)"
-              // hoverColor="rgba(220,220,220,0.85)"
               label={wordRatio}
               primary={true}
             />
           }
           {showPrompts() &&
             <FlatButton
-              // backgroundColor="rgba(255,255,255, 0.85)"
-              // hoverColor="rgba(220,220,220,0.85)"
               label={'Prompts Enabeled'}
               primary={true}
             />
@@ -338,7 +330,7 @@ export class UserHome extends React.Component {
           marginLeft: '154px',
           width: '62rem'
         }} />
-        <div id="editor-with-settings">
+        <div id="editor-with-settings" className={this.props.userTheme}>
           <div className="editor-prompt">
             {this.state.showPopup && showPrompts() &&
               <Paper className="popup" style={styles}>

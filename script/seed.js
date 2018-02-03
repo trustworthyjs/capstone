@@ -23,7 +23,7 @@ async function seed () {
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({email: 'murphy@email.com', password: '123', streakGoal: new Date('December 17, 2018')})
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
@@ -63,13 +63,13 @@ async function seed () {
   var txt15 = buffer15.toString();
 
   const notebooks = await Promise.all([
-    Notebook.create({title: 'Notebook1', cover: '#0000FF', userId: 1}),
-    Notebook.create({title: 'Notebook2', cover: '#008000', userId: 1}),
-    Notebook.create({title: 'Notebook3', cover: '#FF0000', userId: 1}),
-    Notebook.create({title: 'Notebook1', cover: '#FF0000', userId: 2}),
-    Notebook.create({title: 'Notebook2', cover: '#008000', userId: 2}),
-    Notebook.create({title: 'Notebook3', cover: '#008000', userId: 2}),
-    Notebook.create({title: 'Notebook4', cover: '#0000FF', userId: 2})
+    Notebook.create({title: 'Notebook1', cover: 'yellow', userId: 1}),
+    Notebook.create({title: 'Notebook2', cover: 'red', userId: 1}),
+    Notebook.create({title: 'Notebook3', cover: 'green', userId: 1}),
+    Notebook.create({title: 'Notebook1', cover: 'blue', userId: 2}),
+    Notebook.create({title: 'Notebook2', cover: 'yellow', userId: 2}),
+    Notebook.create({title: 'Notebook3', cover: 'blue', userId: 2}),
+    Notebook.create({title: 'Notebook4', cover: 'green', userId: 2})
   ])
 
   console.log(`seeded ${notebooks.length} notebooks`)

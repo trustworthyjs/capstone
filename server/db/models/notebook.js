@@ -7,8 +7,8 @@ const Notebook = db.define('notebook', {
   },
   cover: {
     type: Sequelize.ENUM,
-    values: ['#0000FF', '#008000', '#FF0000'],
-    defaultValue: '#0000FF'
+    values: ['red', 'yellow', 'green', 'blue'],
+    defaultValue: 'yellow'
   }
 })
 
