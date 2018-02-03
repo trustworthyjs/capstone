@@ -3,50 +3,55 @@ import { getNotebookDb, me } from '../store'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import {GridList, GridTile} from 'material-ui/GridList';
+import { GridList, GridTile } from 'material-ui/GridList';
 import Subheader from 'material-ui/Subheader';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import SingleEntry from './singleEntry';
+import Paper from 'material-ui/Paper';
 
-const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
-  gridList: {
-    width: 500,
-    height: 450,
-    overflowY: 'auto',
-  },
+
+const style = {
+  height: 130,
+  width: 100,
+  margin: 20,
+  fontSize: '6px',
+  // textAlign: 'center',
+  // display: 'inline-block',
 };
-
 
 export class singleNotebook extends React.Component {
 
   componentDidMount() {
-      this.props.getNotebook(+this.props.match.params.notebookId)
+    this.props.getNotebook(+this.props.match.params.notebookId)
   }
   render() {
     const notebookId = +this.props.match.params.notebookId
     let theNotebook = this.props.singleNotebook
     return (
       <div className="container">
-        {<Subheader>{theNotebook && theNotebook.title}</Subheader>}
+        <h2>Notebook: {theNotebook.title}</h2>
         {
-          theNotebook && theNotebook.entries && theNotebook.entries.length > 0 ? theNotebook.entries.map(entry => {
+          theNotebook && theNotebook.entries && theNotebook.entries.length > 0 ?
+          <div className="entries-grid">
+          {theNotebook.entries.map(entry => {
             return (
               <Link key={entry.id} to={`/notebooks/${notebookId}/entry/${entry.id}`}>
-                <Card>
-                  <CardTitle title={entry.title} subtitle={`Last Save: ${new Date(entry.savedAt)}`} />
-                  <CardText>
-                    {entry.content.slice(0, 100) + '...'}
-                  </CardText>
-                </Card>
+                <div className="entry-item">
+                  <Paper style={style} zDepth={1}>
+                    <div className="entry-text">
+                      {entry.content.slice(0, 200)}
+                    </div>
+                  </Paper>
+                  <div>
+                  {entry.title}
+                  </div>
+                </div>
               </Link>
             )
-          })
-          :
-          <h4>This notebook does not have any entries!</h4>
+          })}
+          </div>
+            :
+            <h4>This notebook does not have any entries!</h4>
         }
       </div>
     )

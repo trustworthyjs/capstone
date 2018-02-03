@@ -38,7 +38,7 @@ class WordCloud extends Component {
           <TagCloud
             className="tag-cloud"
             style={{
-              fontFamily: 'sans-serif',
+              fontFamily: `'Ubuntu Mono', monospace`,
               //fontSize: () => Math.round(Math.random() * 50) + 16,
               fontSize: 30,
               color: () => randomColor({

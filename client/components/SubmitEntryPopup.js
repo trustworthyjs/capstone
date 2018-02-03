@@ -23,7 +23,7 @@ class SubmitEntryPopup extends Component {
 
   state = {
       value: 1,
-      notebookColorValue: '#FF0000',
+      notebookColorValue: 'red',
       newNotebookName: '',
       entryTitle: ''
   }
@@ -157,9 +157,10 @@ class SubmitEntryPopup extends Component {
                 value={this.state.notebookColorValue}
                 onChange={this.handleNotebookColorChange} >
                   <MenuItem disabled={true} primaryText="Select A Color" />
-                  <MenuItem value={'#FF0000'} primaryText="Red" />
-                  <MenuItem value={'#008000'} primaryText="Green" />
-                  <MenuItem value={'#0000FF'} primaryText="Blue" />
+                  <MenuItem value={'red'} primaryText="Red" />
+                  <MenuItem value={'green'} primaryText="Green" />
+                  <MenuItem value={'blue'} primaryText="Blue" />
+                  <MenuItem value={'yellow'} primaryText="Yellow" />
               </DropDownMenu><br />
               <RaisedButton
                 label="Create new notebook"
@@ -167,7 +168,6 @@ class SubmitEntryPopup extends Component {
                 onClick={this.saveNotebook}
               />
           </div>
-
         </Dialog>
       </div>
     );

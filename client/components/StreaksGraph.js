@@ -42,7 +42,7 @@ class StreaksGraph extends React.Component {
   render() {
     return (
       <div className="container">
-        <h4>This is your recent activity!</h4>
+        <h2>Recent Activity</h2>
         {this.state.calendarData && this.state.calendarData.length > 0 &&
           <Calendar
             data={this.state.calendarData}

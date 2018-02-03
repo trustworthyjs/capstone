@@ -49,6 +49,16 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
+export const updateUserTheme = (userId, newTheme) => {
+  return dispatch => {
+    axios.put(`/api/users/${userId}`, {theme: newTheme})
+      .then(res => {
+        dispatch(getUser(res.data))
+      })
+      .catch(err => console.error(err))
+    }
+}
+
 /**
  * REDUCER
  */
