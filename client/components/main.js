@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link, NavLink } from 'react-router-dom'
 import { logout } from '../store'
+import {Footer} from './'
+
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -33,6 +35,7 @@ export class Main extends Component {
     const { children, handleClick, isLoggedIn, user } = this.props
     return (
       <div>
+      <div>
         {
           isLoggedIn ?
             <AppBar
@@ -40,7 +43,7 @@ export class Main extends Component {
               onLeftIconButtonClick={this.clickLeft}
               zDepth={1}
               iconElementRight={<FlatButton href="/account" label={`${user.email}`}
-              
+
               />}
             >
               <Drawer
@@ -76,6 +79,8 @@ export class Main extends Component {
             />
         }
         {children}
+      </div>
+      <Footer />
       </div>
     )
   }
