@@ -41,6 +41,11 @@ form div {
     background-color: rgba(220, 220, 220, 0.9);
 }
 
+.pirate-theme {
+    background-image: url('https://www.pergamena.net/s/ccream.JPG');
+    background-size: cover;
+}
+
 .popup {
     margin: 10px;
     border-radius: 5px;
@@ -111,12 +116,6 @@ form div {
     position: relative;
     /* background-color: rgb(202, 200, 200); */
 }
-
-
-/* .editor {
-    background-image: url('https://www.pergamena.net/s/ccream.JPG');
-    background-size: cover;
-} */
 
 .settings-values {
     margin: 7% auto 0 auto;
@@ -248,6 +247,9 @@ form div {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 

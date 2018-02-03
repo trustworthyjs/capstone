@@ -346,7 +346,7 @@ export class UserHome extends React.Component {
               </Paper>
             }
 
-            <div className="editor" />
+            <div className={`editor ${this.props.userTheme}-theme`} />
           </div>
 
           <button className="settings-icon" onClick={this.toggleSettingsVisible} style={{top: '-3rem'}} />
