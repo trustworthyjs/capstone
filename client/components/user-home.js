@@ -13,7 +13,7 @@ import SettingsDrawer from './SettingsDrawer'
 import Paper from 'material-ui/Paper';
 import Alarm from 'material-ui/svg-icons/action/alarm'
 import ActionAndroid from 'material-ui/svg-icons/action/android';
-import Divider from 'material-ui/divider'
+import Divider from 'material-ui/Divider'
 
 //util functions
 function shuffle(a) {
