@@ -92,8 +92,6 @@ class Routes extends Component {
       this.setExistingEntry()
     }
 
-    console.log('existing entry loading: ', this.state.existingEntryLoading)
-
     const {isLoggedIn} = this.props
 
     return (

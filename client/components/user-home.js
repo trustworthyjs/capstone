@@ -33,7 +33,6 @@ function countWords(str) {
   return numWords;
 }
 
-
 /**
  * COMPONENT
  */
@@ -322,7 +321,6 @@ export class UserHome extends React.Component {
           primary={true}
           icon={<Alarm />}
         />
-
         }
 
         {showWordCount() &&
