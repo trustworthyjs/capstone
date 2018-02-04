@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Calendar} from '@nivo/calendar'
-import {getEntriesDb, me} from '../store'
+import {getEntriesDb, me, updateUserStreak} from '../store'
 import Toggle from 'material-ui/Toggle';
 import DatePicker from 'material-ui/DatePicker';
 
@@ -56,9 +56,15 @@ class StreaksGraph extends React.Component {
     this.setState({
       streaks: !this.state.streaks
     })
+    this.props.updateStreak(this.props.user.id)
+  }
+
+  editStreak = (e, date) => {
+    this.props.updateStreak(this.props.user.id, date)
   }
 
   render() {
+    let streakGoal = this.props.user.streakGoal
     return (
       <div className="container">
         <h2>Streaks</h2>
@@ -69,9 +75,9 @@ class StreaksGraph extends React.Component {
           defaultToggled={true}
           onToggle={this.onToggle}
         />
-        {this.state.streaks && this.props.user && this.props.user.streakGoal ?
+        {this.state.streaks && this.props.user && streakGoal ?
         <div>
-        Your current streak goal: {this.props.user.streakGoal}
+        Your current streak goal: {streakGoal.slice(0, streakGoal.indexOf('T'))}
         </div> :
         <div>
         You do not have a streak goal set.
@@ -79,7 +85,10 @@ class StreaksGraph extends React.Component {
         {this.state.streaks &&
           <div>
             Set or change streak goal
-            <DatePicker hintText={this.props.user.streakGoal ? `${this.props.user.streakGoal}` : `Pick a Date`} container="inline" mode="landscape" />
+            <DatePicker
+            hintText={streakGoal ? `${streakGoal.slice(0, streakGoal.indexOf('T'))}` : `Pick a Date`}
+            mode="landscape"
+            onChange={this.editStreak}/>
           </div>}
         {this.state.calendarData && this.state.calendarData.length > 0 &&
           <Calendar
@@ -137,6 +146,9 @@ const mapDispatch = (dispatch) => {
     },
     getMe: () => {
       return dispatch(me())
+    },
+    updateStreak: (userId, newStreak) => {
+      return dispatch(updateUserStreak(userId, newStreak))
     }
   }
 }

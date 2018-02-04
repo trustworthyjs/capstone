@@ -59,6 +59,16 @@ export const updateUserTheme = (userId, newTheme) => {
     }
 }
 
+export const updateUserStreak = (userId, newGoal) =>
+  dispatch => {
+    if (!newGoal) newGoal = null
+    axios.put(`/api/users/${userId}`, {streakGoal: newGoal})
+      .then(res => {
+        dispatch(getUser(res.data))
+      })
+      .catch(err => console.error(err))
+  }
+
 /**
  * REDUCER
  */
