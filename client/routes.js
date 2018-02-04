@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook, SingleEntry, StreaksGraph, ToneGraph} from './components'
+import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook, SingleEntry, StreaksGraph, ToneGraph, SearchBar} from './components'
 import {me, fetchDataAnalysis, toggleSubmitPopupThunk, getNotebooksDb, getEntriesDb} from './store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -111,6 +111,7 @@ class Routes extends Component {
                     existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading}
                     existingEntryId={this.state.existingEntryId} /> }
                   />
+                  <Route path="/search" component={SearchBar} />
                   <Route path="/trends" component={DataAnalysis} />
                   <Route path="/streaks" component={StreaksGraph} />
                   <Route path="/word-cloud" component={WordCloud} />
@@ -121,7 +122,7 @@ class Routes extends Component {
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={UserHome} />
+            <Route component={SearchBar} />
           </Switch>
         </Main>
       </Router>
