@@ -29,7 +29,6 @@ export class Main extends Component {
       open: !this.state.open
     })
   }
-
   handleClose = () => this.setState({ open: false });
 
   render() {
