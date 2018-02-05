@@ -8,26 +8,6 @@ import TextField from 'material-ui/TextField';
 import {List, ListItem, makeSelectable} from 'material-ui/List';
 
 
-//sorting function
-function quickSort(arr) {
-
-  if (arr.length < 2) return arr;
-  
-  var pivot = arr[0];
-  var lesser = [];
-  var greater = [];
-
-  for (var i = 1; i < arr.length; i++) {
-    if (arr[i].content < pivot.content) {
-        lesser.push(arr[i]);
-    } else {
-        greater.push(arr[i])
-    }
-  }
-
-  return quickSort(lesser).concat(pivot, quickSort(greater));
-}
-
 export class SearchBar extends Component {
 
   state = {
