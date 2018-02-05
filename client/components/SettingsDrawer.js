@@ -31,9 +31,13 @@ export class SettingsDrawer extends React.Component {
         zoomIn: false
       }
     }
-    console.log('this.props.singleEntry:',this.props.singleEntry)
+    let minutes = []
+    let seconds = []
+    for (let i = 0; i < 60; i++) {
+      if (i < 30) minutes.push(i+1);
+      seconds.push(i);
+    }
     if (this.props.singleEntry.id) {
-      console.log('is this rendering???')
       var checkSettings = {};
       if (this.props.singleEntry.settings) {
         checkSettings = this.props.singleEntry.settings;
@@ -75,15 +79,27 @@ export class SettingsDrawer extends React.Component {
                     <input type="checkbox" name="timer" checked={checkSettings.timer} onChange={this.handleChangeSettings}/>
                     <label>Timer</label>
                   </div>
-                  {checkSettings.timer && (
-                    <form onSubmit={this.handleSetTimer} style={{display: 'flex'}}>
-                      <input type="text" name="minutes" style={{width: '15%'}}></input>
-                      :
-                      <input type="text" name="seconds" style={{width: '15%'}}></input>
-                      <input type="submit" value="Set Timer" />
-                    </form>
-                  )}
-                </div>
+                  {checkSettings.timer && 
+                    this.props.visible && (
+                    <div>
+                      <select className="ui dropdown">
+                          {minutes.map((minute) => {
+                            return (
+                              <option value={minute}>{minute}</option>
+                            )
+                          })}
+                      </select>
+                      <span>:</span>
+                      <select className="ui dropdown">
+                          {seconds.map((second) => {
+                            return (
+                              <option value={second}>{`0${second}`.slice(-2)}</option>
+                            )
+                          })}
+                      </select>
+                    </div>
+                    )}
+                </div>  
                 <div className="setting">
                   <div className="ui toggle checkbox">
                     <input type="checkbox" name="wordCount" checked={checkSettings.wordCount} onChange={this.handleChangeSettings}/>
