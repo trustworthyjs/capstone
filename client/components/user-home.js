@@ -319,7 +319,6 @@ export class UserHome extends React.Component {
             />
           }
 
-
         </div>
         <div id="editor-with-settings" className={this.props.userTheme}>
           <div className="editor-prompt">

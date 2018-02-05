@@ -66,6 +66,10 @@ export class PersonalityRadarChart extends Component {
             })
             return (
                 <div>
+                    <h2 style={{
+                        textAlign: 'center'}}>
+                        "Big 5 Personality Traits"
+                    </h2>
                     <div
                         className='personality-radar-main radar'
                         ref={(ref) => this.container = ref}
