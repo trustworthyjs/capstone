@@ -12,12 +12,14 @@ class Audio extends Component {
 
   render () {
 
+    let urlVar = mp3sObject[this.props.music] ? mp3sObject[this.props.music] : ''
+
     return (
       <Sound
-      url={mp3sObject[this.props.music]}
-      playStatus={Sound.status.PLAYING}
-      loop={true}
-      volume={100}
+        url={urlVar}
+        playStatus={Sound.status.PLAYING}
+        loop={true}
+        volume={100}
       />
     )
   }

@@ -210,6 +210,12 @@ export class UserHome extends React.Component {
     this.setState({ settingsOpen: !this.state.settingsOpen })
   }
 
+  clearEntry = () => {
+    const updatedEntry = Object.assign({}, this.props.singleEntry, { content: null, formattedContent: null })
+    this.props.saveEntry(updatedEntry)
+    this.state.editor.setContents([])
+  }
+
   /*eslint-disable complexity */
 
   render() {
@@ -290,17 +296,14 @@ export class UserHome extends React.Component {
 
     return (
       <div>
-      <FlatButton className="submit" label={'Submit Entry'} onClick={this.toggleSubmitPopup} secondary={true} />
-      {this.props.showSubmitPopup &&
-        <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
-      }
+
        <div className={`editor-container`} style={{marginTop: '-4rem'}}>
         { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
         <div className={this.props.userTheme} style={{height: '24.3rem',
-    width: '85rem',
-    position: 'absolute',
-    top: '8.3rem',
-    'z-index': '-10'}} />
+            width: '85rem',
+            position: 'absolute',
+            top: '8.3rem',
+            'z-index': '-10'}} />
         <div className='settings-values'>
           {showTimer() &&
             <FlatButton
@@ -322,6 +325,13 @@ export class UserHome extends React.Component {
                 style={{color: '#1595A3'}}
             />
           }
+
+          <FlatButton label={'Submit Entry'} onClick={this.toggleSubmitPopup} secondary={true} />
+            {this.props.showSubmitPopup &&
+            <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
+            }
+
+          <FlatButton label={'Clear Entry'} onClick={this.clearEntry} secondary={true} />
 
         </div>
         <div id="editor-with-settings" >

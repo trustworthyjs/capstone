@@ -68,9 +68,9 @@ export const submitEntryDb = (editedEntry, notebookId, history, userId) =>
       .then(res => {
         dispatch(saveEntry(res.data))
         dispatch(me())
-        history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
       })
       .then(async () => {
+        history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
         let dataObj = await createDataAfterNewEntry(userId)
         dispatch(createDataAnalysis(userId, dataObj))
       })
