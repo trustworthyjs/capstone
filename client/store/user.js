@@ -61,8 +61,18 @@ export const updateUserTheme = (userId, newTheme) => {
 
 export const updateUserStreak = (userId, newGoal) =>
   dispatch => {
-    if (!newGoal) newGoal = null
-    axios.put(`/api/users/${userId}`, {streakGoalDate: newGoal})
+    let updateObj;
+    if (!newGoal) {
+      updateObj = {
+        streakGoalDate: null,
+        currentStreak: 0
+      }
+    } else {
+      updateObj = {
+        streakGoalDate: newGoal
+      }
+    }
+    axios.put(`/api/users/${userId}`, updateObj)
       .then(res => {
         dispatch(getUser(res.data))
       })

@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { withRouter, Link, NavLink } from 'react-router-dom'
 import { logout } from '../store'
 import {Footer} from './'
-
+import Badge from 'material-ui/Badge'
+import FireIcon from 'material-ui/svg-icons/social/whatshot';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -39,14 +40,12 @@ export class Main extends Component {
       <div>
         {
           isLoggedIn ?
+          // this appbar will appear if logged in
             <AppBar
               title="Mindful Pirate"
               onLeftIconButtonClick={this.clickLeft}
               zDepth={1}
-              iconElementRight={<FlatButton href="/account" label={`${user.email}`}
-
-              />}
-            >
+              >
               <Drawer
                 docked={true}
                 open={this.state.open}
@@ -59,18 +58,36 @@ export class Main extends Component {
                 <NavLink onClick={this.handleClose} to="/streaks"><MenuItem>Streaks</MenuItem></NavLink>
                 <NavLink onClick={this.handleClose} to="/trends"><MenuItem>Trends</MenuItem></NavLink>
               </Drawer>
-              <IconMenu
-                iconButtonElement={
-                  <IconButton touch={true}>
-                    <NavigationExpandMoreIcon />
-                  </IconButton>
+              <div className="nav-items">
+                {user.streakGoalDate && user.currentStreak > 1 &&
+                  <Link to="/streaks">
+                    <Badge
+                      badgeContent={user.currentStreak}
+                      secondary={true}
+                      badgeStyle={{top: 4, right: 2, width: 17, height: 17}}
+                      style={{padding: 2}}
+                    >
+                      <IconButton
+                        tooltip="Streaks">
+                      <FireIcon />
+                      </IconButton>
+                    </Badge>
+                  </Link>
                 }
-              >
-                <MenuItem primaryText="Account" href="/account" />
-                <MenuItem primaryText="Logout" onClick={handleClick} />
-              </IconMenu>
+                <FlatButton href="/account" label={`${user.email}`} />
+                <IconMenu
+                  iconButtonElement={
+                    <IconButton touch={true}>
+                    <NavigationExpandMoreIcon />
+                    </IconButton>
+                  }
+                  >
+                  <MenuItem primaryText="Account" href="/account" />
+                  <MenuItem primaryText="Logout" onClick={handleClick} />
+                </IconMenu>
+              </div>
             </AppBar> :
-            //This AppBar will appear after login
+            //This AppBar will appear if you are not logged in
             <AppBar
               title={<span>Mindful Pirate</span>}
               iconElementLeft={<div />}
