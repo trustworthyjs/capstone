@@ -4,6 +4,7 @@ import {Calendar} from '@nivo/calendar'
 import {getEntriesDb, me, updateUserStreak} from '../store'
 import Toggle from 'material-ui/Toggle';
 import DatePicker from 'material-ui/DatePicker';
+import {Link} from 'react-router-dom'
 
 const styles = {
   toggle: {
@@ -63,7 +64,7 @@ class StreaksGraph extends React.Component {
     this.props.updateStreak(this.props.user.id, date)
   }
 
-  checkForStreaks = (entries, startDate, endDate, type) => {
+  checkForStreaks = (entries, startDate, endDate) => {
     let entriesInRange = entries.filter((entry) => {
       return entry.savedAt >= startDate && entry.savedAt <= endDate
     })
@@ -77,16 +78,14 @@ class StreaksGraph extends React.Component {
       }
     })
     //now entryDatesObj is an object with dates in range and amount of entries day
-    if (!type || type === 'daily'){
-      //find the current streak and the longest streak in the range
-    }
   }
 
   render() {
     let streakGoal = this.props.user.streakGoalDate
-    let streakGoalType = this.props.user.streakGoalType
     let streakGoalStart = this.props.user.streakGoalStart
-    this.checkForStreaks(this.props.allEntries, streakGoalStart, streakGoal, streakGoalType)
+    let maxStreak = this.props.user.maxStreak
+    let currentStreak = this.props.user.currentStreak
+    this.checkForStreaks(this.props.allEntries, streakGoalStart, streakGoal)
     return (
       <div className="container">
         <h2>Streaks</h2>
@@ -99,7 +98,7 @@ class StreaksGraph extends React.Component {
         />
         {this.state.streaks && this.props.user && streakGoal ?
         <div>
-        <b>Your current streak goal:</b> <br />Write one entry {streakGoalType} until {streakGoal.slice(0, streakGoal.indexOf('T'))}
+        <b>Your current streak goal:</b> <br />Write one entry daily until {streakGoal.slice(0, streakGoal.indexOf('T'))}
         <br />
         <b>Started On:</b>
         <br />
@@ -118,7 +117,16 @@ class StreaksGraph extends React.Component {
             minDate={new Date()}
             onChange={this.editStreak}/>
           </div>}
-        {this.state.streaks && <b>Your Progress:</b>}
+        {this.state.streaks &&
+          <div><b>Your Progress:</b>
+            <br />
+            { currentStreak > 1 ?
+              <div>Current Streak: {currentStreak}<br />
+              Max Streak: {maxStreak}</div>
+              :
+              <div>You haven't submitted enough entries to have a streak :( <Link to="/home">Write one now!</Link></div>
+            }
+          </div>}
         {this.state.calendarData && this.state.calendarData.length > 0 &&
           <Calendar
             data={this.state.calendarData}

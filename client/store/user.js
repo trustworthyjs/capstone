@@ -61,7 +61,6 @@ export const updateUserTheme = (userId, newTheme) => {
 
 export const updateUserStreak = (userId, newGoal) =>
   dispatch => {
-    console.log('newgoal', newGoal)
     if (!newGoal) newGoal = null
     axios.put(`/api/users/${userId}`, {streakGoalDate: newGoal})
       .then(res => {
