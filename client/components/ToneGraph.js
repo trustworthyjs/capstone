@@ -35,10 +35,10 @@ class ToneGraph extends React.Component {
       beginRangeDate.setHours(0, 0, 0, 0)
     }
     if (range === 'all'){
-      return entries
+      return entries.filter(entry => entry.submitted === true)
     }
     let filteredEntries = entries.filter((entry) => {
-      return new Date(entry.savedAt) >= beginRangeDate && new Date(entry.savedAt) <= nowDate
+      return new Date(entry.savedAt) >= beginRangeDate && new Date(entry.savedAt) <= nowDate && entry.submitted
     })
     return filteredEntries
   }

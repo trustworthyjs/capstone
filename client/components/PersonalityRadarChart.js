@@ -6,7 +6,7 @@ import {Popup} from './Popup'
 import PersonalityRadarChartChild from './PersonalityRadarChartChild';
 
 export class PersonalityRadarChart extends Component {
-    
+
     constructor() {
         super()
         this.state = {
@@ -19,8 +19,8 @@ export class PersonalityRadarChart extends Component {
         }
         this.rect = {}
     }
-    
-    //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the 
+
+    //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the
     // radius down to just 5 pixels around the actual circle
     handleHover = (point) => {
         if (this.container) {
@@ -37,7 +37,7 @@ export class PersonalityRadarChart extends Component {
                         popupX: window.event.clientX,
                         popupY: window.event.clientY - this.rect.top,
                         popupMessage: percentage
-                    })             
+                    })
             } else {
                 this.setState({
                     isHovering: false
@@ -46,11 +46,11 @@ export class PersonalityRadarChart extends Component {
         }
     }
 
-    
+
     render() {
         if (this.container) this.rect = this.container.querySelector('svg').getBoundingClientRect();
         var data = this.props.data
-        
+
         if (data.personality) {
 
             const personality = data.personality;
@@ -75,7 +75,7 @@ export class PersonalityRadarChart extends Component {
                         ref={(ref) => this.container = ref}
                         onMouseLeave={this.handleHover}
                     >
-                        {this.state.isHovering && 
+                        {this.state.isHovering &&
                             <Popup x={this.state.popupX} y={this.state.popupY} message={this.state.popupMessage} />
                         }
                         <Radar
@@ -100,12 +100,12 @@ export class PersonalityRadarChart extends Component {
                     <div id="child-radar-container">
                         {Object.keys(personalityChildren).map(childTraitName => {
                             return (
-                                <div>
-                                    <PersonalityRadarChartChild 
+                                <div key={childTraitName}>
+                                    <PersonalityRadarChartChild
                                         key={childTraitName}
-                                        name={childTraitName}     
-                                        trait={personalityChildren[childTraitName]} 
-                                        width={350} 
+                                        name={childTraitName}
+                                        trait={personalityChildren[childTraitName]}
+                                        width={350}
                                         height={350}
                                         parentHeight={this.rect.top + this.rect.height}/>
                                 </div>
