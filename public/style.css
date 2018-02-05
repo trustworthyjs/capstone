@@ -74,6 +74,10 @@ body ::-webkit-scrollbar-thumb {
     background-color: rgb(192, 192, 192);
 }
 
+#editor-with-settings div {
+  overflow-x: hidden !important;
+}
+
 .popup {
     margin: 10px;
     border-radius: 5px;
