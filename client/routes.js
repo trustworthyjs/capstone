@@ -111,18 +111,17 @@ class Routes extends Component {
                     existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading}
                     existingEntryId={this.state.existingEntryId} /> }
                   />
-                  <Route path="/search" component={SearchBar} />
                   <Route path="/trends" component={DataAnalysis} />
                   <Route path="/streaks" component={StreaksGraph} />
                   <Route path="/word-cloud" component={WordCloud} />
                   <Route exact path="/notebooks" component={Notebooks} />
                   <Route exact path="/notebooks/:notebookId" component={SingleNotebook} />
                   <Route path="/notebooks/:notebookId/entry/:entryId" component={SingleEntry} />
-                  <Route exact path="/" component={LandingPage} />
+                  <Route path="/" component={LandingPage} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={SearchBar} />
+            <Route component={LandingPage} />
           </Switch>
         </Main>
       </Router>

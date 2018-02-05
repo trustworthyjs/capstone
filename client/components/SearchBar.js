@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import {getEntryDb} from '../store';
 import {withRouter} from 'react-router';
-import TextField from 'material-ui/TextField'
+import history from '../history';
+import TextField from 'material-ui/TextField';
 import {List, ListItem, makeSelectable} from 'material-ui/List';
 
 
@@ -87,7 +89,10 @@ export class SearchBar extends Component {
             let text = this.getListItemText(inputValue, firstIdx, lastIdx, entry.content);
             
             return (
-              <ListItem>{text}</ListItem>
+              <ListItem
+                onClick={() => history.push(`/notebooks/${entry.notebookId}/entry/${entry.id}`)}>
+                {text}
+              </ListItem>
             )
           })}
         </List>
