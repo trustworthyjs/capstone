@@ -34,7 +34,7 @@ export class SettingsDrawer extends React.Component {
     let minutes = []
     let seconds = []
     for (let i = 0; i < 60; i++) {
-      if (i < 30) minutes.push(i+1);
+      if (i <= 30) minutes.push(i);
       seconds.push(i);
     }
     if (this.props.singleEntry.id) {
@@ -82,19 +82,31 @@ export class SettingsDrawer extends React.Component {
                   {checkSettings.timer && 
                     this.props.visible && (
                     <div>
-                      <select className="ui dropdown">
+                      <select className="ui dropdown" onChange={this.handleSetTimerMinutes}>
                           {minutes.map((minute) => {
-                            return (
-                              <option value={minute}>{minute}</option>
-                            )
+                            if (Math.floor(this.props.editorValues.timer / 60) === minute) {
+                              return (
+                                <option value={minute} selected="selected">{minute}</option>
+                              )
+                            } else {
+                              return (
+                                <option value={minute}>{minute}</option>
+                              )
+                            }
                           })}
                       </select>
                       <span>:</span>
-                      <select className="ui dropdown">
+                      <select className="ui dropdown" onChange={this.handleSetTimerSeconds}>
                           {seconds.map((second) => {
-                            return (
-                              <option value={second}>{`0${second}`.slice(-2)}</option>
-                            )
+                            if (Math.floor(this.props.editorValues.timer % 60) === second) {
+                              return (
+                                <option value={second} selected="selected">{`0${second}`.slice(-2)}</option>
+                              )
+                            } else {
+                              return (
+                                <option value={second}>{`0${second}`.slice(-2)}</option>
+                              )
+                            }
                           })}
                       </select>
                     </div>
@@ -177,11 +189,17 @@ export class SettingsDrawer extends React.Component {
     this.props.dispatchUpdate(updatedEntry);
   }
 
-  handleSetTimer = (event) => {
+  handleSetTimerMinutes = (event) => {
     event.preventDefault();
-    const minutes = +event.target.minutes.value;
-    const seconds = +event.target.seconds.value;
-    const totalSeconds = minutes * 60 + seconds;
+    const minutes = +event.target.value;
+    const totalSeconds = minutes * 60 + this.props.editorValues.timer % 60;
+    this.props.dispatchSetTimer(totalSeconds);
+  }
+
+  handleSetTimerSeconds = (event) => {
+    event.preventDefault();
+    const seconds = +event.target.value;
+    const totalSeconds = seconds + this.props.editorValues.timer - this.props.editorValues.timer%60;
     this.props.dispatchSetTimer(totalSeconds);
   }
 
@@ -233,7 +251,8 @@ export class SettingsDrawer extends React.Component {
 const mapState = (state) => {
   return {
     singleEntry: state.singleEntry,
-    user: state.user
+    user: state.user,
+    editorValues: state.editorValues
   }
 }
 
