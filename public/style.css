@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+
 }
 
 h1, h2, h3, h4, h5 {
@@ -13,6 +14,7 @@ text {
 
 body {
     font-family: 'Ubuntu Mono', monospace !important;
+
     /* background-image: url('https://img00.deviantart.net/7809/i/2007/271/7/7/pirate_wallpaper_by_unpatient.jpg');
     background-size: cover; */
 }
@@ -42,17 +44,48 @@ form div {
 .ql-container.ql-snow {
     border: 0px solid #ccc;
 }
-
+.popup {
+  overflow-y: hidden;
+  height: max-content !important;
+}
 .editor {
     height: 60vh;
     font-size: 25px;
     font-family: 'Ubuntu Mono', monospace;
     opacity: .7;
-    background-color: rgb(192, 192, 192);
+
 }
 
-.settings-values>button {
-    background-color: rgb(192, 192, 192);
+.submit {
+  right: -57rem;
+  top: 4.34rem;
+}
+
+.radio {
+  overflow-y: hidden
+}
+
+body ::-webkit-scrollbar {
+  width: 2px;
+}
+
+body ::-webkit-scrollbar-thumb {
+  opacity: 0;
+  background: #ACD3F2;
+}
+
+.settings-values {
+      margin-right: 25rem;
+    background-color: rgba(220, 220, 220, 0.9);
+}
+
+.pirate-theme {
+    background-image: url('https://www.pergamena.net/s/ccream.JPG');
+    background-size: cover;
+}
+
+#editor-with-settings div {
+  overflow-x: hidden !important;
 }
 
 .popup {
@@ -177,10 +210,14 @@ navbar / appbar items
 
 .settings-values {
     margin: 7% auto 0 auto;
+    margin-right: 25rem;
     display: flex;
     justify-content: space-evenly;
     width: 44rem;
     min-height: 25px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .settings-values div {
@@ -321,9 +358,18 @@ navbar / appbar items
 
 /* Personality Radars */
 
+.radar text {
+    font-family: monospace;
+}
+
 .personality-radar-main {
     width: 100%;
     text-align: center;
+    font-size: 15px;
+}
+
+.personality-radar-main text {
+    font-size: 15px;
 }
 
 .personality-radar-child {
@@ -332,8 +378,21 @@ navbar / appbar items
     margin-top: 30px;
 }
 
+.personality-radar-child text {
+    font-size: 12px;
+}
+
 .personality-radar-child h3 {
     margin-bottom: 0;
+}
+
+#child-radar-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -435,7 +494,7 @@ body {
 }
 
 .toggleOn {
-    opacity: 1
+    opacity: 1;
 }
 
 #submitError {
@@ -447,4 +506,3 @@ body {
 .submit-popup-div {
   margin: 0 0 0.5em 0;
 }
-

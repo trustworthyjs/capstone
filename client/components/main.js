@@ -47,9 +47,10 @@ export class Main extends Component {
               zDepth={1}
               >
               <Drawer
-                docked={true}
+                docked={false}
                 open={this.state.open}
                 onRequestChange={(open) => this.setState({ open })}
+                modal={false}
                 containerStyle={{
                   top: 50
                 }}>

@@ -24,16 +24,16 @@ export class PersonalityRadarChartChild extends Component {
         if (this.container) {
             var svg = this.container.querySelector('svg');
             rect = svg.getBoundingClientRect();
-            let mouseXInChart = window.event.clientX - (this.state.chartWidth / 2 + rect.left)
-            let mouseYInChart = window.event.clientY - (this.state.chartHeight / 2 + rect.top)
+            let mouseXInChart = window.event.clientX - (this.props.chartWidth / 2 + rect.left)
+            let mouseYInChart = window.event.clientY - (this.props.chartHeight / 2 + rect.top)
             if (point &&
                 (mouseXInChart > Math.floor(point.x) - 5 && mouseXInChart < Math.floor(point.x) + 5) &&
                 (mouseYInChart > Math.floor(point.y) - 5 && mouseYInChart < Math.floor(point.y) + 5)) {
                     let percentage = Math.floor(point.value) + '%'
                     this.setState({
                         isHovering: true,
-                        popupX: window.event.clientX - rect.left,
-                        popupY: window.event.clientY - rect.top,
+                        popupX: window.event.clientX,
+                        popupY: window.event.clientY + window.pageYOffset - 100,
                         popupMessage: percentage
                     })             
             } else {
@@ -59,7 +59,7 @@ export class PersonalityRadarChartChild extends Component {
             })
             return (
                 <div
-                    className='personality-radar-child'
+                    className='personality-radar-child radar'
                     ref={(ref) => this.container = ref}
                 >
                     {this.state.isHovering && 
@@ -69,7 +69,7 @@ export class PersonalityRadarChartChild extends Component {
                     <Radar
                         width={this.props.chartWidth}
                         height={this.props.chartHeight}
-                        padding={70}
+                        padding={90}
                         domainMax={100}
                         highlighted={null}
                         onHover={this.handleHover}
@@ -100,7 +100,8 @@ const mapState = (state, ownProps) => {
         name: ownProps.name,
         personalityTrait: ownProps.trait,
         chartHeight: ownProps.height,
-        chartWidth: ownProps.width
+        chartWidth: ownProps.width,
+        parentHeight: ownProps.parentHeight
     }
 }
 

@@ -26,12 +26,15 @@ class DataAnalysis extends React.Component {
   render(){
       return (
         <Tabs
+          
           value={this.state.value}
           onChange={this.handleChange}
         >
           {
             this.props.data.id &&
-            <Tab label="Keywords" value="word-cloud">
+            <Tab label="Keywords" value="word-cloud"
+            style={{backgroundColor: '#FFF9EC'}}
+            >
               <div>
                 <WordCloud />
               </div>
@@ -40,14 +43,18 @@ class DataAnalysis extends React.Component {
 
           {
             this.props.data.id &&
-            <Tab label="Personality Radar" value="radar-chart">
+            <Tab label="Personality Radar" value="radar-chart"
+            style={{backgroundColor: '#FFF9EC'}}
+            >
               <div>
                 <PersonalityRadarChart />
               </div>
             </Tab>
           }
 
-          <Tab label="Tones Over Time" value="mood-chart">
+          <Tab label="Tones Over Time" value="mood-chart"
+          style={{backgroundColor: '#FFF9EC'}}
+          >
             <ToneGraph />
           </Tab>
 

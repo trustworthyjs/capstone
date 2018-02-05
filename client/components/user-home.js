@@ -289,6 +289,11 @@ export class UserHome extends React.Component {
     }
 
     return (
+      <div>
+      <FlatButton className="submit" label={'Submit Entry'} onClick={this.toggleSubmitPopup} secondary={true} />
+      {this.props.showSubmitPopup &&
+        <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
+      }
        <div className={`editor-container`} style={{marginTop: '-4rem'}}>
         { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
 
@@ -297,34 +302,24 @@ export class UserHome extends React.Component {
             <FlatButton
               label={timer}
               labelPosition="before"
-              primary={true}
+              style={{color: '#1595A3'}}
               icon={<Alarm />}
             />
           }
           {showWordCount() &&
             <FlatButton
               label={wordRatio}
-              primary={true}
+              style={{color: '#1595A3'}}
             />
           }
           {showPrompts() &&
             <FlatButton
               label={'Prompts Enabeled'}
-              primary={true}
+                style={{color: '#1595A3'}}
             />
           }
 
-          <FlatButton label={'Submit Entry'} onClick={this.toggleSubmitPopup} primary={true} />
-          {this.props.showSubmitPopup &&
-            <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
-          }
-
         </div>
-        <Divider style={{
-          margin: '-1px 158px 0px',
-          marginLeft: '154px',
-          width: '62rem'
-        }} />
         <div id="editor-with-settings" className={this.props.userTheme}>
           <div className="editor-prompt">
             {this.state.showPopup && showPrompts() &&
@@ -333,13 +328,14 @@ export class UserHome extends React.Component {
               </Paper>
             }
 
-            <div className="editor" />
+            <div className={`editor ${this.props.userTheme}-theme`} />
           </div>
 
           <button className="settings-icon" onClick={this.toggleSettingsVisible} style={{top: '-3rem'}} />
           <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
         </div>
 
+      </div>
       </div>
     )
   }

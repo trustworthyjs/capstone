@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook, SingleEntry, StreaksGraph, ToneGraph} from './components'
+import {Main, Login, Signup, LandingPage, UserHome, DataAnalysis, WordCloud, Notebooks, SingleNotebook, SingleEntry, StreaksGraph, ToneGraph, SearchBar} from './components'
 import {me, fetchDataAnalysis, toggleSubmitPopupThunk, getNotebooksDb, getEntriesDb} from './store'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -18,12 +18,12 @@ import {fade} from 'material-ui/utils/colorManipulator';
  */
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: cyan500,
-    primary2Color: deepPurple300,
-    primary3Color: pink300,
-    accent1Color: pink300,
-    accent2Color: cyan500,
-    accent3Color: '#c56000',
+    primary1Color: '#ACD3F2',
+    primary2Color: `#EB97BE`,
+    primary3Color: `#1595A3`,
+    accent1Color: '#EB9A30',
+    accent2Color: red500,
+    accent3Color: red500,
     textColor: darkBlack,
     alternateTextColor: darkBlack,
     canvasColor: white,
@@ -117,11 +117,11 @@ class Routes extends Component {
                   <Route exact path="/notebooks" component={Notebooks} />
                   <Route exact path="/notebooks/:notebookId" component={SingleNotebook} />
                   <Route path="/notebooks/:notebookId/entry/:entryId" component={SingleEntry} />
-                  <Route exact path="/" component={LandingPage} />
+                  <Route path="/" component={LandingPage} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={UserHome} />
+            <Route component={LandingPage} />
           </Switch>
         </Main>
       </Router>
