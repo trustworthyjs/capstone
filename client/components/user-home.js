@@ -297,39 +297,31 @@ export class UserHome extends React.Component {
             <FlatButton
               label={timer}
               labelPosition="before"
-              primary={true}
+              style={{color: '#1595A3'}}
               icon={<Alarm />}
             />
           }
           {showWordCount() &&
             <FlatButton
               label={wordRatio}
-              primary={true}
+              style={{color: '#1595A3'}}
             />
           }
           {showPrompts() &&
             <FlatButton
               label={'Prompts Enabeled'}
-              primary={true}
+                style={{color: '#1595A3'}}
             />
           }
 
-          <FlatButton 
-            // backgroundColor="rgba(255,255,255, 0.85)"
-            // hoverColor="rgba(245,245,245,1.0)"
-            label={'Submit Entry'} 
-            onClick={this.toggleSubmitPopup} 
-            primary={true} />
+
+          <FlatButton label={'Submit Entry'} onClick={this.toggleSubmitPopup} secondary={true} />
+
           {this.props.showSubmitPopup &&
             <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
           }
 
         </div>
-        <Divider style={{
-          margin: '-1px 158px 0px',
-          marginLeft: '154px',
-          width: '62rem'
-        }} />
         <div id="editor-with-settings" className={this.props.userTheme}>
           <div className="editor-prompt">
             {this.state.showPopup && showPrompts() &&
