@@ -86,11 +86,11 @@ export class SettingsDrawer extends React.Component {
                           {minutes.map((minute) => {
                             if (Math.floor(this.props.editorValues.timer / 60) === minute) {
                               return (
-                                <option value={minute} selected="selected">{minute}</option>
+                                <option key={minute} value={minute} selected="selected">{minute}</option>
                               )
                             } else {
                               return (
-                                <option value={minute}>{minute}</option>
+                                <option key={minute} value={minute}>{minute}</option>
                               )
                             }
                           })}
@@ -100,11 +100,11 @@ export class SettingsDrawer extends React.Component {
                           {seconds.map((second) => {
                             if (Math.floor(this.props.editorValues.timer % 60) === second) {
                               return (
-                                <option value={second} selected="selected">{`0${second}`.slice(-2)}</option>
+                                <option key={second} value={second} selected="selected">{`0${second}`.slice(-2)}</option>
                               )
                             } else {
                               return (
-                                <option value={second}>{`0${second}`.slice(-2)}</option>
+                                <option key={second} value={second}>{`0${second}`.slice(-2)}</option>
                               )
                             }
                           })}

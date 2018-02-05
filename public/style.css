@@ -1,9 +1,12 @@
 * {
     box-sizing: border-box;
-
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
     font-family: 'Ubuntu Mono', monospace;
     font-weight: 100
 }
@@ -14,7 +17,6 @@ text {
 
 body {
     font-family: 'Ubuntu Mono', monospace !important;
-    
     /* background-image: url('https://img00.deviantart.net/7809/i/2007/271/7/7/pirate_wallpaper_by_unpatient.jpg');
     background-size: cover; */
 }
@@ -129,12 +131,14 @@ form div {
     cursor: pointer;
     transition: transform 0.5s;
 }
+
 .settings-icon:hover {
     transform: rotate(0.5turn);
-
 }
 
-button:focus {outline:0;}
+button:focus {
+    outline: 0;
+}
 
 .footer {
     margin-top: 13rem;
@@ -189,7 +193,9 @@ button:focus {outline:0;}
   visibility: visible;
 } */
 
+
 /*All Notebooks */
+
 .notebooks-grid {
     display: flex;
     flex-wrap: wrap;
@@ -198,20 +204,22 @@ button:focus {outline:0;}
     flex-direction: row
 }
 
-.notebook-item{
+.notebook-item {
     margin: 2em;
     display: flex;
     flex-direction: column;
     align-items: center
 }
 
-.notebook-text{
+.notebook-text {
     position: absolute;
     align-self: center;
     margin-top: 6.5rem
 }
 
+
 /*Single Notebook*/
+
 .entries-grid {
     display: flex;
     flex-wrap: wrap;
@@ -219,6 +227,7 @@ button:focus {outline:0;}
     align-items: center;
     flex-direction: row
 }
+
 
 /* .entries-grid a{
     display: flex;
@@ -233,7 +242,7 @@ button:focus {outline:0;}
     width: 172px
 }
 
-.entry-text{
+.entry-text {
     display: flex;
     flex-wrap: wrap;
     width: 97px;
@@ -326,6 +335,11 @@ button:focus {outline:0;}
 
 .personality-radar-main text {
     font-size: 15px;
+}
+
+.label-btn:hover {
+    background-color: rgba(20, 196, 196, 1);
+    box-shadow: 0 0 5px 5px rgb(20, 196, 196);
 }
 
 .personality-radar-child {
@@ -454,11 +468,11 @@ body {
 }
 
 #submitError {
-  color: red;
-  font-size: .8em;
-  margin: 0 0 1em 0
+    color: red;
+    font-size: .8em;
+    margin: 0 0 1em 0
 }
 
 .submit-popup-div {
-  margin: 0 0 0.5em 0;
+    margin: 0 0 0.5em 0;
 }
