@@ -107,6 +107,7 @@ router.put('/:entryId', async (req, res, next) => {
       } else { //if we're not within range reset to 1
         let updated = await user.update({
           currentStreak: 1,
+          maxStreak: 1
         })
       }
     }
