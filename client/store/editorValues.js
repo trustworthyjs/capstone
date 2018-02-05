@@ -24,9 +24,6 @@ const defaultValues = {
       `What is your favorite recipe?`,
       `What sounds do you currently hear around you?`,
       `Who is your favorite artist?`,
-      `What sounds do you here around you?`,
-      `What sounds do you here around you?`,
-
     ]
     // need to add default prompts, visual cues, music, etc. here
 }

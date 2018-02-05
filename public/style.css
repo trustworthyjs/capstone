@@ -60,14 +60,14 @@ form div {
   overflow-y: hidden
 }
 
-body ::-webkit-scrollbar {
+/*body ::-webkit-scrollbar {
   width: 2px;
 }
 
 body ::-webkit-scrollbar-thumb {
   opacity: 0;
   background: #ACD3F2;
-}
+}*/
 
 .settings-values {
       margin-right: 25rem;
