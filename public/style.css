@@ -163,7 +163,7 @@ body ::-webkit-scrollbar-thumb {
 button:focus {outline:0;}
 
 .footer {
-    margin-top: 13rem;
+    margin-top: 3rem;
     height: 14rem;
     width: 100vw;
     background-color: #263238;
@@ -409,7 +409,7 @@ body {
     flex-direction: column;
     justify-content: center;
     left: 0;
-    position: absolute;
+    position: inherit;
     right: 0;
     top: 0;
     height: 100vh;

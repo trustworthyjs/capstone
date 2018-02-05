@@ -300,10 +300,10 @@ export class UserHome extends React.Component {
        <div className={`editor-container`} style={{marginTop: '-4rem'}}>
         { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
         <div className={this.props.userTheme} style={{height: '24.3rem',
-            width: '85rem',
-            position: 'absolute',
-            top: '8.3rem',
-            'z-index': '-10'}} />
+          width: '85rem',
+          position: 'absolute',
+          top: '8.3rem',
+          zIndex: '-10'}} />
         <div className='settings-values'>
           {showTimer() &&
             <FlatButton

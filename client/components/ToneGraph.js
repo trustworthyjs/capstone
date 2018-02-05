@@ -242,7 +242,7 @@ class ToneGraph extends React.Component {
             ]}
           />
           :
-          <div>No entries in the time period selected!</div>
+          <div style={{height: '20vh'}}>No entries in the time period selected!</div>
         }
       </div>
     )
