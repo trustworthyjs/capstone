@@ -13,7 +13,7 @@ import SettingsDrawer from './SettingsDrawer'
 import Paper from 'material-ui/Paper';
 import Alarm from 'material-ui/svg-icons/action/alarm'
 import ActionAndroid from 'material-ui/svg-icons/action/android';
-import Divider from 'material-ui/divider'
+import Divider from 'material-ui/Divider'
 
 //util functions
 function shuffle(a) {
@@ -314,7 +314,9 @@ export class UserHome extends React.Component {
             />
           }
 
+
           <FlatButton label={'Submit Entry'} onClick={this.toggleSubmitPopup} secondary={true} />
+
           {this.props.showSubmitPopup &&
             <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
           }
@@ -328,7 +330,7 @@ export class UserHome extends React.Component {
               </Paper>
             }
 
-            <div className="editor" />
+            <div className={`editor ${this.props.userTheme}-theme`} />
           </div>
 
           <button className="settings-icon" onClick={this.toggleSettingsVisible} style={{top: '-3rem'}} />
