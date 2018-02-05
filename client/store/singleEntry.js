@@ -1,6 +1,6 @@
 import axios from 'axios'
 import analyzeData from '../../createDataFunc'
-import { createDataAnalysis } from './index'
+import { createDataAnalysis, me } from './index'
 require('../../secrets')
 
 /**
@@ -67,6 +67,7 @@ export const submitEntryDb = (editedEntry, notebookId, history, userId) =>
     axios.put(`/api/entries/${editedEntry.id}`, editedEntry)
       .then(res => {
         dispatch(saveEntry(res.data))
+        dispatch(me())
         history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
       })
       .then(async () => {
@@ -81,8 +82,8 @@ export const submitEntryDb = (editedEntry, notebookId, history, userId) =>
       .catch(err => console.log(err))
   }
 
-export const updateSettingsDb = (settings) => 
-  dispatch => 
+export const updateSettingsDb = (settings) =>
+  dispatch =>
     axios.put(`/api/entries/${editedEntry.id}`, settings)
       .then(res =>
         dispatch(getEntry(res.data)))

@@ -1,30 +1,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Calendar} from '@nivo/calendar'
-import {getEntriesDb, me} from '../store'
+import {getEntriesDb, me, updateUserStreak} from '../store'
 import Toggle from 'material-ui/Toggle';
+import DatePicker from 'material-ui/DatePicker';
+import {Link} from 'react-router-dom'
 
 const styles = {
-  block: {
-    maxWidth: 250,
-  },
   toggle: {
     marginBottom: 16,
-  },
-  thumbOff: {
-    backgroundColor: '#ffcccc',
-  },
-  trackOff: {
-    backgroundColor: '#ff9d9d',
-  },
-  thumbSwitched: {
-    backgroundColor: 'red',
-  },
-  trackSwitched: {
-    backgroundColor: '#ff9d9d',
-  },
-  labelStyle: {
-    color: 'red',
   },
 };
 
@@ -42,7 +26,7 @@ class StreaksGraph extends React.Component {
     if (!this.props.user){
       this.props.getMe()
     }
-    if (this.props.user.streakGoal){
+    if (this.props.user.streakGoalDate){
       this.setState({
         streaks: true
       })
@@ -73,9 +57,35 @@ class StreaksGraph extends React.Component {
     this.setState({
       streaks: !this.state.streaks
     })
+    this.props.updateStreak(this.props.user.id)
+  }
+
+  editStreak = (e, date) => {
+    this.props.updateStreak(this.props.user.id, date)
+  }
+
+  checkForStreaks = (entries, startDate, endDate) => {
+    let entriesInRange = entries.filter((entry) => {
+      return entry.savedAt >= startDate && entry.savedAt <= endDate
+    })
+    let entryDatesObj = {}
+    entriesInRange.forEach((entry) => {
+      let savedAtSlice = entry.savedAt.slice(0, entry.savedAt.indexOf('T'))
+      if (!entryDatesObj[savedAtSlice]){
+        entryDatesObj[savedAtSlice] = 1
+      } else {
+        entryDatesObj[savedAtSlice]++
+      }
+    })
+    //now entryDatesObj is an object with dates in range and amount of entries day
   }
 
   render() {
+    let streakGoal = this.props.user.streakGoalDate
+    let streakGoalStart = this.props.user.streakGoalStart
+    let maxStreak = this.props.user.maxStreak
+    let currentStreak = this.props.user.currentStreak
+    this.checkForStreaks(this.props.allEntries, streakGoalStart, streakGoal)
     return (
       <div className="container">
         <h2>Streaks</h2>
@@ -86,13 +96,37 @@ class StreaksGraph extends React.Component {
           defaultToggled={true}
           onToggle={this.onToggle}
         />
-        {this.state.streaks && this.props.user && this.props.user.streakGoal ?
+        {this.state.streaks && this.props.user && streakGoal ?
         <div>
-        Your current streak goal: {this.props.user.streakGoal}
+        <b>Your current streak goal:</b> <br />Write one entry daily until {streakGoal.slice(0, streakGoal.indexOf('T'))}
+        <br />
+        <b>Started On:</b>
+        <br />
+        {streakGoalStart.slice(0, streakGoalStart.indexOf('T'))}
         </div> :
         <div>
         You do not have a streak goal set.
         </div>}
+        <br />
+        {this.state.streaks &&
+          <div>
+            <b>Set or change streak goal:</b>
+            <DatePicker
+            hintText={streakGoal ? `${streakGoal.slice(0, streakGoal.indexOf('T'))}` : `Pick a Date`}
+            mode="landscape"
+            minDate={new Date()}
+            onChange={this.editStreak}/>
+          </div>}
+        {this.state.streaks &&
+          <div><b>Your Progress:</b>
+            <br />
+            { currentStreak > 1 ?
+              <div>Current Streak: {currentStreak}<br />
+              Max Streak: {maxStreak}</div>
+              :
+              <div>You haven't submitted enough entries to have a streak :( <Link to="/home">Write one now!</Link></div>
+            }
+          </div>}
         {this.state.calendarData && this.state.calendarData.length > 0 &&
           <Calendar
             data={this.state.calendarData}
@@ -149,6 +183,9 @@ const mapDispatch = (dispatch) => {
     },
     getMe: () => {
       return dispatch(me())
+    },
+    updateStreak: (userId, newStreak) => {
+      return dispatch(updateUserStreak(userId, newStreak))
     }
   }
 }
