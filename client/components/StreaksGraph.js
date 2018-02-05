@@ -10,6 +10,12 @@ const styles = {
   toggle: {
     marginBottom: 16,
   },
+  thumbOff: {
+    backgroundColor: 'rgb(238, 238, 238)',
+  },
+  trackOff: {
+    backgroundColor: 'rgb(238, 238, 238)'
+  }
 };
 
 class StreaksGraph extends React.Component {
@@ -93,8 +99,10 @@ class StreaksGraph extends React.Component {
           label={this.state.streaks ? `Streak Goals are On!` : `Streak Goals are Off!`}
           labelPosition="right"
           style={styles.toggle}
-          defaultToggled={true}
+          defaultToggled={false}
           onToggle={this.onToggle}
+          thumbStyle={styles.thumbOff}
+          trackStyle={styles.trackOff}
         />
         {this.state.streaks && this.props.user && streakGoal ?
         <div>
