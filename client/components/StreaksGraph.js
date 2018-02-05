@@ -25,7 +25,7 @@ class StreaksGraph extends React.Component {
     if (!this.props.user){
       this.props.getMe()
     }
-    if (this.props.user.streakGoal){
+    if (this.props.user.streakGoalDate){
       this.setState({
         streaks: true
       })
@@ -63,8 +63,30 @@ class StreaksGraph extends React.Component {
     this.props.updateStreak(this.props.user.id, date)
   }
 
+  checkForStreaks = (entries, startDate, endDate, type) => {
+    let entriesInRange = entries.filter((entry) => {
+      return entry.savedAt >= startDate && entry.savedAt <= endDate
+    })
+    let entryDatesObj = {}
+    entriesInRange.forEach((entry) => {
+      let savedAtSlice = entry.savedAt.slice(0, entry.savedAt.indexOf('T'))
+      if (!entryDatesObj[savedAtSlice]){
+        entryDatesObj[savedAtSlice] = 1
+      } else {
+        entryDatesObj[savedAtSlice]++
+      }
+    })
+    //now entryDatesObj is an object with dates in range and amount of entries day
+    if (!type || type === 'daily'){
+      //find the current streak and the longest streak in the range
+    }
+  }
+
   render() {
-    let streakGoal = this.props.user.streakGoal
+    let streakGoal = this.props.user.streakGoalDate
+    let streakGoalType = this.props.user.streakGoalType
+    let streakGoalStart = this.props.user.streakGoalStart
+    this.checkForStreaks(this.props.allEntries, streakGoalStart, streakGoal, streakGoalType)
     return (
       <div className="container">
         <h2>Streaks</h2>
@@ -77,19 +99,26 @@ class StreaksGraph extends React.Component {
         />
         {this.state.streaks && this.props.user && streakGoal ?
         <div>
-        Your current streak goal: {streakGoal.slice(0, streakGoal.indexOf('T'))}
+        <b>Your current streak goal:</b> <br />Write one entry {streakGoalType} until {streakGoal.slice(0, streakGoal.indexOf('T'))}
+        <br />
+        <b>Started On:</b>
+        <br />
+        {streakGoalStart.slice(0, streakGoalStart.indexOf('T'))}
         </div> :
         <div>
         You do not have a streak goal set.
         </div>}
+        <br />
         {this.state.streaks &&
           <div>
-            Set or change streak goal
+            <b>Set or change streak goal:</b>
             <DatePicker
             hintText={streakGoal ? `${streakGoal.slice(0, streakGoal.indexOf('T'))}` : `Pick a Date`}
             mode="landscape"
+            minDate={new Date()}
             onChange={this.editStreak}/>
           </div>}
+        {this.state.streaks && <b>Your Progress:</b>}
         {this.state.calendarData && this.state.calendarData.length > 0 &&
           <Calendar
             data={this.state.calendarData}
