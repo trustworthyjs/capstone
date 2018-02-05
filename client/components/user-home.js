@@ -289,6 +289,11 @@ export class UserHome extends React.Component {
     }
 
     return (
+      <div>
+      <FlatButton className="submit" label={'Submit Entry'} onClick={this.toggleSubmitPopup} secondary={true} />
+      {this.props.showSubmitPopup &&
+        <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
+      }
        <div className={`editor-container`} style={{marginTop: '-4rem'}}>
         { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
 
@@ -314,11 +319,6 @@ export class UserHome extends React.Component {
             />
           }
 
-          <FlatButton label={'Submit Entry'} onClick={this.toggleSubmitPopup} secondary={true} />
-          {this.props.showSubmitPopup &&
-            <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
-          }
-
         </div>
         <div id="editor-with-settings" className={this.props.userTheme}>
           <div className="editor-prompt">
@@ -335,6 +335,7 @@ export class UserHome extends React.Component {
           <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
         </div>
 
+      </div>
       </div>
     )
   }
