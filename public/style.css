@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+
 }
 
 h1, h2, h3, h4, h5 {
@@ -13,6 +14,7 @@ text {
 
 body {
     font-family: 'Ubuntu Mono', monospace !important;
+    
     /* background-image: url('https://img00.deviantart.net/7809/i/2007/271/7/7/pirate_wallpaper_by_unpatient.jpg');
     background-size: cover; */
 }
@@ -460,4 +462,3 @@ body {
 .submit-popup-div {
   margin: 0 0 0.5em 0;
 }
-
