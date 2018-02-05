@@ -79,9 +79,7 @@ body ::-webkit-scrollbar-thumb {
     background-size: cover;
 }
 
-#editor-with-settings div {
-  overflow-x: hidden !important;
-}
+
 
 .popup {
     margin: 10px;
