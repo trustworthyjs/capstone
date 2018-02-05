@@ -31,19 +31,22 @@ export class SettingsDrawer extends React.Component {
         zoomIn: false
       }
     }
+
     let minutes = []
     let seconds = []
     for (let i = 0; i < 60; i++) {
       if (i <= 30) minutes.push(i);
       seconds.push(i);
     }
+    
     if (this.props.singleEntry.id) {
+
       var checkSettings = {};
       if (this.props.singleEntry.settings) {
         checkSettings = this.props.singleEntry.settings;
         const entryMode = this.props.singleEntry.mode;
         return (
-          <div>
+          <div className="settings-drawer">
             <div>
               <h5>Settings</h5>
             <div>
@@ -79,7 +82,7 @@ export class SettingsDrawer extends React.Component {
                     <input type="checkbox" name="timer" checked={checkSettings.timer} onChange={this.handleChangeSettings}/>
                     <label>Timer</label>
                   </div>
-                  {checkSettings.timer && 
+                  {checkSettings.timer &&
                     this.props.visible && (
                     <div>
                       <select className="ui dropdown" onChange={this.handleSetTimerMinutes}>
@@ -111,7 +114,7 @@ export class SettingsDrawer extends React.Component {
                       </select>
                     </div>
                     )}
-                </div>  
+                </div>
                 <div className="setting">
                   <div className="ui toggle checkbox">
                     <input type="checkbox" name="wordCount" checked={checkSettings.wordCount} onChange={this.handleChangeSettings}/>

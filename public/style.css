@@ -14,7 +14,7 @@ text {
 
 body {
     font-family: 'Ubuntu Mono', monospace !important;
-    
+
     /* background-image: url('https://img00.deviantart.net/7809/i/2007/271/7/7/pirate_wallpaper_by_unpatient.jpg');
     background-size: cover; */
 }
@@ -44,17 +44,48 @@ form div {
 .ql-container.ql-snow {
     border: 0px solid #ccc;
 }
-
+.popup {
+  overflow-y: hidden;
+  height: max-content !important;
+}
 .editor {
     height: 60vh;
     font-size: 25px;
     font-family: 'Ubuntu Mono', monospace;
+    opacity: .7;
+
+}
+
+.submit {
+  right: -57rem;
+  top: 4.34rem;
+}
+
+.radio {
+  overflow-y: hidden
+}
+
+body ::-webkit-scrollbar {
+  width: 2px;
+}
+
+body ::-webkit-scrollbar-thumb {
+  opacity: 0;
+  background: #ACD3F2;
+}
+
+.settings-values {
+      margin-right: 25rem;
     background-color: rgba(220, 220, 220, 0.9);
 }
 
 .pirate-theme {
     background-image: url('https://www.pergamena.net/s/ccream.JPG');
     background-size: cover;
+}
+
+#editor-with-settings div {
+  overflow-x: hidden !important;
 }
 
 .popup {
@@ -167,6 +198,7 @@ button:focus {outline:0;}
 
 .settings-values {
     margin: 7% auto 0 auto;
+    margin-right: 25rem;
     display: flex;
     justify-content: space-evenly;
     width: 44rem;
