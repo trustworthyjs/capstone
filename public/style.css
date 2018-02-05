@@ -58,6 +58,14 @@ form div {
   top: 4.34rem;
 }
 
+body ::-webkit-scrollbar {
+  width: 2px;
+}
+
+body ::-webkit-scrollbar-thumb {
+  background: #ACD3F2;
+}
+
 .settings-values {
       margin-right: 25rem;
 }
