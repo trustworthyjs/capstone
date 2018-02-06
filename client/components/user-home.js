@@ -51,6 +51,7 @@ export class UserHome extends React.Component {
       settingsOpen: false,
       timerStarted: false,
       currentPrompt: '',
+      isSubmitting: false
     }
     this.interval = '';
   }
@@ -60,7 +61,17 @@ export class UserHome extends React.Component {
     this.setState({ editor })
   }
 
+  shouldComponentUpdate() {
+
+    if (this.state.isSubmitting) {
+      return false;
+    }
+    return true;
+  }
+
   componentDidMount() {
+
+    if (!this.state.isSubmitting){
     this.props.dispatchResetToDefault();
     var toolbarOptions = [
       { 'size': ['small', false, 'large', 'huge'] },
@@ -109,6 +120,7 @@ export class UserHome extends React.Component {
     }
 
     let userHome = this
+
     editor.on('text-change', function (delta, oldDelta, source) {
       //counts the words in the editor and sets the number on state if it's different.
       let editorText = editor.getText();
@@ -149,11 +161,14 @@ export class UserHome extends React.Component {
             }
           }
 
-          userHome.props.editorValues.shuffledPrompts.length &&
+          if (userHome.props.editorValues.shuffledPrompts.length && !userHome.state.isSubmitting) {
             userHome.setState({
               showPopup: true,
               currentPrompt: userHome.props.editorValues.shuffledPrompts.pop()
             })
+          }
+
+
         }, 3000),
         timerStarted: true
       })
@@ -161,6 +176,7 @@ export class UserHome extends React.Component {
         userHome.startTimerCountdown();
       }
     });
+  }
   }
 
   componentWillUnmount() {
@@ -192,7 +208,7 @@ export class UserHome extends React.Component {
       formattedContent: this.state.editor.getContents().ops[0].insert,
       mode: this.props.singleEntry.mode
     }
-    this.setState({ entryToSubmit: editedEntry })
+    this.setState({ entryToSubmit: editedEntry, isSubmitting: true })
   }
 
   handleModeSelection = (event, clickedOutside) => {
