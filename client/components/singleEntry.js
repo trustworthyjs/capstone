@@ -60,6 +60,7 @@ export class SingleEntry extends React.Component {
                 {
                   this.state.currentView === 'WORD CLOUD' &&
                   <div>
+                    <h1>Word Cloud Placeholder</h1>
                     <h3>For current entry:</h3>
                     <h3>For all entries to date:</h3>
                   </div>
@@ -68,6 +69,7 @@ export class SingleEntry extends React.Component {
                 {
                   this.state.currentView === 'PERSONALITY TRAITS' &&
                   <div>
+                    <h1>Personality Traits Placeholder</h1>
                     <h3>For current entry:</h3>
                     <h3>For all entries to date:</h3>
                   </div>
@@ -76,6 +78,7 @@ export class SingleEntry extends React.Component {
                 {
                   this.state.currentView === 'TONES' &&
                   <div>
+                    <h1>Tones Placeholder</h1>
                     <h3>For current entry:</h3>
                     <h3>For all entries to date:</h3>
                   </div>
