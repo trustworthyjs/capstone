@@ -137,9 +137,12 @@ body ::-webkit-scrollbar-thumb {
     margin: 10px;
 }
 
-#settings-drawer {
-    right: 0;
-    transition: visibility 0.5s linear;
+.settings-drawer {
+    height: 60vh;
+}
+
+.editor-with-settings:last-child {
+  height: 60vh;
 }
 
 .settings-icon {
