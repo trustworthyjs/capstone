@@ -49,7 +49,7 @@ class ToneGraph extends React.Component {
       beginRangeDate.setHours(0, 0, 0, 0 )
     }
     else if (!range || range === 'last30Days'){
-      beginRangeDate.setDate(nowDate.getDate() - 40)
+      beginRangeDate.setDate(nowDate.getDate() - 30)
       beginRangeDate.setHours(0, 0, 0, 0)
     }
     else if (range === 'all'){
@@ -154,14 +154,15 @@ class ToneGraph extends React.Component {
         let entryData = []
         for (let day in entries){
           if (entries.hasOwnProperty(day)){
-            console.log('entries[day]', entries[day])
-            let value = entries[day].find((obj) => {
-              return obj.tone_id === tone
-            })
-            entryData.push({
-              "x": day,
-              "y": value ? value.score : 0,
-            })
+            if (entries[day]){
+              let value = entries[day].find((obj) => {
+                return obj.tone_id === tone
+              })
+              entryData.push({
+                "x": day,
+                "y": value ? value.score : 0,
+              })
+            }
           }
         }
         graphData.push({
