@@ -32,7 +32,7 @@ class DataAnalysis extends React.Component {
             style={{backgroundColor: '#FFF9EC'}}
             >
               <div>
-                <WordCloud type="all-entries" />
+                <WordCloud type="all-entries" singleEntryNouns={['none']} />
               </div>
             </Tab>
           }

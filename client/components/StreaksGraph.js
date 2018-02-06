@@ -100,82 +100,85 @@ class StreaksGraph extends React.Component {
     return (
       <div className="container">
         <h2>Streaks</h2>
-        <Toggle
-          label={this.state.streaks ? `Streak Goals are On!` : `Streak Goals are Off!`}
-          labelPosition="right"
-          style={styles.toggle}
-          defaultToggled={this.state.streaks}
-          onToggle={this.onToggle}
-          thumbStyle={styles.off}
-          trackStyle={styles.off}
-          thumbSwitchedStyle={styles.thumbSwitched}
-          trackSwitchedStyle={styles.trackSwitched}
-        />
-        {this.state.streaks && this.props.user && streakGoal ?
-        <div>
-        <b>Your current streak goal:</b> <br />Write one entry daily until {streakGoal.slice(0, streakGoal.indexOf('T'))}
-        <br />
-        <b>Started On:</b>
-        <br />
-        {streakGoalStart.slice(0, streakGoalStart.indexOf('T'))}
-        </div> :
-        <div>
-        You do not have a streak goal set.
-        </div>}
-        <br />
-        {this.state.streaks &&
-          <div>
-            <b>Set or change streak goal:</b>
-            <DatePicker
-            hintText={streakGoal ? `${streakGoal.slice(0, streakGoal.indexOf('T'))}` : `Pick a Date`}
-            mode="landscape"
-            minDate={new Date()}
-            onChange={this.editStreak}/>
-          </div>}
-        {this.state.streaks &&
-          <div><b>Your Progress:</b>
-            <br />
-            { currentStreak > 1 ?
-              <div>Current Streak: {currentStreak}<br />
-              Max Streak: {maxStreak}</div>
-              :
-              <div>You haven't submitted enough entries to have a streak :( <Link to="/home">Write one now!</Link></div>
-            }
-          </div>}
-        {this.state.calendarData && this.state.calendarData.length > 0 &&
-          <Calendar
-            data={this.state.calendarData}
-            width={800}
-            height={300}
-            from="2018-12-31"
-            to="2018-12-31"
-            domain={[1,8]}
-            emptyColor="#eeeeee"
-            colors={["#ACD3F2","#1595A3", "#EB97BE" , "rgb(235, 154, 48)"]}
-            margin={{
-                "top": 80,
-                "right": 30,
-                "bottom": 80,
-                "left": 30
-            }}
-            yearSpacing={40}
-            monthBorderColor="#ffffff"
-            monthLegendOffset={10}
-            dayBorderWidth={2}
-            dayBorderColor="#ffffff"
-            legends={[
-                {
-                    "anchor": "center",
-                    "direction": "row",
-                    "itemCount": 4,
-                    "itemWidth": 34,
-                    "itemHeight": 20,
-                    "itemDirection": "top-to-bottom",
-                    "translateY": 80,
-                }
-            ]}
+        <div className="streaks">
+          <Toggle
+            label={this.state.streaks ? `Streak Goals are On!` : `Streak Goals are Off!`}
+            labelPosition="right"
+            style={styles.toggle}
+            defaultToggled={this.state.streaks}
+            onToggle={this.onToggle}
+            thumbStyle={styles.off}
+            trackStyle={styles.off}
+            thumbSwitchedStyle={styles.thumbSwitched}
+            trackSwitchedStyle={styles.trackSwitched}
+            labelStyle={{display: 'inline'}}
           />
-        }
+          {this.state.streaks && this.props.user && streakGoal ?
+          <div>
+          <b>Your current streak goal:</b> <br />Write one entry daily until {streakGoal.slice(0, streakGoal.indexOf('T'))}
+          <br />
+          <b>Started On:</b>
+          <br />
+          {streakGoalStart.slice(0, streakGoalStart.indexOf('T'))}
+          </div> :
+          <div>
+          You do not have a streak goal set.
+          </div>}
+          <br />
+          {this.state.streaks &&
+            <div>
+              <b>Set or change streak goal:</b>
+              <DatePicker
+              hintText={streakGoal ? `${streakGoal.slice(0, streakGoal.indexOf('T'))}` : `Pick a Date`}
+              mode="landscape"
+              minDate={new Date()}
+              onChange={this.editStreak}/>
+            </div>}
+          {this.state.streaks &&
+            <div><b>Your Progress:</b>
+              <br />
+              { currentStreak > 1 ?
+                <div>Current Streak: {currentStreak}<br />
+                Max Streak: {maxStreak}</div>
+                :
+                <div>You haven't submitted enough entries to have a streak :( <Link to="/home">Write one now!</Link></div>
+              }
+            </div>}
+          {this.state.calendarData && this.state.calendarData.length > 0 &&
+            <Calendar
+              data={this.state.calendarData}
+              width={800}
+              height={300}
+              from="2018-12-31"
+              to="2018-12-31"
+              domain={[1,8]}
+              emptyColor="#eeeeee"
+              colors={["#ACD3F2","#1595A3", "#EB97BE" , "rgb(235, 154, 48)"]}
+              margin={{
+                  "top": 80,
+                  "right": 30,
+                  "bottom": 80,
+                  "left": 30
+              }}
+              yearSpacing={40}
+              monthBorderColor="#ffffff"
+              monthLegendOffset={10}
+              dayBorderWidth={2}
+              dayBorderColor="#ffffff"
+              legends={[
+                  {
+                      "anchor": "center",
+                      "direction": "row",
+                      "itemCount": 4,
+                      "itemWidth": 34,
+                      "itemHeight": 20,
+                      "itemDirection": "top-to-bottom",
+                      "translateY": 80,
+                  }
+              ]}
+            />
+          }
+        </div>
       </div>
     )
   }

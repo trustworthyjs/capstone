@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import Radar from 'react-d3-radar'
-import ReactToolTip from 'react-tooltip'
 import {connect} from 'react-redux'
 import {Popup} from './Popup'
 import PersonalityRadarChart from './PersonalityRadarChart'
 
 export class PersonalityRadarChartChild extends Component {
-    
+
     constructor() {
         super()
         this.state = {
@@ -16,8 +15,8 @@ export class PersonalityRadarChartChild extends Component {
             popupMessage: ''
         }
     }
-    
-    //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the 
+
+    //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the
     // radius down to just 5 pixels around the actual circle
     handleHover = (point) => {
         let rect;
@@ -35,7 +34,7 @@ export class PersonalityRadarChartChild extends Component {
                         popupX: window.event.clientX,
                         popupY: window.event.clientY + window.pageYOffset - 98,
                         popupMessage: percentage
-                    })             
+                    })
             } else {
                 this.setState({
                     isHovering: false
@@ -43,11 +42,11 @@ export class PersonalityRadarChartChild extends Component {
             }
         }
     }
-    
-    //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the 
+
+    //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the
     render() {
         if (this.props.personalityTrait) {
-            
+
             const personalityTrait = this.props.personalityTrait;
             const name = this.props.name;
             let variables = [];
@@ -62,7 +61,7 @@ export class PersonalityRadarChartChild extends Component {
                     className='personality-radar-child radar'
                     ref={(ref) => this.container = ref}
                 >
-                    {this.state.isHovering && 
+                    {this.state.isHovering &&
                         <Popup x={this.state.popupX} y={this.state.popupY} message={this.state.popupMessage} />
                     }
                     <h3>{name}</h3>
@@ -85,7 +84,7 @@ export class PersonalityRadarChartChild extends Component {
                         }}
                     />
                 </div>
-            )  
+            )
         } else {
             return null;
         }
