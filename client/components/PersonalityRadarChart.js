@@ -4,6 +4,7 @@ import ReactToolTip from 'react-tooltip'
 import {connect} from 'react-redux'
 import {Popup} from './Popup'
 import PersonalityRadarChartChild from './PersonalityRadarChartChild';
+import Tooltip from "react-simple-tooltip"
 
 export class PersonalityRadarChart extends Component {
 
@@ -16,8 +17,23 @@ export class PersonalityRadarChart extends Component {
             popupMessage: '',
             chartWidth: 500,
             chartHeight: 500,
+            textBoxes: [],
+            activeLabel: ''
         }
         this.rect = {}
+        this.traitSummaries = {
+            Agreeableness: "Higher: Value getting along with others. They have a more optimistic view of human nature. Lower: Value self interests over others. They are more skeptical of others' motives.",
+            Conscientiousness: "Higher: More self-disciplined, dutiful, or aiming for achievement against measures or outside expectations. Lower: More likely to prefer the spontaneous over the planned.",
+            Extraversion: "Higher: More energetic and pronounced engagement with the external world. Likes high group visibility, talking, and asserting themselves. Lower: Needs less stimulation and are more independent of their social world. It does not mean they are shy, un-friendly, or antisocial.",
+            EmotionalRange: "Higher: More likely to have negative emotions or get upset. It could mean they are going through a tough time. Lower: More calm and less likely to get upset. It does not mean they are positive, or happy people.",
+            Openness: "Higher: Intellectually curious, emotionally-aware, sensitive to beauty and willing to try new things. Lower: Preferring the plain, straightforward, and obvious over the complex, ambiguous, and subtle."
+        }
+    }
+
+    componentDidMount() {
+        const personalityRadar = document.getElementsByClassName('personality-radar-main');
+        const texts = Array.from(personalityRadar[0].getElementsByTagName('text')).slice(-5);
+        this.setState({textBoxes: texts})
     }
 
     //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the
@@ -35,7 +51,7 @@ export class PersonalityRadarChart extends Component {
                     this.setState({
                         isHovering: true,
                         popupX: window.event.clientX,
-                        popupY: window.event.clientY - this.rect.top,
+                        popupY: window.event.clientY - 98,
                         popupMessage: percentage
                     })
             } else {
@@ -46,10 +62,25 @@ export class PersonalityRadarChart extends Component {
         }
     }
 
-
+    handleLabelHover = (event) => {
+        if (this.state.activeLabel !== event.target.getAttribute('value')){
+            this.setState({activeLabel: event.target.getAttribute('value')})
+        } else {
+            this.setState({activeLabel: ''})
+        }
+    }
+    
     render() {
         if (this.container) this.rect = this.container.querySelector('svg').getBoundingClientRect();
         var data = this.props.data
+        var textBoxData
+        if (this.state.textBoxes.length) {
+            textBoxData = {Openness: this.state.textBoxes[0].getBoundingClientRect(),
+                            Conscientiousness: this.state.textBoxes[1].getBoundingClientRect(),
+                            Extraversion: this.state.textBoxes[2].getBoundingClientRect(),
+                            Agreeableness: this.state.textBoxes[3].getBoundingClientRect(),
+                            EmotionalRange: this.state.textBoxes[4].getBoundingClientRect()};
+        }
 
         if (data.personality) {
 
@@ -66,6 +97,7 @@ export class PersonalityRadarChart extends Component {
             })
             return (
                 <div>
+                    {/*start here after lunch - hardcode in the blurbs about each trait.*/}
                     <h2 style={{
                         textAlign: 'center'}}>
                         "Big 5 Personality Traits"
@@ -75,8 +107,68 @@ export class PersonalityRadarChart extends Component {
                         ref={(ref) => this.container = ref}
                         onMouseLeave={this.handleHover}
                     >
-                        {this.state.isHovering &&
-                            <Popup x={this.state.popupX} y={this.state.popupY} message={this.state.popupMessage} />
+                        {textBoxData && 
+                            Object.keys(textBoxData).map(textBoxKey => {
+                                console.log(textBoxKey === this.state.activeLabel)
+                                const boxData = textBoxData[textBoxKey]
+                                return (
+                                    <span>
+                                        <div 
+                                            key={textBoxKey}
+                                            className="text-container"
+                                            name={textBoxKey}
+                                            style={{
+                                                position: 'absolute',
+                                                top: boxData.y - 98,
+                                                left:boxData.x,
+                                                width: boxData.width,
+                                                height: boxData.height
+                                            }}
+                                        />
+                                        <button 
+                                            className="label-btn"
+                                            onMouseEnter={this.handleLabelHover} 
+                                            onMouseLeave={this.handleLabelHover} 
+                                            value={textBoxKey}
+                                            style={{
+                                                position: 'absolute',
+                                                top: boxData.y - 98 + window.pageYOffset,
+                                                left:boxData.x + boxData.width,
+                                                border: 'none',
+                                                backgroundColor: this.state.activeLabel === textBoxKey ? 'rgba(20, 196, 196,1)' : 'rgba(20, 196, 196,0)'
+                                            }}
+                                        >
+                                        ...
+                                        </button>
+                                    </span>
+                                )
+                            })
+                        }
+                        {textBoxData && 
+                            Object.keys(textBoxData).map(trait => {
+                                return (
+                                    <div
+                                        name= {trait}
+                                        className="tooltip"
+                                        style={{
+                                            height: this.state.activeLabel === trait ? 'max-content' : '0',
+                                            width: this.state.activeLabel === trait ? '20rem' : '0',
+                                            opacity: this.state.activeLabel === trait ? 1 : 0,
+                                            borderRadius: '5px',
+                                            position: "absolute",
+                                            top: textBoxData[trait].top + window.pageYOffset - 98,
+                                            left: textBoxData[trait].right + 30,
+                                            padding: "5px"
+                                        }}
+                                    >
+                                        {this.traitSummaries[trait]}
+                                    </div>
+                                )
+                            })
+                        }
+
+                        {this.state.isHovering && 
+                            <Popup x={this.state.popupX} y={this.state.popupY + window.pageYOffset} message={this.state.popupMessage} />
                         }
                         <Radar
                             width={this.state.chartWidth}

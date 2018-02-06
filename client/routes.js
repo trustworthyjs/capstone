@@ -111,6 +111,7 @@ class Routes extends Component {
                     existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading}
                     existingEntryId={this.state.existingEntryId} /> }
                   />
+                  <Route path="/search" component={SearchBar} />
                   <Route path="/audio" component={Audio} />
                   <Route path="/trends" component={DataAnalysis} />
                   <Route path="/streaks" component={StreaksGraph} />

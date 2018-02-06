@@ -1,9 +1,12 @@
 * {
     box-sizing: border-box;
-
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
     font-family: 'Ubuntu Mono', monospace;
     font-weight: 100
 }
@@ -14,7 +17,6 @@ text {
 
 body {
     font-family: 'Ubuntu Mono', monospace !important;
-
     /* background-image: url('https://img00.deviantart.net/7809/i/2007/271/7/7/pirate_wallpaper_by_unpatient.jpg');
     background-size: cover; */
 }
@@ -153,12 +155,14 @@ body ::-webkit-scrollbar-thumb {
     cursor: pointer;
     transition: transform 0.5s;
 }
+
 .settings-icon:hover {
     transform: rotate(0.5turn);
-
 }
 
-button:focus {outline:0;}
+button:focus {
+    outline: 0;
+}
 
 .footer {
     margin-top: 3rem;
@@ -226,7 +230,9 @@ navbar / appbar items
   visibility: visible;
 } */
 
+
 /*All Notebooks */
+
 .notebooks-grid {
     display: flex;
     flex-wrap: wrap;
@@ -235,20 +241,22 @@ navbar / appbar items
     flex-direction: row
 }
 
-.notebook-item{
+.notebook-item {
     margin: 2em;
     display: flex;
     flex-direction: column;
     align-items: center
 }
 
-.notebook-text{
+.notebook-text {
     position: absolute;
     align-self: center;
     margin-top: 6.5rem
 }
 
+
 /*Single Notebook*/
+
 .entries-grid {
     display: flex;
     flex-wrap: wrap;
@@ -256,6 +264,7 @@ navbar / appbar items
     align-items: center;
     flex-direction: row
 }
+
 
 /* .entries-grid a{
     display: flex;
@@ -270,7 +279,7 @@ navbar / appbar items
     width: 172px
 }
 
-.entry-text{
+.entry-text {
     display: flex;
     flex-wrap: wrap;
     width: 97px;
@@ -363,6 +372,13 @@ navbar / appbar items
 
 .personality-radar-main text {
     font-size: 15px;
+}
+
+.tooltip {
+    height: 10rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ECEFF1;
+    transition: opacity 0.1s linear, width 0.2s linear, height 0.3s linear 0.5s;
 }
 
 .personality-radar-child {
@@ -491,13 +507,13 @@ body {
 }
 
 #submitError {
-  color: red;
-  font-size: .8em;
-  margin: 0 0 1em 0
+    color: red;
+    font-size: .8em;
+    margin: 0 0 1em 0
 }
 
 .submit-popup-div {
-  margin: 0 0 0.5em 0;
+    margin: 0 0 0.5em 0;
 }
 
 /* single entry page styles */
@@ -523,3 +539,4 @@ body {
 }
 
 /* single entry page styles */
+
