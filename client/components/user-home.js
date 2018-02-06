@@ -210,6 +210,12 @@ export class UserHome extends React.Component {
     this.setState({ settingsOpen: !this.state.settingsOpen })
   }
 
+  clearEntry = () => {
+    const updatedEntry = Object.assign({}, this.props.singleEntry, { content: null, formattedContent: null })
+    this.props.saveEntry(updatedEntry)
+    this.state.editor.setContents([])
+  }
+
   /*eslint-disable complexity */
 
   render() {
@@ -289,9 +295,15 @@ export class UserHome extends React.Component {
     }
 
     return (
+      <div>
+
        <div className={`editor-container`} style={{marginTop: '-4rem'}}>
         { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
-
+        <div className={this.props.userTheme} style={{height: '24.3rem',
+          width: '85rem',
+          position: 'absolute',
+          top: '8.3rem',
+          zIndex: '-10'}} />
         <div className='settings-values'>
           {showTimer() &&
             <FlatButton
@@ -314,15 +326,15 @@ export class UserHome extends React.Component {
             />
           }
 
-
           <FlatButton label={'Submit Entry'} onClick={this.toggleSubmitPopup} secondary={true} />
-
-          {this.props.showSubmitPopup &&
+            {this.props.showSubmitPopup &&
             <SubmitEntryPopupWithRouter entry={this.state.entryToSubmit} />
-          }
+            }
+
+          <FlatButton label={'Clear Entry'} onClick={this.clearEntry} secondary={true} />
 
         </div>
-        <div id="editor-with-settings" className={this.props.userTheme}>
+        <div id="editor-with-settings" >
           <div className="editor-prompt">
             {this.state.showPopup && showPrompts() &&
               <Paper className="popup" style={styles}>
@@ -330,13 +342,14 @@ export class UserHome extends React.Component {
               </Paper>
             }
 
-            <div className={`editor ${this.props.userTheme}-theme`} />
+            <div className={`editor`} />
           </div>
 
           <button className="settings-icon" onClick={this.toggleSettingsVisible} style={{top: '-3rem'}} />
           <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
         </div>
 
+      </div>
       </div>
     )
   }

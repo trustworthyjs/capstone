@@ -22,8 +22,19 @@ const User = db.define('user', {
     values: ['basic', 'pirate', 'beach', 'forest', 'mountains'],
     defaultValue: 'basic'
   },
-  streakGoal: {
+  streakGoalDate: {
     type: Sequelize.DATE,
+  },
+  streakGoalStart: {
+    type: Sequelize.DATE
+  },
+  currentStreak: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
+  maxStreak: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 })
 
@@ -58,6 +69,13 @@ const setSaltAndPassword = user => {
   if (user.changed('password')) {
     user.salt = User.generateSalt()
     user.password = User.encryptPassword(user.password, user.salt)
+  }
+  //streak validation added in this hook
+  if (user.changed('streakGoalDate')){
+    user.streakGoalStart = user.updatedAt
+  }
+  if (user.changed('currentStreak') && user.currentStreak > user.maxStreak){
+     user.maxStreak = user.currentStreak
   }
 }
 

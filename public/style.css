@@ -46,11 +46,33 @@ form div {
 .ql-container.ql-snow {
     border: 0px solid #ccc;
 }
-
+.popup {
+  overflow-y: hidden;
+  height: max-content !important;
+}
 .editor {
     height: 60vh;
     font-size: 25px;
     font-family: 'Ubuntu Mono', monospace;
+    opacity: .7;
+
+}
+
+.radio {
+  overflow-y: hidden
+}
+
+/*body ::-webkit-scrollbar {
+  width: 2px;
+}
+
+body ::-webkit-scrollbar-thumb {
+  opacity: 0;
+  background: #ACD3F2;
+}*/
+
+.settings-values {
+      margin-right: 25rem;
     background-color: rgba(220, 220, 220, 0.9);
 }
 
@@ -58,6 +80,8 @@ form div {
     background-image: url('https://www.pergamena.net/s/ccream.JPG');
     background-size: cover;
 }
+
+
 
 .popup {
     margin: 10px;
@@ -141,7 +165,7 @@ button:focus {
 }
 
 .footer {
-    margin-top: 13rem;
+    margin-top: 3rem;
     height: 14rem;
     width: 100vw;
     background-color: #263238;
@@ -168,9 +192,22 @@ button:focus {
     position: relative;
     /* background-color: rgb(202, 200, 200); */
 }
+/*
+navbar / appbar items
+*/
+.nav-items{
+    display: flex;
+    align-items: center
+}
+
+/* .editor {
+    background-image: url('https://www.pergamena.net/s/ccream.JPG');
+    background-size: cover;
+} */
 
 .settings-values {
     margin: 7% auto 0 auto;
+    margin-right: 25rem;
     display: flex;
     justify-content: space-evenly;
     width: 44rem;
@@ -386,7 +423,7 @@ body {
     flex-direction: column;
     justify-content: center;
     left: 0;
-    position: absolute;
+    position: inherit;
     right: 0;
     top: 0;
     height: 100vh;
@@ -478,3 +515,28 @@ body {
 .submit-popup-div {
     margin: 0 0 0.5em 0;
 }
+
+/* single entry page styles */
+
+.entry-page-container {
+  display: flex;
+  flex-direction: row
+}
+
+.entry-page-container > div {
+  width: 50%;
+  padding: 5px
+}
+
+.entry-page-buttons {
+  display: flex;
+  flex-direction: row
+}
+
+.entry-page-right-column {
+  display: flex;
+  flex-direction: column
+}
+
+/* single entry page styles */
+

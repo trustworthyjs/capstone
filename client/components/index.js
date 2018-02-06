@@ -3,6 +3,12 @@
  * This way, we can import all of our components from the same place, rather than
  * having to figure out which file they belong to!
  */
+
+// disabling logging for soundManager (comes with react-sound and is overreporting info)
+/* global soundManager:false */
+import 'react-sound';
+soundManager.setup({debugMode: false});
+
 export {default as Main} from './main'
 export {default as LandingPage} from './LandingPage'
 export {default as UserHome} from './user-home'
@@ -18,5 +24,6 @@ export {default as SingleEntry} from './singleEntry'
 export {default as SubmitEntryPopup} from './SubmitEntryPopup'
 export {default as ToneGraph} from './ToneGraph'
 export {default as Footer} from './footer'
+export {default as Audio} from './Audio'
 export {default as SearchBar} from './SearchBar'
 

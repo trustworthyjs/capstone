@@ -1,6 +1,5 @@
 import axios from 'axios'
-import analyzeData from '../../createDataFunc'
-import { createDataAnalysis } from './index'
+import { createDataAnalysis, me } from './index'
 require('../../secrets')
 
 /**
@@ -67,22 +66,29 @@ export const submitEntryDb = (editedEntry, notebookId, history, userId) =>
     axios.put(`/api/entries/${editedEntry.id}`, editedEntry)
       .then(res => {
         dispatch(saveEntry(res.data))
-        history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
+        dispatch(me())
       })
       .then(async () => {
+        history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
         let dataObj = await createDataAfterNewEntry(userId)
         dispatch(createDataAnalysis(userId, dataObj))
       })
       .then(async () => {
+
         let toneObj = await axios.post(`/api/dataAnalysis/nlp-api-data/entry/${editedEntry.id}`, {entryString: editedEntry.content})
-        await axios.put(`/api/entries/${editedEntry.id}`, {tones: toneObj.data})
-        dispatch(saveEntry({tones: toneObj.data}))
+
+        let nounsObj = await axios.post(`/api/dataAnalysis/nlp-api-data/wc-nouns/${editedEntry.id}`, {entryString: editedEntry.content})
+
+        await axios.put(`/api/entries/${editedEntry.id}`, {tones: toneObj.data, wcNouns: nounsObj.data})
+
+        dispatch(saveEntry({tones: toneObj.data, wcNouns: nounsObj.data}))
+
       })
       .catch(err => console.log(err))
   }
 
-export const updateSettingsDb = (settings) => 
-  dispatch => 
+export const updateSettingsDb = (settings) =>
+  dispatch =>
     axios.put(`/api/entries/${editedEntry.id}`, settings)
       .then(res =>
         dispatch(getEntry(res.data)))

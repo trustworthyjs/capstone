@@ -18,16 +18,19 @@ class WordCloud extends Component {
   }
 
   setNouns = () => {
-    this.setState({
-      nouns: this.props.nouns,
-      largestPercent: this.props.nouns[0].percent
-    })
+    let updateNouns = this.props.type === 'all-entries' ? this.props.allEntriesNouns : this.props.singleEntryNouns
+    if (updateNouns) {
+      this.setState({
+        nouns: updateNouns,
+        largestPercent: updateNouns[0].percent
+      })
+    }
   }
 
   componentDidMount() {
     setInterval(() => {
       this.forceUpdate();
-    }, 20000)
+    }, 10000)
     this.setNouns()
   }
 
@@ -62,7 +65,7 @@ class WordCloud extends Component {
 
 const mapState = (state) => {
   return {
-    nouns: state.data.wcNouns ? state.data.wcNouns.slice(0, 60) : undefined
+    allEntriesNouns: state.data.wcNouns ? state.data.wcNouns.slice(0, 60) : undefined
   }
 }
 

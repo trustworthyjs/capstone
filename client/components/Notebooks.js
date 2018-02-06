@@ -28,9 +28,7 @@ export class Notebooks extends Component {
   }
 
   componentDidMount() {
-    if (!this.props.notebooks.length) {
-      this.props.getNotebooks(this.props.user.id)
-    }
+    this.props.getNotebooks(this.props.user.id)
   }
 
   render() {

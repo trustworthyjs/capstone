@@ -1,31 +1,25 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Calendar} from '@nivo/calendar'
-import {getEntriesDb, me} from '../store'
+import {getEntriesDb, me, updateUserStreak} from '../store'
 import Toggle from 'material-ui/Toggle';
+import DatePicker from 'material-ui/DatePicker';
+import {Link} from 'react-router-dom'
 
 const styles = {
-  block: {
-    maxWidth: 250,
-  },
   toggle: {
     marginBottom: 16,
   },
-  thumbOff: {
-    backgroundColor: '#ffcccc',
-  },
-  trackOff: {
-    backgroundColor: '#ff9d9d',
+  off: {
+    backgroundColor: 'rgb(238, 238, 238)',
   },
   thumbSwitched: {
-    backgroundColor: 'red',
+    backgroundColor: 'rgb(235, 154, 48)'
   },
   trackSwitched: {
-    backgroundColor: '#ff9d9d',
-  },
-  labelStyle: {
-    color: 'red',
-  },
+    backgroundColor: 'rgb(235, 154, 48)',
+    opacity: 0.5
+  }
 };
 
 class StreaksGraph extends React.Component {
@@ -42,7 +36,7 @@ class StreaksGraph extends React.Component {
     if (!this.props.user){
       this.props.getMe()
     }
-    if (this.props.user.streakGoal){
+    if (this.props.user.streakGoalDate){
       this.setState({
         streaks: true
       })
@@ -51,8 +45,9 @@ class StreaksGraph extends React.Component {
   }
 
   prepData(entries){
+    let filtered = entries.filter(entry => entry.submitted === true)
     let calData = {}
-    entries.forEach((entry) => {
+    filtered.forEach((entry) => {
       let formattedDate = entry.savedAt.slice(0, entry.savedAt.indexOf('T'))
       if (calData.hasOwnProperty(formattedDate)){
         calData[formattedDate].value = calData[formattedDate].value + 1
@@ -73,9 +68,35 @@ class StreaksGraph extends React.Component {
     this.setState({
       streaks: !this.state.streaks
     })
+    this.props.updateStreak(this.props.user.id)
+  }
+
+  editStreak = (e, date) => {
+    this.props.updateStreak(this.props.user.id, date)
+  }
+
+  checkForStreaks = (entries, startDate, endDate) => {
+    let entriesInRange = entries.filter((entry) => {
+      return entry.savedAt >= startDate && entry.savedAt <= endDate
+    })
+    let entryDatesObj = {}
+    entriesInRange.forEach((entry) => {
+      let savedAtSlice = entry.savedAt.slice(0, entry.savedAt.indexOf('T'))
+      if (!entryDatesObj[savedAtSlice]){
+        entryDatesObj[savedAtSlice] = 1
+      } else {
+        entryDatesObj[savedAtSlice]++
+      }
+    })
+    //now entryDatesObj is an object with dates in range and amount of entries day
   }
 
   render() {
+    let streakGoal = this.props.user.streakGoalDate
+    let streakGoalStart = this.props.user.streakGoalStart
+    let maxStreak = this.props.user.maxStreak
+    let currentStreak = this.props.user.currentStreak
+    this.checkForStreaks(this.props.allEntries, streakGoalStart, streakGoal)
     return (
       <div className="container">
         <h2>Streaks</h2>
@@ -83,29 +104,58 @@ class StreaksGraph extends React.Component {
           label={this.state.streaks ? `Streak Goals are On!` : `Streak Goals are Off!`}
           labelPosition="right"
           style={styles.toggle}
-          defaultToggled={true}
+          defaultToggled={this.state.streaks}
           onToggle={this.onToggle}
+          thumbStyle={styles.off}
+          trackStyle={styles.off}
+          thumbSwitchedStyle={styles.thumbSwitched}
+          trackSwitchedStyle={styles.trackSwitched}
         />
-        {this.state.streaks && this.props.user && this.props.user.streakGoal ?
+        {this.state.streaks && this.props.user && streakGoal ?
         <div>
-        Your current streak goal: {this.props.user.streakGoal}
+        <b>Your current streak goal:</b> <br />Write one entry daily until {streakGoal.slice(0, streakGoal.indexOf('T'))}
+        <br />
+        <b>Started On:</b>
+        <br />
+        {streakGoalStart.slice(0, streakGoalStart.indexOf('T'))}
         </div> :
         <div>
         You do not have a streak goal set.
         </div>}
+        <br />
+        {this.state.streaks &&
+          <div>
+            <b>Set or change streak goal:</b>
+            <DatePicker
+            hintText={streakGoal ? `${streakGoal.slice(0, streakGoal.indexOf('T'))}` : `Pick a Date`}
+            mode="landscape"
+            minDate={new Date()}
+            onChange={this.editStreak}/>
+          </div>}
+        {this.state.streaks &&
+          <div><b>Your Progress:</b>
+            <br />
+            { currentStreak > 1 ?
+              <div>Current Streak: {currentStreak}<br />
+              Max Streak: {maxStreak}</div>
+              :
+              <div>You haven't submitted enough entries to have a streak :( <Link to="/home">Write one now!</Link></div>
+            }
+          </div>}
         {this.state.calendarData && this.state.calendarData.length > 0 &&
           <Calendar
             data={this.state.calendarData}
             width={800}
-            height={400}
-            from="2018-01-01"
-            to="2019-01-01"
+            height={300}
+            from="2018-12-31"
+            to="2018-12-31"
+            domain={[1,8]}
             emptyColor="#eeeeee"
-            colors={["#61cdbb", "#97e3d5", "#e8c1a0", "#f47560"]}
+            colors={["#ACD3F2","#1595A3", "#EB97BE" , "rgb(235, 154, 48)"]}
             margin={{
-                "top": 35,
+                "top": 80,
                 "right": 30,
-                "bottom": 10,
+                "bottom": 80,
                 "left": 30
             }}
             yearSpacing={40}
@@ -117,12 +167,11 @@ class StreaksGraph extends React.Component {
                 {
                     "anchor": "center",
                     "direction": "row",
-                    "itemCount": 2,
+                    "itemCount": 4,
                     "itemWidth": 34,
                     "itemHeight": 20,
                     "itemDirection": "top-to-bottom",
                     "translateY": 80,
-                    "symbolShape": "square"
                 }
             ]}
           />
@@ -149,6 +198,9 @@ const mapDispatch = (dispatch) => {
     },
     getMe: () => {
       return dispatch(me())
+    },
+    updateStreak: (userId, newStreak) => {
+      return dispatch(updateUserStreak(userId, newStreak))
     }
   }
 }

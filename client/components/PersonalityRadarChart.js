@@ -7,7 +7,7 @@ import PersonalityRadarChartChild from './PersonalityRadarChartChild';
 import Tooltip from "react-simple-tooltip"
 
 export class PersonalityRadarChart extends Component {
-    
+
     constructor() {
         super()
         this.state = {
@@ -35,8 +35,8 @@ export class PersonalityRadarChart extends Component {
         const texts = Array.from(personalityRadar[0].getElementsByTagName('text')).slice(-5);
         this.setState({textBoxes: texts})
     }
-    
-    //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the 
+
+    //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the
     // radius down to just 5 pixels around the actual circle
     handleHover = (point) => {
         if (this.container) {
@@ -53,7 +53,7 @@ export class PersonalityRadarChart extends Component {
                         popupX: window.event.clientX,
                         popupY: window.event.clientY - 98,
                         popupMessage: percentage
-                    })             
+                    })
             } else {
                 this.setState({
                     isHovering: false
@@ -81,6 +81,7 @@ export class PersonalityRadarChart extends Component {
                             Agreeableness: this.state.textBoxes[3].getBoundingClientRect(),
                             EmotionalRange: this.state.textBoxes[4].getBoundingClientRect()};
         }
+
         if (data.personality) {
 
             const personality = data.personality;
@@ -191,12 +192,12 @@ export class PersonalityRadarChart extends Component {
                     <div id="child-radar-container">
                         {Object.keys(personalityChildren).map(childTraitName => {
                             return (
-                                <div>
-                                    <PersonalityRadarChartChild 
+                                <div key={childTraitName}>
+                                    <PersonalityRadarChartChild
                                         key={childTraitName}
-                                        name={childTraitName}     
-                                        trait={personalityChildren[childTraitName]} 
-                                        width={350} 
+                                        name={childTraitName}
+                                        trait={personalityChildren[childTraitName]}
+                                        width={350}
                                         height={350}
                                         parentHeight={this.rect.top + this.rect.height}/>
                                 </div>

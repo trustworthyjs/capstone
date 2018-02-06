@@ -5,6 +5,7 @@ import Toggle from 'material-ui/Toggle'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 import Paper from 'material-ui'
+import {Audio} from './'
 
 export class SettingsDrawer extends React.Component {
   state = {
@@ -27,28 +28,31 @@ export class SettingsDrawer extends React.Component {
         wordCount: false,
         prompts: false,
         visualCues: false,
-        music: false,
+        music: 'none',
         zoomIn: false
       }
     }
+
     let minutes = []
     let seconds = []
     for (let i = 0; i < 60; i++) {
       if (i <= 30) minutes.push(i);
       seconds.push(i);
     }
+    
     if (this.props.singleEntry.id) {
+
       var checkSettings = {};
       if (this.props.singleEntry.settings) {
         checkSettings = this.props.singleEntry.settings;
         const entryMode = this.props.singleEntry.mode;
         return (
-          <div>
+          <div className="settings-drawer">
             <div>
               <h5>Settings</h5>
             <div>
               <div className="setting">
-                <label>Your Theme: </label>
+                <label>Select a theme: </label>
                 <div className="ui compact menu">
                   <div className="ui simple dropdown item">
                     {this.props.user.theme}
@@ -79,7 +83,7 @@ export class SettingsDrawer extends React.Component {
                     <input type="checkbox" name="timer" checked={checkSettings.timer} onChange={this.handleChangeSettings}/>
                     <label>Timer</label>
                   </div>
-                  {checkSettings.timer && 
+                  {checkSettings.timer &&
                     this.props.visible && (
                     <div>
                       <select className="ui dropdown" onChange={this.handleSetTimerMinutes}>
@@ -111,7 +115,7 @@ export class SettingsDrawer extends React.Component {
                       </select>
                     </div>
                     )}
-                </div>  
+                </div>
                 <div className="setting">
                   <div className="ui toggle checkbox">
                     <input type="checkbox" name="wordCount" checked={checkSettings.wordCount} onChange={this.handleChangeSettings}/>
@@ -132,10 +136,35 @@ export class SettingsDrawer extends React.Component {
                   <input type="checkbox" name="visualCues" checked={checkSettings.visualCues} onChange={this.handleChangeSettings}/>
                   <label>Visual Cues</label>
                 </div>
-                <div className="ui toggle checkbox setting">
-                  <input type="checkbox" name="music" checked={checkSettings.music} onChange={this.handleChangeSettings}/>
-                  <label>Music</label>
+
+                <div className="setting">
+                  <label>Select background music: </label>
+                  <div className="ui compact menu">
+                    <div className="ui simple dropdown item">
+                      {this.props.singleEntry.settings.music}
+                      <i className="dropdown icon"></i>
+                      <div className="menu">
+                        {['none', 'piano', 'guitar', 'beach', 'rain'].map(music => {
+                          if (this.props.singleEntry.settings) {
+                            if (music !== this.props.singleEntry.settings.music) {
+                              return (
+                                <div
+                                  key={music}
+                                  name='music'
+                                  value={music}
+                                  className="item"
+                                  onClick={this.handleChangeMusic}>
+                                  {music}
+                                </div>
+                              )
+                            }
+                          }
+                        })}
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
                 {/* --------mode radio buttons -------- */}
                 <div className="ui form">
                   <div className="radio-field">
@@ -215,10 +244,26 @@ export class SettingsDrawer extends React.Component {
     this.props.dispatchChangeUserTheme(this.props.user.id, newTheme)
   }
 
+  handleChangeMusic = (event) => {
+    event.preventDefault()
+    const newMusic = event.target.innerText
+    let obj = {
+      music: newMusic
+    }
+    const updatedSettings = Object.assign({}, this.props.singleEntry.settings, obj)
+    const updatedEntry = Object.assign({}, this.props.singleEntry, { mode: 'custom', settings: updatedSettings })
+    this.props.dispatchUpdate(updatedEntry)
+  }
+
   render() {
     const visible = this.props.visible ? 'visible' : 'hidden'
 
-    const settings = this.getSettings();
+    const settings = this.getSettings()
+
+    let playMusic = false
+    if (this.props.singleEntry.settings) {
+      playMusic = this.props.singleEntry.settings.music !== 'none'
+    }
 
     const editorPrompt = this.state.editorPrompt
     if (editorPrompt) {
@@ -239,7 +284,7 @@ export class SettingsDrawer extends React.Component {
         }}
         >
           {settings}
-
+          {playMusic && <Audio music={this.props.singleEntry.settings.music} />}
         </div>
       );
     } else {
