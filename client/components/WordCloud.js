@@ -12,32 +12,18 @@ function styles (largestPercent, currentPercent) {
 
 class WordCloud extends Component {
 
-  state = {
-    nouns: [],
-    largestPercent: 0
-  }
-
-  setNouns = () => {
-    let updateNouns = this.props.type === 'all-entries' ? this.props.allEntriesNouns : this.props.singleEntryNouns
-    if (updateNouns) {
-      this.setState({
-        nouns: updateNouns,
-        largestPercent: updateNouns[0].percent
-      })
-    }
-  }
-
   componentDidMount() {
     setInterval(() => {
       this.forceUpdate();
     }, 10000)
-    this.setNouns()
   }
 
   render() {
+    console.log('this props nouns: ', this.props.nouns)
     return (
       <div className="app-outer">
-        <div className="app-inner">
+        {this.props.nouns ?
+          <div className="app-inner">
           <TagCloud
             className="tag-cloud"
             style={{
@@ -49,23 +35,36 @@ class WordCloud extends Component {
               }),
               padding: 5,
             }}>
-            { this.state.nouns.length > 0 &&
-              this.state.nouns.map(noun =>
-              <div style={styles(this.state.largestPercent, noun.percent)} key={ noun.normal }>{ noun.normal }</div>
-              )
+            {
+              this.props.nouns.map(noun =>
+              (<div
+                style={styles(this.props.largestPercent, noun.percent)}
+                key={ noun.normal }>
+                { noun.normal }
+              </div>))
             }
           </TagCloud>
-        </div>
+        </div> :
+          <h1>Word Cloud is loading... </h1>
+        }
       </div>
     );
   }
-
-
 }
 
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
+  let nouns, largestPercent
+  if (state.data.wcNouns) {
+    if (ownProps.type === 'all-entries') {
+      nouns = state.data.wcNouns.slice(0, 60)
+    } else {
+      nouns = ownProps.singleEntryNouns.slice(0, 30)
+    }
+    largestPercent = nouns[0].percent
+  }
   return {
-    allEntriesNouns: state.data.wcNouns ? state.data.wcNouns.slice(0, 60) : undefined
+    nouns,
+    largestPercent
   }
 }
 

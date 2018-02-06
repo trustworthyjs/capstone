@@ -509,7 +509,7 @@ body {
 
 .entry-page-container > div {
   width: 50%;
-  padding: 5px
+  padding: 0 10px 0 10px
 }
 
 .entry-page-buttons {
@@ -520,6 +520,15 @@ body {
 .entry-page-right-column {
   display: flex;
   flex-direction: column
+}
+
+.entry-page-data > h3 {
+  margin: 0 0 0 15px;
+  font-weight: bold;
+}
+
+.bold-text {
+  font-weight: bold;
 }
 
 /* single entry page styles */
