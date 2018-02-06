@@ -295,7 +295,7 @@ export class UserHome extends React.Component {
     }
 
     return (
-      <div>
+      <div className="new-entry-container">
 
        <div className={`editor-container`} style={{marginTop: '-4rem'}}>
         { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
@@ -332,7 +332,7 @@ export class UserHome extends React.Component {
             }
 
           <FlatButton label={'Clear Entry'} onClick={this.clearEntry} secondary={true} />
-
+          <button className="settings-icon" onClick={this.toggleSettingsVisible} />
         </div>
         <div id="editor-with-settings" >
           <div className="editor-prompt">
@@ -345,7 +345,7 @@ export class UserHome extends React.Component {
             <div className={`editor`} />
           </div>
 
-          <button className="settings-icon" onClick={this.toggleSettingsVisible} style={{top: '-3rem'}} />
+
           <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
         </div>
 

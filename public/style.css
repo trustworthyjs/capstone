@@ -37,6 +37,10 @@ form div {
     display: inline-block;
 }
 
+.new-entry-container {
+  width: 80vw;
+  margin: auto auto;
+}
 .container {
     padding: 40px;
 }
@@ -70,7 +74,6 @@ body ::-webkit-scrollbar-thumb {
 }*/
 
 .settings-values {
-      margin-right: 25rem;
     background-color: rgba(220, 220, 220, 0.9);
 }
 
@@ -146,10 +149,7 @@ body ::-webkit-scrollbar-thumb {
     border-radius: 50%;
     background-image: url("/images/helm.png");
     background-size: cover;
-    position: absolute;
     z-index: 5;
-    top: 7px;
-    right: 7px;
     cursor: pointer;
     transition: transform 0.5s;
 }
@@ -181,8 +181,8 @@ button:focus {outline:0;}
 }
 
 #editor-with-settings {
-    height: 75%;
-    width: 75%;
+    height: 80vh;
+    width: 66.1vw;
     margin: 5px auto 50% auto;
     margin-bottom: 7rem;
     position: relative;
@@ -203,10 +203,8 @@ navbar / appbar items
 
 .settings-values {
     margin: 7% auto 0 auto;
-    margin-right: 19rem;
     display: flex;
     justify-content: space-evenly;
-    width: 44rem;
     min-height: 25px;
     background-color: rgba(255, 255, 255, 0.9);
     border-top-left-radius: 20px;
