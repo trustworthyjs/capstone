@@ -551,12 +551,16 @@ body {
 }
 
 .entry-page-data > h3 {
-  margin: 0 0 0 15px;
+  margin-left: 15px;
   font-weight: bold;
 }
 
 .bold-text {
   font-weight: bold;
+}
+
+.our-loader {
+  margin: 15px 0 15px 15px;
 }
 
 /* single entry page styles */

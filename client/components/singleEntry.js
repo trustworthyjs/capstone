@@ -81,23 +81,22 @@ export class SingleEntry extends React.Component {
                 {
                   this.state.currentView === 'PERSONALITY TRAITS' &&
                   <div className="entry-page-data">
-                    <h1>Personality Traits Placeholder</h1>
                     <h3>For current entry:</h3>
-                    <PersonalityRadarChart
-                      height={350}
-                      width={350}
-                      dataFor={this.props.singleEntry}
-                      showChildren={false}
-                      showToolTips={false}
-                    />
+                      <PersonalityRadarChart
+                        height={350}
+                        width={350}
+                        dataFor={this.props.singleEntry}
+                        showChildren={false}
+                        showToolTips={false}
+                      />
                     <h3>For all entries to date:</h3>
-                    <PersonalityRadarChart
-                      height={350}
-                      width={350}
-                      dataFor={this.props.data}
-                      showChildren={false}
-                      showToolTips={false}
-                    />
+                      <PersonalityRadarChart
+                        height={350}
+                        width={350}
+                        dataFor={this.props.data}
+                        showChildren={false}
+                        showToolTips={false}
+                      />
                   </div>
                 }
 
