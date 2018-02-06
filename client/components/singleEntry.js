@@ -39,8 +39,8 @@ export class SingleEntry extends React.Component {
           <div className="entry-page-container">
 
             <div>
-              <h1>Title: {entry.title}</h1>
-              <h2>Saved At: {new Date(entry.savedAt).toString()}</h2>
+              <h1 className="bold-text">Title: {entry.title.substring(0, entry.title.length - 18)}</h1>
+              <h2>Saved At: {(new Date(entry.savedAt).toString()).substring(0, new Date(entry.savedAt).toString().length - 18)}</h2>
               <br />
               {entry.content}
             </div>
@@ -48,28 +48,39 @@ export class SingleEntry extends React.Component {
             <div className="entry-page-right-column">
               <div>
                 <div className="entry-page-buttons">
-                  {['Word Cloud', 'Personality Traits', 'Tones'].map(dataType => {
-                    return (<FlatButton
-                              key={dataType}
-                              label={`${dataType}`}
-                              value={`${dataType}`}
-                              onClick={this.handleDataTypeChange}
-                              secondary={true} />)
+                  {['WORD CLOUD', 'PERSONALITY TRAITS', 'TONES'].map(dataType => {
+                    return (
+                        <div key={dataType}>
+                          {
+                            this.state.currentView === dataType ?
+                            <FlatButton
+                            label={`${dataType}`}
+                            value={`${dataType}`}
+                            onClick={this.handleDataTypeChange}
+                            secondary={true} /> :
+                            <FlatButton
+                            label={`${dataType}`}
+                            value={`${dataType}`}
+                            onClick={this.handleDataTypeChange}
+                            primary={true} />
+                          }
+                        </div>)
                   })}
                 </div>
 
                 {
                   this.state.currentView === 'WORD CLOUD' &&
-                  <div>
-                    <h1>Word Cloud Placeholder</h1>
+                  <div className="entry-page-data">
                     <h3>For current entry:</h3>
+                    <WordCloud type="single-entry" singleEntryNouns={entry.wcNouns} />
                     <h3>For all entries to date:</h3>
+                    <WordCloud type="all-entries" />
                   </div>
                 }
 
                 {
                   this.state.currentView === 'PERSONALITY TRAITS' &&
-                  <div>
+                  <div className="entry-page-data">
                     <h1>Personality Traits Placeholder</h1>
                     <h3>For current entry:</h3>
                     <h3>For all entries to date:</h3>
@@ -78,6 +89,8 @@ export class SingleEntry extends React.Component {
 
                 {
                   this.state.currentView === 'TONES' &&
+                  <div className="entry-page-data">
+                    <h1>Tones Placeholder</h1>
                   <div>
                     <h1>Entry Tones</h1>
                     <h3>For current entry:</h3>
@@ -114,7 +127,4 @@ const mapDispatch = (dispatch) => {
 }
 
 export default connect(mapState, mapDispatch)(withRouter(SingleEntry))
-
-// <WordCloud type="single-entry" singleEntryNouns={entry.wcNouns} />
-// <WordCloud type="all-entries" />
 
