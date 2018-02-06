@@ -60,18 +60,14 @@ export class SingleEntry extends React.Component {
                 {
                   this.state.currentView === 'WORD CLOUD' &&
                   <div>
-                    <h1>Word Cloud</h1>
                     <h3>For current entry:</h3>
-                    <WordCloud type="single-entry" singleEntryNouns={entry.wcNouns} />
                     <h3>For all entries to date:</h3>
-                    <WordCloud type="all-entries" />
                   </div>
                 }
 
                 {
                   this.state.currentView === 'PERSONALITY TRAITS' &&
                   <div>
-                    <h1>Personality Traits</h1>
                     <h3>For current entry:</h3>
                     <h3>For all entries to date:</h3>
                   </div>
@@ -80,7 +76,6 @@ export class SingleEntry extends React.Component {
                 {
                   this.state.currentView === 'TONES' &&
                   <div>
-                    <h1>Tones</h1>
                     <h3>For current entry:</h3>
                     <h3>For all entries to date:</h3>
                   </div>
@@ -113,3 +108,7 @@ const mapDispatch = (dispatch) => {
 }
 
 export default connect(mapState, mapDispatch)(withRouter(SingleEntry))
+
+// <WordCloud type="single-entry" singleEntryNouns={entry.wcNouns} />
+// <WordCloud type="all-entries" />
+
