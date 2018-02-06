@@ -47,7 +47,7 @@ class DataAnalysis extends React.Component {
                   width={500} 
                   height={500} 
                   showChildren={true} 
-                  showToolTips={true}
+                  showTooltips={true}
                   dataFor={this.props.data}/>
               </div>
             </Tab>

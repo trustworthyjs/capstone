@@ -3,6 +3,7 @@ const {DataAnalysis} = require('../db/models')
 let analyzeData = require('../../createDataFunc')
 let toneData = require('../../createToneFunc')
 let nounData = require('../../createNounsFunc')
+let personalityData = require('../../createPersonalityFunc')
 module.exports = router
 
 router.get('/:userId', (req, res, next) => {
@@ -48,4 +49,11 @@ router.post('/nlp-api-data/wc-nouns/:entryId', (req, res, next) => {
   let entryString = req.body.entryString
   let wcNouns = nounData(entryString)
   res.json(wcNouns)
+})
+
+router.post('/nlp-api-data/personality-data/:entryId', (req, res, next) => {
+  let entryId = req.params.entryId
+  let entryString = req.body.entryString
+  let personality = personalityData(entryString)
+  res.json(personality)
 })
