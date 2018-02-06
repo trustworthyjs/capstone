@@ -39,6 +39,10 @@ form div {
     display: inline-block;
 }
 
+.new-entry-container {
+  width: 80vw;
+  margin: auto auto;
+}
 .container {
     padding: 40px;
     display: flex;
@@ -50,21 +54,23 @@ form div {
 .ql-container.ql-snow {
     border: 0px solid #ccc;
 }
+
 .popup {
-  overflow-y: hidden;
-  height: max-content !important;
+    overflow-y: hidden;
+    height: max-content !important;
 }
+
 .editor {
     height: 60vh;
     font-size: 25px;
     font-family: 'Ubuntu Mono', monospace;
     opacity: .7;
-
 }
 
 .radio {
-  overflow-y: hidden
+    overflow-y: hidden
 }
+
 
 /*body ::-webkit-scrollbar {
   width: 2px;
@@ -76,7 +82,7 @@ body ::-webkit-scrollbar-thumb {
 }*/
 
 .settings-values {
-      margin-right: 25rem;
+
     background-color: rgba(220, 220, 220, 0.9);
 }
 
@@ -90,11 +96,10 @@ body ::-webkit-scrollbar-thumb {
     flex-direction: column
 }
 
-
 .popup {
     margin: 10px;
     border-radius: 5px;
-    width: 26%;
+    width: 16rem;
     position: absolute;
     transition: all 5s ease-in-out;
     visibility: visible;
@@ -102,7 +107,7 @@ body ::-webkit-scrollbar-thumb {
     padding: 5px;
     text-align: center;
     height: 3.2%;
-    font-size: 18px;
+    font-size: 23px;
 }
 
 .logo {
@@ -144,9 +149,12 @@ body ::-webkit-scrollbar-thumb {
     margin: 10px;
 }
 
-#settings-drawer {
-    right: 0;
-    transition: visibility 0.5s linear;
+.settings-drawer {
+    height: 60vh;
+}
+
+.editor-with-settings:last-child {
+  height: 60vh;
 }
 
 .settings-icon {
@@ -156,10 +164,7 @@ body ::-webkit-scrollbar-thumb {
     border-radius: 50%;
     background-image: url("/images/helm.png");
     background-size: cover;
-    position: absolute;
     z-index: 5;
-    top: 7px;
-    right: 7px;
     cursor: pointer;
     transition: transform 0.5s;
 }
@@ -193,20 +198,23 @@ button:focus {
 }
 
 #editor-with-settings {
-    height: 75%;
-    width: 75%;
-    margin: 5px auto 50% auto;
+    height: 80vh;
+    margin: 0px auto 50% auto;
     margin-bottom: 7rem;
     position: relative;
     /* background-color: rgb(202, 200, 200); */
 }
+
+
 /*
 navbar / appbar items
 */
-.nav-items{
+
+.nav-items {
     display: flex;
     align-items: center
 }
+
 
 /* .editor {
     background-image: url('https://www.pergamena.net/s/ccream.JPG');
@@ -214,15 +222,12 @@ navbar / appbar items
 } */
 
 .settings-values {
-    margin: 7% auto 0 auto;
-    margin-right: 25rem;
+    margin: 7.9vh auto 0 auto;
     display: flex;
     justify-content: space-evenly;
-    width: 44rem;
     min-height: 25px;
     background-color: rgba(255, 255, 255, 0.9);
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+
 }
 
 .settings-values div {
@@ -231,6 +236,11 @@ navbar / appbar items
 
 .ql-disabled {
     background-color: grey;
+}
+
+.editor-prompt {
+    background-color: white;
+    opacity: .9;
 }
 
 
@@ -383,10 +393,12 @@ navbar / appbar items
 }
 
 .tooltip {
-    height: 10rem;
-    background-color: rgba(0, 0, 0, 0.5);
+    height: max-content;
+    width: 12rem;
+    background-color: rgba(0, 0, 0, 0.7);
     color: #ECEFF1;
-    transition: opacity 0.1s linear, width 0.2s linear, height 0.3s linear 0.5s;
+    transition: opacity 0.3s linear;
+    font-size: small;
 }
 
 .personality-radar-child {
@@ -524,27 +536,37 @@ body {
     margin: 0 0 0.5em 0;
 }
 
+
 /* single entry page styles */
 
 .entry-page-container {
-  display: flex;
-  flex-direction: row
+    display: flex;
+    flex-direction: row
 }
+
 
 .entry-page-container > div {
   width: 50%;
-  padding: 5px
+  padding: 0 10px 0 10px
 }
 
 .entry-page-buttons {
-  display: flex;
-  flex-direction: row
+    display: flex;
+    flex-direction: row
 }
 
 .entry-page-right-column {
-  display: flex;
-  flex-direction: column
+    display: flex;
+    flex-direction: column
+}
+
+.entry-page-data > h3 {
+  margin: 0 0 0 15px;
+  font-weight: bold;
+}
+
+.bold-text {
+  font-weight: bold;
 }
 
 /* single entry page styles */
-

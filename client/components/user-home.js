@@ -295,14 +295,17 @@ export class UserHome extends React.Component {
     }
 
     return (
-      <div>
+      <div className="new-entry-container">
 
        <div className={`editor-container`} style={{marginTop: '-4rem'}}>
         { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
-        <div className={this.props.userTheme} style={{height: '24.3rem',
-          width: '85rem',
+        <div className={this.props.userTheme} style={
+          {
+          width: '100vw',
+          height: '83rem',
+          right: '0rem',
           position: 'absolute',
-          top: '8.3rem',
+          top: '2.3rem',
           zIndex: '-10'}} />
         <div className='settings-values'>
           {showTimer() &&
@@ -332,7 +335,7 @@ export class UserHome extends React.Component {
             }
 
           <FlatButton label={'Clear Entry'} onClick={this.clearEntry} secondary={true} />
-
+          <button className="settings-icon" onClick={this.toggleSettingsVisible} />
         </div>
         <div id="editor-with-settings" >
           <div className="editor-prompt">
@@ -345,7 +348,7 @@ export class UserHome extends React.Component {
             <div className={`editor`} />
           </div>
 
-          <button className="settings-icon" onClick={this.toggleSettingsVisible} style={{top: '-3rem'}} />
+
           <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
         </div>
 
