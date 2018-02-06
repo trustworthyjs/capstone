@@ -106,12 +106,12 @@ class SubmitEntryPopup extends Component {
     const actions = [
       <FlatButton
         label="Cancel"
-        primary={true}
+      style={{color: '#1595A3'}}
         onClick={this.toggleSubmitPopup}
       />,
       <FlatButton
         label="Submit"
-        primary={true}
+      style={{color: '#1595A3'}}
         keyboardFocused={true}
         onClick={this.submitEntry}
       />,
