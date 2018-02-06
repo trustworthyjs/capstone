@@ -74,7 +74,7 @@ export class SingleEntry extends React.Component {
                     <h3>For current entry:</h3>
                       <WordCloud type="single-entry" singleEntryNouns={entry.wcNouns} />
                     <h3>For all entries to date:</h3>
-                      <WordCloud type="all-entries" />
+                      <WordCloud type="all-entries" singleEntryNouns={['none']} />
                   </div>
                 }
 

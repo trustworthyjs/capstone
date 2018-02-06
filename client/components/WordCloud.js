@@ -19,7 +19,6 @@ class WordCloud extends Component {
   }
 
   render() {
-    console.log('this props nouns: ', this.props.nouns)
     return (
       <div className="app-outer">
         {this.props.nouns ?
@@ -54,7 +53,8 @@ class WordCloud extends Component {
 
 const mapState = (state, ownProps) => {
   let nouns, largestPercent
-  if (state.data.wcNouns) {
+  if (state.data.wcNouns && ownProps.singleEntryNouns) {
+    console.log('ownProps type: ', ownProps.type)
     if (ownProps.type === 'all-entries') {
       nouns = state.data.wcNouns.slice(0, 60)
     } else {
