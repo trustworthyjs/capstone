@@ -17,14 +17,14 @@ class ToneGraph extends React.Component {
   }
 
   async componentDidMount(){
-    if (!this.props.type){
+    if (!this.props.type){ //if this is rendered from the data analysis page
       let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData)
       this.setState({
         toneGraphData: data
       })
-    } else if (this.props.type === 'all') {
+    } else if (this.props.type === 'all') { //if rendered from single entry 'all'
       this.onClickAll()
-    } else if (this.props.type === 'single'){
+    } else if (this.props.type === 'single'){ //if rendered from single entry 'single'
       this.getSingle(this.props.entryId)
     }
   }
@@ -193,29 +193,77 @@ class ToneGraph extends React.Component {
   render () {
     let dataStyles = {
       width: 900,
-      height: 500
+      height: 500,
+      lineWidth: 4,
+      axisBottom: {
+        "orient": "bottom",
+        "tickSize": 1,
+        "tickPadding": 3,
+        "tickRotation": 0,
+        "legend": "entries",
+        "legendOffset": 36,
+        "legendPosition": "center"
+      },
+      dotSize: 8,
+      dotBorderWidth: 2,
+      legends: [
+        {
+            "anchor": "bottom-right",
+            "direction": "column",
+            "translateX": 100,
+            "itemWidth": 80,
+            "itemHeight": 20,
+            "symbolSize": 12,
+            "symbolShape": "circle"
+        }
+      ]
     }
     let singleEntryStyles = {
-      width: 500,
-      height: 300
+      width: 550,
+      height: 350,
+      lineWidth: 1,
+      axisBottom: {
+        "orient": "bottom",
+        "tickSize": 1,
+        "tickPadding": 5,
+        "tickRotation": 50,
+        "legend": "entries",
+        "legendOffset": 55,
+        "legendPosition": "center"
+      },
+      dotSize: 5,
+      dotBorderWidth: 1,
+      legends: [
+        {
+            "anchor": "bottom-right",
+            "direction": "column",
+            "translateX": 100,
+            "itemWidth": 70,
+            "itemHeight": 15,
+            "symbolSize": 8,
+            "symbolShape": "circle"
+        }
+      ]
     }
     return (
       <div className="container">
         {/*Buttons will only show up on the data analysis page, not single entries*/}
         {!this.props.type && this.props.allEntries && this.props.allEntries.length > 0 &&
-          <div>
+          <span>
             <h5>Filter by: (default 'Last 30 Days')</h5>
+          <div>
             <FlatButton label="Last 7 Days" onClick={this.onClickSeven} />
             <FlatButton label="Last 30 Days" primary={true} onClick={this.onClickThirty} />
             <FlatButton label="All Entries" secondary={true} onClick={this.onClickAll} />
-          </div>}
+          </div>
+          </span>}
           {!this.props.type && this.props.allEntries && !this.props.allEntries.length &&
           <div>You do not have any entries to analyze!</div>}
           {this.state.toneGraphData.length > 0 ?
           <Line
             data={this.state.toneGraphData}
             width={!this.props.type ? dataStyles.width : singleEntryStyles.width}
-            height={500}
+            height={!this.props.type ? dataStyles.height : singleEntryStyles.height}
             margin={{
                 "top": 35,
                 "right": 130,
@@ -223,15 +271,7 @@ class ToneGraph extends React.Component {
                 "left": 50
             }}
             minY="auto"
-            axisBottom={{
-                "orient": "bottom",
-                "tickSize": 1,
-                "tickPadding": 3,
-                "tickRotation": 0,
-                "legend": "entries",
-                "legendOffset": 36,
-                "legendPosition": "center"
-            }}
+            axisBottom={this.props.type === 'all' ? singleEntryStyles.axisBottom : dataStyles.axisBottom}
             axisLeft={{
                 "orient": "left",
                 "tickSize": 5,
@@ -241,11 +281,11 @@ class ToneGraph extends React.Component {
                 "legendOffset": -40,
                 "legendPosition": "center"
             }}
-            lineWidth={4}
+            lineWidth={!this.props.type ? dataStyles.lineWidth : singleEntryStyles.lineWidth}
             colors={'set2'}
-            dotSize={8}
+            dotSize={!this.props.type ? dataStyles.dotSize : singleEntryStyles.dotSize}
             dotColor="inherit:darker(0.3)"
-            dotBorderWidth={2}
+            dotBorderWidth={!this.props.type ? dataStyles.dotBorderWidth : singleEntryStyles.dotBorderWidth}
             dotBorderColor="#ffffff"
             enableDotLabel={true}
             dotLabel="y"
@@ -256,17 +296,7 @@ class ToneGraph extends React.Component {
             curve={'monotoneX'}
             motionStiffness={90}
             motionDamping={15}
-            legends={[
-                {
-                    "anchor": "bottom-right",
-                    "direction": "column",
-                    "translateX": 100,
-                    "itemWidth": 80,
-                    "itemHeight": 20,
-                    "symbolSize": 12,
-                    "symbolShape": "circle"
-                }
-            ]}
+            legends={!this.props.type ? dataStyles.legends : singleEntryStyles.legends}
           />
           :
           <div style={{height: '20vh'}}>No entries in the time period selected!</div>

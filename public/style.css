@@ -39,6 +39,10 @@ form div {
 
 .container {
     padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
 }
 
 .ql-container.ql-snow {
