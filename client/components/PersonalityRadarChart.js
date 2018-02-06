@@ -4,7 +4,6 @@ import ReactToolTip from 'react-tooltip'
 import {connect} from 'react-redux'
 import {Popup} from './Popup'
 import PersonalityRadarChartChild from './PersonalityRadarChartChild';
-import Tooltip from "react-simple-tooltip"
 
 export class PersonalityRadarChart extends Component {
 
@@ -69,7 +68,7 @@ export class PersonalityRadarChart extends Component {
             this.setState({activeLabel: ''})
         }
     }
-    
+
     render() {
         if (this.container) this.rect = this.container.querySelector('svg').getBoundingClientRect();
         var data = this.props.data
@@ -107,13 +106,13 @@ export class PersonalityRadarChart extends Component {
                         ref={(ref) => this.container = ref}
                         onMouseLeave={this.handleHover}
                     >
-                        {textBoxData && 
+                        {textBoxData &&
                             Object.keys(textBoxData).map(textBoxKey => {
                                 console.log(textBoxKey === this.state.activeLabel)
                                 const boxData = textBoxData[textBoxKey]
                                 return (
                                     <span>
-                                        <div 
+                                        <div
                                             key={textBoxKey}
                                             className="text-container"
                                             name={textBoxKey}
@@ -125,10 +124,10 @@ export class PersonalityRadarChart extends Component {
                                                 height: boxData.height
                                             }}
                                         />
-                                        <button 
+                                        <button
                                             className="label-btn"
-                                            onMouseEnter={this.handleLabelHover} 
-                                            onMouseLeave={this.handleLabelHover} 
+                                            onMouseEnter={this.handleLabelHover}
+                                            onMouseLeave={this.handleLabelHover}
                                             value={textBoxKey}
                                             style={{
                                                 position: 'absolute',
@@ -144,7 +143,7 @@ export class PersonalityRadarChart extends Component {
                                 )
                             })
                         }
-                        {textBoxData && 
+                        {textBoxData &&
                             Object.keys(textBoxData).map(trait => {
                                 return (
                                     <div
@@ -167,7 +166,7 @@ export class PersonalityRadarChart extends Component {
                             })
                         }
 
-                        {this.state.isHovering && 
+                        {this.state.isHovering &&
                             <Popup x={this.state.popupX} y={this.state.popupY + window.pageYOffset} message={this.state.popupMessage} />
                         }
                         <Radar

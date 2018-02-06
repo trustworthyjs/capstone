@@ -85,6 +85,9 @@ body ::-webkit-scrollbar-thumb {
     background-size: cover;
 }
 
+.streaks {
+    display: flex
+}
 
 
 .popup {
