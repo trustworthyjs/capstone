@@ -2,6 +2,7 @@ const router = require('express').Router()
 const {DataAnalysis} = require('../db/models')
 let analyzeData = require('../../createDataFunc')
 let toneData = require('../../createToneFunc')
+let nounData = require('../../createNounsFunc')
 module.exports = router
 
 router.get('/:userId', (req, res, next) => {
@@ -40,4 +41,11 @@ router.post('/nlp-api-data/entry/:entryId', (req, res, next) => {
       res.json(dataObj.tones)
     })
     .catch(next)
+})
+
+router.post('/nlp-api-data/wc-nouns/:entryId', (req, res, next) => {
+  let entryId = req.params.entryId
+  let entryString = req.body.entryString
+  let wcNouns = nounData(entryString)
+  res.json(wcNouns)
 })

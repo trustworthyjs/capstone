@@ -26,7 +26,7 @@ class DataAnalysis extends React.Component {
   render(){
       return (
         <Tabs
-          
+
           value={this.state.value}
           onChange={this.handleChange}
         >
@@ -36,7 +36,7 @@ class DataAnalysis extends React.Component {
             style={{backgroundColor: '#FFF9EC'}}
             >
               <div>
-                <WordCloud />
+                <WordCloud type="all-entries" />
               </div>
             </Tab>
           }
