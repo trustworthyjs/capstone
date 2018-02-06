@@ -91,6 +91,11 @@ body ::-webkit-scrollbar-thumb {
     background-size: cover;
 }
 
+.streaks {
+    display: flex;
+    flex-direction: column
+}
+
 .popup {
     margin: 10px;
     border-radius: 5px;

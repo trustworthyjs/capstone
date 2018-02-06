@@ -3,6 +3,7 @@ import { Line } from '@nivo/line'
 import {connect} from 'react-redux'
 import {getEntriesDb} from '../store'
 import FlatButton from 'material-ui/FlatButton';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class ToneGraph extends React.Component {
   constructor(props){
@@ -25,7 +26,17 @@ class ToneGraph extends React.Component {
     } else if (this.props.type === 'all') { //if rendered from single entry 'all'
       this.onClickAll()
     } else if (this.props.type === 'single'){ //if rendered from single entry 'single'
-      this.getSingle(this.props.entryId)
+      this.getSingle(this.props.singleEntry.id)
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if (this.props.singleEntry.tones !== nextProps.singleEntry.tones){
+      if (this.props.type === 'single'){
+        this.getSingle(this.props.singleEntry.id)
+      } else if (this.props.type === 'all'){
+        this.onClickAll()
+      }
     }
   }
 
@@ -143,6 +154,7 @@ class ToneGraph extends React.Component {
         let entryData = []
         for (let day in entries){
           if (entries.hasOwnProperty(day)){
+            console.log('entries[day]', entries[day])
             let value = entries[day].find((obj) => {
               return obj.tone_id === tone
             })
@@ -257,6 +269,7 @@ class ToneGraph extends React.Component {
         "left": 50
       }
     }
+    console.log('this state', this.state.toneGraphData)
     return (
       <div className="container">
         {/*Buttons will only show up on the data analysis page, not single entries*/}
@@ -269,9 +282,9 @@ class ToneGraph extends React.Component {
             <FlatButton label="All Entries" secondary={true} onClick={this.onClickAll} />
           </div>
           </span>}
-          {!this.props.type && this.props.allEntries && !this.props.allEntries.length &&
+        {!this.props.type && this.props.allEntries && !this.props.allEntries.length &&
           <div>You do not have any entries to analyze!</div>}
-          {this.state.toneGraphData.length > 0 ?
+        {this.state.toneGraphData.length > 0 ?
           <Line
             data={this.state.toneGraphData}
             width={!this.props.type ? dataStyles.width : singleEntryStyles.width}
@@ -306,7 +319,14 @@ class ToneGraph extends React.Component {
             legends={!this.props.type ? dataStyles.legends : singleEntryStyles.legends}
           />
           :
-          <div style={{height: '20vh'}}>No entries in the time period selected!</div>
+          <div>
+            {this.props.type ?
+              <div className="our-loader">
+                <div className="ui active inline loader" />
+              </div>
+            : <div style={{height: '20vh'}}>No entries in the time period selected!</div>
+            }
+          </div>
         }
       </div>
     )
@@ -316,7 +336,8 @@ class ToneGraph extends React.Component {
 const mapState = (state) => {
   return {
     allEntries: state.allEntries,
-    user: state.user
+    user: state.user,
+    singleEntry: state.singleEntry
   }
 }
 

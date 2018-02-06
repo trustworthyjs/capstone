@@ -77,7 +77,7 @@ export class PersonalityRadarChart extends Component {
             }, 1000)
         }
     }
-    
+
     render() {
         if (this.container) this.rect = this.container.querySelector('svg').getBoundingClientRect();
         var textBoxData
@@ -115,7 +115,7 @@ export class PersonalityRadarChart extends Component {
                         ref={(ref) => this.container = ref}
                         onMouseLeave={this.handleHover}
                     >
-                        {textBoxData && 
+                        {textBoxData &&
                             Object.keys(textBoxData).map(textBoxKey => {
                                 const boxData = textBoxData[textBoxKey]
                                 return (
@@ -131,10 +131,10 @@ export class PersonalityRadarChart extends Component {
                                                 height: boxData.height
                                             }}
                                         />
-                                        <button 
+                                        <button
                                             className="label-btn"
-                                            onMouseEnter={this.handleLabelHover} 
-                                            onMouseLeave={this.handleLabelHover} 
+                                            onMouseEnter={this.handleLabelHover}
+                                            onMouseLeave={this.handleLabelHover}
                                             value={textBoxKey}
                                             style={{
                                                 position: 'absolute',
@@ -150,7 +150,7 @@ export class PersonalityRadarChart extends Component {
                                 )
                             })
                         }
-                        {textBoxData && 
+                        {textBoxData &&
                             Object.keys(textBoxData).map(trait => {
                                 return (
                                     <div
@@ -173,7 +173,7 @@ export class PersonalityRadarChart extends Component {
                             })
                         }
 
-                        {this.state.isHovering && 
+                        {this.state.isHovering &&
                             <Popup x={this.state.popupX} y={this.state.popupY + window.pageYOffset} message={this.state.popupMessage} />
                         }
                         <Radar
