@@ -86,7 +86,8 @@ body ::-webkit-scrollbar-thumb {
 }
 
 .streaks {
-    display: flex
+    display: flex;
+    flex-direction: column
 }
 
 
