@@ -23,7 +23,7 @@ async function seed () {
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123', streakGoal: new Date('April 17, 2018'), streakGoalStart: new Date('February 1, 2018')})
+    User.create({email: 'lizzy@email.com', password: '123', streakGoalDate: new Date('April 17, 2018'), streakGoalStart: new Date('January 29, 2018'), currentStreak: 8, maxStreak: 8})
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
@@ -61,35 +61,56 @@ async function seed () {
   var txt14 = buffer14.toString();
   var buffer15 = fs.readFileSync(__dirname + '/sampleEntry15.txt');
   var txt15 = buffer15.toString();
+  var buffer16 = fs.readFileSync(__dirname + '/sampleEntry16.txt');
+  var txt16 = buffer16.toString();
+  var buffer17 = fs.readFileSync(__dirname + '/sampleEntry17.txt');
+  var txt17 = buffer17.toString();
+  var buffer18 = fs.readFileSync(__dirname + '/sampleEntry18.txt');
+  var txt18 = buffer18.toString();
+  var buffer19 = fs.readFileSync(__dirname + '/sampleEntry19.txt');
+  var txt19 = buffer19.toString();
+  var buffer20 = fs.readFileSync(__dirname + '/sampleEntry20.txt');
+  var txt20 = buffer20.toString();
+  var buffer21 = fs.readFileSync(__dirname + '/sampleEntry21.txt');
+  var txt21 = buffer21.toString();
+  var buffer22 = fs.readFileSync(__dirname + '/sampleEntry22.txt');
+  var txt22 = buffer22.toString();
 
   const notebooks = await Promise.all([
-    Notebook.create({title: 'Notebook1', cover: 'yellow', userId: 1}),
-    Notebook.create({title: 'Notebook2', cover: 'red', userId: 1}),
-    Notebook.create({title: 'Notebook3', cover: 'green', userId: 1}),
-    Notebook.create({title: 'Notebook1', cover: 'blue', userId: 2}),
-    Notebook.create({title: 'Notebook2', cover: 'yellow', userId: 2}),
-    Notebook.create({title: 'Notebook3', cover: 'blue', userId: 2}),
-    Notebook.create({title: 'Notebook4', cover: 'green', userId: 2})
+    Notebook.create({title: 'Diary', cover: 'yellow', userId: 1}),
+    Notebook.create({title: 'My Book', cover: 'red', userId: 1}),
+    Notebook.create({title: 'Snippets', cover: 'green', userId: 1}),
+    Notebook.create({title: 'My Travels', cover: 'blue', userId: 2}),
+    Notebook.create({title: 'More Travels', cover: 'yellow', userId: 2}),
+    Notebook.create({title: 'Ideas', cover: 'blue', userId: 2}),
+    Notebook.create({title: 'Thoughts About Movies', cover: 'green', userId: 2})
   ])
 
   console.log(`seeded ${notebooks.length} notebooks`)
 
   const entries = await Promise.all([
-    Entry.create({content: txt1, mode: 'freeWrite', notebookId: 1, userId: 1, savedAt: '2017-12-26 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt2, mode: 'mindfulJournal', notebookId: 1, userId: 1, savedAt: '2017-10-26 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt3, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-26 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt4, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt5, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-10-27 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt6, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-10-27 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt7, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-07 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt8, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-11-07 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt9, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-09 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt10, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-11-10 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt11, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2017-12-21 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt12, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2017-12-22 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt13, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-01 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt14, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-02 11:49:31.029-06', 'submitted': 'true'}),
-    Entry.create({content: txt15, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-01-03 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt1, mode: 'freeWrite', notebookId: 1, userId: 1, savedAt: '2018-01-16 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt2, mode: 'freeWrite', notebookId: 1, userId: 1, savedAt: '2018-01-20 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt3, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-01-02 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt4, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-01-10 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt5, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-01-10 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt6, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-01-19 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt7, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-01-19 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt8, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-01-29 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt9, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-01-30 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt10, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-01-31 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt11, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-02-01 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt12, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-02-02 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt13, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-02-03 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt14, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-02-04 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt15, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-02-04 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt16, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-02-05 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt17, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-05 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt18, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-05 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt19, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-05 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt20, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-05 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt21, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-05 11:49:31.029-06', 'submitted': 'true'}),
+    Entry.create({content: txt22, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-05 11:49:31.029-06', 'submitted': 'true'}),
   ])
 
   entries.map(async (entry) => {
@@ -116,6 +137,13 @@ async function seed () {
   const dataAnalysisObj13 = await analyzeData('file', 2, 'sampleEntry13.txt', '/script')
   const dataAnalysisObj14 = await analyzeData('file', 2, 'sampleEntry14.txt', '/script')
   const dataAnalysisObj15 = await analyzeData('file', 2, 'sampleEntry15.txt', '/script')
+  const dataAnalysisObj16 = await analyzeData('file', 2, 'sampleEntry16.txt', '/script')
+  const dataAnalysisObj17 = await analyzeData('file', 2, 'sampleEntry17.txt', '/script')
+  const dataAnalysisObj18 = await analyzeData('file', 2, 'sampleEntry18.txt', '/script')
+  const dataAnalysisObj19 = await analyzeData('file', 2, 'sampleEntry19.txt', '/script')
+  const dataAnalysisObj20 = await analyzeData('file', 2, 'sampleEntry20.txt', '/script')
+  const dataAnalysisObj21 = await analyzeData('file', 2, 'sampleEntry21.txt', '/script')
+  const dataAnalysisObj22 = await analyzeData('file', 2, 'sampleEntry22.txt', '/script')
 
   const dataAnalysisInstances = await Promise.all([
     DataAnalysis.create(dataAnalysisObj1),
@@ -133,6 +161,13 @@ async function seed () {
     DataAnalysis.create(dataAnalysisObj13),
     DataAnalysis.create(dataAnalysisObj14),
     DataAnalysis.create(dataAnalysisObj15),
+    DataAnalysis.create(dataAnalysisObj16),
+    DataAnalysis.create(dataAnalysisObj17),
+    DataAnalysis.create(dataAnalysisObj18),
+    DataAnalysis.create(dataAnalysisObj19),
+    DataAnalysis.create(dataAnalysisObj20),
+    DataAnalysis.create(dataAnalysisObj21),
+    DataAnalysis.create(dataAnalysisObj22),
   ])
 
   console.log(`seeded ${dataAnalysisInstances.length} data analyses`)
