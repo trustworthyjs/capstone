@@ -299,10 +299,13 @@ export class UserHome extends React.Component {
 
        <div className={`editor-container`} style={{marginTop: '-4rem'}}>
         { (this.props.existingEntryId === 0 && !this.props.existingEntryLoading) && modeDialog }
-        <div className={this.props.userTheme} style={{height: '24.3rem',
-          width: '85rem',
+        <div className={this.props.userTheme} style={
+          {
+          width: '100vw',
+          height: '83rem',
+          right: '0rem',
           position: 'absolute',
-          top: '8.3rem',
+          top: '2.3rem',
           zIndex: '-10'}} />
         <div className='settings-values'>
           {showTimer() &&

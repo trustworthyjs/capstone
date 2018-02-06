@@ -182,8 +182,7 @@ button:focus {outline:0;}
 
 #editor-with-settings {
     height: 80vh;
-    
-    margin: 5px auto 50% auto;
+    margin: 0px auto 50% auto;
     margin-bottom: 7rem;
     position: relative;
     /* background-color: rgb(202, 200, 200); */
@@ -202,13 +201,12 @@ navbar / appbar items
 } */
 
 .settings-values {
-    margin: 7% auto 0 auto;
+    margin: 7.9vh auto 0 auto;
     display: flex;
     justify-content: space-evenly;
     min-height: 25px;
     background-color: rgba(255, 255, 255, 0.9);
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+
 }
 
 .settings-values div {
@@ -217,6 +215,11 @@ navbar / appbar items
 
 .ql-disabled {
     background-color: grey;
+}
+
+.editor-prompt {
+    background-color: white;
+    opacity: .9;
 }
 
 
