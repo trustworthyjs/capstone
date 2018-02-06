@@ -19,7 +19,6 @@ class WordCloud extends Component {
   }
 
   render() {
-    console.log('this props nouns: ', this.props.nouns)
     return (
       <div className="app-outer">
         {this.props.nouns ?

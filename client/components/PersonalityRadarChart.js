@@ -43,7 +43,6 @@ export class PersonalityRadarChart extends Component {
     //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the
     // radius down to just 5 pixels around the actual circle
     handleHover = (point) => {
-        console.log(this.showTooltips)
         if (this.container && this.showTooltips) {
             var svg = this.container.querySelector('svg');
             this.rect = svg.getBoundingClientRect();
@@ -150,7 +149,6 @@ export class PersonalityRadarChart extends Component {
                                                 textShadow: this.state.activeLabel === textBoxKey ? '10px 10px 10px #ACD3F2' : 'none'
                                             }}
                                         >
-                                        {console.log(this.state.activeLabel === textBoxKey)}
                                         ...
                                         </button>
                                     </span>
