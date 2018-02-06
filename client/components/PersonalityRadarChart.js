@@ -63,7 +63,7 @@ export class PersonalityRadarChart extends Component {
     }
 
     handleLabelClick = (event) => {
-        if (this.state.activeLabel === ''){
+        if (this.state.activeLabel !== event.target.getAttribute('value')){
             this.setState({activeLabel: event.target.getAttribute('value')})
         } else {
             this.setState({activeLabel: ''})
@@ -125,15 +125,15 @@ export class PersonalityRadarChart extends Component {
                                         />
                                         <button 
                                             className="label-btn"
-                                            onClick={this.handleLabelClick} 
+                                            onMouseEnter={this.handleLabelClick} 
+                                            onMouseLeave={this.handleLabelClick} 
                                             value={textBoxKey}
                                             style={{
                                                 position: 'absolute',
-                                                top: boxData.y - 98,
+                                                top: boxData.y - 98 + window.pageYOffset,
                                                 left:boxData.x + boxData.width,
                                                 border: 'none',
                                                 backgroundColor: 'rgba(255,255,255,0)'
-                                                
                                             }}
                                         >
                                         ...
@@ -142,9 +142,27 @@ export class PersonalityRadarChart extends Component {
                                 )
                             })
                         }
+                        {textBoxData && 
+                            Object.keys(textBoxData).map(trait => {
+                                return (
+                                    <div
+                                        name= {trait}
+                                        className="tooltip"
+                                        style={{
+                                            opacity: this.state.activeLabel === trait ? 1 : 0,
+                                            position: "absolute",
+                                            top: textBoxData[trait].top + window.pageYOffset - 98,
+                                            left: textBoxData[trait].right + 30
+                                        }}
+                                    >
+                                        {this.traitSummaries[trait]}
+                                    </div>
+                                )
+                            })
+                        }
 
                         {this.state.isHovering && 
-                            <Popup x={this.state.popupX} y={this.state.popupY} message={this.state.popupMessage} />
+                            <Popup x={this.state.popupX} y={this.state.popupY + window.pageYOffset} message={this.state.popupMessage} />
                         }
                         <Radar
                             width={this.state.chartWidth}
