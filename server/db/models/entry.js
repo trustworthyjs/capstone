@@ -4,7 +4,7 @@ const db = require('../db')
 const Entry = db.define('entry', {
   title: {
     type: Sequelize.STRING,
-    defaultValue: Date()
+    defaultValue: getDefaultDate()
   },
   content: {
     type: Sequelize.TEXT,
@@ -60,8 +60,18 @@ Entry.beforeValidate(entry => {
   }
 })
 
-Entry.prototype.getFormattedTime = function (fourDigitTime) {
-  var hours24 = parseInt(fourDigitTime.substring(0, 2),10);
+/* Utility Functions */
+
+function getDefaultDate() {
+  let originalDate = Date().toString()
+  let currentDate = originalDate.substring(0, originalDate.length - 23)
+  let currentTimeConverted = getFormattedTime(originalDate.substring(originalDate.length-23, originalDate.length - 18).split(':').join(''))
+  currentDate = currentDate + currentTimeConverted
+  return currentDate
+}
+
+function getFormattedTime (fourDigitTime) {
+  var hours24 = parseInt(fourDigitTime.substring(0, 2), 10);
   var hours = ((hours24 + 11) % 12) + 1;
   var amPm = hours24 > 11 ? 'pm' : 'am';
   var minutes = fourDigitTime.substring(2);

@@ -45,15 +45,28 @@ class SubmitEntryPopup extends Component {
   submitEntry = (evt) => {
     evt.preventDefault()
     let notebookId = +this.state.value
-    let entryToSave = {
-      id: this.props.entry.id,
-      title: this.state.entryTitle,
-      content: this.props.entry.content,
-      formattedContent: this.props.entry.formattedContent,
-      notebookId,
-      submitted: true,
-      mode: this.props.entry.mode
+    let entryToSave = {}
+    if (this.state.entryTitle) {
+      entryToSave = {
+        id: this.props.entry.id,
+        title: this.state.entryTitle,
+        content: this.props.entry.content,
+        formattedContent: this.props.entry.formattedContent,
+        notebookId,
+        submitted: true,
+        mode: this.props.entry.mode
+      }
+    } else {
+      entryToSave = {
+        id: this.props.entry.id,
+        content: this.props.entry.content,
+        formattedContent: this.props.entry.formattedContent,
+        notebookId,
+        submitted: true,
+        mode: this.props.entry.mode
+      }
     }
+
     this.props.submitEntry(entryToSave, notebookId, this.props.userId)
     this.toggleSubmitPopup()
    }

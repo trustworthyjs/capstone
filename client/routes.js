@@ -49,13 +49,13 @@ class Routes extends Component {
 
   componentDidMount () {
     this.props.loadInitialUser()
-    .then(async () => {
+    .then(() => {
       const {isLoggedIn} = this.props
       if (isLoggedIn) {
-        await this.props.setInitialSubmitPopup(false)
-        await this.props.getNotebooks(this.props.user.id)
-        await this.props.getEntries(this.props.user.id)
-        await this.props.getInitialData(this.props.user.id)
+        this.props.setInitialSubmitPopup(false)
+        this.props.getNotebooks(this.props.user.id)
+        this.props.getEntries(this.props.user.id)
+        this.props.getInitialData(this.props.user.id)
       }
     })
   }
