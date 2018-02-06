@@ -21,6 +21,8 @@ body {
     background-size: cover; */
 }
 
+
+
 a {
     text-decoration: none;
 }
@@ -48,7 +50,9 @@ form div {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center
+    align-items: center;
+    min-height: 80vh;
+    margin-bottom: 34vh;
 }
 
 .ql-container.ql-snow {
@@ -178,7 +182,7 @@ button:focus {
 }
 
 .footer {
-    margin-top: 3rem;
+    margin-top: 25vh;
     height: 14rem;
     width: 100vw;
     background-color: #263238;
@@ -222,7 +226,7 @@ navbar / appbar items
 } */
 
 .settings-values {
-    margin: 7.9vh auto 0 auto;
+    margin: 9.9vh auto 0 auto;
     display: flex;
     justify-content: space-evenly;
     min-height: 25px;
