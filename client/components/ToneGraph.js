@@ -13,13 +13,20 @@ class ToneGraph extends React.Component {
     this.onClickSeven = this.onClickSeven.bind(this)
     this.onClickThirty = this.onClickThirty.bind(this)
     this.onClickAll = this.onClickAll.bind(this)
+    this.getSingle = this.getSingle.bind(this)
   }
 
   async componentDidMount(){
-    let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData)
-    this.setState({
-      toneGraphData: data
-    })
+    if (!this.props.type){
+      let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData)
+      this.setState({
+        toneGraphData: data
+      })
+    } else if (this.props.type === 'all') {
+      this.onClickAll()
+    } else if (this.props.type === 'single'){
+      this.getSingle(this.props.entryId)
+    }
   }
 
   selectEntries = (entries, range ) => {
@@ -30,12 +37,15 @@ class ToneGraph extends React.Component {
       beginRangeDate.setDate(nowDate.getDate() - 7)
       beginRangeDate.setHours(0, 0, 0, 0 )
     }
-    if (!range || range === 'last30Days'){
+    else if (!range || range === 'last30Days'){
       beginRangeDate.setDate(nowDate.getDate() - 40)
       beginRangeDate.setHours(0, 0, 0, 0)
     }
-    if (range === 'all'){
+    else if (range === 'all'){
       return entries.filter(entry => entry.submitted === true)
+    }
+    else if (typeof range === 'number'){
+      return entries.filter(entry => entry.id === range)
     }
     let filteredEntries = entries.filter((entry) => {
       return new Date(entry.savedAt) >= beginRangeDate && new Date(entry.savedAt) <= nowDate && entry.submitted
@@ -173,21 +183,38 @@ class ToneGraph extends React.Component {
     })
   }
 
+  async getSingle (entryId) {
+    let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData, entryId)
+    this.setState({
+      toneGraphData: data
+    })
+  }
+/*eslint-disable complexity*/
   render () {
+    let dataStyles = {
+      width: 900,
+      height: 500
+    }
+    let singleEntryStyles = {
+      width: 500,
+      height: 300
+    }
     return (
       <div className="container">
-        {this.props.allEntries && this.props.allEntries.length > 0 ?
+        {/*Buttons will only show up on the data analysis page, not single entries*/}
+        {!this.props.type && this.props.allEntries && this.props.allEntries.length > 0 &&
           <div>
             <h5>Filter by: (default 'Last 30 Days')</h5>
             <FlatButton label="Last 7 Days" onClick={this.onClickSeven} />
             <FlatButton label="Last 30 Days" primary={true} onClick={this.onClickThirty} />
             <FlatButton label="All Entries" secondary={true} onClick={this.onClickAll} />
-          </div> :
+          </div>}
+          {!this.props.type && this.props.allEntries && !this.props.allEntries.length &&
           <div>You do not have any entries to analyze!</div>}
-        {this.state.toneGraphData.length > 0 ?
+          {this.state.toneGraphData.length > 0 ?
           <Line
             data={this.state.toneGraphData}
-            width={900}
+            width={!this.props.type ? dataStyles.width : singleEntryStyles.width}
             height={500}
             margin={{
                 "top": 35,
