@@ -49,12 +49,13 @@ class Routes extends Component {
 
   componentDidMount () {
     this.props.loadInitialUser()
-    .then(() => {
+    .then(async () => {
       const {isLoggedIn} = this.props
-      if (this.props.isLoggedIn) {
-        this.props.setInitialSubmitPopup(false)
-        this.props.getNotebooks(this.props.user.id)
-        this.props.getEntries(this.props.user.id)
+      if (isLoggedIn) {
+        await this.props.setInitialSubmitPopup(false)
+        await this.props.getNotebooks(this.props.user.id)
+        await this.props.getEntries(this.props.user.id)
+        await this.props.getInitialData(this.props.user.id)
       }
     })
   }
@@ -111,6 +112,7 @@ class Routes extends Component {
                     existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading}
                     existingEntryId={this.state.existingEntryId} /> }
                   />
+                  <Route path="/search" component={SearchBar} />
                   <Route path="/audio" component={Audio} />
                   <Route path="/trends" component={DataAnalysis} />
                   <Route path="/streaks" component={StreaksGraph} />
@@ -157,6 +159,9 @@ const mapDispatch = (dispatch) => {
     },
     getEntries: (userId) => {
       dispatch(getEntriesDb(userId))
+    },
+    getInitialData: (userId) => {
+      dispatch(fetchDataAnalysis(userId))
     }
   }
 }

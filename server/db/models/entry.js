@@ -29,6 +29,12 @@ const Entry = db.define('entry', {
   },
   tones: {
     type: Sequelize.JSON
+  },
+  wcNouns: {
+    type: Sequelize.JSON
+  },
+  personality: {
+    type: Sequelize.JSON
   }
 })
 
@@ -39,7 +45,7 @@ Entry.beforeValidate(entry => {
       wordCount: true,
       prompts: true,
       visualCues: true,
-      music: false,
+      music: 'none',
       zoomIn: true
     }
   } else if (entry.mode === 'mindfulJournal') {
@@ -48,10 +54,10 @@ Entry.beforeValidate(entry => {
       wordCount: true,
       prompts: true,
       visualCues: false,
-      music: true,
+      music: 'none',
       zoomIn: false
     }
-  } 
+  }
 })
 
 Entry.prototype.getFormattedTime = function (fourDigitTime) {

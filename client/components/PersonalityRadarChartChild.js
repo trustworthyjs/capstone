@@ -33,7 +33,7 @@ export class PersonalityRadarChartChild extends Component {
                     this.setState({
                         isHovering: true,
                         popupX: window.event.clientX,
-                        popupY: window.event.clientY + window.pageYOffset - 100,
+                        popupY: window.event.clientY + window.pageYOffset - 98,
                         popupMessage: percentage
                     })             
             } else {

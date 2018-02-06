@@ -12,29 +12,17 @@ function styles (largestPercent, currentPercent) {
 
 class WordCloud extends Component {
 
-  state = {
-    nouns: [],
-    largestPercent: 0
-  }
-
-  setNouns = () => {
-    this.setState({
-      nouns: this.props.nouns,
-      largestPercent: this.props.nouns[0].percent
-    })
-  }
-
   componentDidMount() {
     setInterval(() => {
       this.forceUpdate();
-    }, 20000)
-    this.setNouns()
+    }, 10000)
   }
 
   render() {
     return (
       <div className="app-outer">
-        <div className="app-inner">
+        {this.props.nouns ?
+          <div className="app-inner">
           <TagCloud
             className="tag-cloud"
             style={{
@@ -46,23 +34,37 @@ class WordCloud extends Component {
               }),
               padding: 5,
             }}>
-            { this.state.nouns.length > 0 &&
-              this.state.nouns.map(noun =>
-              <div style={styles(this.state.largestPercent, noun.percent)} key={ noun.normal }>{ noun.normal }</div>
-              )
+            {
+              this.props.nouns.map(noun =>
+              (<div
+                style={styles(this.props.largestPercent, noun.percent)}
+                key={ noun.normal }>
+                { noun.normal }
+              </div>))
             }
           </TagCloud>
-        </div>
+        </div> :
+          <h1>Word Cloud is loading... </h1>
+        }
       </div>
     );
   }
-
-
 }
 
-const mapState = (state) => {
+const mapState = (state, ownProps) => {
+  let nouns, largestPercent
+  if (state.data.wcNouns && ownProps.singleEntryNouns) {
+    console.log('ownProps type: ', ownProps.type)
+    if (ownProps.type === 'all-entries') {
+      nouns = state.data.wcNouns.slice(0, 60)
+    } else {
+      nouns = ownProps.singleEntryNouns.slice(0, 30)
+    }
+    largestPercent = nouns[0].percent
+  }
   return {
-    nouns: state.data.wcNouns ? state.data.wcNouns.slice(0, 60) : undefined
+    nouns,
+    largestPercent
   }
 }
 

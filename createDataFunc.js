@@ -120,10 +120,8 @@ const analyzeData = async function(textOrFile, userId, filename, currentDir, tex
 
   var doc = compromise(contentString);
   createdObj['wcPeople'] = doc.people().out('frequency')
-  createdObj['wcVerbs'] = doc.verbs().out('frequency')
   createdObj['wcTopics'] = doc.topics().out('frequency')
-  createdObj['wcNouns'] = doc.nouns().out('frequency')
-
+  createdObj['wcNouns'] = doc.nouns().out('frequency').slice(0,100)
   createdObj['userId'] = userId
 
   return createdObj
