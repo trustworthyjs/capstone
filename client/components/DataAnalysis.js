@@ -32,7 +32,7 @@ class DataAnalysis extends React.Component {
             style={{backgroundColor: '#FFF9EC'}}
             >
               <div>
-                <WordCloud type="all-entries" />
+                <WordCloud type="all-entries" singleEntryNouns={['none']} />
               </div>
             </Tab>
           }
@@ -43,10 +43,10 @@ class DataAnalysis extends React.Component {
             style={{backgroundColor: '#FFF9EC'}}
             >
               <div>
-                <PersonalityRadarChart 
-                  width={500} 
-                  height={500} 
-                  showChildren={true} 
+                <PersonalityRadarChart
+                  width={500}
+                  height={500}
+                  showChildren={true}
                   showToolTips={true}
                   dataFor={this.props.data}/>
               </div>

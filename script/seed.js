@@ -181,9 +181,6 @@ async function seed () {
 
 }
 
-
-// ******************* DATA ANALYSIS API CALLS END *********************
-
 // Execute the `seed` function
 // `Async` functions always return a promise, so we can use `catch` to handle any errors
 // that might occur inside of `seed`
