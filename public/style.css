@@ -87,7 +87,7 @@ body ::-webkit-scrollbar-thumb {
 .popup {
     margin: 10px;
     border-radius: 5px;
-    width: 26%;
+    width: 16rem;
     position: absolute;
     transition: all 5s ease-in-out;
     visibility: visible;
@@ -95,7 +95,7 @@ body ::-webkit-scrollbar-thumb {
     padding: 5px;
     text-align: center;
     height: 3.2%;
-    font-size: 18px;
+    font-size: 23px;
 }
 
 .logo {
@@ -182,7 +182,7 @@ button:focus {outline:0;}
 
 #editor-with-settings {
     height: 80vh;
-    width: 66.1vw;
+    
     margin: 5px auto 50% auto;
     margin-bottom: 7rem;
     position: relative;
