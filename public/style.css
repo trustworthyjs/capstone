@@ -41,6 +41,10 @@ form div {
 
 .container {
     padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
 }
 
 .ql-container.ql-snow {
@@ -530,9 +534,10 @@ body {
     flex-direction: row
 }
 
-.entry-page-container>div {
-    width: 50%;
-    padding: 5px
+
+.entry-page-container > div {
+  width: 50%;
+  padding: 0 10px 0 10px
 }
 
 .entry-page-buttons {
@@ -545,5 +550,15 @@ body {
     flex-direction: column
 }
 
+.entry-page-data > h3 {
+  margin: 0 0 0 15px;
+  font-weight: bold;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+/* single entry page styles */
 
 /* single entry page styles */

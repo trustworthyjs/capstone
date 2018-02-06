@@ -13,10 +13,6 @@ class DataAnalysis extends React.Component {
     }
   }
 
-  componentDidMount() {
-    this.props.getInitialData(this.props.userId)
-  }
-
   handleChange = (value) => {
     this.setState({
       value: value,
@@ -26,10 +22,10 @@ class DataAnalysis extends React.Component {
   render(){
       return (
         <Tabs
-
           value={this.state.value}
           onChange={this.handleChange}
         >
+
           {
             this.props.data.id &&
             <Tab label="Keywords" value="word-cloud"
@@ -78,12 +74,4 @@ const mapState = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
-  return {
-    getInitialData: (userId) => {
-      dispatch(fetchDataAnalysis(userId))
-    }
-  }
-}
-
-export default  connect(mapState, mapDispatch)(DataAnalysis)
+export default  connect(mapState)(DataAnalysis)

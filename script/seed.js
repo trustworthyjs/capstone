@@ -14,6 +14,7 @@ const {User, Entry, Notebook, DataAnalysis} = require('../server/db/models')
 const analyzeData = require('../createDataFunc')
 const toneFunc = require('../createToneFunc')
 const personalityFunc = require('../createPersonalityFunc')
+const nounFunc = require('../createNounsFunc')
 var fs = require('fs')
 
 async function seed () {
@@ -117,9 +118,12 @@ async function seed () {
   entries.map(async (entry) => {
     let tonesObj = await toneFunc(entry.id, entry.content)
     let personalityObj = await personalityFunc(entry.id, entry.content)
+    let nounsObj = await nounFunc(entry.content)
+
     return entry.update({
       tones: tonesObj.tones,
-      personality: personalityObj
+      personality: personalityObj,
+      wcNouns: nounsObj
     })
   })
 
