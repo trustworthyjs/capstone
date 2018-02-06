@@ -337,17 +337,11 @@ button:focus {
     font-size: 15px;
 }
 
-.label-btn:hover {
-    background-color: rgba(20, 196, 196, 1);
-    box-shadow: 0 0 5px 5px rgb(20, 196, 196);
-}
-
 .tooltip {
-    width: 20rem;
-    height: max-content;
+    height: 10rem;
     background-color: rgba(0, 0, 0, 0.5);
     color: #ECEFF1;
-    transition: opacity 0.4s linear;
+    transition: opacity 0.1s linear, width 0.2s linear, height 0.3s linear 0.5s;
 }
 
 .personality-radar-child {

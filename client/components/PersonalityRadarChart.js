@@ -62,7 +62,7 @@ export class PersonalityRadarChart extends Component {
         }
     }
 
-    handleLabelClick = (event) => {
+    handleLabelHover = (event) => {
         if (this.state.activeLabel !== event.target.getAttribute('value')){
             this.setState({activeLabel: event.target.getAttribute('value')})
         } else {
@@ -108,6 +108,7 @@ export class PersonalityRadarChart extends Component {
                     >
                         {textBoxData && 
                             Object.keys(textBoxData).map(textBoxKey => {
+                                console.log(textBoxKey === this.state.activeLabel)
                                 const boxData = textBoxData[textBoxKey]
                                 return (
                                     <span>
@@ -125,15 +126,15 @@ export class PersonalityRadarChart extends Component {
                                         />
                                         <button 
                                             className="label-btn"
-                                            onMouseEnter={this.handleLabelClick} 
-                                            onMouseLeave={this.handleLabelClick} 
+                                            onMouseEnter={this.handleLabelHover} 
+                                            onMouseLeave={this.handleLabelHover} 
                                             value={textBoxKey}
                                             style={{
                                                 position: 'absolute',
                                                 top: boxData.y - 98 + window.pageYOffset,
                                                 left:boxData.x + boxData.width,
                                                 border: 'none',
-                                                backgroundColor: 'rgba(255,255,255,0)'
+                                                backgroundColor: this.state.activeLabel === textBoxKey ? 'rgba(20, 196, 196,1)' : 'rgba(20, 196, 196,0)'
                                             }}
                                         >
                                         ...
@@ -149,10 +150,14 @@ export class PersonalityRadarChart extends Component {
                                         name= {trait}
                                         className="tooltip"
                                         style={{
+                                            height: this.state.activeLabel === trait ? 'max-content' : '0',
+                                            width: this.state.activeLabel === trait ? '20rem' : '0',
                                             opacity: this.state.activeLabel === trait ? 1 : 0,
+                                            borderRadius: '5px',
                                             position: "absolute",
                                             top: textBoxData[trait].top + window.pageYOffset - 98,
-                                            left: textBoxData[trait].right + 30
+                                            left: textBoxData[trait].right + 30,
+                                            padding: "5px"
                                         }}
                                     >
                                         {this.traitSummaries[trait]}
