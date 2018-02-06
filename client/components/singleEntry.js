@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getEntryDb} from '../store';
 import {withRouter} from 'react-router';
-import {WordCloud} from './';
+import {WordCloud, PersonalityRadarChart} from './';
 import FlatButton from 'material-ui/FlatButton'
 
 export class SingleEntry extends React.Component {
@@ -71,7 +71,21 @@ export class SingleEntry extends React.Component {
                   <div>
                     <h1>Personality Traits Placeholder</h1>
                     <h3>For current entry:</h3>
+                    <PersonalityRadarChart 
+                      height={350} 
+                      width={350} 
+                      dataFor={this.props.singleEntry} 
+                      showChildren={false} 
+                      showToolTips={false}
+                    /> 
                     <h3>For all entries to date:</h3>
+                    <PersonalityRadarChart 
+                      height={350} 
+                      width={350} 
+                      dataFor={this.props.data} 
+                      showChildren={false} 
+                      showToolTips={false}
+                    />
                   </div>
                 }
 
@@ -98,7 +112,8 @@ export class SingleEntry extends React.Component {
 const mapState = (state) => {
   return {
     user: state.user,
-    singleEntry: state.singleEntry
+    singleEntry: state.singleEntry,
+    data: state.data
   }
 }
 

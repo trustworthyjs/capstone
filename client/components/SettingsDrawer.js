@@ -144,7 +144,7 @@ export class SettingsDrawer extends React.Component {
                       {this.props.singleEntry.settings.music}
                       <i className="dropdown icon"></i>
                       <div className="menu">
-                        {['none', 'piano', 'guitar', 'beach', 'rain'].map(music => {
+                        {['none', 'piano', 'guitar', 'beach', 'rain', 'bouncin'].map(music => {
                           if (this.props.singleEntry.settings) {
                             if (music !== this.props.singleEntry.settings.music) {
                               return (

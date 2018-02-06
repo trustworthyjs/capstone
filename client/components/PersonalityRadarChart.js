@@ -4,22 +4,25 @@ import ReactToolTip from 'react-tooltip'
 import {connect} from 'react-redux'
 import {Popup} from './Popup'
 import PersonalityRadarChartChild from './PersonalityRadarChartChild';
-import Tooltip from "react-simple-tooltip"
 
 export class PersonalityRadarChart extends Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             isHovering: false,
             popupX: 0,
             popupY: 0,
             popupMessage: '',
-            chartWidth: 500,
-            chartHeight: 500,
             textBoxes: [],
-            activeLabel: ''
+            activeLabel: '',
+            displayingToolTip: false
         }
+        this.personality = props.dataFor.personality 
+        this.showChildren = props.showChildren
+        this.showTooltips = props.showTooltips
+        this.chartWidth = props.width
+        this.chartHeight =  props.height
         this.rect = {}
         this.traitSummaries = {
             Agreeableness: "Higher: Value getting along with others. They have a more optimistic view of human nature. Lower: Value self interests over others. They are more skeptical of others' motives.",
@@ -42,8 +45,8 @@ export class PersonalityRadarChart extends Component {
         if (this.container) {
             var svg = this.container.querySelector('svg');
             this.rect = svg.getBoundingClientRect();
-            let mouseXInChart = window.event.clientX - (this.state.chartWidth / 2 + this.rect.left)
-            let mouseYInChart = window.event.clientY - (this.state.chartHeight / 2 + this.rect.top)
+            let mouseXInChart = window.event.clientX - (this.chartWidth / 2 + this.rect.left)
+            let mouseYInChart = window.event.clientY - (this.chartHeight / 2 + this.rect.top)
             if (point &&
                 (mouseXInChart > Math.floor(point.x) - 5 && mouseXInChart < Math.floor(point.x) + 5) &&
                 (mouseYInChart > Math.floor(point.y) - 5 && mouseYInChart < Math.floor(point.y) + 5)) {
@@ -64,17 +67,21 @@ export class PersonalityRadarChart extends Component {
 
     handleLabelHover = (event) => {
         if (this.state.activeLabel !== event.target.getAttribute('value')){
-            this.setState({activeLabel: event.target.getAttribute('value')})
+            this.setState({activeLabel: event.target.getAttribute('value'),
+                            displayingToolTip: true})
         } else {
             this.setState({activeLabel: ''})
+            setTimeout(() => {
+                if (this.state.activeLabel === '')
+                    this.setState({displayingToolTip: false})
+            }, 1000)
         }
     }
     
     render() {
         if (this.container) this.rect = this.container.querySelector('svg').getBoundingClientRect();
-        var data = this.props.data
         var textBoxData
-        if (this.state.textBoxes.length) {
+        if (this.state.textBoxes.length && this.showTooltips) {
             textBoxData = {Openness: this.state.textBoxes[0].getBoundingClientRect(),
                             Conscientiousness: this.state.textBoxes[1].getBoundingClientRect(),
                             Extraversion: this.state.textBoxes[2].getBoundingClientRect(),
@@ -82,9 +89,8 @@ export class PersonalityRadarChart extends Component {
                             EmotionalRange: this.state.textBoxes[4].getBoundingClientRect()};
         }
 
-        if (data.personality) {
-
-            const personality = data.personality;
+        if (this.personality) {
+            const personality = this.personality;
 
             let variables = [];
             let values = {};
@@ -98,10 +104,12 @@ export class PersonalityRadarChart extends Component {
             return (
                 <div>
                     {/*start here after lunch - hardcode in the blurbs about each trait.*/}
-                    <h2 style={{
-                        textAlign: 'center'}}>
-                        "Big 5 Personality Traits"
-                    </h2>
+                    {this.showChildren &&
+                        <h2 style={{
+                            textAlign: 'center'}}>
+                            "Big 5 Personality Traits"
+                        </h2>
+                    }
                     <div
                         className='personality-radar-main radar'
                         ref={(ref) => this.container = ref}
@@ -109,12 +117,10 @@ export class PersonalityRadarChart extends Component {
                     >
                         {textBoxData && 
                             Object.keys(textBoxData).map(textBoxKey => {
-                                console.log(textBoxKey === this.state.activeLabel)
                                 const boxData = textBoxData[textBoxKey]
                                 return (
-                                    <span>
+                                    <span key={textBoxKey}>
                                         <div 
-                                            key={textBoxKey}
                                             className="text-container"
                                             name={textBoxKey}
                                             style={{
@@ -148,11 +154,11 @@ export class PersonalityRadarChart extends Component {
                             Object.keys(textBoxData).map(trait => {
                                 return (
                                     <div
+                                        key={trait}
                                         name= {trait}
                                         className="tooltip"
                                         style={{
-                                            height: this.state.activeLabel === trait ? 'max-content' : '0',
-                                            width: this.state.activeLabel === trait ? '20rem' : '0',
+                                            display: this.state.displayingToolTip ? 'inline-block' : 'none',
                                             opacity: this.state.activeLabel === trait ? 1 : 0,
                                             borderRadius: '5px',
                                             position: "absolute",
@@ -171,8 +177,8 @@ export class PersonalityRadarChart extends Component {
                             <Popup x={this.state.popupX} y={this.state.popupY + window.pageYOffset} message={this.state.popupMessage} />
                         }
                         <Radar
-                            width={this.state.chartWidth}
-                            height={this.state.chartHeight}
+                            width={this.chartWidth}
+                            height={this.chartHeight}
                             padding={100}
                             domainMax={100}
                             highlighted={null}
@@ -189,21 +195,23 @@ export class PersonalityRadarChart extends Component {
                             }}
                         />
                     </div>
-                    <div id="child-radar-container">
-                        {Object.keys(personalityChildren).map(childTraitName => {
-                            return (
-                                <div key={childTraitName}>
-                                    <PersonalityRadarChartChild
-                                        key={childTraitName}
-                                        name={childTraitName}
-                                        trait={personalityChildren[childTraitName]}
-                                        width={350}
-                                        height={350}
-                                        parentHeight={this.rect.top + this.rect.height}/>
-                                </div>
-                            )
-                        })}
-                    </div>
+                    {this.showChildren &&
+                        <div id="child-radar-container">
+                            {Object.keys(personalityChildren).map(childTraitName => {
+                                return (
+                                    <div key={childTraitName}>
+                                        <PersonalityRadarChartChild
+                                            key={childTraitName}
+                                            name={childTraitName}
+                                            trait={personalityChildren[childTraitName]}
+                                            width={350}
+                                            height={350}
+                                            parentHeight={this.rect.top + this.rect.height}/>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    }
                 </div>
             )
         } else {
