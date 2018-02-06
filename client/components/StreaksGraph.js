@@ -149,9 +149,9 @@ class StreaksGraph extends React.Component {
             height={300}
             from="2018-12-31"
             to="2018-12-31"
-            // domain={[1,8]}
+            domain={[1,8]}
             emptyColor="#eeeeee"
-            colors={["#ACD3F2", "#EB97BE", "#1595A3", "rgb(235, 154, 48)"]}
+            colors={["#ACD3F2","#1595A3", "#EB97BE" , "rgb(235, 154, 48)"]}
             margin={{
                 "top": 80,
                 "right": 30,
