@@ -46,7 +46,7 @@ export class SingleEntry extends React.Component {
             </div>
 
             <div className="entry-page-right-column">
-              <div>
+
                 <div className="entry-page-buttons">
                   {['WORD CLOUD', 'PERSONALITY TRAITS', 'TONES'].map(dataType => {
                     return (
@@ -72,9 +72,9 @@ export class SingleEntry extends React.Component {
                   this.state.currentView === 'WORD CLOUD' &&
                   <div className="entry-page-data">
                     <h3>For current entry:</h3>
-                    <WordCloud type="single-entry" singleEntryNouns={entry.wcNouns} />
+                      <WordCloud type="single-entry" singleEntryNouns={entry.wcNouns} />
                     <h3>For all entries to date:</h3>
-                    <WordCloud type="all-entries" />
+                      <WordCloud type="all-entries" />
                   </div>
                 }
 
@@ -83,19 +83,19 @@ export class SingleEntry extends React.Component {
                   <div className="entry-page-data">
                     <h1>Personality Traits Placeholder</h1>
                     <h3>For current entry:</h3>
-                    <PersonalityRadarChart 
-                      height={350} 
-                      width={350} 
-                      dataFor={this.props.singleEntry} 
-                      showChildren={false} 
+                    <PersonalityRadarChart
+                      height={350}
+                      width={350}
+                      dataFor={this.props.singleEntry}
+                      showChildren={false}
                       showToolTips={false}
-                    /> 
+                    />
                     <h3>For all entries to date:</h3>
-                    <PersonalityRadarChart 
-                      height={350} 
-                      width={350} 
-                      dataFor={this.props.data} 
-                      showChildren={false} 
+                    <PersonalityRadarChart
+                      height={350}
+                      width={350}
+                      dataFor={this.props.data}
+                      showChildren={false}
                       showToolTips={false}
                     />
                   </div>
@@ -104,18 +104,13 @@ export class SingleEntry extends React.Component {
                 {
                   this.state.currentView === 'TONES' &&
                   <div className="entry-page-data">
-                    <h1>Tones Placeholder</h1>
-                  <div>
-                    <h1>Entry Tones</h1>
                     <h3>For current entry:</h3>
                       <ToneGraph type="single" entryId={+this.props.match.params.entryId} />
                     <h3>For all entries to date:</h3>
                       <ToneGraph type="all" />
                   </div>
                 }
-              </div>
             </div>
-
           </div>
         :
         <h1>This entry is still in progress</h1>
