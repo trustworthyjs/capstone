@@ -1,5 +1,4 @@
 import axios from 'axios'
-import analyzeData from '../../createDataFunc'
 import { createDataAnalysis, me } from './index'
 require('../../secrets')
 
@@ -75,9 +74,15 @@ export const submitEntryDb = (editedEntry, notebookId, history, userId) =>
         dispatch(createDataAnalysis(userId, dataObj))
       })
       .then(async () => {
+
         let toneObj = await axios.post(`/api/dataAnalysis/nlp-api-data/entry/${editedEntry.id}`, {entryString: editedEntry.content})
-        await axios.put(`/api/entries/${editedEntry.id}`, {tones: toneObj.data})
-        dispatch(saveEntry({tones: toneObj.data}))
+
+        let nounsObj = await axios.post(`/api/dataAnalysis/nlp-api-data/wc-nouns/${editedEntry.id}`, {entryString: editedEntry.content})
+
+        await axios.put(`/api/entries/${editedEntry.id}`, {tones: toneObj.data, wcNouns: nounsObj.data})
+
+        dispatch(saveEntry({tones: toneObj.data, wcNouns: nounsObj.data}))
+
       })
       .catch(err => console.log(err))
   }
