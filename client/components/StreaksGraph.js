@@ -10,11 +10,15 @@ const styles = {
   toggle: {
     marginBottom: 16,
   },
-  thumbOff: {
+  off: {
     backgroundColor: 'rgb(238, 238, 238)',
   },
-  trackOff: {
-    backgroundColor: 'rgb(238, 238, 238)'
+  thumbSwitched: {
+    backgroundColor: 'rgb(235, 154, 48)'
+  },
+  trackSwitched: {
+    backgroundColor: 'rgb(235, 154, 48)',
+    opacity: 0.5
   }
 };
 
@@ -41,8 +45,9 @@ class StreaksGraph extends React.Component {
   }
 
   prepData(entries){
+    let filtered = entries.filter(entry => entry.submitted === true)
     let calData = {}
-    entries.forEach((entry) => {
+    filtered.forEach((entry) => {
       let formattedDate = entry.savedAt.slice(0, entry.savedAt.indexOf('T'))
       if (calData.hasOwnProperty(formattedDate)){
         calData[formattedDate].value = calData[formattedDate].value + 1
@@ -99,10 +104,12 @@ class StreaksGraph extends React.Component {
           label={this.state.streaks ? `Streak Goals are On!` : `Streak Goals are Off!`}
           labelPosition="right"
           style={styles.toggle}
-          defaultToggled={false}
+          defaultToggled={this.state.streaks}
           onToggle={this.onToggle}
-          thumbStyle={styles.thumbOff}
-          trackStyle={styles.trackOff}
+          thumbStyle={styles.off}
+          trackStyle={styles.off}
+          thumbSwitchedStyle={styles.thumbSwitched}
+          trackSwitchedStyle={styles.trackSwitched}
         />
         {this.state.streaks && this.props.user && streakGoal ?
         <div>
@@ -139,15 +146,16 @@ class StreaksGraph extends React.Component {
           <Calendar
             data={this.state.calendarData}
             width={800}
-            height={400}
-            from="2018-01-01"
-            to="2019-01-01"
+            height={300}
+            from="2018-12-31"
+            to="2018-12-31"
+            // domain={[1,8]}
             emptyColor="#eeeeee"
-            colors={["#61cdbb", "#97e3d5", "#e8c1a0", "#f47560"]}
+            colors={["#ACD3F2", "#EB97BE", "#1595A3", "rgb(235, 154, 48)"]}
             margin={{
-                "top": 35,
+                "top": 80,
                 "right": 30,
-                "bottom": 10,
+                "bottom": 80,
                 "left": 30
             }}
             yearSpacing={40}
@@ -159,12 +167,11 @@ class StreaksGraph extends React.Component {
                 {
                     "anchor": "center",
                     "direction": "row",
-                    "itemCount": 2,
+                    "itemCount": 4,
                     "itemWidth": 34,
                     "itemHeight": 20,
                     "itemDirection": "top-to-bottom",
                     "translateY": 80,
-                    "symbolShape": "square"
                 }
             ]}
           />
