@@ -1,10 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getEntryDb} from '../store';
+import {getEntryDb, getNotebookDb} from '../store';
 import {withRouter} from 'react-router';
+import history from '../history'
 import {WordCloud, PersonalityRadarChart} from './';
-import FlatButton from 'material-ui/FlatButton'
 import ToneGraph from './ToneGraph';
+import FlatButton from 'material-ui/FlatButton'
+import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
+import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import IconButton from 'material-ui/IconButton';
 
 export class SingleEntry extends React.Component {
   constructor(props){
@@ -20,6 +24,7 @@ export class SingleEntry extends React.Component {
     } else {
       this.props.getOneEntry(+this.props.passEntry)
     }
+    this.props.getOneNotebook(this.props.match.params.notebookId)
   }
 
   handleDataTypeChange = (evt) => {
@@ -30,6 +35,32 @@ export class SingleEntry extends React.Component {
     })
   }
 
+  turnNextPage = () => {
+    const entries = this.props.singleNotebookEntries.sort();
+    let nextEntryId = this.props.singleNotebook.id;
+    for (let i = 0; i < entries.length; i++){
+      if (entries[i].id === this.props.singleEntry.id) {
+        let nextIdx = (i + 1) % entries.length;
+        nextEntryId = entries[nextIdx].id;
+      }
+    }
+    history.push(`/notebooks/${this.props.singleNotebook.id}/entry/${nextEntryId}`)
+    this.props.getOneEntry(nextEntryId)
+  }
+
+  turnLastPage = () => {
+    const entries = this.props.singleNotebookEntries.sort();
+    let lastEntryId = this.props.singleNotebook.id;
+    for (let i = 0; i < entries.length; i++){
+      if (entries[i].id === this.props.singleEntry.id) {
+        let lastIdx = i === 0 ? entries.length-1 : i-1;
+        lastEntryId = entries[lastIdx].id;
+      }
+    }
+    history.push(`/notebooks/${this.props.singleNotebook.id}/entry/${lastEntryId}`)
+    this.props.getOneEntry(lastEntryId)
+  }
+
   render() {
     let entry = this.props.singleEntry
 
@@ -37,7 +68,32 @@ export class SingleEntry extends React.Component {
       <div className="container">
         {entry && entry.submitted ?
           <div className="entry-page-container">
-
+            <IconButton
+              style={{
+                position: 'fixed',
+                left: '5px',
+                top: '50%',
+                width: 50,
+                height: 50,
+                padding: 5
+              }}
+              onClick={this.turnLastPage}
+            >
+              <ArrowLeft />
+            </IconButton>
+            <IconButton
+              style={{
+                position: 'fixed',
+                right: '5px',
+                top: '50%',
+                width: 50,
+                height: 50,
+                padding: 5
+              }}
+              onClick={this.turnNextPage}
+            >
+              <ArrowRight />
+            </IconButton>
             <div>
               <h1 className="bold-text">Title: {entry.title.substring(0, entry.title.length - 18)}</h1>
               <h2>Saved At: {(new Date(entry.savedAt).toString()).substring(0, new Date(entry.savedAt).toString().length - 18)}</h2>
@@ -82,21 +138,21 @@ export class SingleEntry extends React.Component {
                   this.state.currentView === 'PERSONALITY TRAITS' &&
                   <div className="entry-page-data">
                     <h3>For current entry:</h3>
-                      <PersonalityRadarChart
-                        height={350}
-                        width={350}
-                        dataFor={this.props.singleEntry}
-                        showChildren={false}
-                        showToolTips={false}
-                      />
+                    <PersonalityRadarChart 
+                      height={350} 
+                      width={350} 
+                      dataFor={this.props.singleEntry} 
+                      showChildren={false} 
+                      showTooltips={false}
+                    /> 
                     <h3>For all entries to date:</h3>
-                      <PersonalityRadarChart
-                        height={350}
-                        width={350}
-                        dataFor={this.props.data}
-                        showChildren={false}
-                        showToolTips={false}
-                      />
+                    <PersonalityRadarChart 
+                      height={350} 
+                      width={350} 
+                      dataFor={this.props.data} 
+                      showChildren={false} 
+                      showTooltips={false}
+                    />
                   </div>
                 }
 
@@ -123,7 +179,9 @@ const mapState = (state) => {
   return {
     user: state.user,
     singleEntry: state.singleEntry,
-    data: state.data
+    data: state.data,
+    singleNotebook: state.singleNotebook,
+    singleNotebookEntries: state.singleNotebook.entries
   }
 }
 
@@ -131,6 +189,9 @@ const mapDispatch = (dispatch) => {
   return {
     getOneEntry: (entryId) => {
       dispatch(getEntryDb(entryId))
+    },
+    getOneNotebook : (notebookId) => {
+      dispatch(getNotebookDb(notebookId))
     }
   }
 }

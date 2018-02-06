@@ -4,6 +4,7 @@ import ReactToolTip from 'react-tooltip'
 import {connect} from 'react-redux'
 import {Popup} from './Popup'
 import PersonalityRadarChartChild from './PersonalityRadarChartChild';
+import CircularProgress from 'material-ui/CircularProgress'
 
 export class PersonalityRadarChart extends Component {
 
@@ -42,7 +43,7 @@ export class PersonalityRadarChart extends Component {
     //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the
     // radius down to just 5 pixels around the actual circle
     handleHover = (point) => {
-        if (this.container) {
+        if (this.container && this.showTooltips) {
             var svg = this.container.querySelector('svg');
             this.rect = svg.getBoundingClientRect();
             let mouseXInChart = window.event.clientX - (this.chartWidth / 2 + this.rect.left)
@@ -88,8 +89,7 @@ export class PersonalityRadarChart extends Component {
                             Agreeableness: this.state.textBoxes[3].getBoundingClientRect(),
                             EmotionalRange: this.state.textBoxes[4].getBoundingClientRect()};
         }
-
-        if (this.personality) {
+        if (this.personality && this.props.data) {
             const personality = this.personality;
 
             let variables = [];
@@ -105,10 +105,15 @@ export class PersonalityRadarChart extends Component {
                 <div>
                     {/*start here after lunch - hardcode in the blurbs about each trait.*/}
                     {this.showChildren &&
-                        <h2 style={{
-                            textAlign: 'center'}}>
-                            "Big 5 Personality Traits"
-                        </h2>
+                        <div style={{
+                            marginTop: '50px',
+                            textAlign: 'center',
+                            display: 'inline-block',
+                            width: '100%'
+                        }}>
+                            <h2 >"Big 5 Personality Traits"</h2>
+                            <h4>Hover over the '...' to see a detailed explaination of each trait</h4>
+                        </div>
                     }
                     <div
                         className='personality-radar-main radar'
@@ -141,7 +146,7 @@ export class PersonalityRadarChart extends Component {
                                                 top: boxData.y - 98 + window.pageYOffset,
                                                 left:boxData.x + boxData.width,
                                                 border: 'none',
-                                                backgroundColor: this.state.activeLabel === textBoxKey ? 'rgba(20, 196, 196,1)' : 'rgba(20, 196, 196,0)'
+                                                textShadow: this.state.activeLabel === textBoxKey ? '10px 10px 10px #ACD3F2' : 'none'
                                             }}
                                         >
                                         ...
@@ -215,7 +220,7 @@ export class PersonalityRadarChart extends Component {
                 </div>
             )
         } else {
-            return null;
+            return <CircularProgress size={60} thickness={7} />
         }
     }
 }

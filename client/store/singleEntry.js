@@ -77,8 +77,12 @@ export const submitEntryDb = (editedEntry, notebookId, history, userId) =>
         console.log('I GET HERE!!!')
         let toneObj = await axios.post(`/api/dataAnalysis/nlp-api-data/entry/${editedEntry.id}`, {entryString: editedEntry.content})
         let nounsObj = await axios.post(`/api/dataAnalysis/nlp-api-data/wc-nouns/${editedEntry.id}`, {entryString: editedEntry.content})
-        await axios.put(`/api/entries/${editedEntry.id}`, {tones: toneObj.data, wcNouns: nounsObj.data})
-        dispatch(saveEntry({tones: toneObj.data, wcNouns: nounsObj.data}))
+
+        let personalityObj = await axios.post(`/api/dataAnalysis/nlp-api-data/personality-data/${editedEntry.id}`, {entryString: editedEntry.content})
+
+        await axios.put(`/api/entries/${editedEntry.id}`, {tones: toneObj.data, wcNouns: nounsObj.data, personality: personalityObj.data})
+
+        dispatch(saveEntry({tones: toneObj.data, wcNouns: nounsObj.data, personality: personalityObj.data}))
       })
       .catch(err => console.log(err))
   }

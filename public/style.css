@@ -401,6 +401,10 @@ navbar / appbar items
     font-size: small;
 }
 
+.label-btn {
+    background-color: rgba(0, 0, 0, 0);
+}
+
 .personality-radar-child {
     width: 100%;
     text-align: center;
@@ -544,10 +548,9 @@ body {
     flex-direction: row
 }
 
-
-.entry-page-container > div {
-  width: 50%;
-  padding: 0 10px 0 10px
+.entry-page-container>div {
+    width: 50%;
+    padding: 0 10px 0 10px
 }
 
 .entry-page-buttons {
@@ -566,11 +569,10 @@ body {
 }
 
 .bold-text {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .our-loader {
   margin: 15px 0 15px 15px;
 }
 
-/* single entry page styles */

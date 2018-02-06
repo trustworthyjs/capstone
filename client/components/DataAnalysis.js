@@ -43,11 +43,11 @@ class DataAnalysis extends React.Component {
             style={{backgroundColor: '#FFF9EC'}}
             >
               <div>
-                <PersonalityRadarChart
-                  width={500}
-                  height={500}
-                  showChildren={true}
-                  showToolTips={true}
+                <PersonalityRadarChart 
+                  width={500} 
+                  height={500} 
+                  showChildren={true} 
+                  showTooltips={true}
                   dataFor={this.props.data}/>
               </div>
             </Tab>
