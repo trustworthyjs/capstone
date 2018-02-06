@@ -4,6 +4,7 @@ import {getEntryDb} from '../store';
 import {withRouter} from 'react-router';
 import {WordCloud} from './';
 import FlatButton from 'material-ui/FlatButton'
+import ToneGraph from './ToneGraph';
 
 export class SingleEntry extends React.Component {
   constructor(props){
@@ -90,8 +91,12 @@ export class SingleEntry extends React.Component {
                   this.state.currentView === 'TONES' &&
                   <div className="entry-page-data">
                     <h1>Tones Placeholder</h1>
+                  <div>
+                    <h1>Entry Tones</h1>
                     <h3>For current entry:</h3>
+                      <ToneGraph type="single" entryId={+this.props.match.params.entryId} />
                     <h3>For all entries to date:</h3>
+                      <ToneGraph type="all" />
                   </div>
                 }
               </div>
