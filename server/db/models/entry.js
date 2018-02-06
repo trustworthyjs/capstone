@@ -32,6 +32,9 @@ const Entry = db.define('entry', {
   },
   wcNouns: {
     type: Sequelize.JSON
+  },
+  personality: {
+    type: Sequelize.JSON
   }
 })
 
