@@ -216,7 +216,13 @@ class ToneGraph extends React.Component {
             "symbolSize": 12,
             "symbolShape": "circle"
         }
-      ]
+      ],
+      margin: {
+        "top": 35,
+        "right": 130,
+        "bottom": 50,
+        "left": 50
+      }
     }
     let singleEntryStyles = {
       width: 550,
@@ -228,7 +234,7 @@ class ToneGraph extends React.Component {
         "tickPadding": 5,
         "tickRotation": 50,
         "legend": "entries",
-        "legendOffset": 55,
+        "legendOffset": 70,
         "legendPosition": "center"
       },
       dotSize: 5,
@@ -239,11 +245,17 @@ class ToneGraph extends React.Component {
             "direction": "column",
             "translateX": 100,
             "itemWidth": 70,
-            "itemHeight": 15,
-            "symbolSize": 8,
+            "itemHeight": 12,
+            "symbolSize": 6,
             "symbolShape": "circle"
         }
-      ]
+      ],
+      margin: {
+        "top": 20,
+        "right": 130,
+        "bottom": 75,
+        "left": 50
+      }
     }
     return (
       <div className="container">
@@ -264,12 +276,7 @@ class ToneGraph extends React.Component {
             data={this.state.toneGraphData}
             width={!this.props.type ? dataStyles.width : singleEntryStyles.width}
             height={!this.props.type ? dataStyles.height : singleEntryStyles.height}
-            margin={{
-                "top": 35,
-                "right": 130,
-                "bottom": 50,
-                "left": 50
-            }}
+            margin={!this.props.type ? dataStyles.margin : singleEntryStyles.margin}
             minY="auto"
             axisBottom={this.props.type === 'all' ? singleEntryStyles.axisBottom : dataStyles.axisBottom}
             axisLeft={{
