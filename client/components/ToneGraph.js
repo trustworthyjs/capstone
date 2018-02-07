@@ -275,7 +275,10 @@ class ToneGraph extends React.Component {
         "bottom": 75,
         "left": 50
       },
-      enableDotLabel: false
+      enableDotLabel: false,
+      style: {
+        fontSize: 9
+      }
     }
     return (
       <div className={!this.props.type ? "container" : ""}>
