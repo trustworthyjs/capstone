@@ -107,20 +107,20 @@ class Routes extends Component {
               isLoggedIn &&
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/home"
+                  <Route exact path="/search" component={SearchBar} />
+                  <Route exact path="/audio" component={Audio} />
+                  <Route exact path="/trends" component={DataAnalysis} />
+                  <Route exact path="/streaks" component={StreaksGraph} />
+                  <Route exact path="/word-cloud" component={WordCloud} />
+                  <Route exact path="/notebooks" component={Notebooks} />
+                  <Route exact path="/notebooks/:notebookId" component={SingleNotebook} />
+                  <Route exact path="/notebooks/:notebookId/entry/:entryId" component={SingleEntry} />
+                  <Route
+                    path="/"
                     render={() => !this.state.existingEntryLoading && <UserHome
                     existingEntry={this.state.existingEntry} existingEntryLoading={this.state.existingEntryLoading}
                     existingEntryId={this.state.existingEntryId} /> }
                   />
-                  <Route path="/search" component={SearchBar} />
-                  <Route path="/audio" component={Audio} />
-                  <Route path="/trends" component={DataAnalysis} />
-                  <Route path="/streaks" component={StreaksGraph} />
-                  <Route path="/word-cloud" component={WordCloud} />
-                  <Route exact path="/notebooks" component={Notebooks} />
-                  <Route exact path="/notebooks/:notebookId" component={SingleNotebook} />
-                  <Route path="/notebooks/:notebookId/entry/:entryId" component={SingleEntry} />
-                  <Route path="/" component={Notebooks} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
