@@ -314,7 +314,7 @@ class ToneGraph extends React.Component {
             dotColor="inherit:darker(0.3)"
             dotBorderWidth={!this.props.type ? dataStyles.dotBorderWidth : singleEntryStyles.dotBorderWidth}
             dotBorderColor="#ffffff"
-            enableDotLabel={!this.props.type ? dataStyles.enableDotLabel : singleEntryStyles.enableDotLabel}
+            enableDotLabel={false}
             dotLabel="y"
             dotLabelYOffset={-12}
             enableArea={true}
