@@ -271,7 +271,7 @@ class ToneGraph extends React.Component {
       }
     }
     return (
-      <div className="container">
+      <div className={!this.props.type ? "container" : ""}>
         {/*Buttons will only show up on the data analysis page, not single entries*/}
         {!this.props.type && this.props.allEntries && this.props.allEntries.length > 0 &&
           <span>

@@ -10,6 +10,7 @@ import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import IconButton from 'material-ui/IconButton';
 
+
 /* Utility Functions */
 
 function getFormattedDate(date) {
@@ -29,6 +30,7 @@ function getFormattedTime (fourDigitTime) {
 }
 
 /* Utility Functions */
+
 
 export class SingleEntry extends React.Component {
   constructor(props){
@@ -144,14 +146,19 @@ export class SingleEntry extends React.Component {
                         </div>)
                   })}
                 </div>
-
+                <div className="single-entry-charts-container">
                 {
                   this.state.currentView === 'WORD CLOUD' &&
                   <div className="entry-page-data">
+
                     <h3>For current entry:</h3>
-                      <WordCloud type="single-entry" singleEntryNouns={entry.wcNouns} />
-                    <h3>For all entries to date:</h3>
-                      <WordCloud type="all-entries" singleEntryNouns={['none']} />
+                    <div className="single-entry-word-cloud">
+                      <WordCloud isSingleEntryView={true} type="single-entry"  singleEntryNouns={entry.wcNouns} />
+                    </div>
+                    <h3 className="single-word-title">For all entries to date:</h3>
+                    <div className="all-entry-word-cloud">
+                      <WordCloud type="all-entries"  isSingleEntryView={true} singleEntryNouns={['none']} />
+                    </div>
                   </div>
                 }
 
@@ -181,11 +188,16 @@ export class SingleEntry extends React.Component {
                   this.state.currentView === 'TONES' &&
                   <div className="entry-page-data">
                     <h3>For current entry:</h3>
+                    <div className="single-tone-view" >
                       <ToneGraph type="single" entryId={+this.props.match.params.entryId} />
+                    </div>
                     <h3>For all entries to date:</h3>
+                    <div className="single-tone-view" >
                       <ToneGraph type="all" />
+                    </div>
                   </div>
                 }
+            </div>
             </div>
           </div>
         :

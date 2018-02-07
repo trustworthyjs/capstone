@@ -136,7 +136,7 @@ class SubmitEntryPopup extends Component {
                     <MenuItem disabled={true} value={1} primaryText="Select A Notebook" />
                     {this.props.notebooks.map(notebook =>
                     <MenuItem value={notebook.id} key={notebook.id} primaryText={notebook.title} /> )}
-                  </DropDownMenu> : <div>You don't have any existing notebooks</div>
+                  </DropDownMenu> : <div>`You don't have any existing notebooks`</div>
                 }
                 <br />
                 <FlatButton
