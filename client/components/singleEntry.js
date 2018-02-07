@@ -11,6 +11,27 @@ import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import IconButton from 'material-ui/IconButton';
 
 
+/* Utility Functions */
+
+function getFormattedDate(date) {
+  date = new Date(date).toString()
+  let currentDate = date.substring(0, date.length - 23)
+  let currentTimeConverted = getFormattedTime(date.substring(date.length - 23, date.length - 18).split(':').join(''))
+  currentDate = currentDate + currentTimeConverted
+  return currentDate
+}
+
+function getFormattedTime (fourDigitTime) {
+  var hours24 = parseInt(fourDigitTime.substring(0, 2), 10);
+  var hours = ((hours24 + 11) % 12) + 1;
+  var amPm = hours24 > 11 ? 'pm' : 'am';
+  var minutes = fourDigitTime.substring(2);
+  return hours + ':' + minutes + ' ' + amPm;
+}
+
+/* Utility Functions */
+
+
 export class SingleEntry extends React.Component {
   constructor(props){
     super(props)
@@ -63,6 +84,7 @@ export class SingleEntry extends React.Component {
   }
 
   render() {
+
     let entry = this.props.singleEntry
 
     return (
@@ -96,8 +118,8 @@ export class SingleEntry extends React.Component {
               <ArrowRight />
             </IconButton>
             <div>
-              <h1 className="bold-text">Title: {entry.title.substring(0, entry.title.length - 18)}</h1>
-              <h2>Saved At: {(new Date(entry.savedAt).toString()).substring(0, new Date(entry.savedAt).toString().length - 18)}</h2>
+              <h1 className="bold-text">Title: {entry.title}</h1>
+              <h2>Saved At: {getFormattedDate(entry.savedAt)}</h2>
               <br />
               {entry.content}
             </div>
@@ -119,7 +141,7 @@ export class SingleEntry extends React.Component {
                             label={`${dataType}`}
                             value={`${dataType}`}
                             onClick={this.handleDataTypeChange}
-                            primary={true} />
+                            style={{color: '#1595A3'}} />
                           }
                         </div>)
                   })}

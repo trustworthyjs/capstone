@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Link, NavLink } from 'react-router-dom'
 import { logout } from '../store'
-import {Footer} from './'
+import {Footer, SearchBar} from './'
 import Badge from 'material-ui/Badge'
 import FireIcon from 'material-ui/svg-icons/social/whatshot';
 import AppBar from 'material-ui/AppBar';
@@ -12,6 +12,7 @@ import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import SearchIcon from 'material-ui/svg-icons/action/search'
 import FlatButton from 'material-ui/FlatButton';
 // import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
 
@@ -44,6 +45,9 @@ export class Main extends Component {
               title="Mindful Pirate"
               onLeftIconButtonClick={this.clickLeft}
               zDepth={1}
+              style={{
+                maxHeight: '64px'
+              }}
               >
               <Drawer
                 docked={false}
@@ -59,6 +63,8 @@ export class Main extends Component {
                 <NavLink onClick={this.handleClose} to="/trends"><MenuItem>Trends</MenuItem></NavLink>
               </Drawer>
               <div className="nav-items">
+                <SearchBar />
+                <SearchIcon />
                 {user.streakGoalDate && user.currentStreak > 1 &&
                   <Link to="/streaks">
                     <Badge
