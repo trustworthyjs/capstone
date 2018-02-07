@@ -99,6 +99,7 @@ class StreaksGraph extends React.Component {
     this.checkForStreaks(this.props.allEntries, streakGoalStart, streakGoal)
     return (
       <div className="container">
+        <div className="streaks-background-container">
         <h2>Streaks</h2>
         <div className="streaks">
           <Toggle
@@ -141,7 +142,7 @@ class StreaksGraph extends React.Component {
                 <div>Current Streak: {currentStreak}<br />
                 Max Streak: {maxStreak}</div>
                 :
-                <div>You haven't submitted enough entries to have a streak :( <Link to="/home">Write one now!</Link></div>
+                <div>`You haven't submitted enough entries to have a streak :( <Link to="/home">Write one now!`</Link></div>
               }
             </div>}
           {this.state.calendarData && this.state.calendarData.length > 0 &&
@@ -178,6 +179,7 @@ class StreaksGraph extends React.Component {
               ]}
             />
           }
+        </div>
         </div>
       </div>
     )

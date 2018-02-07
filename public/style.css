@@ -202,6 +202,13 @@ body ::-webkit-scrollbar-thumb {
     transform: rotate(0.5turn);
 }
 
+.streaks-background-container {
+  background-color: #FAFAFA;
+    border: .002rem solid;
+    border-color: #E0E0E0;
+    text-align: justify;
+    padding: 10rem;
+}
 button:focus {
     outline: 0;
 }
