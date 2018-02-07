@@ -19,7 +19,6 @@ const defaultValues = {
       `What’s for breakfast? Dinner? Lunch?`,
       `Choose an animal. Write about it!`,
       `Who do you admire most?`,
-      `What sounds do you here around you?`,
       `What was the best movie you saw this year?`,
       `What is your favorite recipe?`,
       `What sounds do you currently hear around you?`,
