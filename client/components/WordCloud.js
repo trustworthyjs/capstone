@@ -23,8 +23,8 @@ class WordCloud extends Component {
     return (
       <div>
         {this.props.nouns ?
-          <div className="app-outer">
-            <div className="app-inner">
+          <div className={this.props.isSingleEntryView ? "app-outer-single" : "app-outer"}>
+            <div className={this.props.isSingleEntryView ? "app-inner-single" : "app-inner"}>
               <TagCloud
                 className="tag-cloud"
                 style={{

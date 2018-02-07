@@ -14,6 +14,8 @@ import Paper from 'material-ui/Paper';
 import Alarm from 'material-ui/svg-icons/action/alarm'
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import Divider from 'material-ui/Divider'
+import IconButton from 'material-ui/IconButton'
+import Settings from 'material-ui/svg-icons/action/settings'
 
 //util functions
 function shuffle(a) {
@@ -267,21 +269,28 @@ export class UserHome extends React.Component {
     const SubmitEntryPopupWithRouter = withRouter(SubmitEntryPopup)
     const modeDialog = (
       <Dialog
-        title="Choose your writing mode..."
+        title="Select a writing mode"
         open={this.state.dialogOpen}
         contentClassName={'dialog-container'}
         modal={false}
         onRequestClose={this.handleModeSelection}>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <button className="mode-btn" id="free-write-btn" title="freeWrite" onClick={this.handleModeSelection}>
+
+          <div className="mode-btn-container">
+            <button className="mode-btn" id="free-write-btn" title="freeWrite" onClick={this.handleModeSelection} />
             <div className="mode-btn-label" title="freeWrite" onClick={this.handleModeSelection}>Free Writing</div>
-          </button>
-          <button className="mode-btn" id="mindful-journal-btn" title="mindfulJournal" onClick={this.handleModeSelection}>
+          </div>
+
+          <div className="mode-btn-container">
+            <button className="mode-btn" id="mindful-journal-btn" title="mindfulJournal" onClick={this.handleModeSelection} />
             <div className="mode-btn-label" title="mindfulJournal" onClick={this.handleModeSelection}>Mindfulness Journal</div>
-          </button>
-          <button className="mode-btn" id="custom-btn" title="custom" onClick={this.handleModeSelection}>
+          </div>
+
+          <div className="mode-btn-container">
+            <button className="mode-btn" id="custom-btn" title="custom" onClick={this.handleModeSelection} />
             <div className="mode-btn-label" title="custom" onClick={this.handleModeSelection}>Custom</div>
-          </button>
+          </div>
+
         </div>
       </Dialog>
     )
@@ -351,7 +360,10 @@ export class UserHome extends React.Component {
             }
 
           <FlatButton label={'Clear Entry'} onClick={this.clearEntry} secondary={true} />
-          <button className="settings-icon" onClick={this.toggleSettingsVisible} />
+
+          <IconButton onClick={this.toggleSettingsVisible} className="settings-icon" >
+            <Settings color="#37474F" hoverColor="#ACD3F2" />
+          </IconButton>
         </div>
         <div id="editor-with-settings" >
           <div className="editor-prompt" style={{borderTop: '2px rgba(201, 200, 200, 0.5) groove'}}>
