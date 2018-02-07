@@ -116,7 +116,7 @@ export class SingleEntry extends React.Component {
             >
               <ArrowRight />
             </IconButton>
-            <div>
+            <div className="entry-page-left">
               <h1 className="bold-text">Title: {entry.title}</h1>
               <h2>Saved At: {getFormattedDate(entry.savedAt)}</h2>
               <br />
