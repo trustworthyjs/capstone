@@ -278,7 +278,6 @@ export class SettingsDrawer extends React.Component {
           position: 'absolute',
           zIndex: 5,
           backgroundColor: "#e8e8e8",
-          boxShadow: "-3px 0px 5px -2px",
           border: "1px solid #e8e8e8",
           visibility: visible
         }}
