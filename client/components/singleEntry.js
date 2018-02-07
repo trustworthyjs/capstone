@@ -97,7 +97,8 @@ export class SingleEntry extends React.Component {
                 top: '50%',
                 width: 50,
                 height: 50,
-                padding: 5
+                padding: 5,
+                zIndex: 10
               }}
               onClick={this.turnLastPage}
             >
@@ -110,7 +111,8 @@ export class SingleEntry extends React.Component {
                 top: '50%',
                 width: 50,
                 height: 50,
-                padding: 5
+                padding: 5,
+                zIndex: 10
               }}
               onClick={this.turnNextPage}
             >

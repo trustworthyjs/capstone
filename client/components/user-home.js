@@ -327,7 +327,7 @@ export class UserHome extends React.Component {
         <div className={this.props.userTheme} style={
           {
           width: '100vw',
-          height: '83rem',
+          height: '100vh',
           right: '0rem',
           position: 'absolute',
           top: '2.3rem',
@@ -379,11 +379,6 @@ export class UserHome extends React.Component {
           <SettingsDrawer 
             toggle={this.toggleSettingsVisible} 
             visible={this.state.settingsOpen} 
-            height={document.getElementById('editor-with-settings') ?
-                      document.getElementById('editor-with-settings').getBoundingClientRect().height
-                      :
-                      0
-                  } 
           />
         </div>
 
