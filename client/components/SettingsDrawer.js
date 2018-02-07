@@ -46,12 +46,12 @@ export class SettingsDrawer extends React.Component {
         checkSettings = this.props.singleEntry.settings;
         const entryMode = this.props.singleEntry.mode;
         return (
-          <div 
+          <div
             className="settings-drawer"
             style={{height: 'max-content'}}
           >
             <div
-              style={{padding: '10px', height: '440px', overflowY: 'auto'}}
+              style={{padding: '10px', height: '60vh', overflowY: 'auto'}}
             >
               <h4 style={{fontWeight: 'bold'}}>Settings</h4>
             <div>
