@@ -107,7 +107,7 @@ body ::-webkit-scrollbar-thumb {
     position: absolute;
     transition: all 5s ease-in-out;
     visibility: visible;
-    opacity: .7;
+    opacity: 1;
     padding: 5px;
     text-align: center;
     height: 3.2%;
