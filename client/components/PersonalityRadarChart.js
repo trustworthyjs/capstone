@@ -34,9 +34,11 @@ export class PersonalityRadarChart extends Component {
     }
 
     componentDidMount() {
-        const personalityRadar = document.getElementsByClassName('personality-radar-main');
-        const texts = Array.from(personalityRadar[0].getElementsByTagName('text')).slice(-5);
-        this.setState({textBoxes: texts})
+        if (this.showTooltips) {
+            const personalityRadar = document.getElementsByClassName('personality-radar-main');
+            const texts = Array.from(personalityRadar[0].getElementsByTagName('text')).slice(-5);
+            this.setState({textBoxes: texts})
+        }
     }
 
     //this is a workaround for the react-d3-radar -> the hover radius was way too big, this cuts the
