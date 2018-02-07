@@ -9,7 +9,6 @@ import {Audio} from './'
 
 export class SettingsDrawer extends React.Component {
   state = {
-    height: this.props.height,
     left: this.props.left,
     top: this.props.top,
     open: false,
@@ -47,9 +46,14 @@ export class SettingsDrawer extends React.Component {
         checkSettings = this.props.singleEntry.settings;
         const entryMode = this.props.singleEntry.mode;
         return (
-          <div className="settings-drawer">
-            <div>
-              <h5>Settings</h5>
+          <div 
+            className="settings-drawer"
+            style={{height: 'max-content'}}
+          >
+            <div
+              style={{padding: '10px', height: '440px', overflowY: 'auto'}}
+            >
+              <h4 style={{fontWeight: 'bold'}}>Settings</h4>
             <div>
               <div className="setting">
                 <label>Select a theme: </label>
@@ -65,7 +69,7 @@ export class SettingsDrawer extends React.Component {
                               key={theme}
                               name={theme}
                               value={theme}
-                              className="item"
+                              className="input-font item"
                               onClick={this.handleChangeTheme}>
                                 {theme}
                             </div>
@@ -85,8 +89,8 @@ export class SettingsDrawer extends React.Component {
                   </div>
                   {checkSettings.timer &&
                     this.props.visible && (
-                    <div>
-                      <select className="ui dropdown" onChange={this.handleSetTimerMinutes}>
+                    <div className="set-setting">
+                      <select className="input-font ui dropdown" onChange={this.handleSetTimerMinutes}>
                           {minutes.map((minute) => {
                             if (Math.floor(this.props.editorValues.timer / 60) === minute) {
                               return (
@@ -100,7 +104,7 @@ export class SettingsDrawer extends React.Component {
                           })}
                       </select>
                       <span>:</span>
-                      <select className="ui dropdown" onChange={this.handleSetTimerSeconds}>
+                      <select className="input-font ui dropdown" onChange={this.handleSetTimerSeconds}>
                           {seconds.map((second) => {
                             if (Math.floor(this.props.editorValues.timer % 60) === second) {
                               return (
@@ -114,7 +118,7 @@ export class SettingsDrawer extends React.Component {
                           })}
                       </select>
                     </div>
-                    )}
+                  )}
                 </div>
                 <div className="setting">
                   <div className="ui toggle checkbox">
@@ -122,19 +126,17 @@ export class SettingsDrawer extends React.Component {
                     <label>Word Count</label>
                   </div>
                   {checkSettings.wordCount && (
-                    <form onSubmit={this.handleSetWordCount}>
-                      <input type='text' name='wordCount' style={{width: '25%'}}/>
-                      <input type='submit' value='Set Count' />
+                    <form onSubmit={this.handleSetWordCount} className="set-setting">
+                      <div className="input-font ui input focus" style={{width: '35%', marginLeft: '0', marginTop: '0', marginBottom: '0', marginRight: '15px'}}>
+                        <input className="input-font" type='text' name='wordCount' />
+                      </div>
+                      <input className='input-font ui primary basic button' type='submit' value='Set'/>
                     </form>
                   )}
                 </div>
                 <div className="ui toggle checkbox setting">
                   <input type="checkbox" name="prompts" checked={checkSettings.prompts} onChange={this.handleChangeSettings}/>
                   <label>Prompts</label>
-                </div>
-                <div className="ui toggle checkbox setting">
-                  <input type="checkbox" name="visualCues" checked={checkSettings.visualCues} onChange={this.handleChangeSettings}/>
-                  <label>Visual Cues</label>
                 </div>
 
                 <div className="setting">
@@ -152,7 +154,7 @@ export class SettingsDrawer extends React.Component {
                                   key={music}
                                   name='music'
                                   value={music}
-                                  className="item"
+                                  className="input-font item"
                                   onClick={this.handleChangeMusic}>
                                   {music}
                                 </div>

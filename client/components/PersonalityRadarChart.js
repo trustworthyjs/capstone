@@ -19,7 +19,6 @@ export class PersonalityRadarChart extends Component {
             activeLabel: '',
             displayingToolTip: false
         }
-        this.personality = props.dataFor.personality 
         this.showChildren = props.showChildren
         this.showTooltips = props.showTooltips
         this.chartWidth = props.width
@@ -89,21 +88,21 @@ export class PersonalityRadarChart extends Component {
                             Agreeableness: this.state.textBoxes[3].getBoundingClientRect(),
                             EmotionalRange: this.state.textBoxes[4].getBoundingClientRect()};
         }
-        if (this.personality && this.props.data) {
-            const personality = this.personality;
-
+        if (this.props.dataFor.personality && this.props.data) {
+            const personality = this.props.dataFor.personality;
             let variables = [];
             let values = {};
 
             let personalityChildren = {};
-            personality.forEach(trait => {
-                variables.push({key: trait.name, label: trait.name})
-                values[trait.name] = trait.percentile * 100;
-                personalityChildren[trait.name] = trait.children;
-            })
+            if (Array.isArray(personality)) {
+                personality.forEach(trait => {
+                    variables.push({key: trait.name, label: trait.name})
+                    values[trait.name] = trait.percentile * 100;
+                    personalityChildren[trait.name] = trait.children;
+                })
+            }
             return (
                 <div>
-                    {/*start here after lunch - hardcode in the blurbs about each trait.*/}
                     {this.showChildren &&
                         <div style={{
                             marginTop: '50px',
@@ -220,7 +219,11 @@ export class PersonalityRadarChart extends Component {
                 </div>
             )
         } else {
-            return <CircularProgress size={60} thickness={7} />
+            return (
+                <div className="our-loader">
+                    <div className="ui active inline loader" />
+                </div>
+            )
         }
     }
 }
@@ -228,6 +231,6 @@ export class PersonalityRadarChart extends Component {
 /**
  * CONTAINER
  */
-const mapState = ({data}) => ({data})
+const mapState = ({data, singleEntry}) => ({data, singleEntry})
 
 export default connect(mapState)(PersonalityRadarChart)

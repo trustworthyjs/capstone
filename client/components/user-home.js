@@ -366,7 +366,7 @@ export class UserHome extends React.Component {
           </IconButton>
         </div>
         <div id="editor-with-settings" >
-          <div className="editor-prompt">
+          <div className="editor-prompt" style={{borderTop: '2px rgba(201, 200, 200, 0.5) groove'}}>
             {this.state.showPopup && showPrompts() &&
               <Paper className="popup" style={styles}>
                 {this.state.currentPrompt}
@@ -376,8 +376,15 @@ export class UserHome extends React.Component {
             <div className={`editor`} />
           </div>
 
-
-          <SettingsDrawer toggle={this.toggleSettingsVisible} visible={this.state.settingsOpen} />
+          <SettingsDrawer 
+            toggle={this.toggleSettingsVisible} 
+            visible={this.state.settingsOpen} 
+            height={document.getElementById('editor-with-settings') ?
+                      document.getElementById('editor-with-settings').getBoundingClientRect().height
+                      :
+                      0
+                  } 
+          />
         </div>
 
       </div>

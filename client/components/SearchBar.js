@@ -77,6 +77,9 @@ class SearchBar extends Component {
             <TextField 
               hintText="Search for an entry"
               onChange={this.handleInput}
+              underlineStyle= {{
+                borderColor: '#000000'
+              }}
             />
             <List
               style={{
