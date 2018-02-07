@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import randomColor from 'randomcolor'
 import TagCloud from 'react-tag-cloud'
-import CircularProgress from 'material-ui/CircularProgress'
 
 function styles (largestPercent, currentPercent) {
   let stylesObj = {
