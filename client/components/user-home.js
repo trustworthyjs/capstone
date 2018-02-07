@@ -14,6 +14,8 @@ import Paper from 'material-ui/Paper';
 import Alarm from 'material-ui/svg-icons/action/alarm'
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import Divider from 'material-ui/Divider'
+import IconButton from 'material-ui/IconButton'
+import Settings from 'material-ui/svg-icons/action/settings'
 
 //util functions
 function shuffle(a) {
@@ -351,7 +353,10 @@ export class UserHome extends React.Component {
             }
 
           <FlatButton label={'Clear Entry'} onClick={this.clearEntry} secondary={true} />
-          <button className="settings-icon" onClick={this.toggleSettingsVisible} />
+
+          <IconButton onClick={this.toggleSettingsVisible} className="settings-icon" >
+            <Settings color="#37474F" hoverColor="#ACD3F2" />
+          </IconButton>
         </div>
         <div id="editor-with-settings" >
           <div className="editor-prompt">
