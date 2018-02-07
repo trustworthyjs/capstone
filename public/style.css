@@ -465,6 +465,37 @@ body {
     width: 100%;
 }
 
+.app-outer-single {
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 0;
+    position: inherit;
+    right: 0;
+    top: 0;
+    height: 40vh;
+    padding-left: 9vw;
+}
+
+.single-word-title {
+      margin-top: -7rem;
+}
+
+.single-tone-view {
+  display: block;
+  padding-left: 9vw;
+
+}
+
+.app-inner-single {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: 1000px;
+    width: 100%;
+}
 .tag-cloud {
     flex: 1;
     height: 100%;
@@ -572,6 +603,13 @@ body {
   font-weight: bold;
 }
 
+.single-entry-word-cloud {
+  transform: scale(.7)
+}
+.all-entry-word-cloud {
+  transform: scale(.7)
+}
+
 .bold-text {
     font-weight: bold;
 }
@@ -579,4 +617,3 @@ body {
 .our-loader {
   margin: 15px 0 15px 15px;
 }
-
