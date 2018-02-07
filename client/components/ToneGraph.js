@@ -270,7 +270,6 @@ class ToneGraph extends React.Component {
         "left": 50
       }
     }
-    console.log('this state', this.state.toneGraphData)
     return (
       <div className="container">
         {/*Buttons will only show up on the data analysis page, not single entries*/}
