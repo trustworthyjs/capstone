@@ -51,69 +51,75 @@ export class Main extends Component {
     const { children, handleClick, isLoggedIn, user } = this.props
     return (
       <div>
-      <img src="pen.png" className="logo" />
       <div>
         {
           isLoggedIn ?
           // this appbar will appear if logged in
-            <AppBar
-              title="Unblock"
-              onLeftIconButtonClick={this.clickLeft}
-              zDepth={1}
-              titleStyle={styles.title}
-              >
-              <Drawer
-                docked={false}
-                open={this.state.open}
-                onRequestChange={(open) => this.setState({ open })}
-                modal={false}
-                containerStyle={{
-                  top: 50
-                }}>
-                <NavLink onClick={this.handleClose} to="/home"><MenuItem>New Entry</MenuItem></NavLink>
-                <NavLink onClick={this.handleClose} to="/notebooks"><MenuItem>Notebooks</MenuItem></NavLink>
-                <NavLink onClick={this.handleClose} to="/streaks"><MenuItem>Streaks</MenuItem></NavLink>
-                <NavLink onClick={this.handleClose} to="/trends"><MenuItem>Trends</MenuItem></NavLink>
-              </Drawer>
-              <div className="nav-items">
-                <SearchBar />
-                <SearchIcon />
-                {user.streakGoalDate && user.currentStreak > 1 &&
-                  <Link to="/streaks">
-                    <Badge
-                      badgeContent={user.currentStreak}
-                      secondary={true}
-                      badgeStyle={{top: 4, right: 2, width: 17, height: 17}}
-                      style={{padding: 2}}
-                    >
-                      <IconButton
-                        tooltip="Streaks">
-                      <FireIcon />
-                      </IconButton>
-                    </Badge>
-                  </Link>
-                }
-                <FlatButton href="/account" label={`${user.email}`} />
-                <IconMenu
-                  iconButtonElement={
-                    <IconButton touch={true}>
-                    <NavigationExpandMoreIcon />
-                    </IconButton>
+            <div>
+              <img src="pen.png" className="logo-on-login" />
+              <AppBar
+                title="Unblock"
+                onLeftIconButtonClick={this.clickLeft}
+                zDepth={1}
+                titleStyle={styles.title}
+                >
+                <Drawer
+                  docked={false}
+                  open={this.state.open}
+                  onRequestChange={(open) => this.setState({ open })}
+                  modal={false}
+                  containerStyle={{
+                    top: 50
+                  }}>
+                  <NavLink onClick={this.handleClose} to="/home"><MenuItem>New Entry</MenuItem></NavLink>
+                  <NavLink onClick={this.handleClose} to="/notebooks"><MenuItem>Notebooks</MenuItem></NavLink>
+                  <NavLink onClick={this.handleClose} to="/streaks"><MenuItem>Streaks</MenuItem></NavLink>
+                  <NavLink onClick={this.handleClose} to="/trends"><MenuItem>Trends</MenuItem></NavLink>
+                </Drawer>
+                <div className="nav-items">
+                  <SearchBar />
+                  <SearchIcon />
+                  {user.streakGoalDate && user.currentStreak > 1 &&
+                    <Link to="/streaks">
+                      <Badge
+                        badgeContent={user.currentStreak}
+                        secondary={true}
+                        badgeStyle={{top: 4, right: 2, width: 17, height: 17}}
+                        style={{padding: 2}}
+                      >
+                        <IconButton
+                          tooltip="Streaks">
+                        <FireIcon />
+                        </IconButton>
+                      </Badge>
+                    </Link>
                   }
-                  >
-                  <MenuItem primaryText="Account" href="/account" />
-                  <MenuItem primaryText="Logout" onClick={handleClick} />
-                </IconMenu>
-              </div>
-            </AppBar> :
+                  <FlatButton href="/account" label={`${user.email}`} />
+                  <IconMenu
+                    iconButtonElement={
+                      <IconButton touch={true}>
+                      <NavigationExpandMoreIcon />
+                      </IconButton>
+                    }
+                    >
+                    <MenuItem primaryText="Account" href="/account" />
+                    <MenuItem primaryText="Logout" onClick={handleClick} />
+                  </IconMenu>
+                </div>
+              </AppBar>
+              </div> :
             //This AppBar will appear if you are not logged in
-            <AppBar
-              title={<span>Mindful Pirate</span>}
-              iconElementLeft={<div />}
-              iconElementRight={
-                <FlatButton label="Login / Sign up" href="/login" />
-              }
-            />
+            <div>
+              <img src="pen.png" className="logo-on-logout" />
+              <AppBar
+                title="Unblock"
+                titleStyle={styles.title}
+                iconElementLeft={<div />}
+                iconElementRight={
+                  <FlatButton label="Login / Sign up" href="/login" />
+                }
+              />
+            </div>
         }
         {children}
       </div>

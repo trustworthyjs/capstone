@@ -113,7 +113,7 @@ body ::-webkit-scrollbar-thumb {
     font-size: 23px;
 }
 
-.logo {
+.logo-on-login {
     position: absolute;
     z-index: 10000;
     height: 3rem;
@@ -121,6 +121,13 @@ body ::-webkit-scrollbar-thumb {
     left: 16rem;
 }
 
+.logo-on-logout {
+  position: absolute;
+  z-index: 10000;
+  height: 3rem;
+  top: 0.2rem;
+  left: 13rem;
+}
 
 /*Home page */
 
