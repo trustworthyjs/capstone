@@ -9,7 +9,8 @@ class ToneGraph extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      toneGraphData: []
+      toneGraphData: [],
+      currentView: ''
     }
     this.onClickSeven = this.onClickSeven.bind(this)
     this.onClickThirty = this.onClickThirty.bind(this)
@@ -21,7 +22,8 @@ class ToneGraph extends React.Component {
     if (!this.props.type){ //if this is rendered from the data analysis page
       let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData)
       this.setState({
-        toneGraphData: data
+        toneGraphData: data,
+        currentView: 'last30Days'
       })
     } else if (this.props.type === 'all') { //if rendered from single entry 'all'
       this.onClickAll()
@@ -178,21 +180,24 @@ class ToneGraph extends React.Component {
   async onClickSeven(event) {
     let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData, 'last7Days')
     this.setState({
-      toneGraphData: data
+      toneGraphData: data,
+      currentView: 'last7Days'
     })
   }
 
   async onClickThirty(event) {
     let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData, 'last30Days')
     this.setState({
-      toneGraphData: data
+      toneGraphData: data,
+      currentView: 'last30Days'
     })
   }
 
   async onClickAll(event) {
     let data = await this.props.getEntryData(this.props.user.id, this.selectEntries, this.calculateDataFunc, this.prepData, 'all')
     this.setState({
-      toneGraphData: data
+      toneGraphData: data,
+      currentView: 'all'
     })
   }
 
@@ -211,10 +216,10 @@ class ToneGraph extends React.Component {
       axisBottom: {
         "orient": "bottom",
         "tickSize": 1,
-        "tickPadding": 3,
-        "tickRotation": 0,
+        "tickPadding": 4,
+        "tickRotation": 50,
         "legend": "entries",
-        "legendOffset": 36,
+        "legendOffset": 59,
         "legendPosition": "center"
       },
       dotSize: 8,
@@ -233,9 +238,10 @@ class ToneGraph extends React.Component {
       margin: {
         "top": 35,
         "right": 130,
-        "bottom": 50,
+        "bottom": 60,
         "left": 50
-      }
+      },
+      enableDotLabel: true
     }
     let singleEntryStyles = {
       width: 550,
@@ -268,7 +274,8 @@ class ToneGraph extends React.Component {
         "right": 130,
         "bottom": 75,
         "left": 50
-      }
+      },
+      enableDotLabel: false
     }
     console.log('this state', this.state.toneGraphData)
     return (
@@ -278,9 +285,9 @@ class ToneGraph extends React.Component {
           <span>
             <h5>Filter by: (default 'Last 30 Days')</h5>
           <div>
-            <FlatButton label="Last 7 Days" onClick={this.onClickSeven} />
-            <FlatButton label="Last 30 Days" primary={true} onClick={this.onClickThirty} />
-            <FlatButton label="All Entries" secondary={true} onClick={this.onClickAll} />
+            <FlatButton label="Last 7 Days" onClick={this.onClickSeven} secondary={true} style={this.state.currentView === "last7Days" ? "" : {color: '#1595A3'}} />
+            <FlatButton label="Last 30 Days" secondary={true} onClick={this.onClickThirty} style={this.state.currentView === "last30Days" ? "" : {color: '#1595A3'}} />
+            <FlatButton label="All Entries" onClick={this.onClickAll} secondary={true} style={this.state.currentView === "all" ? "" : {color: '#1595A3'}} />
           </div>
           </span>}
         {!this.props.type && this.props.allEntries && !this.props.allEntries.length &&
@@ -308,7 +315,7 @@ class ToneGraph extends React.Component {
             dotColor="inherit:darker(0.3)"
             dotBorderWidth={!this.props.type ? dataStyles.dotBorderWidth : singleEntryStyles.dotBorderWidth}
             dotBorderColor="#ffffff"
-            enableDotLabel={true}
+            enableDotLabel={!this.props.type ? dataStyles.enableDotLabel : singleEntryStyles.enableDotLabel}
             dotLabel="y"
             dotLabelYOffset={-12}
             enableArea={true}

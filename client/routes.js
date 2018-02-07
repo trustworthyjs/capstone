@@ -120,11 +120,11 @@ class Routes extends Component {
                   <Route exact path="/notebooks" component={Notebooks} />
                   <Route exact path="/notebooks/:notebookId" component={SingleNotebook} />
                   <Route path="/notebooks/:notebookId/entry/:entryId" component={SingleEntry} />
-                  <Route path="/" component={LandingPage} />
+                  <Route path="/" component={Notebooks} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={LandingPage} />
+            <Route component={Login} />
           </Switch>
         </Main>
       </Router>

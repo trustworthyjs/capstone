@@ -25,8 +25,17 @@ async function seed () {
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'lizzy@email.com', password: '123', streakGoalDate: new Date('April 17, 2018'), streakGoalStart: new Date('January 29, 2018'), currentStreak: 9, maxStreak: 9})
+    User.create({email: 'lizzy@email.com', password: '123', streakGoalDate: new Date('April 17, 2018'), streakGoalStart: new Date('January 30, 2018'), currentStreak: 8, maxStreak: 8})
   ])
+
+  users.map(async (user) => {
+    if (user.email === 'lizzy@email.com'){
+      return user.update({
+        streakGoalStart: new Date('January 30, 2018')
+      })
+    }
+  })
+
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!
 
@@ -112,7 +121,46 @@ async function seed () {
     Entry.create({content: txt19, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-06 11:49:31.029-06', 'submitted': 'true', 'title': 'Things I Miss'}),
     Entry.create({content: txt20, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-06 11:49:31.029-06', 'submitted': 'true', 'title': '10 Months Later!'}),
     Entry.create({content: txt21, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-06 11:49:31.029-06', 'submitted': 'true', 'title': 'New Year'}),
-    Entry.create({content: txt22, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-06 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    //these are dummy entries for filling up the streaks graph and are not seeded in 'data analysis'
+    Entry.create({content: txt12, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-01 11:49:31.029-06', 'submitted': 'true', 'title': 'Hello World'}),
+    Entry.create({content: txt1, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-02 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt22, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-02 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt21, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-02 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt2, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-02 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt3, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-03 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt14, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-03 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt3, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-05 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt7, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-06 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt20, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-06 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt12, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-06 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt5, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-06 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt7, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-07 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt19, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-08 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt4, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-09 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt16, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-09 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt6, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-10 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt17, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-14 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt3, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-14 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt10, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-15 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt22, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-16 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt18, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-17 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt5, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-17 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt18, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-17 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt10, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-18 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt20, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-19 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt8, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-21 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt7, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-22 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt9, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-23 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt5, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-25 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt12, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-25 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt20, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-25 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt14, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-25 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt13, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-25 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt12, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-25 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt11, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-26 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt7, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-25 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt21, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-25 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
+    Entry.create({content: txt1, mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-28 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
   ])
 
   entries.map(async (entry) => {
