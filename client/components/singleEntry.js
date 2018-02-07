@@ -155,7 +155,6 @@ export class SingleEntry extends React.Component {
                     <div className="single-entry-word-cloud">
                       <WordCloud isSingleEntryView={true} type="single-entry"  singleEntryNouns={entry.wcNouns} />
                     </div>
-                    <Divider />
                     <h3 className="single-word-title">For all entries to date:</h3>
                     <div className="all-entry-word-cloud">
                       <WordCloud type="all-entries"  isSingleEntryView={true} singleEntryNouns={['none']} />
