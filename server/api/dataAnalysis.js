@@ -51,9 +51,13 @@ router.post('/nlp-api-data/wc-nouns/:entryId', (req, res, next) => {
   res.json(wcNouns)
 })
 
-router.post('/nlp-api-data/personality-data/:entryId', (req, res, next) => {
+router.post('/nlp-api-data/personality-data/:entryId', async (req, res, next) => {
   let entryId = req.params.entryId
   let entryString = req.body.entryString
-  let personality = personalityData(entryString)
-  res.json(personality)
+  try {
+    let personality = await personalityData(entryId, entryString)
+    res.json(personality)
+  } catch(err) {
+    next(err)
+  }
 })

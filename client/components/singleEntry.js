@@ -84,7 +84,6 @@ export class SingleEntry extends React.Component {
   render() {
 
     let entry = this.props.singleEntry
-
     return (
       <div className="container">
         {entry && entry.submitted ?
@@ -162,7 +161,8 @@ export class SingleEntry extends React.Component {
                     <PersonalityRadarChart
                       height={350}
                       width={350}
-                      dataFor={this.props.singleEntry}
+                      dataFor={entry}
+                      type='single'
                       showChildren={false}
                       showTooltips={false}
                     />
@@ -171,6 +171,7 @@ export class SingleEntry extends React.Component {
                       height={350}
                       width={350}
                       dataFor={this.props.data}
+                      type='all'
                       showChildren={false}
                       showTooltips={false}
                     />

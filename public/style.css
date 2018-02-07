@@ -21,8 +21,6 @@ body {
     background-size: cover; */
 }
 
-
-
 a {
     text-decoration: none;
 }
@@ -42,9 +40,10 @@ form div {
 }
 
 .new-entry-container {
-  width: 80vw;
-  margin: auto auto;
+    width: 80vw;
+    margin: auto auto;
 }
+
 .container {
     padding: 40px;
     display: flex;
@@ -86,7 +85,6 @@ body ::-webkit-scrollbar-thumb {
 }*/
 
 .settings-values {
-
     background-color: rgba(220, 220, 220, 0.9);
 }
 
@@ -154,11 +152,20 @@ body ::-webkit-scrollbar-thumb {
 }
 
 .settings-drawer {
-    height: 60vh;
+    background-color: rgb(255, 255, 255);
+    border: 1px rgb(201, 200, 200) groove;
+}
+
+.set-setting {
+    padding-top: 10px;
+}
+
+.input-font {
+    font-family: 'Ubuntu Mono', monospace;
 }
 
 .editor-with-settings:last-child {
-  height: 60vh;
+    height: 60vh;
 }
 
 .settings-icon {
@@ -202,11 +209,10 @@ button:focus {
 }
 
 #editor-with-settings {
-    height: 80vh;
+    height: 60vh;
     margin: 0px auto 50% auto;
     margin-bottom: 7rem;
     position: relative;
-    /* background-color: rgb(202, 200, 200); */
 }
 
 
@@ -231,7 +237,6 @@ navbar / appbar items
     justify-content: space-evenly;
     min-height: 25px;
     background-color: rgba(255, 255, 255, 0.9);
-
 }
 
 .settings-values div {
@@ -567,9 +572,9 @@ body {
     flex-direction: column
 }
 
-.entry-page-data > h3 {
-  margin-left: 15px;
-  font-weight: bold;
+.entry-page-data>h3 {
+    margin-left: 15px;
+    font-weight: bold;
 }
 
 .bold-text {
@@ -577,6 +582,5 @@ body {
 }
 
 .our-loader {
-  margin: 15px 0 15px 15px;
+    margin: 15px 0 15px 15px;
 }
-
