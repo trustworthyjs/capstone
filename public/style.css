@@ -621,6 +621,14 @@ body {
     flex-direction: row
 }
 
+.single-entry-word-cloud {
+      min-height: 40vh;
+}
+
+.personality-radar-main {
+  min-height: 33vh !important;
+}
+
 .entry-page-right-column {
     display: flex;
     flex-direction: column;
