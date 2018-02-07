@@ -6,7 +6,6 @@ const mp3sObject = {
   guitar: '/audio/guitar.mp3',
   beach: '/audio/beach.mp3',
   rain: '/audio/rain.mp3',
-  bouncin: './audio/lemon.mp3'
 }
 
 class Audio extends Component {

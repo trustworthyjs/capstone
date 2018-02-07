@@ -14,7 +14,22 @@ import IconButton from 'material-ui/IconButton';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import SearchIcon from 'material-ui/svg-icons/action/search'
 import FlatButton from 'material-ui/FlatButton';
-// import ArrowBack from 'material-ui/svg-icons/navigation/arrow-back';
+import WebFont from 'webfontloader';
+
+WebFont.load({
+  google: {
+    families: ['Kaushan Script']
+  }
+})
+
+let styles = {
+  title: {
+    maxHeight: '80px',
+    fontFamily: 'Kaushan Script',
+    fontSize: '3rem',
+    fontWeight: 'bold'
+  }
+}
 
 export class Main extends Component {
   constructor(props) {
@@ -36,18 +51,16 @@ export class Main extends Component {
     const { children, handleClick, isLoggedIn, user } = this.props
     return (
       <div>
-      <img src="favicon.ico" className="logo" />
+      <img src="pen.png" className="logo" />
       <div>
         {
           isLoggedIn ?
           // this appbar will appear if logged in
             <AppBar
-              title="Mindful Pirate"
+              title="Unblock"
               onLeftIconButtonClick={this.clickLeft}
               zDepth={1}
-              style={{
-                maxHeight: '64px'
-              }}
+              titleStyle={styles.title}
               >
               <Drawer
                 docked={false}

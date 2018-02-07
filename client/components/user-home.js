@@ -269,21 +269,28 @@ export class UserHome extends React.Component {
     const SubmitEntryPopupWithRouter = withRouter(SubmitEntryPopup)
     const modeDialog = (
       <Dialog
-        title="Choose your writing mode..."
+        title="Select a writing mode"
         open={this.state.dialogOpen}
         contentClassName={'dialog-container'}
         modal={false}
         onRequestClose={this.handleModeSelection}>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <button className="mode-btn" id="free-write-btn" title="freeWrite" onClick={this.handleModeSelection}>
+
+          <div className="mode-btn-container">
+            <button className="mode-btn" id="free-write-btn" title="freeWrite" onClick={this.handleModeSelection} />
             <div className="mode-btn-label" title="freeWrite" onClick={this.handleModeSelection}>Free Writing</div>
-          </button>
-          <button className="mode-btn" id="mindful-journal-btn" title="mindfulJournal" onClick={this.handleModeSelection}>
+          </div>
+
+          <div className="mode-btn-container">
+            <button className="mode-btn" id="mindful-journal-btn" title="mindfulJournal" onClick={this.handleModeSelection} />
             <div className="mode-btn-label" title="mindfulJournal" onClick={this.handleModeSelection}>Mindfulness Journal</div>
-          </button>
-          <button className="mode-btn" id="custom-btn" title="custom" onClick={this.handleModeSelection}>
+          </div>
+
+          <div className="mode-btn-container">
+            <button className="mode-btn" id="custom-btn" title="custom" onClick={this.handleModeSelection} />
             <div className="mode-btn-label" title="custom" onClick={this.handleModeSelection}>Custom</div>
-          </button>
+          </div>
+
         </div>
       </Dialog>
     )
