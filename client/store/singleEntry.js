@@ -71,6 +71,7 @@ export const submitEntryDb = (editedEntry, notebookId, history, userId) =>
       .then(async () => {
         history.push(`/notebooks/${notebookId}/entry/${editedEntry.id}`)
         let dataObj = await createDataAfterNewEntry(userId)
+        console.log('dataobject', dataObj)
         dispatch(createDataAnalysis(userId, dataObj))
       })
       .then(async () => {
