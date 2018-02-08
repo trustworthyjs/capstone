@@ -36,7 +36,8 @@ export class SingleEntry extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      currentView: 'WORD CLOUD'
+      currentView: 'WORD CLOUD',
+      dataContainerFixed: false
     }
   }
 
@@ -47,6 +48,7 @@ export class SingleEntry extends React.Component {
       this.props.getOneEntry(+this.props.passEntry)
     }
     this.props.getOneNotebook(this.props.match.params.notebookId)
+    window.addEventListener('scroll', this.handleScroll)
   }
 
   handleDataTypeChange = (evt) => {
@@ -83,9 +85,15 @@ export class SingleEntry extends React.Component {
     this.props.getOneEntry(lastEntryId)
   }
 
+  handleScroll = () => {
+    if (window.pageYOffset > 100) this.setState({dataContainerFixed: true})
+    else this.setState({dataContainerFixed: false})
+  }
+
   render() {
 
     let entry = this.props.singleEntry
+    let rightColumn = document.getElementById('right-column');
     return (
       <div className="container">
         {entry && entry.submitted ?
@@ -125,8 +133,17 @@ export class SingleEntry extends React.Component {
               {entry.content}
             </div>
 
-            <div className="entry-page-right-column">
-
+            <div className="entry-page-right-column" id="right-column">
+              <div 
+                className="entry-page-fixed-container"
+                style={{
+                  position: this.state.dataContainerFixed ? 'fixed' : 'relative',
+                  top: this.state.dataContainerFixed && '0px',
+                  width: this.state.dataContainerFixed ? document.getElementById('right-column').getBoundingClientRect().width : '100%',
+                  paddingRight: this.state.dataContainerFixed ? '20px' : 0,
+                  marginRight: this.state.dataContainerFixed ? '60px' : 0,
+                  marginTop: this.state.dataContainerFixed ? '20px' : '0px'
+                }}>
                 <div className="entry-page-buttons">
                   {['WORD CLOUD', 'PERSONALITY TRAITS', 'TONES'].map(dataType => {
                     return (
@@ -158,7 +175,7 @@ export class SingleEntry extends React.Component {
                     </div>
                     <h3 className="single-word-title">For all entries to date:</h3>
                     <div className="all-entry-word-cloud">
-                      <WordCloud type="all-entries"  isSingleEntryView={true} singleEntryNouns={['none']} />
+                      <WordCloud type="all-entries"  isSingleEntryView={true} singleEntryNouns={this.props.data.wcNouns} />
                     </div>
                   </div>
                 }
@@ -206,12 +223,14 @@ export class SingleEntry extends React.Component {
                     </div>
                   </div>
                 }
+              </div>
             </div>
             </div>
           </div>
         :
         <h1>This entry is still in progress</h1>
         }
+
       </div>
     )
   }

@@ -123,12 +123,13 @@ body ::-webkit-scrollbar-thumb {
 }
 
 .logo-on-logout {
-  position: absolute;
-  z-index: 10000;
-  height: 3rem;
-  top: 0.2rem;
-  left: 13rem;
+    position: absolute;
+    z-index: 10000;
+    height: 3rem;
+    top: 0.2rem;
+    left: 13rem;
 }
+
 
 /*Home page */
 
@@ -205,12 +206,13 @@ body ::-webkit-scrollbar-thumb {
 }
 
 .streaks-background-container {
-  background-color: #FAFAFA;
+    background-color: #FAFAFA;
     border: .002rem solid;
     border-color: #E0E0E0;
     text-align: justify;
     padding: 10rem;
 }
+
 button:focus {
     outline: 0;
 }
@@ -642,7 +644,11 @@ body {
 }
 
 .single-entry-word-cloud {
-      min-height: 40vh;
+    min-height: 40vh;
+}
+
+.personality-radar-main {
+    min-height: 33vh !important;
 }
 
 .entry-page-right-column {
@@ -650,6 +656,10 @@ body {
     flex-direction: column;
     padding: 6vh;
     margin: 3vh;
+}
+
+.entry-page-fixed-container {
+    transition: top 0.2s linear
 }
 
 .entry-page-data>h3 {
