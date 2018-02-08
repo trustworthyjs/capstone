@@ -350,7 +350,7 @@ export class UserHome extends React.Component {
           {showPrompts() &&
             <FlatButton
               label={'Prompts Enabeled'}
-                style={{color: '#1595A3'}}
+              style={{color: '#1595A3'}}
             />
           }
 
@@ -376,9 +376,9 @@ export class UserHome extends React.Component {
             <div className={`editor`} />
           </div>
 
-          <SettingsDrawer 
-            toggle={this.toggleSettingsVisible} 
-            visible={this.state.settingsOpen} 
+          <SettingsDrawer
+            toggle={this.toggleSettingsVisible}
+            visible={this.state.settingsOpen}
           />
         </div>
 
