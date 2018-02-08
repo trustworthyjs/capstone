@@ -287,9 +287,9 @@ class ToneGraph extends React.Component {
           <span>
             <h5>Filter by: (default 'Last 30 Days')</h5>
           <div>
-            <FlatButton label="Last 7 Days" onClick={this.onClickSeven} secondary={true} style={this.state.currentView === "last7Days" ? "" : {color: '#1595A3'}} />
-            <FlatButton label="Last 30 Days" secondary={true} onClick={this.onClickThirty} style={this.state.currentView === "last30Days" ? "" : {color: '#1595A3'}} />
-            <FlatButton label="All Entries" onClick={this.onClickAll} secondary={true} style={this.state.currentView === "all" ? "" : {color: '#1595A3'}} />
+            <FlatButton label="Last 7 Days" onClick={this.onClickSeven} secondary={true} style={this.state.currentView === "last7Days" ? {} : {color: '#1595A3'}} />
+            <FlatButton label="Last 30 Days" secondary={true} onClick={this.onClickThirty} style={this.state.currentView === "last30Days" ? {} : {color: '#1595A3'}} />
+            <FlatButton label="All Entries" onClick={this.onClickAll} secondary={true} style={this.state.currentView === "all" ? {} : {color: '#1595A3'}} />
           </div>
           </span>}
         {!this.props.type && this.props.allEntries && !this.props.allEntries.length &&

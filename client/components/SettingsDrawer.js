@@ -48,10 +48,10 @@ export class SettingsDrawer extends React.Component {
         return (
           <div
             className="settings-drawer"
-            style={{height: 'max-content'}}
+            style={{height: '80vh'}}
           >
             <div
-              style={{padding: '10px', height: '60vh', overflowY: 'auto'}}
+              style={{padding: '10px', height: '60vh'}}
             >
               <h4 style={{fontWeight: 'bold'}}>Settings</h4>
             <div>

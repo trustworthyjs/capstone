@@ -42,6 +42,8 @@ form div {
 .new-entry-container {
     width: 80vw;
     margin: auto auto;
+    margin-top: 17vh;
+    margin-bottom: 20vh;
 }
 
 .container {
@@ -133,22 +135,22 @@ body ::-webkit-scrollbar-thumb {
 
 .pirate {
     background-image: url('https://img00.deviantart.net/7809/i/2007/271/7/7/pirate_wallpaper_by_unpatient.jpg');
-    background-size: contain;
+    background-size: cover;
 }
 
 .beach {
     background-image: url('http://www.beach-backgrounds.com/wordpress/uploads/green-island-beach-background.jpg');
-    background-size: contain;
+    background-size: cover;
 }
 
 .forest {
     background-image: url('https://wallpaperdata.com/wp-content/uploads/data/2018/1/5/forest-background-2592x1620-for-WTG30510981.jpg');
-    background-size: contain;
+    background-size: cover;
 }
 
 .mountains {
     background-image: url('https://wallpapertag.com/wallpaper/full/b/d/0/202398-mountains-background-1920x1080-for-windows-10.jpg');
-    background-size: contain;
+    background-size: cover;
 }
 
 .setting {
@@ -216,7 +218,6 @@ button:focus {
 }
 
 .footer {
-    margin-top: 25vh;
     height: 14rem;
     width: 100vw;
     background-color: #263238;
@@ -427,10 +428,15 @@ navbar / appbar items
     width: 100%;
     text-align: center;
     font-size: 15px;
+    /* min-height: 33vh !important; */
 }
 
 .personality-radar-main text {
     font-size: 15px;
+}
+
+.personality-radar-main.radar svg{
+    height: 280
 }
 
 .tooltip {
@@ -469,6 +475,9 @@ navbar / appbar items
     margin-right: auto;
 }
 
+.single-radar-container{
+    margin-left: -13rem
+}
 
 /* CSS STYLES BELOW COPIED FROM REACT TAG CLOUD NPM LIBRARY */
 
@@ -491,14 +500,14 @@ body {
     position: inherit;
     right: 0;
     top: 0;
-    height: 100vh;
+    height: 80vh;
 }
 
 .app-inner {
     display: flex;
     flex-direction: column;
     height: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     width: 100%;
 }
 
@@ -512,8 +521,8 @@ body {
     position: inherit;
     right: 0;
     top: 0;
-    height: 40vh;
-    padding-left: 9vw;
+    height: 39vh;
+    padding-left: 6vw;
 }
 
 .single-word-title {
@@ -522,7 +531,7 @@ body {
 
 .single-tone-view {
     display: block;
-    padding-left: 9vw;
+    padding-left: 7vw;
 }
 
 .app-inner-single {
@@ -530,11 +539,15 @@ body {
     flex-direction: column;
     height: 100%;
     max-width: 1000px;
-    width: 100%;
+    width: 250%;
+    margin-left: 2rem;
+    margin: -7rem
 }
 
 .tag-cloud {
-    flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
     height: 100%;
 }
 
@@ -655,11 +668,13 @@ body {
 }
 
 .single-entry-word-cloud {
-    transform: scale(.7)
+    transform: scale(.8);
+    margin-top: -2rem
 }
 
 .all-entry-word-cloud {
-    transform: scale(.7)
+    transform: scale(.8);
+    margin-top: -2rem
 }
 
 .bold-text {
