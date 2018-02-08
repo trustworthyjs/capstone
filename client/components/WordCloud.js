@@ -13,7 +13,6 @@ function styles (largestPercent, currentPercent) {
 class WordCloud extends Component {
 
   componentDidMount() {
-    this.setState({hasRendered: true})
     if (!this.props.isSingleEntryView) {
       setInterval(() => {
         this.forceUpdate();
@@ -22,8 +21,6 @@ class WordCloud extends Component {
   }
 
   render() {
-    console.log('this.props.type', this.props.type)
-    console.log('this.props', this.props)
     return (
       <div>
         {this.props.nouns ?
@@ -63,10 +60,10 @@ class WordCloud extends Component {
 const mapState = (state, ownProps) => {
   let nouns, largestPercent
   if (state.data.wcNouns && ownProps.singleEntryNouns) {
-    if (ownProps.type === 'all-entries') {
-      nouns = ownProps.singleEntryNouns.slice(0, 60)
-    } else {
+    if (ownProps.isSingleEntryView) {
       nouns = ownProps.singleEntryNouns.slice(0, 30)
+    } else {
+      nouns = state.data.wcNouns.slice(0,60)
     }
     if (nouns[0]) {
       largestPercent = nouns[0].percent
