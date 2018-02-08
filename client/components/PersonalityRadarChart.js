@@ -126,7 +126,7 @@ export class PersonalityRadarChart extends Component {
                                 const boxData = textBoxData[textBoxKey]
                                 return (
                                     <span key={textBoxKey}>
-                                        <div 
+                                        <div
                                             className="text-container"
                                             name={textBoxKey}
                                             style={{
@@ -185,7 +185,7 @@ export class PersonalityRadarChart extends Component {
                         <Radar
                             width={this.chartWidth}
                             height={this.chartHeight}
-                            padding={100}
+                            padding={this.props.padding? this.props.padding : 100}
                             domainMax={100}
                             highlighted={null}
                             onHover={this.handleHover}
@@ -212,7 +212,8 @@ export class PersonalityRadarChart extends Component {
                                             trait={personalityChildren[childTraitName]}
                                             width={350}
                                             height={350}
-                                            parentHeight={this.rect.top + this.rect.height}/>
+                                            parentHeight={this.rect.top + this.rect.height}
+                                            padding={100}/>
                                     </div>
                                 )
                             })}

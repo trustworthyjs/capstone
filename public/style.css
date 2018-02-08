@@ -425,6 +425,7 @@ navbar / appbar items
     width: 100%;
     text-align: center;
     font-size: 15px;
+    /* min-height: 33vh !important; */
 }
 
 .personality-radar-main text {
@@ -510,8 +511,8 @@ body {
     position: inherit;
     right: 0;
     top: 0;
-    height: 40vh;
-    padding-left: 9vw;
+    height: 39vh;
+    padding-left: 6vw;
 }
 
 .single-word-title {
@@ -520,7 +521,7 @@ body {
 
 .single-tone-view {
     display: block;
-    padding-left: 9vw;
+    padding-left: 7vw;
 }
 
 .app-inner-single {
@@ -528,7 +529,9 @@ body {
     flex-direction: column;
     height: 100%;
     max-width: 1000px;
-    width: 100%;
+    width: 250%;
+    margin-left: 2rem;
+    margin: -7rem
 }
 
 .tag-cloud {
@@ -632,10 +635,6 @@ body {
       min-height: 40vh;
 }
 
-.personality-radar-main {
-  min-height: 33vh !important;
-}
-
 .entry-page-right-column {
     display: flex;
     flex-direction: column;
@@ -649,11 +648,13 @@ body {
 }
 
 .single-entry-word-cloud {
-    transform: scale(.7)
+    transform: scale(.8);
+    margin-top: -2rem
 }
 
 .all-entry-word-cloud {
-    transform: scale(.7)
+    transform: scale(.8);
+    margin-top: -2rem
 }
 
 .bold-text {
