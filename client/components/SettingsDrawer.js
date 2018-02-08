@@ -171,7 +171,7 @@ export class SettingsDrawer extends React.Component {
                 <div className="ui form">
                   <div className="radio-field">
                     <div className="grouped fields">
-                      <label>Change Mode: </label>
+                      <label className="input-font">Change Mode: </label>
                       <div className="field">
                         <div className="ui radio checkbox">
                           <input type="radio" name="freeWrite" onChange={this.handleModeChange} checked={entryMode === 'freeWrite'}/>
