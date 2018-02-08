@@ -174,6 +174,7 @@ export class SingleEntry extends React.Component {
                       type='single'
                       showChildren={false}
                       showTooltips={false}
+                      padding={77}
                     />
                     <h3>For all entries to date:</h3>
                     <PersonalityRadarChart
@@ -183,6 +184,7 @@ export class SingleEntry extends React.Component {
                       type='all'
                       showChildren={false}
                       showTooltips={false}
+                      padding={77}
                     />
                   </div>
                 }

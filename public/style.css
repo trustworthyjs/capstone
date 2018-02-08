@@ -425,6 +425,7 @@ navbar / appbar items
     width: 100%;
     text-align: center;
     font-size: 15px;
+    /* min-height: 33vh !important; */
 }
 
 .personality-radar-main text {
@@ -510,8 +511,8 @@ body {
     position: inherit;
     right: 0;
     top: 0;
-    height: 47vh;
-    padding-left: 9vw;
+    height: 39vh;
+    padding-left: 6vw;
 }
 
 .single-word-title {
@@ -529,7 +530,8 @@ body {
     height: 100%;
     max-width: 1000px;
     width: 250%;
-    margin-left: 8rem
+    margin-left: 2rem;
+    margin: -7rem
 }
 
 .tag-cloud {
@@ -631,10 +633,6 @@ body {
 
 .single-entry-word-cloud {
       min-height: 40vh;
-}
-
-.personality-radar-main {
-  min-height: 33vh !important;
 }
 
 .entry-page-right-column {
