@@ -36,7 +36,7 @@ const styles = {
   hint: {
     textAlign: 'center',
     marginTop: '1em',
-    color: '#424242',
+    color: '#ccc',
   },
 };
 function getColorsFromTheme(theme) {
@@ -57,6 +57,7 @@ class AuthForm extends React.Component {
   state = {
     password: '',
     username: '',
+    formName: 'login'
   }
 
   handlePassChange = (e) => {
@@ -71,7 +72,7 @@ class AuthForm extends React.Component {
   }
 
   render() {
-    const {username, password} = this.state
+    const {username, password, formName} = this.state
     const { name, displayName, theme, handleSubmit, error, submitting } = this.props
     const muiTheme = getMuiTheme(theme);
     let { primary1Color, accent1Color } = getColorsFromTheme(muiTheme);
@@ -84,9 +85,7 @@ class AuthForm extends React.Component {
           </div>
           <form onSubmit={handleSubmit} name={name}>
             <div style={styles.form}>
-              {
-                this.props.name === 'login' &&
-                <p style={styles.hint}>`Don't have an account?` <a href="/signup">Sign up here!</a></p>}
+              <p style={styles.hint}>Hint: murphy@email.com / 123</p>
               <div style={styles.input} >
                 <TextField
                   floatingLabelText="Username"
@@ -101,6 +100,7 @@ class AuthForm extends React.Component {
                   type="password"
                   name="password"
                   onChange={this.handlePassChange}
+                 
                 />
               </div>
             </div>
@@ -108,7 +108,7 @@ class AuthForm extends React.Component {
           <CardTitle title={error && error.response && <div> {error.response.data} </div>}/>
 
           <CardActions>
-            <RaisedButton onClick={() => handleSubmit(username, password, name)} primary label={displayName} fullWidth />
+            <RaisedButton onClick={() => handleSubmit(username, password, formName)} primary label={'login'} fullWidth />
           </CardActions>
         </Card>
         <a href="/auth/google">{displayName} with Google</a>
@@ -143,9 +143,8 @@ const mapSignup = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    handleSubmit(email, password, name) {
-      console.log('info: ', email, password, name)
-      dispatch(auth(email, password, name))
+    handleSubmit(email, password, formName) {
+      dispatch(auth(email, password, formName))
     }
   }
 }
