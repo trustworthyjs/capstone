@@ -60,6 +60,16 @@ class Routes extends Component {
     })
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user !== this.props.user) {
+      if (this.props.isLoggedIn) {
+        this.props.getNotebooks(this.props.user.id)
+        this.props.getEntries(this.props.user.id)
+        this.props.getInitialData(this.props.user.id)
+      }
+    }
+  }
+
 
   setExistingEntry = () => {
     if (this.props.allEntries.length > 0) {
