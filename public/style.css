@@ -42,6 +42,7 @@ form div {
 .new-entry-container {
     width: 80vw;
     margin: auto auto;
+    margin-top: 17vh;
 }
 
 .container {
@@ -132,22 +133,22 @@ body ::-webkit-scrollbar-thumb {
 
 .pirate {
     background-image: url('https://img00.deviantart.net/7809/i/2007/271/7/7/pirate_wallpaper_by_unpatient.jpg');
-    background-size: contain;
+    background-size: cover;
 }
 
 .beach {
     background-image: url('http://www.beach-backgrounds.com/wordpress/uploads/green-island-beach-background.jpg');
-    background-size: contain;
+    background-size: cover;
 }
 
 .forest {
     background-image: url('https://wallpaperdata.com/wp-content/uploads/data/2018/1/5/forest-background-2592x1620-for-WTG30510981.jpg');
-    background-size: contain;
+    background-size: cover;
 }
 
 .mountains {
     background-image: url('https://wallpapertag.com/wallpaper/full/b/d/0/202398-mountains-background-1920x1080-for-windows-10.jpg');
-    background-size: contain;
+    background-size: cover;
 }
 
 .setting {
@@ -214,7 +215,6 @@ button:focus {
 }
 
 .footer {
-    margin-top: 25vh;
     height: 14rem;
     width: 100vw;
     background-color: #263238;
