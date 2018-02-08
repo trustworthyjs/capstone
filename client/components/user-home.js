@@ -64,7 +64,7 @@ export class UserHome extends React.Component {
   }
 
   shouldComponentUpdate() {
-
+    console.log("this.state: ", this.state)
     if (this.state.isSubmitting) {
       return false;
     }
@@ -72,7 +72,7 @@ export class UserHome extends React.Component {
   }
 
   componentDidMount() {
-
+    console.log("this.state", this.state)
     if (!this.state.isSubmitting){
     this.props.dispatchResetToDefault();
     var toolbarOptions = [
@@ -91,6 +91,7 @@ export class UserHome extends React.Component {
     };
     var editor = new Quill('.editor', options);
     this.setEditor(editor)
+    console.log('created new editor')
 
     //DO NOT DELETE THIS CODE. MAY BE USED IN FUTURE.
     //disable delete
