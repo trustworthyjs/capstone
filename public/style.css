@@ -433,6 +433,10 @@ navbar / appbar items
     font-size: 15px;
 }
 
+.personality-radar-main.radar svg{
+    height: 280
+}
+
 .tooltip {
     height: max-content;
     width: 12rem;
@@ -469,6 +473,9 @@ navbar / appbar items
     margin-right: auto;
 }
 
+.single-radar-container{
+    margin-left: -13rem
+}
 
 /* CSS STYLES BELOW COPIED FROM REACT TAG CLOUD NPM LIBRARY */
 
@@ -491,14 +498,14 @@ body {
     position: inherit;
     right: 0;
     top: 0;
-    height: 100vh;
+    height: 80vh;
 }
 
 .app-inner {
     display: flex;
     flex-direction: column;
     height: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     width: 100%;
 }
 
@@ -536,7 +543,9 @@ body {
 }
 
 .tag-cloud {
-    flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
     height: 100%;
 }
 
