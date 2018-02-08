@@ -432,6 +432,10 @@ navbar / appbar items
     font-size: 15px;
 }
 
+.personality-radar-main.radar svg{
+    height: 280
+}
+
 .tooltip {
     height: max-content;
     width: 12rem;
@@ -468,6 +472,9 @@ navbar / appbar items
     margin-right: auto;
 }
 
+.single-radar-container{
+    margin-left: -13rem
+}
 
 /* CSS STYLES BELOW COPIED FROM REACT TAG CLOUD NPM LIBRARY */
 
