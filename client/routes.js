@@ -45,19 +45,11 @@ class Routes extends Component {
     existingEntry: '',
     existingEntryId: 0,
     existingEntryLoading: true,
+    setState: false
   }
 
   componentDidMount () {
     this.props.loadInitialUser()
-    .then(() => {
-      const {isLoggedIn} = this.props
-      if (isLoggedIn) {
-        this.props.setInitialSubmitPopup(false)
-        this.props.getNotebooks(this.props.user.id)
-        this.props.getEntries(this.props.user.id)
-        this.props.getInitialData(this.props.user.id)
-      }
-    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -65,6 +57,7 @@ class Routes extends Component {
       if (this.props.isLoggedIn) {
         this.props.getNotebooks(this.props.user.id)
         this.props.getEntries(this.props.user.id)
+          .then(() => this.setExistingEntry())
         this.props.getInitialData(this.props.user.id)
       }
     }
@@ -84,26 +77,26 @@ class Routes extends Component {
             existingEntry: currentEntriesFiltered[0].content,
             existingEntryId: latestID
           })
-        } else {
-          this.setState({
-            existingEntryLoading: false
-          })
         }
-      } else {
-        this.setState({
-          existingEntryLoading: false
-        })
       }
     }
+    this.setState({
+      existingEntryLoading: false,
+      setState: true
+    })
   }
 
   render () {
 
-    if (this.state.existingEntryLoading && (this.props.allEntries.length > 0)) {
-      this.setExistingEntry()
-    }
-
     const {isLoggedIn} = this.props
+
+    if (isLoggedIn && !this.state.setState) {
+      this.props.setInitialSubmitPopup(false)
+      this.props.getNotebooks(this.props.user.id)
+      this.props.getEntries(this.props.user.id)
+        .then(() => this.setExistingEntry())
+      this.props.getInitialData(this.props.user.id)
+    }
 
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -168,7 +161,7 @@ const mapDispatch = (dispatch) => {
       dispatch(getNotebooksDb(userId))
     },
     getEntries: (userId) => {
-      dispatch(getEntriesDb(userId))
+      return dispatch(getEntriesDb(userId))
     },
     getInitialData: (userId) => {
       dispatch(fetchDataAnalysis(userId))
