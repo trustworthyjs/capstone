@@ -25,7 +25,7 @@ async function seed () {
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'lizzy@email.com', password: '123', streakGoalDate: new Date('April 17, 2018'), streakGoalStart: new Date('January 30, 2018'), currentStreak: 8, maxStreak: 8})
+    User.create({email: 'lizzy@email.com', password: '123', streakGoalDate: new Date('April 17, 2018'), streakGoalStart: new Date('January 30, 2018'), currentStreak: 10, maxStreak: 10})
   ])
 
   users.map(async (user) => {
@@ -120,9 +120,9 @@ async function seed () {
     Entry.create({content: txt16, mode: 'mindfulJournal', notebookId: 4, userId: 2, savedAt: '2018-02-04 11:49:31.029-06', 'submitted': 'true', 'title': 'Berlin'}),
     Entry.create({content: txt17, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-05 11:49:31.029-06', 'submitted': 'true', 'title': 'London'}),
     Entry.create({content: txt18, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-06 11:49:31.029-06', 'submitted': 'true', 'title': 'Backpacking'}),
-    Entry.create({content: txt19, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-06 11:49:31.029-06', 'submitted': 'true', 'title': 'Things I Miss'}),
-    Entry.create({content: txt20, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-06 11:49:31.029-06', 'submitted': 'true', 'title': '10 Months Later!'}),
-    Entry.create({content: txt21, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-06 11:49:31.029-06', 'submitted': 'true', 'title': 'New Year'}),
+    Entry.create({content: txt19, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-07 11:49:31.029-06', 'submitted': 'true', 'title': 'Things I Miss'}),
+    Entry.create({content: txt20, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-08 11:49:31.029-06', 'submitted': 'true', 'title': '10 Months Later!'}),
+    Entry.create({content: txt21, mode: 'mindfulJournal', notebookId: 5, userId: 2, savedAt: '2018-02-08 11:49:31.029-06', 'submitted': 'true', 'title': 'New Year'}),
     //these are dummy entries for filling up the streaks graph and are not seeded in 'data analysis'
     Entry.create({content: txt6.slice(0, 700), mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-01 11:49:31.029-06', 'submitted': 'true', 'title': 'Hello World'}),
     Entry.create({content: txt5.slice(0, 700), mode: 'mindfulJournal', notebookId: 6, userId: 2, savedAt: '2018-01-02 11:49:31.029-06', 'submitted': 'true', 'title': 'Back and Stressin'}),
