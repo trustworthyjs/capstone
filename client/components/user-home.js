@@ -64,7 +64,6 @@ export class UserHome extends React.Component {
   }
 
   shouldComponentUpdate() {
-    console.log("this.state: ", this.state)
     if (this.state.isSubmitting) {
       return false;
     }
@@ -72,7 +71,6 @@ export class UserHome extends React.Component {
   }
 
   componentDidMount() {
-    console.log("this.state", this.state)
     if (!this.state.isSubmitting){
     this.props.dispatchResetToDefault();
     var toolbarOptions = [
