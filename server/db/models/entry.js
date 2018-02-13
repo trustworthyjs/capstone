@@ -54,7 +54,7 @@ Entry.beforeValidate(entry => {
       wordCount: true,
       prompts: true,
       visualCues: false,
-      music: 'none',
+      music: ['piano', 'guitar', 'beach', 'rain'][Math.floor(Math.random()*4)],
       zoomIn: false
     }
   }

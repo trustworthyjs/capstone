@@ -37,7 +37,8 @@ export class SingleEntry extends React.Component {
     super(props)
     this.state = {
       currentView: 'WORD CLOUD',
-      dataContainerFixed: false
+      dataContainerFixed: false,
+      containerOnBottom: false
     }
   }
 
@@ -86,14 +87,28 @@ export class SingleEntry extends React.Component {
   }
 
   handleScroll = () => {
-    if (window.pageYOffset > 100) this.setState({dataContainerFixed: true})
-    else this.setState({dataContainerFixed: false})
+    console.log(this.state.dataContainerFixed);
+    if (window.pageYOffset > 100 && window.pageYOffset < 1110) {
+      this.setState({dataContainerFixed: true})
+      this.setState({containerOnBottom: false});
+    }
+    else if (window.pageYOffset > 1110) {
+      this.setState({dataContainerFixed: false});
+      this.setState({containerOnBottom: true});
+    }
+    else {
+      this.setState({dataContainerFixed: false})
+      this.setState({containerOnBottom: false});
+    }
   }
 
   render() {
 
     let entry = this.props.singleEntry
     let rightColumn = document.getElementById('right-column');
+    let top;
+    if (this.state.dataContainerFixed) top = this.state.dataContainerFixed && '0px';
+    else if (this.state.containerOnBottom) top = '1110px';
     return (
       <div className="container">
         {entry && entry.submitted ?
@@ -135,10 +150,11 @@ export class SingleEntry extends React.Component {
 
             <div className="entry-page-right-column" id="right-column">
               <div 
-                className="entry-page-fixed-container"
+                id="entry-page-fixed-container"
                 style={{
                   position: this.state.dataContainerFixed ? 'fixed' : 'relative',
-                  top: this.state.dataContainerFixed && '0px',
+                  top: top,
+                  bottom: this.state.containerOnBottom && '200px',
                   width: this.state.dataContainerFixed ? document.getElementById('right-column').getBoundingClientRect().width : '100%',
                   paddingRight: this.state.dataContainerFixed ? '20px' : 0,
                   marginRight: this.state.dataContainerFixed ? '60px' : 0,
@@ -186,25 +202,25 @@ export class SingleEntry extends React.Component {
                     <h3>For current entry:</h3>
                       <div className="single-radar-container">
                         <PersonalityRadarChart
-                          height={280}
-                          width={350}
+                          height={250}
+                          width={250}
                           dataFor={entry}
                           type='single'
                           showChildren={false}
                           showTooltips={false}
-                          padding={45}
+                          padding={55}
                         />
                       </div>
                     <h3>For all entries to date:</h3>
                       <div className="single-radar-container">
                         <PersonalityRadarChart
-                          height={280}
-                          width={350}
+                          height={250}
+                          width={250}
                           dataFor={this.props.data}
                           type='all'
                           showChildren={false}
                           showTooltips={false}
-                          padding={45}
+                          padding={55}
                         />
                       </div>
                   </div>

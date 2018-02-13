@@ -435,8 +435,12 @@ navbar / appbar items
     font-size: 15px;
 }
 
-.personality-radar-main.radar svg{
-    height: 280
+.personality-radar-main.radar svg {
+    height: 280;
+}
+
+.single-radar-container text {
+    font-size: 10px;
 }
 
 .tooltip {
@@ -475,9 +479,6 @@ navbar / appbar items
     margin-right: auto;
 }
 
-.single-radar-container{
-    margin-left: -13rem
-}
 
 /* CSS STYLES BELOW COPIED FROM REACT TAG CLOUD NPM LIBRARY */
 
@@ -658,9 +659,10 @@ body {
     margin: 3vh;
 }
 
-.entry-page-fixed-container {
+
+/* #entry-page-fixed-container {
     transition: top 0.2s linear
-}
+} */
 
 .entry-page-data>h3 {
     margin-left: 15px;
