@@ -25,7 +25,7 @@ async function seed () {
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'lizzy@email.com', password: '123', streakGoalDate: new Date('April 17, 2018'), streakGoalStart: new Date('January 30, 2018'), currentStreak: 10, maxStreak: 10})
+    User.create({email: 'lizzy@email.com', password: 'demo', streakGoalDate: new Date('April 17, 2018'), streakGoalStart: new Date('January 30, 2018'), currentStreak: 10, maxStreak: 10})
   ])
 
   users.map(async (user) => {
