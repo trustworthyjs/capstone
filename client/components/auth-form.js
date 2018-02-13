@@ -86,7 +86,11 @@ class AuthForm extends React.Component {
             <div style={styles.form}>
               {
                 this.props.name === 'login' &&
-                <p style={styles.hint}>`Don't have an account?` <a href="/signup">Sign up here!</a></p>}
+                <div>
+                  <p style={styles.hint}>Don't have an account? <a href="/signup">Sign up here!</a></p>
+                  <p style={styles.hint}>or use lizzy@email.com with password 'demo'</p>
+                </div>
+              }
               <div style={styles.input} >
                 <TextField
                   floatingLabelText="Username"

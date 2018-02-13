@@ -19,8 +19,7 @@ router.put('/:id', async (req, res, next) => {
     const user = await User.findById(req.params.id);
     const updatedUser = await user.update(updatesToUser);
     res.json(updatedUser)
-  } catch(err) {
+  } catch (err) {
     next(err);
   }
 })
-

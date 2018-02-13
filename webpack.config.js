@@ -26,6 +26,10 @@ module.exports = {
       {
         test: /file-type\/index\.js$/,
         loader: 'babel-loader',
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader?attrs[]=video:src'
       }
     ],
   },

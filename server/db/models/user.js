@@ -71,7 +71,7 @@ const setSaltAndPassword = user => {
     user.password = User.encryptPassword(user.password, user.salt)
   }
   //streak validation added in this hook
-  if (user.changed('streakGoalDate')){
+  if (user.changed('streakGoalDate') && user._previousDataValues.streakGoalDate === null){
     user.streakGoalStart = user.updatedAt
   }
   if (user.changed('currentStreak') && user.currentStreak > user.maxStreak){
