@@ -202,6 +202,7 @@ async function seed () {
   const dataAnalysisObj21 = await analyzeData('file', 2, 'sampleEntry21.txt', '/script')
   const dataAnalysisObj22 = await analyzeData('file', 2, 'sampleEntry22.txt', '/script')
 
+
   const dataAnalysisInstances = await Promise.all([
     DataAnalysis.create(dataAnalysisObj1),
     DataAnalysis.create(dataAnalysisObj2),
