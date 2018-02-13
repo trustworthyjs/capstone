@@ -72,7 +72,9 @@ const setSaltAndPassword = user => {
   }
   //streak validation added in this hook
   if (user.changed('streakGoalDate')){
-    user.streakGoalStart = user.updatedAt
+    if (user._previousDataValues.streakGoalDate === null){
+      user.streakGoalStart = user.updatedAt
+    }
   }
   if (user.changed('currentStreak') && user.currentStreak > user.maxStreak){
      user.maxStreak = user.currentStreak
