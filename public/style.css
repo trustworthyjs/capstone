@@ -512,6 +512,7 @@ body {
 }
 
 .app-outer-single {
+    margin-top: 3rem;
     align-items: center;
     bottom: 0;
     display: flex;
@@ -538,10 +539,11 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    max-width: 1000px;
+    max-width: 45vw;
     width: 250%;
     margin-left: 2rem;
-    margin: -7rem
+    margin: -7rem;
+    min-height: 30vh;
 }
 
 .tag-cloud {
@@ -644,7 +646,7 @@ body {
 }
 
 .single-entry-word-cloud {
-    min-height: 40vh;
+    min-height: 59vh;
 }
 
 .personality-radar-main {
