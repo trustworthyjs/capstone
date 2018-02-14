@@ -8,7 +8,7 @@ Includes:
 * Natural language analysis of words, tones, and personality insights on entries
 
 Technologies Used:
-![Technologies Used](public/images/technologies_used.png)
+![Technologies Used](public/images/technologies-used.png)
 
 Data Flow:
-![Data Flow](public/images/data_flow.png)
+![Data Flow](public/images/data-flow.png)
