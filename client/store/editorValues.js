@@ -23,6 +23,7 @@ const defaultValues = {
       `What is your favorite recipe?`,
       `What sounds do you currently hear around you?`,
       `Who is your favorite artist?`,
+      `If you could have animals for hands, what would they be and why?`,
     ],
     promptArrayMind: [
       `How do you feel right now?`,
