@@ -16,6 +16,7 @@
         "start": "node server",
         "start-dev": "NODE_ENV='development' npm run build-client-watch & npm run start-server",
         "start-server": "nodemon server -e html,js,scss --ignore public",
+        "dans-test": "mocha ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --compilers js:babel-register"
         "test": "NODE_ENV='test' DATABASE_URL='postgres://localhost:5432/capstone-test' mocha -w ./server/**/*.spec.js ./server/**/**/*.spec.js ./client/**/*.spec.js --compilers js:babel-register --require babel-polyfill"
     },
     "author": "",
@@ -82,7 +83,7 @@
         "eslint-config-fullstack": "^3.0.0",
         "eslint-plugin-react": "^7.4.0",
         "json-loader": "^0.5.7",
-        "mocha": "^3.3.0",
+        "mocha": "^3.5.3",
         "nodemon": "^1.12.1",
         "raw-loader": "^0.5.1",
         "react-test-renderer": "^16.0.0",

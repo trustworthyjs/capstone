@@ -94,11 +94,12 @@ class SearchBar extends Component {
                 let firstIdx = entry.content.indexOf(this.state.inputValue);
                 let lastIdx = firstIdx + inputValue.length;
                 let text = this.getListItemText(inputValue, firstIdx, lastIdx, entry.content);
-                
+                let title = entry.title;
+
                 return (
                   <ListItem
                     style={{
-                      backgroundColor: 'rgba(255,255,255,0.8)'
+                      backgroundColor: 'rgba(255,255,255,0.9)'
                     }}
                     onClick={() => {
                       history.push(`/notebooks/${entry.notebookId}/entry/${entry.id}`);
@@ -106,7 +107,8 @@ class SearchBar extends Component {
                       this.setState({inputValue: ''});
                     }}
                   >
-                    {text}
+                    <h4 style={{fontWeight: 'bold'}}>{title}</h4>
+                    <p>{text}</p>
                   </ListItem>
                 )
               })}
