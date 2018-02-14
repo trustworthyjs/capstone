@@ -78,7 +78,7 @@ export class UserHome extends React.Component {
       'bold', 'italic', 'underline',
       { 'list': 'ordered' }, { 'list': 'bullet' },
       'link']
-    let shuffledPrompts = shuffle(this.props.editorValues.promptArray)
+    // let shuffledPrompts = shuffle(this.props.editorValues.promptArrayFree)
     var options = {
       //debug: 'info',
       placeholder: 'Start writing...',
@@ -89,7 +89,6 @@ export class UserHome extends React.Component {
     };
     var editor = new Quill('.editor', options);
     this.setEditor(editor)
-    console.log('created new editor')
 
     //DO NOT DELETE THIS CODE. MAY BE USED IN FUTURE.
     //disable delete
@@ -121,6 +120,7 @@ export class UserHome extends React.Component {
     }
 
     let userHome = this
+    let toggleBetween = true
 
     editor.on('text-change', function (delta, oldDelta, source) {
       //counts the words in the editor and sets the number on state if it's different.
@@ -161,12 +161,30 @@ export class UserHome extends React.Component {
               var text = editor.getText(range.index, range.length);
             }
           }
-
-          if (userHome.props.editorValues.shuffledPrompts.length && !userHome.state.isSubmitting) {
-            userHome.setState({
-              showPopup: true,
-              currentPrompt: userHome.props.editorValues.shuffledPrompts.pop()
-            })
+          if (userHome.props.singleEntry.mode === "freeWrite"){
+            if (userHome.props.editorValues.shuffledPromptsFree.length && !userHome.state.isSubmitting) {
+              userHome.setState({
+                showPopup: true,
+                currentPrompt: userHome.props.editorValues.shuffledPromptsFree.pop()
+              })
+            }
+          }
+          else if (userHome.props.singleEntry.mode === "mindfulJournal"){
+            if (userHome.props.editorValues.shuffledPromptsMind.length && !userHome.state.isSubmitting) {
+              userHome.setState({
+                showPopup: true,
+                currentPrompt: userHome.props.editorValues.shuffledPromptsMind.pop()
+              })
+            }
+          }
+          else if (userHome.props.singleEntry.mode === "custom"){
+            if (userHome.props.editorValues.shuffledPromptsFree.length && !userHome.state.isSubmitting || userHome.props.editorValues.shuffledPromptsMind.length && !userHome.state.isSubmitting) {
+              userHome.setState({
+                showPopup: true,
+                currentPrompt: toggleBetween ? userHome.props.editorValues.shuffledPromptsFree.pop() : userHome.props.editorValues.shuffledPromptsMind.pop()
+              })
+              toggleBetween = !toggleBetween
+            }
           }
 
 
@@ -400,7 +418,8 @@ const mapState = (state) => {
       timer: state.editorValues.timer,
       wordsWritten: state.editorValues.wordsWritten,
       wordCount: state.editorValues.wordCount,
-      shuffledPrompts: shuffle(state.editorValues.promptArray)
+      shuffledPromptsFree: shuffle(state.editorValues.promptArrayFree),
+      shuffledPromptsMind: shuffle(state.editorValues.promptArrayMind)
     },
     userTheme: state.user.theme
   }

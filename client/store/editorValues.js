@@ -14,7 +14,7 @@ const defaultValues = {
     timer: 600, //seconds left
     wordsWritten: 0,
     wordCount: 300, //default word count goal
-    promptArray: [
+    promptArrayFree: [
       `What did you do today?`,
       `What’s for breakfast? Dinner? Lunch?`,
       `Choose an animal. Write about it!`,
@@ -23,6 +23,16 @@ const defaultValues = {
       `What is your favorite recipe?`,
       `What sounds do you currently hear around you?`,
       `Who is your favorite artist?`,
+    ],
+    promptArrayMind: [
+      `How do you feel right now?`,
+      `What did that mean to you?`,
+      `How are your energy levels?`,
+      `What's on your mind?`,
+      `What are you excited about?`,
+      `What are some things or people you are grateful for?`,
+      `How are you feeling today compared to 6 months ago?`,
+      `What are some things you'd like to improve upon?`
     ]
     // need to add default prompts, visual cues, music, etc. here
 }
